@@ -25,6 +25,7 @@ const toolRoutes = [
   ["loan-calculator", "Loan Calculator"],
   ["thai-income-tax-calculator", "Thai Income Tax Calculator"],
   ["salary-calculator", "Salary & Payslip Calculator"],
+  ["social-security-pension-calculator", "Social Security Pension Calculator"],
   ["bmi-calculator", "BMI Calculator"],
   ["profit-margin-calculator", "Profit & Margin Calculator"],
   ["png-to-jpg", "PNG to JPG Converter"],
@@ -265,6 +266,16 @@ test("salary calculator checks monthly income and payslip deductions", async ({ 
   await expect(page.getByRole("heading", { name: "รายละเอียดรายรับ" })).toBeVisible();
   await expect(page.getByRole("heading", { name: "รายละเอียดรายการหัก" })).toBeVisible();
   await expect(page.getByText("฿33,500 − ฿2,575 = ฿30,925", { exact: true })).toBeVisible();
+});
+
+test("social security pension calculator explains the current FAE estimate and eligibility", async ({ page }) => {
+  await page.goto("/social-security-pension-calculator");
+  await page.getByRole("button", { name: "โหลดตัวอย่าง" }).click();
+  await page.getByRole("button", { name: "คำนวณบำนาญประกันสังคม" }).click();
+  await expect(page.getByTestId("sso-pension-monthly")).toContainText("4,125");
+  await expect(page.getByTestId("sso-pension-eligibility")).toContainText("ครบเงื่อนไขหลัก");
+  await expect(page.getByText("20% พื้นฐาน + (5 ปีเต็ม × 1.5%)", { exact: false })).toBeVisible();
+  await expect(page.getByText(/ยังไม่ใช้ CARE/)).toBeVisible();
 });
 
 test("PDF tools convert, merge, and split files locally", async ({ page }) => {
