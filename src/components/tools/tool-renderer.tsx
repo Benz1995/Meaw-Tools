@@ -42,6 +42,7 @@ const components = {
   "pdf-to-jpg": dynamic(() => import("@/features/tools/pdf-to-jpg-tool").then((module) => module.PdfToJpgTool), { loading, ssr: false }),
   "merge-pdf": dynamic(() => import("@/features/tools/pdf-organizer-tools").then((module) => module.MergePdfTool), { loading, ssr: false }),
   "split-pdf": dynamic(() => import("@/features/tools/pdf-organizer-tools").then((module) => module.SplitPdfTool), { loading, ssr: false }),
+  "pdf-organizer": dynamic(() => import("@/features/tools/pdf-organizer-tool").then((module) => module.PdfOrganizerTool), { loading, ssr: false }),
 } satisfies Record<string, React.ComponentType>;
 
 export function ToolRenderer({ slug }: { slug: string }) { const Component = components[slug as keyof typeof components]; return Component ? <Component /> : null; }

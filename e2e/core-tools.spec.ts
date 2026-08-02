@@ -1,4 +1,6 @@
 import { expect, test } from "@playwright/test";
+import { readFile } from "node:fs/promises";
+import { PDFDocument } from "pdf-lib";
 
 const toolRoutes = [
   ["json-formatter", "JSON Formatter"],
@@ -39,6 +41,7 @@ const toolRoutes = [
   ["pdf-to-jpg", "PDF to JPG Converter"],
   ["merge-pdf", "Merge PDF"],
   ["split-pdf", "Split PDF"],
+  ["pdf-organizer", "PDF Organizer"],
 ] as const;
 
 test("formats and clears JSON", async ({ page }) => {
@@ -119,7 +122,7 @@ test("category tags navigate to a category page", async ({ page }) => {
   await page.getByRole("link", { name: "ดูหมวดรูปภาพและ PDF" }).click();
   await expect(page).toHaveURL(/\/categories\/media$/);
   await expect(page.getByRole("heading", { level: 1, name: "รูปภาพและ PDF" })).toBeVisible();
-  await expect(page.getByRole("link", { name: /เปิดเครื่องมือ/ })).toHaveCount(8);
+  await expect(page.getByRole("link", { name: /เปิดเครื่องมือ/ })).toHaveCount(9);
 });
 
 test("cat walker can be disabled and remembers the preference", async ({ page }) => {
@@ -340,6 +343,38 @@ test("PDF tools convert, merge, and split files locally", async ({ page }) => {
   await page.getByRole("button", { name: "แยกและดาวน์โหลด PDF" }).click();
   expect((await splitDownloadPromise).suggestedFilename()).toBe("six-pages-split.zip");
   await expect(page.getByTestId("split-pdf-output")).toContainText("2 ไฟล์");
+});
+
+test("PDF organizer deletes, rotates, reorders, and exports a valid PDF", async ({ page }) => {
+  await page.goto("/pdf-organizer");
+  await page.getByRole("button", { name: "โหลดตัวอย่าง" }).click();
+  await expect(page.getByText("meaw-organizer-sample.pdf")).toBeVisible();
+  const pageCards = page.getByTestId("pdf-organizer-page");
+  await expect(pageCards).toHaveCount(5);
+
+  const layout = await page.evaluate(() => ({
+    hasHorizontalOverflow: document.documentElement.scrollWidth > document.documentElement.clientWidth,
+  }));
+  expect(layout.hasHorizontalOverflow).toBe(false);
+
+  await page.getByRole("button", { name: "หมุนหน้าต้นฉบับ 1 ตามเข็ม" }).click();
+  await page.getByRole("button", { name: "เลื่อนหน้าต้นฉบับ 5 ขึ้น" }).click();
+  await page.getByRole("button", { name: "ลบหน้าต้นฉบับ 2" }).click();
+  await expect(pageCards).toHaveCount(4);
+  await expect(page.getByTestId("pdf-organizer-workspace")).toContainText("ลบ 1 · หมุน 1");
+
+  const downloadPromise = page.waitForEvent("download");
+  await page.getByRole("button", { name: "จัดหน้าและดาวน์โหลด PDF" }).click();
+  const download = await downloadPromise;
+  expect(download.suggestedFilename()).toBe("meaw-organizer-sample-organized.pdf");
+  await expect(page.getByTestId("pdf-organizer-output")).toContainText("4 หน้า");
+
+  const downloadPath = await download.path();
+  expect(downloadPath).not.toBeNull();
+  const outputDocument = await PDFDocument.load(await readFile(downloadPath!));
+  expect(outputDocument.getPageCount()).toBe(4);
+  expect(outputDocument.getPage(0).getRotation().angle).toBe(90);
+  expect(outputDocument.getPages().map((pdfPage) => pdfPage.getWidth())).toEqual([595, 615, 635, 625]);
 });
 
 test("all tool routes render without browser errors", async ({ page }) => {
