@@ -27,6 +27,7 @@ const toolRoutes = [
   ["profit-margin-calculator", "Profit & Margin Calculator"],
   ["png-to-jpg", "PNG to JPG Converter"],
   ["image-compressor", "Image Compressor & Resizer"],
+  ["background-remover", "AI Background Remover"],
   ["color-picker", "Color Picker & Contrast Checker"],
   ["password-generator", "Password Generator"],
   ["random-number-generator", "Random Number Generator"],
@@ -114,7 +115,7 @@ test("category tags navigate to a category page", async ({ page }) => {
   await page.getByRole("link", { name: "ดูหมวดรูปภาพและ PDF" }).click();
   await expect(page).toHaveURL(/\/categories\/media$/);
   await expect(page.getByRole("heading", { level: 1, name: "รูปภาพและ PDF" })).toBeVisible();
-  await expect(page.getByRole("link", { name: /เปิดเครื่องมือ/ })).toHaveCount(7);
+  await expect(page.getByRole("link", { name: /เปิดเครื่องมือ/ })).toHaveCount(8);
 });
 
 test("cat walker can be disabled and remembers the preference", async ({ page }) => {
@@ -168,6 +169,17 @@ test("image tools convert and resize locally", async ({ page }) => {
   await page.getByLabel("ความกว้างสูงสุด (px)").fill("640");
   await page.getByRole("button", { name: "บีบอัดและย่อรูป" }).click();
   await expect(page.getByTestId("image-output")).toContainText("640 × 360");
+});
+
+test("background remover validates a local image before lazy model loading", async ({ page }) => {
+  await page.goto("/background-remover");
+  await expect(page.getByText("ประมวลผลในอุปกรณ์")).toBeVisible();
+  await expect(page.getByText(/ประมาณ 15–20 MB/)).toBeVisible();
+
+  await page.getByRole("button", { name: "โหลดตัวอย่าง" }).click();
+  await expect(page.getByAltText("ตัวอย่างรูปต้นฉบับสำหรับลบพื้นหลัง")).toBeVisible();
+  await expect(page.getByText("720 × 720 px")).toBeVisible();
+  await expect(page.getByRole("button", { name: "ลบพื้นหลังด้วย AI" })).toBeEnabled();
 });
 
 test("popular generators and color checker produce useful results", async ({ page }) => {
