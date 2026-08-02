@@ -21,6 +21,7 @@ const toolRoutes = [
   ["text-cleaner", "Text Cleaner"],
   ["typing-test", "Typing Test"],
   ["special-characters", "Special Characters & Fancy Text"],
+  ["text-to-speech", "Text to Speech Reader"],
   ["percentage-calculator", "Percentage Calculator"],
   ["unit-converter", "Unit Converter"],
   ["date-calculator", "Date Calculator"],
@@ -192,6 +193,117 @@ test("special characters styles text and finds symbols by Thai intent", async ({
   await page.getByRole("button", { name: "ลูกศร", exact: true }).click();
   await expect(page.getByRole("heading", { level: 3, name: "ลูกศร" })).toBeVisible();
   await expect(page.getByRole("button", { name: "คัดลอก →", exact: true })).toBeVisible();
+});
+
+test("text to speech reads Thai-English text with browser voices", async ({ page }) => {
+  const requests: string[] = [];
+  const consoleErrors: string[] = [];
+  page.on("request", (request) => requests.push(request.url()));
+  page.on("console", (message) => {
+    if (message.type() === "error") consoleErrors.push(message.text());
+  });
+  await page.addInitScript(() => {
+    const spoken: string[] = [];
+    const spokenLanguages: string[] = [];
+    const voices = [
+      { voiceURI: "mock-th", name: "Thai Mock", lang: "th-TH", default: true, localService: true },
+      { voiceURI: "mock-en", name: "English Mock", lang: "en-US", default: false, localService: false },
+    ];
+    let paused = false;
+    let timer = 0;
+    const target = new EventTarget();
+
+    class MockSpeechSynthesisUtterance {
+      text: string;
+      lang = "";
+      rate = 1;
+      pitch = 1;
+      volume = 1;
+      voice: typeof voices[number] | null = null;
+      onstart: ((event: Event) => void) | null = null;
+      onend: ((event: Event) => void) | null = null;
+      onerror: ((event: Event & { error: string }) => void) | null = null;
+
+      constructor(text: string) { this.text = text; }
+    }
+
+    const synthesis = {
+      get paused() { return paused; },
+      pending: false,
+      speaking: false,
+      getVoices: () => voices,
+      speak(utterance: MockSpeechSynthesisUtterance) {
+        spoken.push(utterance.text);
+        spokenLanguages.push(utterance.lang);
+        this.speaking = true;
+        queueMicrotask(() => utterance.onstart?.(new Event("start")));
+        const finish = () => {
+          if (paused) { timer = window.setTimeout(finish, 20); return; }
+          this.speaking = false;
+          utterance.onend?.(new Event("end"));
+        };
+        timer = window.setTimeout(finish, 120);
+      },
+      pause() { paused = true; },
+      resume() { paused = false; },
+      cancel() { window.clearTimeout(timer); this.speaking = false; paused = false; },
+      addEventListener: target.addEventListener.bind(target),
+      removeEventListener: target.removeEventListener.bind(target),
+    };
+
+    Object.defineProperty(window, "SpeechSynthesisUtterance", { configurable: true, value: MockSpeechSynthesisUtterance });
+    Object.defineProperty(window, "speechSynthesis", { configurable: true, value: synthesis });
+    Object.defineProperty(window, "__ttsSpoken", { configurable: true, value: spoken });
+    Object.defineProperty(window, "__ttsSpokenLanguages", { configurable: true, value: spokenLanguages });
+  });
+
+  await page.goto("/text-to-speech");
+  await expect(page.getByRole("heading", { level: 1, name: "Text to Speech Reader" })).toBeVisible();
+  const input = page.getByLabel("ข้อความที่ต้องการให้อ่าน");
+  await expect(input).toBeVisible();
+  await expect(page.getByText("พบ 2 เสียงบนอุปกรณ์นี้")).toBeVisible();
+
+  const layout = await page.evaluate(() => {
+    const label = document.querySelector<HTMLLabelElement>('label[for="tts-text"]');
+    const textarea = document.querySelector<HTMLTextAreaElement>("#tts-text");
+    const labelBox = label?.getBoundingClientRect();
+    const inputBox = textarea?.getBoundingClientRect();
+    return {
+      labelGap: labelBox && inputBox ? Math.round(inputBox.top - labelBox.bottom) : 0,
+      hasHorizontalOverflow: document.documentElement.scrollWidth > document.documentElement.clientWidth,
+    };
+  });
+  expect(layout.labelGap).toBeGreaterThanOrEqual(10);
+  expect(layout.hasHorizontalOverflow).toBe(false);
+
+  await page.getByRole("button", { name: "โหลดตัวอย่าง" }).click();
+  await expect(input).toHaveValue(/Meaw Tools/);
+  await page.getByRole("button", { name: "เริ่มอ่าน" }).click();
+  await expect(page.getByText("อ่านจบแล้ว", { exact: true })).toBeVisible({ timeout: 5_000 });
+  const autoLanguages = await page.evaluate(() => (window as unknown as { __ttsSpokenLanguages: string[] }).__ttsSpokenLanguages);
+  expect(autoLanguages).toContain("th-TH");
+  expect(autoLanguages).toContain("en-US");
+
+  await page.getByRole("combobox", { name: "ภาษา", exact: true }).click();
+  await page.getByRole("option", { name: "ภาษาไทย" }).click();
+  await page.getByRole("combobox", { name: "เสียงจาก Browser / ระบบ" }).click();
+  await page.getByRole("option", { name: /Thai Mock/ }).click();
+  await page.getByRole("button", { name: "อ่านอีกครั้ง" }).click();
+  await expect(page.getByText("กำลังอ่านข้อความ", { exact: true })).toBeVisible();
+  const player = page.getByTestId("tts-player");
+  await player.getByRole("button", { name: "พัก", exact: true }).click();
+  await expect(page.getByText("พักการอ่านอยู่", { exact: true })).toBeVisible();
+  await player.getByRole("button", { name: "อ่านต่อ", exact: true }).click();
+  await expect(page.getByText("อ่านจบแล้ว", { exact: true })).toBeVisible({ timeout: 5_000 });
+  const spoken = await page.evaluate(() => (window as unknown as { __ttsSpoken: string[] }).__ttsSpoken.join(" "));
+  expect(spoken).toContain("Meaw Tools");
+  expect(spoken).toContain("Hello!");
+  expect(requests.some((url) => !url.startsWith("http://127.0.0.1:3100") && !url.startsWith("blob:"))).toBe(false);
+  expect(consoleErrors).toEqual([]);
+
+  await page.getByRole("button", { name: "ล้างข้อมูล" }).click();
+  await expect(input).toHaveValue("");
+  await expect(page.getByRole("progressbar", { name: "ความคืบหน้าการอ่านข้อความ" })).toHaveAttribute("aria-valuenow", "0");
 });
 
 test("category tags navigate to a category page", async ({ page }) => {

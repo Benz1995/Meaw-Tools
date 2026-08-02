@@ -6,7 +6,7 @@
 
 - Next.js 16 App Router, React 19, TypeScript strict และ Tailwind CSS 4
 - shadcn/ui + Radix, Noto Sans Thai, JetBrains Mono และ dark mode
-- เครื่องมือ 46 รายการ พร้อม validation, empty/error state, clear และ action ที่เหมาะกับแต่ละงาน
+- เครื่องมือ 47 รายการ พร้อม validation, empty/error state, clear และ action ที่เหมาะกับแต่ละงาน
 - กลุ่มงานทั่วไป: นับคำ จัดระเบียบข้อความ คำนวณเปอร์เซ็นต์ แปลงหน่วย และคำนวณวัน
 - JPG to PDF, QR Code Generator, QR Code Scanner และ Age Calculator ประมวลผลภายใน Browser
 - Loan Calculator, BMI Calculator และ Profit & Margin Calculator พร้อมสูตรและข้อจำกัดที่ตรวจสอบได้
@@ -18,6 +18,7 @@
 - Image to Text OCR อ่านภาษาไทยและอังกฤษจากรูปใน Browser พร้อมแก้ไข คัดลอก และดาวน์โหลด TXT โดย self-host Runtime และโมเดลภาษา
 - Typing Test รองรับข้อความฝึกภาษาไทย/อังกฤษ พร้อม WPM, CPM, accuracy และการแบ่งอักขระผสมภาษาไทย
 - Special Characters & Fancy Text สร้างข้อความ Unicode แต่งชื่อไทย/อังกฤษ และค้นหาสัญลักษณ์ตาม intent ภาษาไทย
+- Text to Speech Reader อ่านข้อความไทย/อังกฤษด้วยเสียงจาก Browser หรือระบบ พร้อมความเร็ว โทนเสียง ความดัง และพัก/อ่านต่อ โดยไม่ใช้ API Key
 - Color Picker/Contrast, Password Generator และ Random Number Generator ใช้สูตรที่ทดสอบได้และ Web Crypto
 - PDF to JPG, Merge PDF, Split PDF, PDF Organizer และ Sign PDF ใช้ PDF.js, pdf-lib และ ZIP ภายใน Browser โดยไม่อัปโหลดเอกสาร
 - หน้า `/categories` และหน้า Tag รายหมวด พร้อมจำนวนเครื่องมือ metadata และ sitemap
@@ -78,6 +79,7 @@ flowchart LR
 - LocalStorage ใช้เก็บ theme preference และสถานะเปิด/ปิดมาสคอตแมวเท่านั้น ไม่เก็บข้อมูลในเครื่องมือ
 - จำกัดข้อความทั่วไป 2 MB, Diff 1 MB ต่อฝั่ง, Regex 100,000 ตัวอักษร ไฟล์ทั่วไป 5 MB รูปภาพ 10 MB และ PDF 30 MB ต่อไฟล์
 - OCR ลดด้านยาวของรูปทำงานเหลือสูงสุด 2,400 px, ปิด Worker หลังจบงาน และไม่ส่งรูปไปยัง Server
+- Text to Speech จำกัด 20,000 ตัวอักษรและไม่ส่งข้อความมายัง Server ของเรา แต่เสียงออนไลน์ของ Browser/OS อาจใช้บริการภายนอก จึงไม่ควรใส่ข้อมูลลับ
 - Regex ทำงานใน Web Worker และถูก terminate เมื่อเกิน 750 ms
 - JWT เป็นการ Decode เท่านั้น ไม่ verify signature
 - SQL ถูกจัดรูปเท่านั้น ไม่ execute
