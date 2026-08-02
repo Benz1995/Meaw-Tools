@@ -27,6 +27,7 @@ const components = {
   "age-calculator": dynamic(() => import("@/features/tools/age-calculator-tool").then((module) => module.AgeCalculatorTool), { loading, ssr: false }),
   "loan-calculator": dynamic(() => import("@/features/tools/finance-calculator-tools").then((module) => module.LoanCalculatorTool), { loading, ssr: false }),
   "thai-income-tax-calculator": dynamic(() => import("@/features/tools/thai-income-tax-tool").then((module) => module.ThaiIncomeTaxTool), { loading, ssr: false }),
+  "salary-calculator": dynamic(() => import("@/features/tools/salary-calculator-tool").then((module) => module.SalaryCalculatorTool), { loading, ssr: false }),
   "bmi-calculator": dynamic(() => import("@/features/tools/bmi-calculator-tool").then((module) => module.BmiCalculatorTool), { loading, ssr: false }),
   "profit-margin-calculator": dynamic(() => import("@/features/tools/finance-calculator-tools").then((module) => module.ProfitMarginCalculatorTool), { loading, ssr: false }),
   "png-to-jpg": dynamic(() => import("@/features/tools/image-processing-tools").then((module) => module.PngToJpgTool), { loading, ssr: false }),

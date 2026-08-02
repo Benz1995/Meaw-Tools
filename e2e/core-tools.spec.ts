@@ -24,6 +24,7 @@ const toolRoutes = [
   ["age-calculator", "Age Calculator"],
   ["loan-calculator", "Loan Calculator"],
   ["thai-income-tax-calculator", "Thai Income Tax Calculator"],
+  ["salary-calculator", "Salary & Payslip Calculator"],
   ["bmi-calculator", "BMI Calculator"],
   ["profit-margin-calculator", "Profit & Margin Calculator"],
   ["png-to-jpg", "PNG to JPG Converter"],
@@ -254,6 +255,16 @@ test("Thai income tax calculator explains progressive tax and withholding", asyn
   await page.getByLabel("เงินได้สุทธิหลังหักค่าใช้จ่ายและค่าลดหย่อน (บาท)").fill("500000");
   await page.getByRole("button", { name: "คำนวณภาษี" }).click();
   await expect(page.getByTestId("income-tax-total")).toContainText("27,500");
+});
+
+test("salary calculator checks monthly income and payslip deductions", async ({ page }) => {
+  await page.goto("/salary-calculator");
+  await page.getByRole("button", { name: "โหลดตัวอย่าง" }).click();
+  await page.getByRole("button", { name: "คำนวณเงินเดือนสุทธิ" }).click();
+  await expect(page.getByTestId("salary-net-pay")).toContainText("30,925");
+  await expect(page.getByRole("heading", { name: "รายละเอียดรายรับ" })).toBeVisible();
+  await expect(page.getByRole("heading", { name: "รายละเอียดรายการหัก" })).toBeVisible();
+  await expect(page.getByText("฿33,500 − ฿2,575 = ฿30,925", { exact: true })).toBeVisible();
 });
 
 test("PDF tools convert, merge, and split files locally", async ({ page }) => {
