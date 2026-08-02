@@ -23,6 +23,7 @@ const toolRoutes = [
   ["qr-code-generator", "QR Code Generator"],
   ["age-calculator", "Age Calculator"],
   ["loan-calculator", "Loan Calculator"],
+  ["thai-income-tax-calculator", "Thai Income Tax Calculator"],
   ["bmi-calculator", "BMI Calculator"],
   ["profit-margin-calculator", "Profit & Margin Calculator"],
   ["png-to-jpg", "PNG to JPG Converter"],
@@ -237,6 +238,22 @@ test("loan, BMI, and profit calculators produce transparent results", async ({ p
   await page.getByRole("button", { name: "คำนวณกำไร" }).click();
   await expect(page.getByTestId("profit-result")).toContainText("400.00");
   await expect(page.getByText("40%", { exact: true })).toBeVisible();
+});
+
+test("Thai income tax calculator explains progressive tax and withholding", async ({ page }) => {
+  await page.goto("/thai-income-tax-calculator");
+  await page.getByLabel("เงินเดือนต่อเดือน (บาท)").fill("50000");
+  await page.getByLabel("ประกันสังคมที่จ่ายจริงทั้งปี (บาท)").fill("9000");
+  await page.getByLabel("ภาษีหัก ณ ที่จ่ายทั้งปี (บาท)").fill("10000");
+  await page.getByRole("button", { name: "คำนวณภาษี" }).click();
+  await expect(page.getByTestId("income-tax-total")).toContainText("20,600");
+  await expect(page.getByTestId("income-tax-balance")).toContainText("10,600");
+  await expect(page.getByRole("heading", { name: "ภาษีแบบขั้นบันได", exact: true })).toBeVisible();
+
+  await page.getByRole("tab", { name: "กรอกเงินได้สุทธิ" }).click();
+  await page.getByLabel("เงินได้สุทธิหลังหักค่าใช้จ่ายและค่าลดหย่อน (บาท)").fill("500000");
+  await page.getByRole("button", { name: "คำนวณภาษี" }).click();
+  await expect(page.getByTestId("income-tax-total")).toContainText("27,500");
 });
 
 test("PDF tools convert, merge, and split files locally", async ({ page }) => {

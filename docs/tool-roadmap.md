@@ -28,6 +28,7 @@
 | 20 | Random Wheel | ครู, นักเรียน, Event, ทีมงาน | สุ่มชื่อและตัวเลือกด้วย Web Crypto พร้อมประวัติ | พร้อมใช้ |
 | 21 | Buddhist Year Converter | บุคคลทั่วไป, ธุรการ, HR | แปลง พ.ศ.–ค.ศ. แบบหลายรายการพร้อมสูตร Excel | พร้อมใช้ |
 | 22 | AI Background Remover | ร้านค้า, Content, บุคคลทั่วไป | ลบพื้นหลังเป็น PNG ภายใน Browser โดยไม่อัปโหลดรูป | พร้อมใช้ |
+| 23 | Thai Income Tax Calculator | พนักงาน, บุคคลทั่วไป, HR | ประมาณภาษีแบบขั้นบันไดจากเงินเดือนหรือเงินได้สุทธิ พร้อมเทียบภาษีหัก ณ ที่จ่าย | พร้อมใช้ |
 
 ## หลักฐาน Google Trends ประเทศไทย
 
@@ -39,26 +40,31 @@
 - ไม่เปิด PDF Compressor แม้มีความสนใจ เพราะยังลดขนาดจริงอย่างสม่ำเสมอโดยไม่ลดคุณภาพหรือทำเอกสารเสียไม่ได้
 - รอบเครื่องมือไทยทั่วไป: `วงล้อสุ่ม` เฉลี่ย 59 และ `พ.ศ. ค.ศ.` 35 สูงกว่า `คำนวณเกรด` 2, `จับเวลาออนไลน์` 1 และ `คำนวณ vat` 0 ในชุดเปรียบเทียบเดียวกัน
 - รอบทบทวนเครื่องมือภาพเทียบกับ Anchor ที่ส่งมอบแล้ว: `ลบพื้นหลัง` 60, `วงล้อสุ่ม` 59, `แปลงรูปเป็นข้อความ` 1, `ทำรูปติดบัตร` 1 และ `ครอปรูป` 1 ในชุดเดียวกัน
+- รอบเครื่องคำนวณงานและการเงิน: `คำนวณภาษี` 56, `คำนวณดอกเบี้ย` 24, `คำนวณเงินเดือน` 24, `คำนวณ vat` 3 และ `คำนวณโอที` 1 ในชุดเดียวกัน
+- รอบงานเอกสารและการตรวจข้อมูลเทียบกับ Anchor `วงล้อสุ่ม` 59: `เช็คเลขบัตรประชาชน` 8, `เซ็น pdf` 3, `ตัวเลขเป็นตัวอักษร` 1 และ `ลายเซ็นออนไลน์` 0
+- ค่า Google Trends เป็นดัชนีความสนใจสัมพัทธ์ในชุดคำและช่วงเวลาที่เลือก ไม่ใช่จำนวนค้นหาจริง จึงใช้คัดลำดับร่วมกับประโยชน์ ความเสี่ยง และความเป็นไปได้ทางเทคนิค
 
-## Backlog ที่จัดลำดับแล้ว
+## ผลจัดลำดับ Batch 8 และ Backlog
 
 คะแนน 5 คือสูงที่สุด ช่องรายได้หมายถึงโอกาสเพิ่มหน้า SEO และรายได้ AdSense โดยไม่ล็อกฟังก์ชันหลักไว้หลังการชำระเงิน
 
-| อันดับ | เครื่องมือ | กลุ่มผู้ใช้ | ยาก | คุณค่าธุรกิจ | รายได้ | ขยายต่อ | นวัตกรรม | แนวทาง |
+| อันดับ | เครื่องมือ | Demand ที่พบ | ยาก | คุณค่าธุรกิจ | รายได้ | ขยายต่อ | นวัตกรรม | แนวทาง |
 |---:|---|---|---:|---:|---:|---:|---:|---|
-| 1 | VAT Calculator | ร้านค้า, ฝ่ายขาย | 1 | 4 | 4 | 4 | 2 | Client-only |
-| 2 | CSV Cleaner + Duplicate Finder | ธุรการ, Data Analyst | 3 | 5 | 4 | 5 | 3 | Client-only |
-| 3 | Workday Planner พร้อมวันหยุดไทย | HR, PM | 3 | 5 | 4 | 4 | 3 | ชุดข้อมูลวันหยุดแบบ versioned |
-| 4 | JSON / CSV Converter | Developer, Data | 2 | 4 | 4 | 5 | 2 | Client-only |
-| 5 | Markdown Preview + Export | Writer, Developer | 3 | 4 | 4 | 4 | 3 | Client-only |
-| 6 | Salary / Overtime Estimator | HR, พนักงาน | 3 | 5 | 5 | 4 | 3 | ต้องระบุว่าเป็นค่าประมาณ |
-| 7 | Invoice / Quote Number Generator | SME, Freelancer | 2 | 4 | 4 | 4 | 2 | Client-only |
-| 8 | YAML / JSON Converter | DevOps, Developer | 2 | 4 | 3 | 4 | 2 | Client-only |
-| 9 | XML Formatter / Validator | Enterprise, Developer | 3 | 4 | 3 | 4 | 2 | Parser ที่ปิด external entities |
-| 10 | Favicon / PWA Icon Generator | เจ้าของเว็บ, Designer | 3 | 4 | 4 | 4 | 3 | Client-only |
-| 11 | EXIF Viewer / Remover | ช่างภาพ, Privacy | 3 | 4 | 4 | 4 | 4 | Client-only |
-| 12 | UTM Builder | Marketing, Ads | 1 | 3 | 3 | 4 | 2 | เลื่อนลงหลัง Trends มีข้อมูลน้อย |
-| 13 | Meta Tag + Open Graph Builder | SEO, เจ้าของเว็บ | 2 | 3 | 3 | 4 | 3 | เลื่อนลงหลัง Trends มีข้อมูลน้อย |
+| 1 | Thai Income Tax Calculator | สูง: Trends 56 | 4 | 5 | 5 | 5 | 3 | ส่งมอบ Batch 8; สูตร versioned และอ้างอิงกรมสรรพากร |
+| 2 | Salary / Net Pay Estimator | สูง: Trends 24 | 4 | 5 | 5 | 5 | 3 | แยกเงินเดือนสุทธิ สวัสดิการ และภาษี โดยไม่ซ้ำหน้าภาษี |
+| 3 | CSV Cleaner + Duplicate Finder | ยังต้องเทียบคำไทย | 3 | 5 | 4 | 5 | 3 | Client-only และรองรับไฟล์ใหญ่แบบ Worker |
+| 4 | Workday Planner พร้อมวันหยุดไทย | ต้องวิจัยเพิ่ม | 3 | 5 | 4 | 4 | 3 | ชุดข้อมูลวันหยุดแบบ versioned |
+| 5 | JSON / CSV Converter | ต้องวิจัยเพิ่ม | 2 | 4 | 4 | 5 | 2 | Client-only |
+| 6 | Thai ID Checksum Validator | กลาง: Trends 8 | 2 | 4 | 4 | 3 | 2 | ตรวจ checksum เท่านั้น ไม่อ้างว่าเชื่อมฐานรัฐ และไม่บันทึกเลข |
+| 7 | Sign PDF | ต่ำ-กลาง: Trends 3 | 5 | 5 | 4 | 4 | 4 | Client-only; ต้องรักษา PDF เดิมและทดสอบหลายชนิดไฟล์ |
+| 8 | VAT Calculator | ต่ำ: Trends 3 ในชุดนี้ | 2 | 4 | 4 | 4 | 2 | ต้อง version อัตราและแยกรวม/ไม่รวม VAT |
+| 9 | PDF Organizer | ต้องวิจัยเพิ่ม | 4 | 5 | 4 | 4 | 3 | เรียง หมุน ลบหน้า พร้อม preview ใน Browser |
+| 10 | Thai Number to Words / Baht Text | ต่ำ: Trends 1 | 2 | 4 | 3 | 4 | 3 | Client-only; เน้น edge case ล้านซ้อนและสตางค์ |
+| 11 | Markdown Preview + Export | ต้องวิจัยเพิ่ม | 3 | 4 | 4 | 4 | 3 | sanitize HTML และ export |
+| 12 | Invoice / Quote Builder | ต้องวิจัยเพิ่ม | 4 | 5 | 5 | 5 | 3 | Template + PDF; ต้องระบุข้อจำกัดเอกสารภาษี |
+| 13 | Favicon / PWA Icon Generator | ต้องวิจัยเพิ่ม | 3 | 4 | 4 | 4 | 3 | Client-only |
+| 14 | EXIF Viewer / Remover | ต้องวิจัยเพิ่ม | 3 | 4 | 4 | 4 | 4 | Client-only และเน้น Privacy |
+| 15 | Overtime Estimator | ต่ำ: Trends 1 | 4 | 4 | 4 | 4 | 3 | ต้องอ้างกฎหมายแรงงานและรองรับหลายเงื่อนไข |
 
 ## ลำดับส่งมอบที่แนะนำ
 
@@ -67,8 +73,9 @@
 3. Batch 5 — PDF Utilities: PDF to JPG, Merge PDF, Split PDF — ส่งมอบแล้ว
 4. Batch 6 — เครื่องมือไทยที่มี demand สูง: Random Wheel และ Buddhist Year Converter — ส่งมอบแล้ว
 5. Batch 7 — AI Background Remover แบบ client-only และ lazy model — ส่งมอบแล้ว
-6. Batch 8 — ข้อมูลสำนักงาน: CSV Cleaner, JSON/CSV, Markdown หลังทบทวนคำค้นใหม่
-7. Batch 9 — VAT และใบเสนอราคา หลังทบทวนข้อกำหนดภาษี/เอกสารล่าสุด
+6. Batch 8 — Thai Income Tax Calculator พร้อมสูตรขั้นบันไดและแหล่งอ้างอิงราชการ — ส่งมอบแล้ว
+7. Batch 9 — Salary / Net Pay Estimator หรือ CSV Cleaner หลังทบทวนคำค้นและขอบเขตไม่ให้ซ้ำเครื่องมือภาษี
+8. Batch 10 — VAT, ใบเสนอราคา และ Sign PDF หลังทบทวนข้อกำหนดภาษี/เอกสารล่าสุด
 
 ทุก Batch ควรมี unit test ของสูตรหรือ parser, E2E อย่างน้อยหนึ่งเส้นทาง, ตรวจ keyboard/mobile และวัด Core Web Vitals ก่อนเปิด AdSense ใน production
 
