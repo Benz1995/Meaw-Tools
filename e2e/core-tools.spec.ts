@@ -7,6 +7,7 @@ const toolRoutes = [
   ["jwt-decoder", "JWT Decoder"],
   ["uuid-generator", "UUID Generator"],
   ["timestamp-converter", "Timestamp Converter"],
+  ["buddhist-year-converter", "Buddhist Year Converter"],
   ["base64", "Base64 Encoder / Decoder"],
   ["url-encoder", "URL Encoder / Decoder"],
   ["regex-tester", "Regex Tester"],
@@ -29,6 +30,7 @@ const toolRoutes = [
   ["color-picker", "Color Picker & Contrast Checker"],
   ["password-generator", "Password Generator"],
   ["random-number-generator", "Random Number Generator"],
+  ["random-wheel", "Random Wheel"],
   ["pdf-to-jpg", "PDF to JPG Converter"],
   ["merge-pdf", "Merge PDF"],
   ["split-pdf", "Split PDF"],
@@ -185,6 +187,20 @@ test("popular generators and color checker produce useful results", async ({ pag
   await page.getByLabel("จำนวนผลลัพธ์").fill("5");
   await page.getByRole("button", { name: "สุ่มตัวเลข" }).click();
   await expect(page.getByTestId("random-value")).toHaveCount(5);
+});
+
+test("random wheel and Buddhist year converter complete common Thai tasks", async ({ page }) => {
+  await page.emulateMedia({ reducedMotion: "reduce" });
+  await page.goto("/random-wheel");
+  await page.getByLabel("ชื่อ ตัวเลือก หรือของรางวัล").fill("มะลิ\nสมชาย\nน้ำฝน");
+  await page.getByRole("button", { name: "หมุนวงล้อสุ่ม" }).click();
+  await expect(page.getByTestId("wheel-result")).toContainText(/มะลิ|สมชาย|น้ำฝน/);
+
+  await page.goto("/buddhist-year-converter");
+  await page.getByLabel("ปีที่ต้องการแปลง").fill("2569\n2568");
+  await page.getByRole("button", { name: "แปลงปี" }).click();
+  await expect(page.getByTestId("era-results")).toContainText("2026");
+  await expect(page.getByTestId("era-results")).toContainText("2025");
 });
 
 test("loan, BMI, and profit calculators produce transparent results", async ({ page }) => {

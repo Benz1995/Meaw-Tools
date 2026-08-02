@@ -25,6 +25,8 @@
 | 17 | PDF to JPG Converter | บุคคลทั่วไป, ธุรการ, ร้านค้า | แปลงหน้าที่เลือกเป็น JPG/ZIP โดยไม่อัปโหลด | พร้อมใช้ |
 | 18 | Merge PDF | บุคคลทั่วไป, ธุรการ, นักเรียน | เรียงและรวม PDF หลายไฟล์ใน Browser | พร้อมใช้ |
 | 19 | Split PDF | บุคคลทั่วไป, ธุรการ, นักเรียน | แยกช่วงหน้าเป็น PDF/ZIP | พร้อมใช้ |
+| 20 | Random Wheel | ครู, นักเรียน, Event, ทีมงาน | สุ่มชื่อและตัวเลือกด้วย Web Crypto พร้อมประวัติ | พร้อมใช้ |
+| 21 | Buddhist Year Converter | บุคคลทั่วไป, ธุรการ, HR | แปลง พ.ศ.–ค.ศ. แบบหลายรายการพร้อมสูตร Excel | พร้อมใช้ |
 
 ## หลักฐาน Google Trends ประเทศไทย
 
@@ -34,6 +36,7 @@
 - คำไทย: `รวม pdf` เฉลี่ย 81, `แปลง pdf เป็น jpg` 41, `แยก pdf` 14 และ `ลดขนาด pdf` 4
 - กลุ่ม `vat calculator`, `json to csv` และ `csv cleaner` มีข้อมูลต่ำมากเมื่อเทียบในชุดเดียวกัน จึงเลื่อน Batch สำนักงานออกไป
 - ไม่เปิด PDF Compressor แม้มีความสนใจ เพราะยังลดขนาดจริงอย่างสม่ำเสมอโดยไม่ลดคุณภาพหรือทำเอกสารเสียไม่ได้
+- รอบเครื่องมือไทยทั่วไป: `วงล้อสุ่ม` เฉลี่ย 59 และ `พ.ศ. ค.ศ.` 35 สูงกว่า `คำนวณเกรด` 2, `จับเวลาออนไลน์` 1 และ `คำนวณ vat` 0 ในชุดเปรียบเทียบเดียวกัน
 
 ## Backlog ที่จัดลำดับแล้ว
 
@@ -60,8 +63,9 @@
 1. Batch 3 — ภาพสำหรับร้านค้า: PNG/WebP เป็น JPG, บีบอัดและย่อขนาด — ส่งมอบแล้ว
 2. Batch 4 — Popular Utilities: Color Picker/Contrast, Password และ Random Number — ส่งมอบแล้ว
 3. Batch 5 — PDF Utilities: PDF to JPG, Merge PDF, Split PDF — ส่งมอบแล้ว
-4. Batch 6 — ข้อมูลสำนักงาน: CSV Cleaner, JSON/CSV, Markdown
-5. Batch 7 — VAT และใบเสนอราคา หลังทบทวนข้อกำหนดภาษี/เอกสารล่าสุด
+4. Batch 6 — เครื่องมือไทยที่มี demand สูง: Random Wheel และ Buddhist Year Converter — ส่งมอบแล้ว
+5. Batch 7 — ข้อมูลสำนักงาน: CSV Cleaner, JSON/CSV, Markdown หลังทบทวนคำค้นใหม่
+6. Batch 8 — VAT และใบเสนอราคา หลังทบทวนข้อกำหนดภาษี/เอกสารล่าสุด
 
 ทุก Batch ควรมี unit test ของสูตรหรือ parser, E2E อย่างน้อยหนึ่งเส้นทาง, ตรวจ keyboard/mobile และวัด Core Web Vitals ก่อนเปิด AdSense ใน production
 
