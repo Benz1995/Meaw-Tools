@@ -1,6 +1,7 @@
 import { expect, test } from "@playwright/test";
 import { readFile } from "node:fs/promises";
 import { PDFDocument } from "pdf-lib";
+import { HEIC_SAMPLE_BASE64 } from "@/lib/tools/heic-sample";
 
 const toolRoutes = [
   ["json-formatter", "JSON Formatter"],
@@ -32,6 +33,7 @@ const toolRoutes = [
   ["bmi-calculator", "BMI Calculator"],
   ["profit-margin-calculator", "Profit & Margin Calculator"],
   ["quotation-generator", "Quotation Generator"],
+  ["heic-to-jpg", "HEIC to JPG"],
   ["png-to-jpg", "PNG to JPG Converter"],
   ["image-compressor", "Image Compressor & Resizer"],
   ["background-remover", "AI Background Remover"],
@@ -124,7 +126,7 @@ test("category tags navigate to a category page", async ({ page }) => {
   await page.getByRole("link", { name: "ดูหมวดรูปภาพและ PDF" }).click();
   await expect(page).toHaveURL(/\/categories\/media$/);
   await expect(page.getByRole("heading", { level: 1, name: "รูปภาพและ PDF" })).toBeVisible();
-  await expect(page.getByRole("link", { name: /เปิดเครื่องมือ/ })).toHaveCount(10);
+  await expect(page.getByRole("link", { name: /เปิดเครื่องมือ/ })).toHaveCount(11);
 });
 
 test("cat walker can be disabled and remembers the preference", async ({ page }) => {
@@ -178,6 +180,57 @@ test("image tools convert and resize locally", async ({ page }) => {
   await page.getByLabel("ความกว้างสูงสุด (px)").fill("640");
   await page.getByRole("button", { name: "บีบอัดและย่อรูป" }).click();
   await expect(page.getByTestId("image-output")).toContainText("640 × 360");
+});
+
+test("HEIC to JPG decodes a real HEIC sample in a worker", async ({ page }) => {
+  await page.goto("/heic-to-jpg");
+  await page.getByRole("button", { name: "โหลดตัวอย่าง" }).click();
+  await expect(page.getByText("meaw-sample.heic")).toBeVisible();
+
+  const layout = await page.evaluate(() => {
+    const label = document.querySelector<HTMLLabelElement>('label[for="heic-files"]');
+    const input = document.querySelector<HTMLInputElement>("#heic-files");
+    const labelBox = label?.getBoundingClientRect();
+    const inputBox = input?.getBoundingClientRect();
+    return {
+      labelGap: labelBox && inputBox ? Math.round(inputBox.top - labelBox.bottom) : 0,
+      hasHorizontalOverflow: document.documentElement.scrollWidth > document.documentElement.clientWidth,
+    };
+  });
+  expect(layout.labelGap).toBeGreaterThanOrEqual(10);
+  expect(layout.hasHorizontalOverflow).toBe(false);
+
+  await page.getByRole("button", { name: "แปลงเป็น JPG" }).click();
+  await expect(page.getByTestId("heic-output")).toContainText("แปลง JPG สำเร็จ 1 รูป");
+  await expect(page.getByAltText("ตัวอย่าง meaw-sample.jpg")).toBeVisible();
+  await expect(page.getByTestId("heic-output")).toContainText("96 × 64 px");
+
+  const downloadPromise = page.waitForEvent("download");
+  await page.getByRole("button", { name: "ดาวน์โหลด JPG", exact: true }).click();
+  const download = await downloadPromise;
+  expect(download.suggestedFilename()).toBe("meaw-sample.jpg");
+  const jpeg = await readFile((await download.path())!);
+  expect([...jpeg.subarray(0, 2)]).toEqual([0xff, 0xd8]);
+
+  await page.getByRole("button", { name: "ล้างข้อมูล" }).click();
+  const heicSample = Buffer.from(HEIC_SAMPLE_BASE64, "base64");
+  await page.locator("#heic-files").setInputFiles([
+    { name: "photo.heic", mimeType: "image/heic", buffer: heicSample },
+    { name: "PHOTO.HEIC", mimeType: "image/heic", buffer: heicSample },
+  ]);
+  await expect(page.getByTestId("heic-file-row")).toHaveCount(2);
+
+  await page.getByRole("button", { name: "แปลงเป็น JPG" }).click();
+  await expect(page.getByTestId("heic-output")).toContainText("แปลง JPG สำเร็จ 2 รูป");
+  await expect(page.getByAltText("ตัวอย่าง photo.jpg")).toBeVisible();
+  await expect(page.getByAltText("ตัวอย่าง PHOTO-2.jpg")).toBeVisible();
+
+  const zipDownloadPromise = page.waitForEvent("download");
+  await page.getByRole("button", { name: "ดาวน์โหลดทั้งหมดเป็น ZIP" }).click();
+  const zipDownload = await zipDownloadPromise;
+  expect(zipDownload.suggestedFilename()).toBe("meaw-heic-to-jpg.zip");
+  const zip = await readFile((await zipDownload.path())!);
+  expect([...zip.subarray(0, 2)]).toEqual([0x50, 0x4b]);
 });
 
 test("background remover validates a local image before lazy model loading", async ({ page }) => {
