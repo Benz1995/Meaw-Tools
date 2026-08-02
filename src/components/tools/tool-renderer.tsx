@@ -20,6 +20,7 @@ const components = {
   "word-counter": dynamic(() => import("@/features/tools/work-tools").then((module) => module.WordCounterTool), { loading, ssr: false }),
   "text-cleaner": dynamic(() => import("@/features/tools/work-tools").then((module) => module.TextCleanerTool), { loading, ssr: false }),
   "typing-test": dynamic(() => import("@/features/tools/typing-test-tool").then((module) => module.TypingTestTool), { loading, ssr: false }),
+  "special-characters": dynamic(() => import("@/features/tools/special-characters-tool").then((module) => module.SpecialCharactersTool), { loading, ssr: false }),
   "percentage-calculator": dynamic(() => import("@/features/tools/work-tools").then((module) => module.PercentageCalculatorTool), { loading, ssr: false }),
   "unit-converter": dynamic(() => import("@/features/tools/work-tools").then((module) => module.UnitConverterTool), { loading, ssr: false }),
   "date-calculator": dynamic(() => import("@/features/tools/work-tools").then((module) => module.DateCalculatorTool), { loading, ssr: false }),

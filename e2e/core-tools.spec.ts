@@ -20,6 +20,7 @@ const toolRoutes = [
   ["word-counter", "Word Counter"],
   ["text-cleaner", "Text Cleaner"],
   ["typing-test", "Typing Test"],
+  ["special-characters", "Special Characters & Fancy Text"],
   ["percentage-calculator", "Percentage Calculator"],
   ["unit-converter", "Unit Converter"],
   ["date-calculator", "Date Calculator"],
@@ -152,6 +153,43 @@ test("typing test measures Thai graphemes and switches to English", async ({ pag
   await page.getByRole("option", { name: "English" }).click();
   await expect(page.getByTestId("typing-target")).toContainText("A productive day begins");
   await expect(page.getByRole("textbox", { name: "พิมพ์ข้อความตามด้านบน" })).toBeEnabled();
+});
+
+test("special characters styles text and finds symbols by Thai intent", async ({ page, context }) => {
+  await context.grantPermissions(["clipboard-read", "clipboard-write"], { origin: "http://127.0.0.1:3100" });
+  await page.goto("/special-characters");
+  await expect(page.getByRole("heading", { level: 1, name: "Special Characters & Fancy Text" })).toBeVisible();
+  await expect(page.getByRole("textbox", { name: "ข้อความสำหรับแต่งชื่อ" })).toBeVisible();
+
+  const layout = await page.evaluate(() => {
+    const label = document.querySelector<HTMLLabelElement>('label[for="special-text-input"]');
+    const input = document.querySelector<HTMLInputElement>("#special-text-input");
+    const labelBox = label?.getBoundingClientRect();
+    const inputBox = input?.getBoundingClientRect();
+    return {
+      labelGap: labelBox && inputBox ? Math.round(inputBox.top - labelBox.bottom) : 0,
+      hasHorizontalOverflow: document.documentElement.scrollWidth > document.documentElement.clientWidth,
+    };
+  });
+  expect(layout.labelGap).toBeGreaterThanOrEqual(10);
+  expect(layout.hasHorizontalOverflow).toBe(false);
+
+  await page.getByRole("textbox", { name: "ข้อความสำหรับแต่งชื่อ" }).fill("Meaw");
+  await expect(page.getByTestId("fancy-results")).toContainText("𝐌𝐞𝐚𝐰");
+  await expect(page.getByTestId("fancy-results")).toContainText("Ⓜⓔⓐⓦ");
+  await page.getByRole("button", { name: "คัดลอก ตัวหนา" }).click();
+  await expect(page.locator("[data-sonner-toast]").filter({ hasText: "คัดลอก ตัวหนา แล้ว" })).toBeVisible();
+  expect(await page.evaluate(() => navigator.clipboard.readText())).toBe("𝐌𝐞𝐚𝐰");
+
+  await page.getByRole("searchbox", { name: "ค้นหาสัญลักษณ์" }).fill("หัวใจ");
+  await expect(page.getByRole("heading", { level: 3, name: "หัวใจและความรัก" })).toBeVisible();
+  await page.getByRole("button", { name: "คัดลอก ♡", exact: true }).click();
+  expect(await page.evaluate(() => navigator.clipboard.readText())).toBe("♡");
+  await expect(page.getByTestId("recent-symbols")).toContainText("♡");
+
+  await page.getByRole("button", { name: "ลูกศร", exact: true }).click();
+  await expect(page.getByRole("heading", { level: 3, name: "ลูกศร" })).toBeVisible();
+  await expect(page.getByRole("button", { name: "คัดลอก →", exact: true })).toBeVisible();
 });
 
 test("category tags navigate to a category page", async ({ page }) => {

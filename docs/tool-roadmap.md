@@ -37,6 +37,7 @@
 | 29 | Sign PDF | บุคคลทั่วไป, ธุรการ, ฟรีแลนซ์ | วาดหรืออัปโหลดลายเซ็นแล้ววางหลายหน้าใน PDF โดยไม่อัปโหลด พร้อมแยกคำเตือนจาก digital certificate | พร้อมใช้ |
 | 30 | HEIC to JPG | ผู้ใช้ iPhone, ร้านค้า, Content | แปลง HEIC/HEIF หลายไฟล์เป็น JPG ด้วย WebAssembly ใน Browser พร้อมเลือกขนาด คุณภาพ และ ZIP | พร้อมใช้ |
 | 31 | Typing Test | นักเรียน, ผู้สมัครงาน, คนทำงาน | ฝึกพิมพ์ไทย/อังกฤษพร้อม WPM, CPM, accuracy และ grapheme segmentation | พร้อมใช้ |
+| 32 | Special Characters & Fancy Text | เกมเมอร์, Content Creator, ผู้ใช้ Social | สร้างข้อความ Unicode แต่งชื่อ และค้นหาสัญลักษณ์ด้วยคำไทย | พร้อมใช้ |
 
 ## หลักฐาน Google Trends ประเทศไทย
 
@@ -66,9 +67,11 @@
 - แยก intent HEIC เพิ่ม: `heic to jpg` 27, `แปลง heic เป็น jpg` 15, `convert heic to jpg` 5, `heic to png` 1 และ `heic converter` 0 จึงเลือกชื่อ HEIC to JPG พร้อมข้อความภาษาไทย และรองรับหลายไฟล์แบบ client-only
 - รอบ Batch 16 กลุ่มเครื่องมือที่ทำได้จริง: `typing test` 69 สูงกว่า `jpg to png` 32, `webp to jpg` 21, `qr code scanner` 8 และ `pomodoro timer` 1 ในชุดเดียวกัน
 - เจาะ intent ภาษาไทย: `พิมพ์ดีด` 63, `ฝึกพิมพ์` 39, `พิมพ์สัมผัส` 12, `เกมพิมพ์ดีด` 5 และ `ฝึกพิมพ์ภาษาไทย` 4 จึงส่งมอบแบบฝึกไทย/อังกฤษและเปิดเผยสูตร WPM
+- รอบ Batch 17 เทียบข้าม backlog โดยตรง: `ตัวอักษรพิเศษ` 75 สูงกว่า `jpg to png` 8, `emoji copy` 4, `qr code scanner` 2 และ `csv cleaner` 0 ในชุดเดียวกัน
+- เจาะ intent อักษรเพิ่ม: `อักษรพิเศษ` 76, `ตัวอักษรพิเศษ` 24, `สัญลักษณ์พิเศษ` 6, `ตัวอักษรพิเศษภาษาอังกฤษ` 2 และ `ฟอนต์ตัวอักษรพิเศษ` 0 พร้อม Related Queries เรื่องรูปยิ้ม ปีกนางฟ้า คิตตี้ เลขโรมัน และข้อความเทศกาล จึงส่งมอบทั้งตัวสร้างข้อความและคลังสัญลักษณ์แทนหน้า Copy อย่างเดียว
 - ค่า Google Trends เป็นดัชนีความสนใจสัมพัทธ์ในชุดคำและช่วงเวลาที่เลือก ไม่ใช่จำนวนค้นหาจริง จึงใช้คัดลำดับร่วมกับประโยชน์ ความเสี่ยง และความเป็นไปได้ทางเทคนิค
 
-## ผลจัดลำดับ Batch 16 และ Backlog
+## ผลจัดลำดับ Batch 17 และ Backlog
 
 คะแนน 5 คือสูงที่สุด ช่องรายได้หมายถึงโอกาสเพิ่มหน้า SEO และรายได้ AdSense โดยไม่ล็อกฟังก์ชันหลักไว้หลังการชำระเงิน
 
@@ -78,20 +81,21 @@
 | 2 | Salary & Payslip Calculator | สูงแต่ intent ผสม: สลิป 60, คำนวณเงินเดือน 5 | 4 | 5 | 5 | 5 | 3 | ส่งมอบ Batch 9; ตรวจยอดโดยไม่สร้างเอกสารรับรอง |
 | 3 | Social Security Pension Calculator | สูง: Trends 31–32; intent ประกันสังคม 5 | 5 | 5 | 5 | 5 | 4 | ส่งมอบ Batch 10 ด้วยสูตร FAE ปัจจุบัน; CARE ยังแสดงเป็นสถานะร่างและไม่ถูกนำมาคำนวณ |
 | 4 | HEIC to JPG | สูงกว่า backlog ชุดล่าสุด: Trends 27; คำไทย 15 | 4 | 5 | 5 | 5 | 3 | ส่งมอบ Batch 15; Web Worker + WASM, หลายไฟล์, resize, quality และ ZIP |
-| 5 | Typing Test | สูงในกลุ่ม feasible: Trends 69; พิมพ์ดีด 63 | 3 | 5 | 5 | 5 | 3 | ส่งมอบ Batch 16; ไทย/อังกฤษ, timer, WPM/CPM/accuracy และ grapheme segmentation |
-| 6 | CSV Cleaner + Duplicate Finder | ต่ำในคำไทยชุดนี้: Trends 1–2 | 3 | 5 | 4 | 5 | 3 | Client-only และรองรับไฟล์ใหญ่แบบ Worker |
-| 7 | Workday Planner พร้อมวันหยุดไทย | ต่ำในชุดนี้: Trends 2 | 3 | 5 | 4 | 4 | 3 | ชุดข้อมูลวันหยุดแบบ versioned |
-| 8 | JSON / CSV Converter | ต้องวิจัยคำอังกฤษเพิ่ม | 2 | 4 | 4 | 5 | 2 | Client-only |
-| 9 | Thai ID Checksum Validator | สูงในชุดล่าสุด: เช็ค 25; intent กว้าง 44 | 2 | 4 | 4 | 3 | 2 | ส่งมอบ Batch 11; ตรวจ checksum เท่านั้น ไม่เชื่อมฐานรัฐ ไม่สร้างหรือบันทึกเลข |
-| 10 | Sign PDF | สูงใน intent เฉพาะ: เซ็น PDF 72 | 5 | 5 | 4 | 4 | 4 | ส่งมอบ Batch 14; วางรูปภาพลายเซ็นหลายหน้าแบบ client-only พร้อมคำเตือนเรื่อง certificate |
-| 11 | VAT Calculator | ต่ำ: Trends 3 ในชุดนี้ | 2 | 4 | 4 | 4 | 2 | ต้อง version อัตราและแยกรวม/ไม่รวม VAT |
-| 12 | PDF Organizer | สูง: ลบ 76, หมุน 34, แยก 22 | 4 | 5 | 4 | 4 | 3 | ส่งมอบ Batch 12; ลากเรียง หมุน และลบหน้าพร้อม preview ใน Browser |
-| 13 | Thai Number to Words / Baht Text | ต่ำ: Trends 0–1 | 2 | 4 | 3 | 4 | 3 | Client-only; เน้น edge case ล้านซ้อนและสตางค์ |
-| 14 | Markdown Preview + Export | ต้องวิจัยเพิ่ม | 3 | 4 | 4 | 4 | 3 | sanitize HTML และ export |
-| 15 | Quotation Generator | สูง: ใบเสนอราคา 81 | 4 | 5 | 5 | 5 | 3 | ส่งมอบ Batch 13; Template + PDF ภาษาไทย พร้อมระบุว่าไม่ใช่ใบกำกับภาษีหรือหลักฐานรับเงิน |
-| 16 | Favicon / PWA Icon Generator | ต่ำในชุดล่าสุด: Trends 0 | 3 | 4 | 4 | 4 | 3 | Client-only |
-| 17 | EXIF Viewer / Remover | ต่ำในชุดล่าสุด: Trends 0 | 3 | 4 | 4 | 4 | 4 | Client-only และเน้น Privacy |
-| 18 | Overtime Estimator | ต่ำ: Trends 0–1 | 4 | 4 | 4 | 4 | 3 | ต้องอ้างกฎหมายแรงงานและรองรับหลายเงื่อนไข |
+| 5 | Special Characters & Fancy Text | สูงในชุดข้าม backlog: ตัวอักษรพิเศษ 75; อักษรพิเศษ 76 | 2 | 5 | 5 | 5 | 3 | ส่งมอบ Batch 17; Unicode styles, กรอบไทย, ค้นหาและ recent copy |
+| 6 | Typing Test | สูงในกลุ่ม feasible: Trends 69; พิมพ์ดีด 63 | 3 | 5 | 5 | 5 | 3 | ส่งมอบ Batch 16; ไทย/อังกฤษ, timer, WPM/CPM/accuracy และ grapheme segmentation |
+| 7 | CSV Cleaner + Duplicate Finder | ต่ำในคำไทยชุดนี้: Trends 1–2 | 3 | 5 | 4 | 5 | 3 | Client-only และรองรับไฟล์ใหญ่แบบ Worker |
+| 8 | Workday Planner พร้อมวันหยุดไทย | ต่ำในชุดนี้: Trends 2 | 3 | 5 | 4 | 4 | 3 | ชุดข้อมูลวันหยุดแบบ versioned |
+| 9 | JSON / CSV Converter | ต้องวิจัยคำอังกฤษเพิ่ม | 2 | 4 | 4 | 5 | 2 | Client-only |
+| 10 | Thai ID Checksum Validator | สูงในชุดล่าสุด: เช็ค 25; intent กว้าง 44 | 2 | 4 | 4 | 3 | 2 | ส่งมอบ Batch 11; ตรวจ checksum เท่านั้น ไม่เชื่อมฐานรัฐ ไม่สร้างหรือบันทึกเลข |
+| 11 | Sign PDF | สูงใน intent เฉพาะ: เซ็น PDF 72 | 5 | 5 | 4 | 4 | 4 | ส่งมอบ Batch 14; วางรูปภาพลายเซ็นหลายหน้าแบบ client-only พร้อมคำเตือนเรื่อง certificate |
+| 12 | VAT Calculator | ต่ำ: Trends 3 ในชุดนี้ | 2 | 4 | 4 | 4 | 2 | ต้อง version อัตราและแยกรวม/ไม่รวม VAT |
+| 13 | PDF Organizer | สูง: ลบ 76, หมุน 34, แยก 22 | 4 | 5 | 4 | 4 | 3 | ส่งมอบ Batch 12; ลากเรียง หมุน และลบหน้าพร้อม preview ใน Browser |
+| 14 | Thai Number to Words / Baht Text | ต่ำ: Trends 0–1 | 2 | 4 | 3 | 4 | 3 | Client-only; เน้น edge case ล้านซ้อนและสตางค์ |
+| 15 | Markdown Preview + Export | ต้องวิจัยเพิ่ม | 3 | 4 | 4 | 4 | 3 | sanitize HTML และ export |
+| 16 | Quotation Generator | สูง: ใบเสนอราคา 81 | 4 | 5 | 5 | 5 | 3 | ส่งมอบ Batch 13; Template + PDF ภาษาไทย พร้อมระบุว่าไม่ใช่ใบกำกับภาษีหรือหลักฐานรับเงิน |
+| 17 | Favicon / PWA Icon Generator | ต่ำในชุดล่าสุด: Trends 0 | 3 | 4 | 4 | 4 | 3 | Client-only |
+| 18 | EXIF Viewer / Remover | ต่ำในชุดล่าสุด: Trends 0 | 3 | 4 | 4 | 4 | 4 | Client-only และเน้น Privacy |
+| 19 | Overtime Estimator | ต่ำ: Trends 0–1 | 4 | 4 | 4 | 4 | 3 | ต้องอ้างกฎหมายแรงงานและรองรับหลายเงื่อนไข |
 
 ## ลำดับส่งมอบที่แนะนำ
 
@@ -109,7 +113,8 @@
 12. Batch 14 — Sign PDF แบบ client-only รองรับวาด อัปโหลด ลาก ย่อขยาย หลายหน้า และหน้าที่หมุน — ส่งมอบแล้ว
 13. Batch 15 — HEIC to JPG แบบ client-only รองรับหลายไฟล์ resize quality metadata stripping และ ZIP — ส่งมอบแล้ว
 14. Batch 16 — Typing Test ภาษาไทย/อังกฤษ พร้อม timer, WPM, CPM, accuracy และสูตรโปร่งใส — ส่งมอบแล้ว
-15. Batch 17 — วิจัย Emoji/Symbol copy intent, image format conversion และ productivity tools ก่อนเลือกงานถัดไป
+15. Batch 17 — Special Characters & Fancy Text พร้อม Unicode styles, กรอบแต่งชื่อภาษาไทย, ค้นหาและคัดลอกสัญลักษณ์ — ส่งมอบแล้ว
+16. Batch 18 — วิจัย Image Format Batch Converter, QR Scanner และเครื่องมือข้อความที่มี intent ใหม่ก่อนเลือกงานถัดไป
 
 ทุก Batch ควรมี unit test ของสูตรหรือ parser, E2E อย่างน้อยหนึ่งเส้นทาง, ตรวจ keyboard/mobile และวัด Core Web Vitals ก่อนเปิด AdSense ใน production
 

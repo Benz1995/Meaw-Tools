@@ -139,3 +139,22 @@
 
 - [Google Trends — Typing Test, JPG/PNG, WebP, Pomodoro และ QR Scanner](https://trends.google.com/trends/explore?date=today%2012-m&geo=TH&q=webp%20to%20jpg,jpg%20to%20png,typing%20test,pomodoro%20timer,qr%20code%20scanner)
 - [Google Trends — คำค้นการฝึกพิมพ์ภาษาไทย](https://trends.google.com/trends/explore?date=today%2012-m&geo=TH&q=%E0%B8%9E%E0%B8%B4%E0%B8%A1%E0%B8%9E%E0%B9%8C%E0%B8%94%E0%B8%B5%E0%B8%94,%E0%B8%9D%E0%B8%B6%E0%B8%81%E0%B8%9E%E0%B8%B4%E0%B8%A1%E0%B8%9E%E0%B9%8C,%E0%B8%9E%E0%B8%B4%E0%B8%A1%E0%B8%9E%E0%B9%8C%E0%B8%AA%E0%B8%B1%E0%B8%A1%E0%B8%9C%E0%B8%B1%E0%B8%AA,%E0%B8%9D%E0%B8%B6%E0%B8%81%E0%B8%9E%E0%B8%B4%E0%B8%A1%E0%B8%9E%E0%B9%8C%E0%B8%A0%E0%B8%B2%E0%B8%A9%E0%B8%B2%E0%B9%84%E0%B8%97%E0%B8%A2,%E0%B9%80%E0%B8%81%E0%B8%A1%E0%B8%9E%E0%B8%B4%E0%B8%A1%E0%B8%9E%E0%B9%8C%E0%B8%94%E0%B8%B5%E0%B8%94)
+
+## รอบที่ 8 — อักษรพิเศษ สัญลักษณ์ และเครื่องมือแต่งชื่อ
+
+สำรวจเมื่อ 3 สิงหาคม 2026 ใน Google Trends ประเทศไทย ช่วง 12 เดือนล่าสุด ประเภท Web Search โดยเทียบ candidate ข้าม backlog ในชุดเดียวกัน:
+
+| คำค้น | ค่าเฉลี่ย |
+|---|---:|
+| ตัวอักษรพิเศษ | 75 |
+| jpg to png | 8 |
+| emoji copy | 4 |
+| qr code scanner | 2 |
+| csv cleaner | 0 |
+
+ชุดเจาะ intent พบ `อักษรพิเศษ` 76, `ตัวอักษรพิเศษ` 24, `สัญลักษณ์พิเศษ` 6, `ตัวอักษรพิเศษภาษาอังกฤษ` 2 และ `ฟอนต์ตัวอักษรพิเศษ` 0 ค่าแต่ละชุดเป็นดัชนีสัมพัทธ์ จึงไม่ควรนำเลขจากคนละชุดมาเปรียบเทียบตรง ๆ แต่ทั้งสองชุดยืนยันว่าคำหลักมีสัญญาณสม่ำเสมอและสูงกว่า candidate ที่เหลือเมื่อเทียบโดยตรง
+
+Related Queries ระบุ intent ที่ทำเป็น action ได้ เช่น รูปยิ้ม ปีกนางฟ้า คิตตี้ เลขโรมัน อักษร iPhone และข้อความเทศกาล จึงส่งมอบมากกว่าหน้า Symbol Copy: มีข้อความ Unicode 9 สไตล์ กรอบแต่งชื่อที่รองรับภาษาไทย ค้นหาด้วยคำไทย หมวดเฉพาะ และประวัติคัดลอกชั่วคราว พร้อมเปิดเผยว่า Unicode แต่ละชุดอาจแสดงต่างกันและไม่เหมาะแทนข้อความปกติในข้อมูลสำคัญ
+
+- [Google Trends — อักษรพิเศษเทียบ Image, Emoji, QR และ CSV](https://trends.google.com/trends/explore?date=today%2012-m&geo=TH&q=jpg%20to%20png,emoji%20copy,%E0%B8%95%E0%B8%B1%E0%B8%A7%E0%B8%AD%E0%B8%B1%E0%B8%81%E0%B8%A9%E0%B8%A3%E0%B8%9E%E0%B8%B4%E0%B9%80%E0%B8%A8%E0%B8%A9,qr%20code%20scanner,csv%20cleaner)
+- [Google Trends — เจาะคำค้นอักษรและสัญลักษณ์พิเศษ](https://trends.google.com/trends/explore?date=today%2012-m&geo=TH&q=%E0%B8%95%E0%B8%B1%E0%B8%A7%E0%B8%AD%E0%B8%B1%E0%B8%81%E0%B8%A9%E0%B8%A3%E0%B8%9E%E0%B8%B4%E0%B9%80%E0%B8%A8%E0%B8%A9,%E0%B8%9F%E0%B8%AD%E0%B8%99%E0%B8%95%E0%B9%8C%E0%B8%95%E0%B8%B1%E0%B8%A7%E0%B8%AD%E0%B8%B1%E0%B8%81%E0%B8%A9%E0%B8%A3%E0%B8%9E%E0%B8%B4%E0%B9%80%E0%B8%A8%E0%B8%A9,%E0%B8%AA%E0%B8%B1%E0%B8%8D%E0%B8%A5%E0%B8%B1%E0%B8%81%E0%B8%A9%E0%B8%93%E0%B9%8C%E0%B8%9E%E0%B8%B4%E0%B9%80%E0%B8%A8%E0%B8%A9,%E0%B8%AD%E0%B8%B1%E0%B8%81%E0%B8%A9%E0%B8%A3%E0%B8%9E%E0%B8%B4%E0%B9%80%E0%B8%A8%E0%B8%A9,%E0%B8%95%E0%B8%B1%E0%B8%A7%E0%B8%AD%E0%B8%B1%E0%B8%81%E0%B8%A9%E0%B8%A3%E0%B8%9E%E0%B8%B4%E0%B9%80%E0%B8%A8%E0%B8%A9%E0%B8%A0%E0%B8%B2%E0%B8%A9%E0%B8%B2%E0%B8%AD%E0%B8%B1%E0%B8%87%E0%B8%81%E0%B8%A4%E0%B8%A9)
