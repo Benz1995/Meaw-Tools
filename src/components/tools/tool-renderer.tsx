@@ -1,0 +1,40 @@
+"use client";
+
+import dynamic from "next/dynamic";
+
+const loading = () => <div className="h-96 animate-pulse rounded-2xl border bg-muted/50" aria-label="กำลังโหลดเครื่องมือ" />;
+const components = {
+  "json-formatter": dynamic(() => import("@/features/tools/json-tools").then((module) => module.JsonFormatterTool), { loading, ssr: false }),
+  "json-validator": dynamic(() => import("@/features/tools/json-tools").then((module) => module.JsonValidatorTool), { loading, ssr: false }),
+  "sql-formatter": dynamic(() => import("@/features/tools/text-tools").then((module) => module.SqlFormatterTool), { loading, ssr: false }),
+  "base64": dynamic(() => import("@/features/tools/text-tools").then((module) => module.Base64Tool), { loading, ssr: false }),
+  "url-encoder": dynamic(() => import("@/features/tools/text-tools").then((module) => module.UrlEncoderTool), { loading, ssr: false }),
+  "jwt-decoder": dynamic(() => import("@/features/tools/utility-tools").then((module) => module.JwtDecoderTool), { loading, ssr: false }),
+  "uuid-generator": dynamic(() => import("@/features/tools/utility-tools").then((module) => module.UuidGeneratorTool), { loading, ssr: false }),
+  "timestamp-converter": dynamic(() => import("@/features/tools/utility-tools").then((module) => module.TimestampTool), { loading, ssr: false }),
+  "hash-generator": dynamic(() => import("@/features/tools/utility-tools").then((module) => module.HashTool), { loading, ssr: false }),
+  "regex-tester": dynamic(() => import("@/features/tools/advanced-tools").then((module) => module.RegexTool), { loading, ssr: false }),
+  "diff-checker": dynamic(() => import("@/features/tools/advanced-tools").then((module) => module.DiffTool), { loading, ssr: false }),
+  "cron-generator": dynamic(() => import("@/features/tools/advanced-tools").then((module) => module.CronTool), { loading, ssr: false }),
+  "word-counter": dynamic(() => import("@/features/tools/work-tools").then((module) => module.WordCounterTool), { loading, ssr: false }),
+  "text-cleaner": dynamic(() => import("@/features/tools/work-tools").then((module) => module.TextCleanerTool), { loading, ssr: false }),
+  "percentage-calculator": dynamic(() => import("@/features/tools/work-tools").then((module) => module.PercentageCalculatorTool), { loading, ssr: false }),
+  "unit-converter": dynamic(() => import("@/features/tools/work-tools").then((module) => module.UnitConverterTool), { loading, ssr: false }),
+  "date-calculator": dynamic(() => import("@/features/tools/work-tools").then((module) => module.DateCalculatorTool), { loading, ssr: false }),
+  "jpg-to-pdf": dynamic(() => import("@/features/tools/jpg-to-pdf-tool").then((module) => module.JpgToPdfTool), { loading, ssr: false }),
+  "qr-code-generator": dynamic(() => import("@/features/tools/qr-code-tool").then((module) => module.QrCodeTool), { loading, ssr: false }),
+  "age-calculator": dynamic(() => import("@/features/tools/age-calculator-tool").then((module) => module.AgeCalculatorTool), { loading, ssr: false }),
+  "loan-calculator": dynamic(() => import("@/features/tools/finance-calculator-tools").then((module) => module.LoanCalculatorTool), { loading, ssr: false }),
+  "bmi-calculator": dynamic(() => import("@/features/tools/bmi-calculator-tool").then((module) => module.BmiCalculatorTool), { loading, ssr: false }),
+  "profit-margin-calculator": dynamic(() => import("@/features/tools/finance-calculator-tools").then((module) => module.ProfitMarginCalculatorTool), { loading, ssr: false }),
+  "png-to-jpg": dynamic(() => import("@/features/tools/image-processing-tools").then((module) => module.PngToJpgTool), { loading, ssr: false }),
+  "image-compressor": dynamic(() => import("@/features/tools/image-processing-tools").then((module) => module.ImageCompressorTool), { loading, ssr: false }),
+  "color-picker": dynamic(() => import("@/features/tools/color-picker-tool").then((module) => module.ColorPickerTool), { loading, ssr: false }),
+  "password-generator": dynamic(() => import("@/features/tools/popular-generator-tools").then((module) => module.PasswordGeneratorTool), { loading, ssr: false }),
+  "random-number-generator": dynamic(() => import("@/features/tools/popular-generator-tools").then((module) => module.RandomNumberGeneratorTool), { loading, ssr: false }),
+  "pdf-to-jpg": dynamic(() => import("@/features/tools/pdf-to-jpg-tool").then((module) => module.PdfToJpgTool), { loading, ssr: false }),
+  "merge-pdf": dynamic(() => import("@/features/tools/pdf-organizer-tools").then((module) => module.MergePdfTool), { loading, ssr: false }),
+  "split-pdf": dynamic(() => import("@/features/tools/pdf-organizer-tools").then((module) => module.SplitPdfTool), { loading, ssr: false }),
+} satisfies Record<string, React.ComponentType>;
+
+export function ToolRenderer({ slug }: { slug: string }) { const Component = components[slug as keyof typeof components]; return Component ? <Component /> : null; }
