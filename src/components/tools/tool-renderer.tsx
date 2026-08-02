@@ -27,6 +27,7 @@ const components = {
   "jpg-to-pdf": dynamic(() => import("@/features/tools/jpg-to-pdf-tool").then((module) => module.JpgToPdfTool), { loading, ssr: false }),
   "qr-code-generator": dynamic(() => import("@/features/tools/qr-code-tool").then((module) => module.QrCodeTool), { loading, ssr: false }),
   "qr-code-scanner": dynamic(() => import("@/features/tools/qr-scanner-tool").then((module) => module.QrScannerTool), { loading, ssr: false }),
+  "image-to-text": dynamic(() => import("@/features/tools/image-to-text-tool").then((module) => module.ImageToTextTool), { loading, ssr: false }),
   "age-calculator": dynamic(() => import("@/features/tools/age-calculator-tool").then((module) => module.AgeCalculatorTool), { loading, ssr: false }),
   "loan-calculator": dynamic(() => import("@/features/tools/finance-calculator-tools").then((module) => module.LoanCalculatorTool), { loading, ssr: false }),
   "thai-income-tax-calculator": dynamic(() => import("@/features/tools/thai-income-tax-tool").then((module) => module.ThaiIncomeTaxTool), { loading, ssr: false }),

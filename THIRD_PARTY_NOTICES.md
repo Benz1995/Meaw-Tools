@@ -25,6 +25,19 @@ The full license texts and package notices remain available from their respectiv
 
 The QR Code Scanner loads this decoder only when the user starts scanning. Image and camera pixels remain in the browser and are not sent to the upstream project.
 
+## OCR runtime and language data
+
+The Image to Text tool self-hosts a lazy-loaded WebAssembly OCR runtime and Thai/English language files:
+
+- `tesseract.js` 7.0.0 — Apache License 2.0
+  - Source: https://github.com/naptha/tesseract.js
+- `tesseract.js-core` 7.0.0 — Apache License 2.0
+  - Source: https://github.com/naptha/tesseract.js-core
+- `@tesseract.js-data/eng` 1.0.0 and `@tesseract.js-data/tha` 1.0.0 — MIT
+  - Source: https://github.com/naptha/tessdata
+
+The build copies only the LSTM browser core variants and integerized Thai/English trained data required by this application. Images and extracted text are processed locally and are not sent to the upstream projects.
+
 ## HEIC decoder
 
 The HEIC to JPG tool distributes an unmodified WebAssembly decoder as a

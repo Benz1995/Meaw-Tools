@@ -27,6 +27,7 @@ const toolRoutes = [
   ["jpg-to-pdf", "JPG to PDF Converter"],
   ["qr-code-generator", "QR Code Generator"],
   ["qr-code-scanner", "QR Code Scanner"],
+  ["image-to-text", "Image to Text OCR"],
   ["age-calculator", "Age Calculator"],
   ["loan-calculator", "Loan Calculator"],
   ["thai-income-tax-calculator", "Thai Income Tax Calculator"],
@@ -199,7 +200,7 @@ test("category tags navigate to a category page", async ({ page }) => {
   await page.getByRole("link", { name: "ดูหมวดรูปภาพและ PDF" }).click();
   await expect(page).toHaveURL(/\/categories\/media$/);
   await expect(page.getByRole("heading", { level: 1, name: "รูปภาพและ PDF" })).toBeVisible();
-  await expect(page.getByRole("link", { name: /เปิดเครื่องมือ/ })).toHaveCount(12);
+  await expect(page.getByRole("link", { name: /เปิดเครื่องมือ/ })).toHaveCount(13);
 });
 
 test("cat walker can be disabled and remembers the preference", async ({ page }) => {
@@ -257,6 +258,57 @@ test("QR scanner reads a local sample without opening the result automatically",
 
   await page.getByRole("button", { name: "ใช้กล้อง" }).click();
   await expect(page.getByRole("button", { name: "เปิดกล้องเพื่อสแกน" })).toBeVisible();
+});
+
+test("image to text OCR reads and edits a local Thai-English sample", async ({ page, context }) => {
+  await context.grantPermissions(["clipboard-read", "clipboard-write"], { origin: "http://127.0.0.1:3100" });
+  const requests: string[] = [];
+  const consoleErrors: string[] = [];
+  page.on("request", (request) => requests.push(request.url()));
+  page.on("console", (message) => {
+    if (message.type() === "error") consoleErrors.push(message.text());
+  });
+  await page.goto("/image-to-text");
+  await expect(page.getByRole("heading", { level: 1, name: "Image to Text OCR" })).toBeVisible();
+  await expect(page.locator("#ocr-image-file")).toBeVisible();
+
+  const layout = await page.evaluate(() => {
+    const label = document.querySelector<HTMLLabelElement>('label[for="ocr-image-file"]');
+    const input = document.querySelector<HTMLInputElement>("#ocr-image-file");
+    const labelBox = label?.getBoundingClientRect();
+    const inputBox = input?.getBoundingClientRect();
+    return {
+      labelGap: labelBox && inputBox ? Math.round(inputBox.top - labelBox.bottom) : 0,
+      hasHorizontalOverflow: document.documentElement.scrollWidth > document.documentElement.clientWidth,
+    };
+  });
+  expect(layout.labelGap).toBeGreaterThanOrEqual(10);
+  expect(layout.hasHorizontalOverflow).toBe(false);
+
+  await page.getByRole("button", { name: "โหลดตัวอย่าง" }).click();
+  await expect(page.getByAltText("รูปต้นฉบับสำหรับ OCR")).toBeVisible();
+  expect(requests.filter((url) => url.includes("/ocr-runtime/"))).toEqual([]);
+
+  await page.getByRole("button", { name: "อ่านข้อความจากรูป" }).click();
+  await expect(page.getByRole("progressbar", { name: "ความคืบหน้า OCR" })).toBeVisible();
+  const result = page.getByTestId("ocr-result");
+  await expect(result).toBeVisible({ timeout: 45_000 });
+  const output = page.getByLabel("ตรวจและแก้ข้อความก่อนนำไปใช้");
+  await expect(output).toHaveValue(/MEAW TOOLS/);
+  await expect(output).toHaveValue(/Image to Text OCR/);
+  expect(requests.some((url) => url.includes("/ocr-runtime/v7/core/"))).toBe(true);
+  expect(requests.some((url) => url.includes("/ocr-runtime/v7/languages/eng.traineddata.gz"))).toBe(true);
+  expect(requests.some((url) => /jsdelivr|projectnaptha|tessdata/i.test(url))).toBe(false);
+  expect(consoleErrors).toEqual([]);
+
+  const edited = `${await output.inputValue()}\nตรวจแก้แล้ว`;
+  await output.fill(edited);
+  await result.getByRole("button", { name: "คัดลอกข้อความ" }).click();
+  expect(await page.evaluate(() => navigator.clipboard.readText())).toContain("ตรวจแก้แล้ว");
+
+  const downloadPromise = page.waitForEvent("download");
+  await result.getByRole("button", { name: /ดาวน์โหลด .*\.txt/ }).click();
+  expect((await downloadPromise).suggestedFilename()).toBe("meaw-image-to-text-example-ocr.txt");
 });
 
 test("JPG to PDF creates a downloadable PDF", async ({ page }) => {

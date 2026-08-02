@@ -42,6 +42,7 @@ yarn-error.log*
 # vercel
 .vercel
 public/ai-runtime/
+public/ocr-runtime/
 
 # typescript
 *.tsbuildinfo

@@ -178,3 +178,23 @@ Related Queries ระบุ intent ที่ทำเป็น action ได้
 - [Google Trends — JPG, WebP, QR Scanner และ Resize Image](https://trends.google.com/trends/explore?date=today%2012-m&geo=TH&q=jpg%20to%20png,webp%20to%20jpg,qr%20code%20scanner,qr%20scanner,resize%20image)
 - [Google Trends — คำไทยแปลงรูปและสแกน QR](https://trends.google.com/trends/explore?date=today%2012-m&geo=TH&q=%E0%B9%81%E0%B8%9B%E0%B8%A5%E0%B8%87%20jpg%20%E0%B9%80%E0%B8%9B%E0%B9%87%E0%B8%99%20png,%E0%B9%81%E0%B8%9B%E0%B8%A5%E0%B8%87%E0%B8%A3%E0%B8%B9%E0%B8%9B%E0%B9%80%E0%B8%9B%E0%B9%87%E0%B8%99%20jpg,%E0%B8%A5%E0%B8%94%E0%B8%82%E0%B8%99%E0%B8%B2%E0%B8%94%E0%B8%A3%E0%B8%B9%E0%B8%9B,%E0%B8%AA%E0%B9%81%E0%B8%81%E0%B8%99%20qr%20code,%E0%B8%AD%E0%B9%88%E0%B8%B2%E0%B8%99%20qr%20code)
 - [Google Trends — QR Reader Online และจากรูป](https://trends.google.com/trends/explore?date=today%2012-m&geo=TH&q=qr%20code%20reader,qr%20code%20scanner%20online,scan%20qr%20code%20online,%E0%B8%AA%E0%B9%81%E0%B8%81%E0%B8%99%20qr%20code%20%E0%B8%88%E0%B8%B2%E0%B8%81%E0%B8%A3%E0%B8%B9%E0%B8%9B,%E0%B8%AD%E0%B9%88%E0%B8%B2%E0%B8%99%20qr%20code%20%E0%B8%88%E0%B8%B2%E0%B8%81%E0%B8%A3%E0%B8%B9%E0%B8%9B)
+
+## รอบที่ 10 — Image to Text OCR เทียบเครื่องมือรูปและข้อมูล
+
+สำรวจเมื่อ 3 สิงหาคม 2026 ใน Google Trends ประเทศไทย ช่วง 12 เดือนล่าสุด ประเภท Web Search ชุดภาษาอังกฤษพบ:
+
+| คำค้น | ค่าเฉลี่ย |
+|---|---:|
+| jpg to png | 64 |
+| image to text | 56 |
+| csv cleaner | 0 |
+| add watermark to photo | 0 |
+| passport photo maker | 0 |
+
+ชุดภาษาไทยพบ `แปลงรูปเป็นข้อความ` 52 สูงกว่า `แปลงรูปเป็น png` 41, `ทำรูปติดบัตร` 33, `ลบข้อมูลซ้ำ excel` 1 และ `ใส่ลายน้ำรูป` 1 เมื่อเจาะคำ OCR เพิ่มในชุดเดียวกัน พบ `แปลงรูปเป็นข้อความ` 52, `ocr ไทย` 5, `อ่านข้อความจากรูป` 2, `คัดลอกข้อความจากรูป` 1 และ `ดึงข้อความจากรูป` 0 คำที่ข้อมูลต่ำไม่ได้แปลว่าไม่มีผู้ใช้ แต่คำหลัก “แปลงรูปเป็นข้อความ” ให้ intent ตรงและสม่ำเสมอกว่า
+
+จึงส่งมอบ Image to Text OCR ก่อน Batch Image Converter ซึ่งบางส่วนซ้ำกับ PNG/WebP to JPG ที่มีอยู่ ขอบเขตใหม่รองรับรูป PNG/JPG/WebP ภาษาไทย อังกฤษ หรือทั้งสองภาษา ปรับรูปขาวดำ/Contrast ได้ แก้ผลลัพธ์ก่อนคัดลอกหรือดาวน์โหลด และ self-host Tesseract.js WebAssembly กับโมเดลภาษาโดยไม่ส่งรูปออกจาก Browser ครั้งแรกดาวน์โหลดสินทรัพย์ที่ใช้งานจริงประมาณ 8 MB และ Worker ถูกปิดหลังจบงาน ทั้งนี้ไม่รองรับ PDF/ลายมือและต้องตรวจผล OCR กับต้นฉบับ
+
+- [Google Trends — Image to Text เทียบ JPG/PNG, CSV, Watermark และ Passport Photo](https://trends.google.com/trends/explore?date=today%2012-m&geo=TH&q=jpg%20to%20png,image%20to%20text,csv%20cleaner,add%20watermark%20to%20photo,passport%20photo%20maker)
+- [Google Trends — แปลงรูปเป็นข้อความเทียบเครื่องมือรูปและ Excel](https://trends.google.com/trends/explore?date=today%2012-m&geo=TH&q=%E0%B9%81%E0%B8%9B%E0%B8%A5%E0%B8%87%E0%B8%A3%E0%B8%B9%E0%B8%9B%E0%B9%80%E0%B8%9B%E0%B9%87%E0%B8%99%20png,%E0%B9%81%E0%B8%9B%E0%B8%A5%E0%B8%87%E0%B8%A3%E0%B8%B9%E0%B8%9B%E0%B9%80%E0%B8%9B%E0%B9%87%E0%B8%99%E0%B8%82%E0%B9%89%E0%B8%AD%E0%B8%84%E0%B8%A7%E0%B8%B2%E0%B8%A1,%E0%B8%A5%E0%B8%9A%E0%B8%82%E0%B9%89%E0%B8%AD%E0%B8%A1%E0%B8%B9%E0%B8%A5%E0%B8%8B%E0%B9%89%E0%B8%B3%20excel,%E0%B9%83%E0%B8%AA%E0%B9%88%E0%B8%A5%E0%B8%B2%E0%B8%A2%E0%B8%99%E0%B9%89%E0%B8%B3%E0%B8%A3%E0%B8%B9%E0%B8%9B,%E0%B8%97%E0%B8%B3%E0%B8%A3%E0%B8%B9%E0%B8%9B%E0%B8%95%E0%B8%B4%E0%B8%94%E0%B8%9A%E0%B8%B1%E0%B8%95%E0%B8%A3)
+- [Google Trends — เจาะ Intent OCR ภาษาไทย](https://trends.google.com/trends/explore?date=today%2012-m&geo=TH&q=%E0%B8%84%E0%B8%B1%E0%B8%94%E0%B8%A5%E0%B8%AD%E0%B8%81%E0%B8%82%E0%B9%89%E0%B8%AD%E0%B8%84%E0%B8%A7%E0%B8%B2%E0%B8%A1%E0%B8%88%E0%B8%B2%E0%B8%81%E0%B8%A3%E0%B8%B9%E0%B8%9B,%E0%B9%81%E0%B8%9B%E0%B8%A5%E0%B8%87%E0%B8%A3%E0%B8%B9%E0%B8%9B%E0%B9%80%E0%B8%9B%E0%B9%87%E0%B8%99%E0%B8%82%E0%B9%89%E0%B8%AD%E0%B8%84%E0%B8%A7%E0%B8%B2%E0%B8%A1,%E0%B8%AD%E0%B9%88%E0%B8%B2%E0%B8%99%E0%B8%82%E0%B9%89%E0%B8%AD%E0%B8%84%E0%B8%A7%E0%B8%B2%E0%B8%A1%E0%B8%88%E0%B8%B2%E0%B8%81%E0%B8%A3%E0%B8%B9%E0%B8%9B,%E0%B8%94%E0%B8%B6%E0%B8%87%E0%B8%82%E0%B9%89%E0%B8%AD%E0%B8%84%E0%B8%A7%E0%B8%B2%E0%B8%A1%E0%B8%88%E0%B8%B2%E0%B8%81%E0%B8%A3%E0%B8%B9%E0%B8%9B,ocr%20%E0%B9%84%E0%B8%97%E0%B8%A2)

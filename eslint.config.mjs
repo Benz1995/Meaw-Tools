@@ -12,6 +12,7 @@ const eslintConfig = defineConfig([
     "out/**",
     "build/**",
     "public/ai-runtime/**",
+    "public/ocr-runtime/**",
     "next-env.d.ts",
   ]),
 ]);

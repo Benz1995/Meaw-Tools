@@ -39,6 +39,7 @@
 | 31 | Typing Test | นักเรียน, ผู้สมัครงาน, คนทำงาน | ฝึกพิมพ์ไทย/อังกฤษพร้อม WPM, CPM, accuracy และ grapheme segmentation | พร้อมใช้ |
 | 32 | Special Characters & Fancy Text | เกมเมอร์, Content Creator, ผู้ใช้ Social | สร้างข้อความ Unicode แต่งชื่อ และค้นหาสัญลักษณ์ด้วยคำไทย | พร้อมใช้ |
 | 33 | QR Code Scanner | บุคคลทั่วไป, ร้านค้า, ธุรการ | อ่าน QR จากรูปหรือกล้องใน Browser แสดงโดเมนก่อนเปิด และไม่เปิดลิงก์อัตโนมัติ | พร้อมใช้ |
+| 34 | Image to Text OCR | นักเรียน, ธุรการ, ร้านค้า, Content | อ่านภาษาไทย/อังกฤษจากรูปใน Browser พร้อมแก้ไข คัดลอก และ TXT | พร้อมใช้ |
 
 ## หลักฐาน Google Trends ประเทศไทย
 
@@ -72,6 +73,8 @@
 - เจาะ intent อักษรเพิ่ม: `อักษรพิเศษ` 76, `ตัวอักษรพิเศษ` 24, `สัญลักษณ์พิเศษ` 6, `ตัวอักษรพิเศษภาษาอังกฤษ` 2 และ `ฟอนต์ตัวอักษรพิเศษ` 0 พร้อม Related Queries เรื่องรูปยิ้ม ปีกนางฟ้า คิตตี้ เลขโรมัน และข้อความเทศกาล จึงส่งมอบทั้งตัวสร้างข้อความและคลังสัญลักษณ์แทนหน้า Copy อย่างเดียว
 - รอบ Batch 18 เทียบงานภาพและ QR: `สแกน qr code` เฉลี่ย 74 สูงกว่า `แปลงรูปเป็น jpg` 42, `แปลง jpg เป็น png` 41, `ลดขนาดรูป` 26 และ `อ่าน qr code` 12 ในชุดคำไทยเดียวกัน ส่วนชุดอังกฤษพบ `jpg to png` 64, `resize image` 44, `webp to jpg` 42, `qr scanner` 29 และ `qr code scanner` 16
 - เจาะ intent QR เพิ่ม: `qr code reader` 14 และ Related Queries มี `qr code reader for pc` เป็น Breakout กับ `qr code reader from image` เพิ่ม 350% แม้คำแบบยาวภาษาไทยมีข้อมูลไม่พอ จึงส่งมอบทั้งอัปโหลดรูปและกล้องโดยประมวลผลใน Browser ไม่เปิดลิงก์อัตโนมัติ และแสดงโดเมนให้ตรวจสอบก่อน
+- รอบ Batch 19 เทียบเครื่องมือภาษาอังกฤษ: `jpg to png` เฉลี่ย 64, `image to text` 56, `csv cleaner` 0, `add watermark to photo` 0 และ `passport photo maker` 0 ในชุดเดียวกัน
+- เทียบภาษาไทย: `แปลงรูปเป็นข้อความ` 52 สูงกว่า `แปลงรูปเป็น png` 41, `ทำรูปติดบัตร` 33, `ลบข้อมูลซ้ำ excel` 1 และ `ใส่ลายน้ำรูป` 1 ส่วนชุดเจาะ intent พบ `ocr ไทย` 5, `อ่านข้อความจากรูป` 2, `คัดลอกข้อความจากรูป` 1 และ `ดึงข้อความจากรูป` 0 จึงเลือกคำหน้าหลักตาม intent ที่มีข้อมูลชัดที่สุด
 - ค่า Google Trends เป็นดัชนีความสนใจสัมพัทธ์ในชุดคำและช่วงเวลาที่เลือก ไม่ใช่จำนวนค้นหาจริง จึงใช้คัดลำดับร่วมกับประโยชน์ ความเสี่ยง และความเป็นไปได้ทางเทคนิค
 
 ## ผลจัดลำดับ Batch 18 และ Backlog
@@ -87,19 +90,20 @@
 | 5 | Special Characters & Fancy Text | สูงในชุดข้าม backlog: ตัวอักษรพิเศษ 75; อักษรพิเศษ 76 | 2 | 5 | 5 | 5 | 3 | ส่งมอบ Batch 17; Unicode styles, กรอบไทย, ค้นหาและ recent copy |
 | 6 | Typing Test | สูงในกลุ่ม feasible: Trends 69; พิมพ์ดีด 63 | 3 | 5 | 5 | 5 | 3 | ส่งมอบ Batch 16; ไทย/อังกฤษ, timer, WPM/CPM/accuracy และ grapheme segmentation |
 | 7 | QR Code Scanner | สูงในชุดไทยล่าสุด: สแกน QR Code 74 | 3 | 5 | 5 | 5 | 4 | ส่งมอบ Batch 18; รูป+กล้อง, client-only, แสดงโดเมนและไม่เปิดลิงก์อัตโนมัติ |
-| 8 | CSV Cleaner + Duplicate Finder | ต่ำในคำไทยชุดนี้: Trends 1–2 | 3 | 5 | 4 | 5 | 3 | Client-only และรองรับไฟล์ใหญ่แบบ Worker |
-| 9 | Workday Planner พร้อมวันหยุดไทย | ต่ำในชุดนี้: Trends 2 | 3 | 5 | 4 | 4 | 3 | ชุดข้อมูลวันหยุดแบบ versioned |
-| 10 | JSON / CSV Converter | ต้องวิจัยคำอังกฤษเพิ่ม | 2 | 4 | 4 | 5 | 2 | Client-only |
-| 11 | Thai ID Checksum Validator | สูงในชุดล่าสุด: เช็ค 25; intent กว้าง 44 | 2 | 4 | 4 | 3 | 2 | ส่งมอบ Batch 11; ตรวจ checksum เท่านั้น ไม่เชื่อมฐานรัฐ ไม่สร้างหรือบันทึกเลข |
-| 12 | Sign PDF | สูงใน intent เฉพาะ: เซ็น PDF 72 | 5 | 5 | 4 | 4 | 4 | ส่งมอบ Batch 14; วางรูปภาพลายเซ็นหลายหน้าแบบ client-only พร้อมคำเตือนเรื่อง certificate |
-| 13 | VAT Calculator | ต่ำ: Trends 3 ในชุดนี้ | 2 | 4 | 4 | 4 | 2 | ต้อง version อัตราและแยกรวม/ไม่รวม VAT |
-| 14 | PDF Organizer | สูง: ลบ 76, หมุน 34, แยก 22 | 4 | 5 | 4 | 4 | 3 | ส่งมอบ Batch 12; ลากเรียง หมุน และลบหน้าพร้อม preview ใน Browser |
-| 15 | Thai Number to Words / Baht Text | ต่ำ: Trends 0–1 | 2 | 4 | 3 | 4 | 3 | Client-only; เน้น edge case ล้านซ้อนและสตางค์ |
-| 16 | Markdown Preview + Export | ต้องวิจัยเพิ่ม | 3 | 4 | 4 | 4 | 3 | sanitize HTML และ export |
-| 17 | Quotation Generator | สูง: ใบเสนอราคา 81 | 4 | 5 | 5 | 5 | 3 | ส่งมอบ Batch 13; Template + PDF ภาษาไทย พร้อมระบุว่าไม่ใช่ใบกำกับภาษีหรือหลักฐานรับเงิน |
-| 18 | Favicon / PWA Icon Generator | ต่ำในชุดล่าสุด: Trends 0 | 3 | 4 | 4 | 4 | 3 | Client-only |
-| 19 | EXIF Viewer / Remover | ต่ำในชุดล่าสุด: Trends 0 | 3 | 4 | 4 | 4 | 4 | Client-only และเน้น Privacy |
-| 20 | Overtime Estimator | ต่ำ: Trends 0–1 | 4 | 4 | 4 | 4 | 3 | ต้องอ้างกฎหมายแรงงานและรองรับหลายเงื่อนไข |
+| 8 | Image to Text OCR | สูงในชุดล่าสุด: ไทย 52; อังกฤษ 56 | 5 | 5 | 5 | 5 | 4 | ส่งมอบ Batch 19; OCR ไทย/อังกฤษแบบ self-host, lazy Worker และตรวจแก้ผลลัพธ์ได้ |
+| 9 | CSV Cleaner + Duplicate Finder | ต่ำในคำไทยชุดนี้: Trends 1–2 | 3 | 5 | 4 | 5 | 3 | Client-only และรองรับไฟล์ใหญ่แบบ Worker |
+| 10 | Workday Planner พร้อมวันหยุดไทย | ต่ำในชุดนี้: Trends 2 | 3 | 5 | 4 | 4 | 3 | ชุดข้อมูลวันหยุดแบบ versioned |
+| 11 | JSON / CSV Converter | ต้องวิจัยคำอังกฤษเพิ่ม | 2 | 4 | 4 | 5 | 2 | Client-only |
+| 12 | Thai ID Checksum Validator | สูงในชุดล่าสุด: เช็ค 25; intent กว้าง 44 | 2 | 4 | 4 | 3 | 2 | ส่งมอบ Batch 11; ตรวจ checksum เท่านั้น ไม่เชื่อมฐานรัฐ ไม่สร้างหรือบันทึกเลข |
+| 13 | Sign PDF | สูงใน intent เฉพาะ: เซ็น PDF 72 | 5 | 5 | 4 | 4 | 4 | ส่งมอบ Batch 14; วางรูปภาพลายเซ็นหลายหน้าแบบ client-only พร้อมคำเตือนเรื่อง certificate |
+| 14 | VAT Calculator | ต่ำ: Trends 3 ในชุดนี้ | 2 | 4 | 4 | 4 | 2 | ต้อง version อัตราและแยกรวม/ไม่รวม VAT |
+| 15 | PDF Organizer | สูง: ลบ 76, หมุน 34, แยก 22 | 4 | 5 | 4 | 4 | 3 | ส่งมอบ Batch 12; ลากเรียง หมุน และลบหน้าพร้อม preview ใน Browser |
+| 16 | Thai Number to Words / Baht Text | ต่ำ: Trends 0–1 | 2 | 4 | 3 | 4 | 3 | Client-only; เน้น edge case ล้านซ้อนและสตางค์ |
+| 17 | Markdown Preview + Export | ต้องวิจัยเพิ่ม | 3 | 4 | 4 | 4 | 3 | sanitize HTML และ export |
+| 18 | Quotation Generator | สูง: ใบเสนอราคา 81 | 4 | 5 | 5 | 5 | 3 | ส่งมอบ Batch 13; Template + PDF ภาษาไทย พร้อมระบุว่าไม่ใช่ใบกำกับภาษีหรือหลักฐานรับเงิน |
+| 19 | Favicon / PWA Icon Generator | ต่ำในชุดล่าสุด: Trends 0 | 3 | 4 | 4 | 4 | 3 | Client-only |
+| 20 | EXIF Viewer / Remover | ต่ำในชุดล่าสุด: Trends 0 | 3 | 4 | 4 | 4 | 4 | Client-only และเน้น Privacy |
+| 21 | Overtime Estimator | ต่ำ: Trends 0–1 | 4 | 4 | 4 | 4 | 3 | ต้องอ้างกฎหมายแรงงานและรองรับหลายเงื่อนไข |
 
 ## ลำดับส่งมอบที่แนะนำ
 
@@ -119,7 +123,8 @@
 14. Batch 16 — Typing Test ภาษาไทย/อังกฤษ พร้อม timer, WPM, CPM, accuracy และสูตรโปร่งใส — ส่งมอบแล้ว
 15. Batch 17 — Special Characters & Fancy Text พร้อม Unicode styles, กรอบแต่งชื่อภาษาไทย, ค้นหาและคัดลอกสัญลักษณ์ — ส่งมอบแล้ว
 16. Batch 18 — QR Code Scanner จากรูปและกล้องแบบ client-only พร้อมแสดงโดเมนและไม่เปิดลิงก์อัตโนมัติ — ส่งมอบแล้ว
-17. Batch 19 — วิจัย Image Format Batch Converter, CSV Cleaner และเครื่องมือสำนักงานที่มี intent ใหม่ก่อนเลือกงานถัดไป
+17. Batch 19 — Image to Text OCR ไทย/อังกฤษแบบ client-only พร้อมแก้ไข คัดลอก ดาวน์โหลด และ resource limits — ส่งมอบแล้ว
+18. Batch 20 — วิจัย Image Format Batch Converter, เครื่องมือรูปติดบัตร และเครื่องมือสำนักงานที่มี intent ใหม่ก่อนเลือกงานถัดไป
 
 ทุก Batch ควรมี unit test ของสูตรหรือ parser, E2E อย่างน้อยหนึ่งเส้นทาง, ตรวจ keyboard/mobile และวัด Core Web Vitals ก่อนเปิด AdSense ใน production
 
