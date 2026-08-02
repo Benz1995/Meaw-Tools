@@ -17,6 +17,14 @@ Meaw Tools uses the following third-party software and model for the client-side
 
 The full license texts and package notices remain available from their respective upstream projects and installed packages.
 
+## QR Code decoder
+
+- `jsQR` 1.4.0 — Apache License 2.0
+  - Source: https://github.com/cozmo/jsQR
+  - License: https://github.com/cozmo/jsQR/blob/master/LICENSE
+
+The QR Code Scanner loads this decoder only when the user starts scanning. Image and camera pixels remain in the browser and are not sent to the upstream project.
+
 ## HEIC decoder
 
 The HEIC to JPG tool distributes an unmodified WebAssembly decoder as a

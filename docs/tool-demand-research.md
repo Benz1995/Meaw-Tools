@@ -158,3 +158,23 @@ Related Queries ระบุ intent ที่ทำเป็น action ได้
 
 - [Google Trends — อักษรพิเศษเทียบ Image, Emoji, QR และ CSV](https://trends.google.com/trends/explore?date=today%2012-m&geo=TH&q=jpg%20to%20png,emoji%20copy,%E0%B8%95%E0%B8%B1%E0%B8%A7%E0%B8%AD%E0%B8%B1%E0%B8%81%E0%B8%A9%E0%B8%A3%E0%B8%9E%E0%B8%B4%E0%B9%80%E0%B8%A8%E0%B8%A9,qr%20code%20scanner,csv%20cleaner)
 - [Google Trends — เจาะคำค้นอักษรและสัญลักษณ์พิเศษ](https://trends.google.com/trends/explore?date=today%2012-m&geo=TH&q=%E0%B8%95%E0%B8%B1%E0%B8%A7%E0%B8%AD%E0%B8%B1%E0%B8%81%E0%B8%A9%E0%B8%A3%E0%B8%9E%E0%B8%B4%E0%B9%80%E0%B8%A8%E0%B8%A9,%E0%B8%9F%E0%B8%AD%E0%B8%99%E0%B8%95%E0%B9%8C%E0%B8%95%E0%B8%B1%E0%B8%A7%E0%B8%AD%E0%B8%B1%E0%B8%81%E0%B8%A9%E0%B8%A3%E0%B8%9E%E0%B8%B4%E0%B9%80%E0%B8%A8%E0%B8%A9,%E0%B8%AA%E0%B8%B1%E0%B8%8D%E0%B8%A5%E0%B8%B1%E0%B8%81%E0%B8%A9%E0%B8%93%E0%B9%8C%E0%B8%9E%E0%B8%B4%E0%B9%80%E0%B8%A8%E0%B8%A9,%E0%B8%AD%E0%B8%B1%E0%B8%81%E0%B8%A9%E0%B8%A3%E0%B8%9E%E0%B8%B4%E0%B9%80%E0%B8%A8%E0%B8%A9,%E0%B8%95%E0%B8%B1%E0%B8%A7%E0%B8%AD%E0%B8%B1%E0%B8%81%E0%B8%A9%E0%B8%A3%E0%B8%9E%E0%B8%B4%E0%B9%80%E0%B8%A8%E0%B8%A9%E0%B8%A0%E0%B8%B2%E0%B8%A9%E0%B8%B2%E0%B8%AD%E0%B8%B1%E0%B8%87%E0%B8%81%E0%B8%A4%E0%B8%A9)
+
+## รอบที่ 9 — QR Code Scanner เทียบเครื่องมือแปลงรูป
+
+สำรวจเมื่อ 3 สิงหาคม 2026 ใน Google Trends ประเทศไทย ช่วง 12 เดือนล่าสุด ประเภท Web Search ชุดคำไทยให้ค่าเฉลี่ยดังนี้:
+
+| คำค้น | ค่าเฉลี่ย |
+|---|---:|
+| สแกน qr code | 74 |
+| แปลงรูปเป็น jpg | 42 |
+| แปลง jpg เป็น png | 41 |
+| ลดขนาดรูป | 26 |
+| อ่าน qr code | 12 |
+
+ชุดภาษาอังกฤษ/คำเครื่องมือพบ `jpg to png` 64, `resize image` 44, `webp to jpg` 42, `qr scanner` 29 และ `qr code scanner` 16 ในชุดเดียวกัน ส่วนชุดเจาะ intent พบ `qr code reader` 14 และ Related Queries ของคำนี้มี `qr code reader for pc` เป็น Breakout กับ `qr code reader from image` เพิ่ม 350% คำยาวอย่าง `qr code scanner online` และคำไทย “จากรูป” มีข้อมูลน้อย จึงไม่ตีความว่าไม่มีความต้องการ
+
+ตัดสินใจส่งมอบ QR Code Scanner เพราะมีสัญญาณภาษาไทยสูง มี action ใหม่จาก QR Generator ที่มีอยู่ และทำแบบฟรี client-only ได้จริง ขอบเขตคืออ่าน PNG/JPG/WebP ไม่เกิน 10 MB หรือกล้อง โหลด decoder เมื่อเริ่มใช้ หยุดกล้องเมื่ออ่านสำเร็จ ไม่เปิด URL อัตโนมัติ และแสดง hostname ก่อนให้ผู้ใช้เปิดเอง ทั้งนี้ Google Trends เป็นดัชนีสัมพัทธ์ ไม่ใช่จำนวนค้นหาจริง
+
+- [Google Trends — JPG, WebP, QR Scanner และ Resize Image](https://trends.google.com/trends/explore?date=today%2012-m&geo=TH&q=jpg%20to%20png,webp%20to%20jpg,qr%20code%20scanner,qr%20scanner,resize%20image)
+- [Google Trends — คำไทยแปลงรูปและสแกน QR](https://trends.google.com/trends/explore?date=today%2012-m&geo=TH&q=%E0%B9%81%E0%B8%9B%E0%B8%A5%E0%B8%87%20jpg%20%E0%B9%80%E0%B8%9B%E0%B9%87%E0%B8%99%20png,%E0%B9%81%E0%B8%9B%E0%B8%A5%E0%B8%87%E0%B8%A3%E0%B8%B9%E0%B8%9B%E0%B9%80%E0%B8%9B%E0%B9%87%E0%B8%99%20jpg,%E0%B8%A5%E0%B8%94%E0%B8%82%E0%B8%99%E0%B8%B2%E0%B8%94%E0%B8%A3%E0%B8%B9%E0%B8%9B,%E0%B8%AA%E0%B9%81%E0%B8%81%E0%B8%99%20qr%20code,%E0%B8%AD%E0%B9%88%E0%B8%B2%E0%B8%99%20qr%20code)
+- [Google Trends — QR Reader Online และจากรูป](https://trends.google.com/trends/explore?date=today%2012-m&geo=TH&q=qr%20code%20reader,qr%20code%20scanner%20online,scan%20qr%20code%20online,%E0%B8%AA%E0%B9%81%E0%B8%81%E0%B8%99%20qr%20code%20%E0%B8%88%E0%B8%B2%E0%B8%81%E0%B8%A3%E0%B8%B9%E0%B8%9B,%E0%B8%AD%E0%B9%88%E0%B8%B2%E0%B8%99%20qr%20code%20%E0%B8%88%E0%B8%B2%E0%B8%81%E0%B8%A3%E0%B8%B9%E0%B8%9B)

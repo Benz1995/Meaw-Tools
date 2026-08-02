@@ -26,6 +26,7 @@ const toolRoutes = [
   ["date-calculator", "Date Calculator"],
   ["jpg-to-pdf", "JPG to PDF Converter"],
   ["qr-code-generator", "QR Code Generator"],
+  ["qr-code-scanner", "QR Code Scanner"],
   ["age-calculator", "Age Calculator"],
   ["loan-calculator", "Loan Calculator"],
   ["thai-income-tax-calculator", "Thai Income Tax Calculator"],
@@ -198,7 +199,7 @@ test("category tags navigate to a category page", async ({ page }) => {
   await page.getByRole("link", { name: "ดูหมวดรูปภาพและ PDF" }).click();
   await expect(page).toHaveURL(/\/categories\/media$/);
   await expect(page.getByRole("heading", { level: 1, name: "รูปภาพและ PDF" })).toBeVisible();
-  await expect(page.getByRole("link", { name: /เปิดเครื่องมือ/ })).toHaveCount(11);
+  await expect(page.getByRole("link", { name: /เปิดเครื่องมือ/ })).toHaveCount(12);
 });
 
 test("cat walker can be disabled and remembers the preference", async ({ page }) => {
@@ -223,6 +224,39 @@ test("age calculator and QR generator produce results", async ({ page }) => {
   await page.getByRole("button", { name: "สร้าง QR Code" }).click();
   await expect(page.getByAltText("QR Code ที่สร้างแล้ว")).toBeVisible();
   await expect(page.getByRole("link", { name: "PNG", exact: true })).toBeVisible();
+});
+
+test("QR scanner reads a local sample without opening the result automatically", async ({ page, context }) => {
+  await context.grantPermissions(["clipboard-read", "clipboard-write"], { origin: "http://127.0.0.1:3100" });
+  await page.goto("/qr-code-scanner");
+  await expect(page.getByRole("heading", { level: 1, name: "QR Code Scanner" })).toBeVisible();
+  await expect(page.locator("#qr-image-file")).toBeVisible();
+
+  const layout = await page.evaluate(() => {
+    const label = document.querySelector<HTMLLabelElement>('label[for="qr-image-file"]');
+    const input = document.querySelector<HTMLInputElement>("#qr-image-file");
+    const labelBox = label?.getBoundingClientRect();
+    const inputBox = input?.getBoundingClientRect();
+    return {
+      labelGap: labelBox && inputBox ? Math.round(inputBox.top - labelBox.bottom) : 0,
+      hasHorizontalOverflow: document.documentElement.scrollWidth > document.documentElement.clientWidth,
+    };
+  });
+  expect(layout.labelGap).toBeGreaterThanOrEqual(10);
+  expect(layout.hasHorizontalOverflow).toBe(false);
+
+  await page.getByRole("button", { name: "โหลดตัวอย่าง" }).click();
+  const result = page.getByTestId("qr-scan-result");
+  await expect(result).toContainText("https://meaw-tools.vercel.app");
+  await expect(result).toContainText("ลิงก์เว็บไซต์");
+  await expect(result.getByRole("link", { name: "เปิด meaw-tools.vercel.app" })).toBeVisible();
+  await expect(page).toHaveURL(/\/qr-code-scanner$/);
+
+  await result.getByRole("button", { name: "คัดลอกผลลัพธ์" }).click();
+  expect(await page.evaluate(() => navigator.clipboard.readText())).toBe("https://meaw-tools.vercel.app");
+
+  await page.getByRole("button", { name: "ใช้กล้อง" }).click();
+  await expect(page.getByRole("button", { name: "เปิดกล้องเพื่อสแกน" })).toBeVisible();
 });
 
 test("JPG to PDF creates a downloadable PDF", async ({ page }) => {
