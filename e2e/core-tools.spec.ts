@@ -26,6 +26,7 @@ const toolRoutes = [
   ["thai-income-tax-calculator", "Thai Income Tax Calculator"],
   ["salary-calculator", "Salary & Payslip Calculator"],
   ["social-security-pension-calculator", "Social Security Pension Calculator"],
+  ["thai-id-validator", "Thai ID Checksum Validator"],
   ["bmi-calculator", "BMI Calculator"],
   ["profit-margin-calculator", "Profit & Margin Calculator"],
   ["png-to-jpg", "PNG to JPG Converter"],
@@ -276,6 +277,42 @@ test("social security pension calculator explains the current FAE estimate and e
   await expect(page.getByTestId("sso-pension-eligibility")).toContainText("ครบเงื่อนไขหลัก");
   await expect(page.getByText("20% พื้นฐาน + (5 ปีเต็ม × 1.5%)", { exact: false })).toBeVisible();
   await expect(page.getByText(/ยังไม่ใช้ CARE/)).toBeVisible();
+});
+
+test("Thai ID validator checks only local structure without exposing the value", async ({ page }) => {
+  await page.goto("/thai-id-validator");
+  const input = page.getByLabel("เลขประจำตัวประชาชน 13 หลัก");
+  await expect(input).toBeVisible();
+  const layout = await page.evaluate(() => {
+    const field = document.querySelector<HTMLInputElement>("#thai-id-number");
+    const label = document.querySelector<HTMLLabelElement>('label[for="thai-id-number"]');
+    if (!field || !label) throw new Error("Thai ID field layout is missing");
+    const fieldRect = field.getBoundingClientRect();
+    const labelRect = label.getBoundingClientRect();
+    return {
+      labelGap: Math.round(fieldRect.top - labelRect.bottom),
+      hasHorizontalOverflow: document.documentElement.scrollWidth > document.documentElement.clientWidth,
+    };
+  });
+  expect(layout.labelGap).toBeGreaterThanOrEqual(10);
+  expect(layout.hasHorizontalOverflow).toBe(false);
+  await expect(input).toHaveAttribute("type", "password");
+  await expect(input).toHaveAttribute("autocomplete", "off");
+  await input.fill("1234567890121");
+  await page.getByRole("button", { name: "ตรวจ checksum" }).click();
+  const result = page.getByTestId("thai-id-validation-result");
+  await expect(result).toContainText("checksum สอดคล้องตามสูตร");
+  await expect(result).toContainText("ไม่ได้ยืนยันบุคคล");
+  await expect(result).not.toContainText("1234567890121");
+
+  await page.getByRole("button", { name: "แสดงเลขประจำตัวประชาชน" }).click();
+  await expect(input).toHaveAttribute("type", "text");
+  await page.getByRole("button", { name: "ซ่อนเลขประจำตัวประชาชน" }).click();
+  await expect(input).toHaveAttribute("type", "password");
+
+  await input.fill("1234567890120");
+  await page.getByRole("button", { name: "ตรวจ checksum" }).click();
+  await expect(page.getByTestId("thai-id-validation-result")).toContainText("เลขตรวจสอบไม่สอดคล้อง");
 });
 
 test("PDF tools convert, merge, and split files locally", async ({ page }) => {
