@@ -31,6 +31,7 @@ const toolRoutes = [
   ["thai-id-validator", "Thai ID Checksum Validator"],
   ["bmi-calculator", "BMI Calculator"],
   ["profit-margin-calculator", "Profit & Margin Calculator"],
+  ["quotation-generator", "Quotation Generator"],
   ["png-to-jpg", "PNG to JPG Converter"],
   ["image-compressor", "Image Compressor & Resizer"],
   ["background-remover", "AI Background Remover"],
@@ -270,6 +271,42 @@ test("salary calculator checks monthly income and payslip deductions", async ({ 
   await expect(page.getByRole("heading", { name: "รายละเอียดรายรับ" })).toBeVisible();
   await expect(page.getByRole("heading", { name: "รายละเอียดรายการหัก" })).toBeVisible();
   await expect(page.getByText("฿33,500 − ฿2,575 = ฿30,925", { exact: true })).toBeVisible();
+});
+
+test("quotation generator previews totals and exports a valid Thai PDF", async ({ page }) => {
+  await page.goto("/quotation-generator");
+  await page.getByRole("button", { name: "โหลดตัวอย่าง" }).click();
+  await expect(page.getByTestId("quotation-line-item")).toHaveCount(3);
+  await expect(page.getByTestId("quotation-total")).toContainText("41,195.00");
+  await expect(page.getByRole("article", { name: "ตัวอย่างใบเสนอราคา" })).toContainText("ร้านกาแฟฮานะ");
+  await expect(page.getByRole("article", { name: "ตัวอย่างใบเสนอราคา" })).toContainText("สี่หมื่นหนึ่งพันหนึ่งร้อยเก้าสิบห้าบาทถ้วน");
+
+  const layout = await page.evaluate(() => {
+    const field = document.querySelector<HTMLInputElement>("#seller-name");
+    const label = document.querySelector<HTMLLabelElement>('label[for="seller-name"]');
+    if (!field || !label) throw new Error("Quotation seller field layout is missing");
+    const fieldRect = field.getBoundingClientRect();
+    const labelRect = label.getBoundingClientRect();
+    return {
+      labelGap: Math.round(fieldRect.top - labelRect.bottom),
+      hasHorizontalOverflow: document.documentElement.scrollWidth > document.documentElement.clientWidth,
+    };
+  });
+  expect(layout.labelGap).toBeGreaterThanOrEqual(10);
+  expect(layout.hasHorizontalOverflow).toBe(false);
+
+  const quoteNumber = await page.getByLabel("เลขที่ใบเสนอราคา").inputValue();
+  const downloadPromise = page.waitForEvent("download");
+  await page.getByRole("button", { name: "สร้างและดาวน์โหลด PDF" }).click();
+  const download = await downloadPromise;
+  expect(download.suggestedFilename()).toBe(`quotation-${quoteNumber}.pdf`);
+  await expect(page.getByTestId("quotation-output")).toContainText("สร้างใบเสนอราคา PDF สำเร็จ");
+
+  const downloadPath = await download.path();
+  expect(downloadPath).not.toBeNull();
+  const outputDocument = await PDFDocument.load(await readFile(downloadPath!));
+  expect(outputDocument.getPageCount()).toBe(1);
+  expect(outputDocument.getPage(0).getSize()).toEqual({ width: 595.28, height: 841.89 });
 });
 
 test("social security pension calculator explains the current FAE estimate and eligibility", async ({ page }) => {

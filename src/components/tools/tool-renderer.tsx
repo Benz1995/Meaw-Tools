@@ -32,6 +32,7 @@ const components = {
   "thai-id-validator": dynamic(() => import("@/features/tools/thai-id-validator-tool").then((module) => module.ThaiIdValidatorTool), { loading, ssr: false }),
   "bmi-calculator": dynamic(() => import("@/features/tools/bmi-calculator-tool").then((module) => module.BmiCalculatorTool), { loading, ssr: false }),
   "profit-margin-calculator": dynamic(() => import("@/features/tools/finance-calculator-tools").then((module) => module.ProfitMarginCalculatorTool), { loading, ssr: false }),
+  "quotation-generator": dynamic(() => import("@/features/tools/quotation-generator-tool").then((module) => module.QuotationGeneratorTool), { loading, ssr: false }),
   "png-to-jpg": dynamic(() => import("@/features/tools/image-processing-tools").then((module) => module.PngToJpgTool), { loading, ssr: false }),
   "background-remover": dynamic(() => import("@/features/tools/background-remover-tool").then((module) => module.BackgroundRemoverTool), { loading, ssr: false }),
   "image-compressor": dynamic(() => import("@/features/tools/image-processing-tools").then((module) => module.ImageCompressorTool), { loading, ssr: false }),
