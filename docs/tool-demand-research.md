@@ -120,3 +120,22 @@
 ข้อจำกัดที่เปิดเผยใน UI คือโมเดลขนาดเล็กอาจพลาดขอบผม ขน เงา กระจก วัตถุโปร่งใส และฉากซับซ้อน เครื่องมือนี้จึงให้ผู้ใช้ตรวจผลบนพื้นโปร่งใส ขาว และชมพูก่อนดาวน์โหลด ไม่กล่าวอ้างว่าแม่นยำทุกภาพ
 
 ลิงก์ชุดเปรียบเทียบ: [Google Trends ประเทศไทย — วงล้อสุ่ม, ลบพื้นหลัง, OCR, รูปติดบัตร และครอปรูป](https://trends.google.com/trends/explore?geo=TH&date=today%2012-m&q=%E0%B8%A7%E0%B8%87%E0%B8%A5%E0%B9%89%E0%B8%AD%E0%B8%AA%E0%B8%B8%E0%B9%88%E0%B8%A1,%E0%B8%A5%E0%B8%9A%E0%B8%9E%E0%B8%B7%E0%B9%89%E0%B8%99%E0%B8%AB%E0%B8%A5%E0%B8%B1%E0%B8%87,%E0%B9%81%E0%B8%9B%E0%B8%A5%E0%B8%87%E0%B8%A3%E0%B8%B9%E0%B8%9B%E0%B9%80%E0%B8%9B%E0%B9%87%E0%B8%99%E0%B8%82%E0%B9%89%E0%B8%AD%E0%B8%84%E0%B8%A7%E0%B8%B2%E0%B8%A1,%E0%B8%97%E0%B8%B3%E0%B8%A3%E0%B8%B9%E0%B8%9B%E0%B8%95%E0%B8%B4%E0%B8%94%E0%B8%9A%E0%B8%B1%E0%B8%95%E0%B8%A3,%E0%B8%84%E0%B8%A3%E0%B8%AD%E0%B8%9B%E0%B8%A3%E0%B8%B9%E0%B8%9B)
+
+## รอบที่ 7 — Typing Test และเครื่องมือที่ทำได้จริงใน Browser
+
+สำรวจเมื่อ 3 สิงหาคม 2026 ใน Google Trends ประเทศไทย ช่วง 12 เดือนล่าสุด ประเภท Web Search โดยเริ่มจาก candidate ข้ามสายงาน:
+
+| คำค้น | ค่าเฉลี่ย |
+|---|---:|
+| typing test | 69 |
+| jpg to png | 32 |
+| webp to jpg | 21 |
+| qr code scanner | 8 |
+| pomodoro timer | 1 |
+
+เมื่อเจาะ intent การฝึกพิมพ์ภาษาไทย พบ `พิมพ์ดีด` 63, `ฝึกพิมพ์` 39, `พิมพ์สัมผัส` 12, `เกมพิมพ์ดีด` 5 และ `ฝึกพิมพ์ภาษาไทย` 4 ในชุดเดียวกัน ส่วนชุดอังกฤษ/ไทยพบ `ฝึกพิมพ์ดีด` 56 และ `typing test` 44 สูงกว่าคำเฉพาะอย่าง `typing speed test` 1 และ `wpm test` 0
+
+จึงส่งมอบ Typing Test ภาษาไทย/อังกฤษก่อนเครื่องมือแปลง Word/PDF แม้ `word to pdf` และ `pdf to word` มีค่าเฉลี่ย 28 และ 27 ในชุดเอกสาร เพราะการแปลงไฟล์ Office ให้คง layout, ฟอนต์, ตาราง และองค์ประกอบทุกชนิดอย่างน่าเชื่อถือยังทำแบบ client-only ได้ไม่สม่ำเสมอ เครื่องมือ Typing Test ใช้ grapheme segmentation สำหรับสระ/วรรณยุกต์ไทย แสดงสูตร WPM/CPM อย่างโปร่งใส และไม่เก็บข้อความหรือผลทดสอบ
+
+- [Google Trends — Typing Test, JPG/PNG, WebP, Pomodoro และ QR Scanner](https://trends.google.com/trends/explore?date=today%2012-m&geo=TH&q=webp%20to%20jpg,jpg%20to%20png,typing%20test,pomodoro%20timer,qr%20code%20scanner)
+- [Google Trends — คำค้นการฝึกพิมพ์ภาษาไทย](https://trends.google.com/trends/explore?date=today%2012-m&geo=TH&q=%E0%B8%9E%E0%B8%B4%E0%B8%A1%E0%B8%9E%E0%B9%8C%E0%B8%94%E0%B8%B5%E0%B8%94,%E0%B8%9D%E0%B8%B6%E0%B8%81%E0%B8%9E%E0%B8%B4%E0%B8%A1%E0%B8%9E%E0%B9%8C,%E0%B8%9E%E0%B8%B4%E0%B8%A1%E0%B8%9E%E0%B9%8C%E0%B8%AA%E0%B8%B1%E0%B8%A1%E0%B8%9C%E0%B8%B1%E0%B8%AA,%E0%B8%9D%E0%B8%B6%E0%B8%81%E0%B8%9E%E0%B8%B4%E0%B8%A1%E0%B8%9E%E0%B9%8C%E0%B8%A0%E0%B8%B2%E0%B8%A9%E0%B8%B2%E0%B9%84%E0%B8%97%E0%B8%A2,%E0%B9%80%E0%B8%81%E0%B8%A1%E0%B8%9E%E0%B8%B4%E0%B8%A1%E0%B8%9E%E0%B9%8C%E0%B8%94%E0%B8%B5%E0%B8%94)

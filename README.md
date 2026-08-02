@@ -6,7 +6,7 @@
 
 - Next.js 16 App Router, React 19, TypeScript strict และ Tailwind CSS 4
 - shadcn/ui + Radix, Noto Sans Thai, JetBrains Mono และ dark mode
-- เครื่องมือ 42 รายการ พร้อม validation, empty/error state, clear และ action ที่เหมาะกับแต่ละงาน
+- เครื่องมือ 43 รายการ พร้อม validation, empty/error state, clear และ action ที่เหมาะกับแต่ละงาน
 - กลุ่มงานทั่วไป: นับคำ จัดระเบียบข้อความ คำนวณเปอร์เซ็นต์ แปลงหน่วย และคำนวณวัน
 - JPG to PDF, QR Code Generator และ Age Calculator ประมวลผลภายใน Browser
 - Loan Calculator, BMI Calculator และ Profit & Margin Calculator พร้อมสูตรและข้อจำกัดที่ตรวจสอบได้
@@ -14,6 +14,7 @@
 - Thai Income Tax, Salary/Payslip Checker และ Social Security Pension Calculator ใช้สูตรแบบ versioned พร้อมแหล่งราชการ
 - Thai ID Checksum Validator ตรวจเฉพาะโครงสร้างใน Browser ซ่อนค่าที่กรอก และไม่อ้างว่าเชื่อมฐานข้อมูลรัฐ
 - HEIC to JPG, PNG to JPG และ Image Compressor & Resizer แปลงและย่อรูปใน Browser โดยโหลด codec หนักเมื่อเริ่มใช้เท่านั้น
+- Typing Test รองรับข้อความฝึกภาษาไทย/อังกฤษ พร้อม WPM, CPM, accuracy และการแบ่งอักขระผสมภาษาไทย
 - Color Picker/Contrast, Password Generator และ Random Number Generator ใช้สูตรที่ทดสอบได้และ Web Crypto
 - PDF to JPG, Merge PDF, Split PDF, PDF Organizer และ Sign PDF ใช้ PDF.js, pdf-lib และ ZIP ภายใน Browser โดยไม่อัปโหลดเอกสาร
 - หน้า `/categories` และหน้า Tag รายหมวด พร้อมจำนวนเครื่องมือ metadata และ sitemap

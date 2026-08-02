@@ -19,6 +19,7 @@ const toolRoutes = [
   ["hash-generator", "Hash Generator"],
   ["word-counter", "Word Counter"],
   ["text-cleaner", "Text Cleaner"],
+  ["typing-test", "Typing Test"],
   ["percentage-calculator", "Percentage Calculator"],
   ["unit-converter", "Unit Converter"],
   ["date-calculator", "Date Calculator"],
@@ -118,6 +119,39 @@ test("word counter and percentage calculator produce useful results", async ({ p
   await page.getByLabel("จำนวนทั้งหมด").fill("200");
   await page.getByRole("button", { name: "คำนวณเปอร์เซ็นต์" }).click();
   await expect(page.getByTestId("percentage-result")).toHaveText("30");
+});
+
+test("typing test measures Thai graphemes and switches to English", async ({ page }) => {
+  await page.goto("/typing-test");
+  await expect(page.getByRole("heading", { level: 1, name: "Typing Test" })).toBeVisible();
+  await expect(page.getByText("60 วินาที", { exact: true })).toBeVisible();
+
+  const layout = await page.evaluate(() => {
+    const label = document.querySelector<HTMLLabelElement>('label[for="typing-input"]');
+    const input = document.querySelector<HTMLTextAreaElement>("#typing-input");
+    const labelBox = label?.getBoundingClientRect();
+    const inputBox = input?.getBoundingClientRect();
+    return {
+      labelGap: labelBox && inputBox ? Math.round(inputBox.top - labelBox.bottom) : 0,
+      hasHorizontalOverflow: document.documentElement.scrollWidth > document.documentElement.clientWidth,
+    };
+  });
+  expect(layout.labelGap).toBeGreaterThanOrEqual(10);
+  expect(layout.hasHorizontalOverflow).toBe(false);
+
+  await page.getByRole("textbox", { name: "พิมพ์ข้อความตามด้านบน" }).fill("เช้าวันนี้ทีม");
+  await expect(page.getByText("กำลังทดสอบ", { exact: true })).toBeVisible();
+  await page.waitForTimeout(1_100);
+  await page.getByRole("button", { name: "จบการทดสอบ" }).click();
+  await expect(page.getByTestId("typing-result")).toContainText("ผลทดสอบ:");
+  await expect(page.getByRole("heading", { name: /ผลทดสอบ: [1-9]\d* WPM/ })).toBeVisible();
+  await expect(page.getByTestId("typing-result")).toContainText("ความแม่นยำ 100.0%");
+  await expect(page.getByTestId("typing-live-metrics")).toContainText("ผิดตำแหน่ง");
+
+  await page.getByRole("combobox", { name: "ภาษา" }).click();
+  await page.getByRole("option", { name: "English" }).click();
+  await expect(page.getByTestId("typing-target")).toContainText("A productive day begins");
+  await expect(page.getByRole("textbox", { name: "พิมพ์ข้อความตามด้านบน" })).toBeEnabled();
 });
 
 test("category tags navigate to a category page", async ({ page }) => {
