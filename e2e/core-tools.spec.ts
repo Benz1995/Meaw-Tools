@@ -43,6 +43,7 @@ const toolRoutes = [
   ["merge-pdf", "Merge PDF"],
   ["split-pdf", "Split PDF"],
   ["pdf-organizer", "PDF Organizer"],
+  ["sign-pdf", "Sign PDF"],
 ] as const;
 
 test("formats and clears JSON", async ({ page }) => {
@@ -123,7 +124,7 @@ test("category tags navigate to a category page", async ({ page }) => {
   await page.getByRole("link", { name: "ดูหมวดรูปภาพและ PDF" }).click();
   await expect(page).toHaveURL(/\/categories\/media$/);
   await expect(page.getByRole("heading", { level: 1, name: "รูปภาพและ PDF" })).toBeVisible();
-  await expect(page.getByRole("link", { name: /เปิดเครื่องมือ/ })).toHaveCount(9);
+  await expect(page.getByRole("link", { name: /เปิดเครื่องมือ/ })).toHaveCount(10);
 });
 
 test("cat walker can be disabled and remembers the preference", async ({ page }) => {
@@ -412,6 +413,45 @@ test("PDF organizer deletes, rotates, reorders, and exports a valid PDF", async 
   expect(outputDocument.getPageCount()).toBe(4);
   expect(outputDocument.getPage(0).getRotation().angle).toBe(90);
   expect(outputDocument.getPages().map((pdfPage) => pdfPage.getWidth())).toEqual([595, 615, 635, 625]);
+});
+
+test("Sign PDF places a signature on normal and rotated pages and exports a valid PDF", async ({ page }) => {
+  await page.goto("/sign-pdf");
+  await page.getByRole("button", { name: "โหลดตัวอย่าง" }).click();
+  await expect(page.getByText("meaw-sign-pdf-sample.pdf")).toBeVisible();
+  await expect(page.getByTestId("signature-placement")).toHaveCount(1);
+  await expect(page.getByTestId("sign-pdf-placement-pages")).toContainText("หน้า 1 (1)");
+
+  const layout = await page.evaluate(() => {
+    const label = document.querySelector<HTMLLabelElement>('label[for="sign-pdf-file"]');
+    const input = document.querySelector<HTMLInputElement>("#sign-pdf-file");
+    const labelBox = label?.getBoundingClientRect();
+    const inputBox = input?.getBoundingClientRect();
+    return {
+      hasHorizontalOverflow: document.documentElement.scrollWidth > document.documentElement.clientWidth,
+      labelGap: labelBox && inputBox ? inputBox.top - labelBox.bottom : 0,
+    };
+  });
+  expect(layout.hasHorizontalOverflow).toBe(false);
+  expect(layout.labelGap).toBeGreaterThanOrEqual(10);
+
+  await page.getByRole("button", { name: "หน้าถัดไป" }).click();
+  await expect(page.getByAltText("ตัวอย่าง PDF หน้า 2")).toBeVisible();
+  await page.getByRole("button", { name: "วางลายเซ็นในหน้านี้" }).click();
+  await expect(page.getByTestId("signature-placement")).toHaveCount(1);
+  await expect(page.getByTestId("sign-pdf-placement-pages")).toContainText("หน้า 2 (1)");
+
+  const downloadPromise = page.waitForEvent("download");
+  await page.getByRole("button", { name: "เซ็นและดาวน์โหลด PDF" }).click();
+  const download = await downloadPromise;
+  expect(download.suggestedFilename()).toBe("meaw-sign-pdf-sample-signed.pdf");
+  await expect(page.getByTestId("sign-pdf-output")).toContainText("2 หน้า · 2 ตำแหน่ง");
+
+  const downloadPath = await download.path();
+  expect(downloadPath).not.toBeNull();
+  const outputDocument = await PDFDocument.load(await readFile(downloadPath!));
+  expect(outputDocument.getPageCount()).toBe(2);
+  expect(outputDocument.getPages().map((pdfPage) => pdfPage.getRotation().angle)).toEqual([0, 90]);
 });
 
 test("all tool routes render without browser errors", async ({ page }) => {
