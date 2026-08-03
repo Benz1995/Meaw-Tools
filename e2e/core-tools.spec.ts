@@ -22,6 +22,7 @@ const toolRoutes = [
   ["typing-test", "Typing Test"],
   ["special-characters", "Special Characters & Fancy Text"],
   ["text-to-speech", "Text to Speech Reader"],
+  ["grade-calculator", "Grade Calculator"],
   ["percentage-calculator", "Percentage Calculator"],
   ["unit-converter", "Unit Converter"],
   ["date-calculator", "Date Calculator"],
@@ -125,6 +126,58 @@ test("word counter and percentage calculator produce useful results", async ({ p
   await page.getByLabel("จำนวนทั้งหมด").fill("200");
   await page.getByRole("button", { name: "คำนวณเปอร์เซ็นต์" }).click();
   await expect(page.getByTestId("percentage-result")).toHaveText("30");
+});
+
+test("grade calculator weights course GPA and multi-term GPAX transparently", async ({ page }) => {
+  const requests: string[] = [];
+  const consoleErrors: string[] = [];
+  page.on("request", (request) => requests.push(request.url()));
+  page.on("console", (message) => {
+    if (message.type() === "error") consoleErrors.push(message.text());
+  });
+
+  await page.goto("/grade-calculator");
+  await expect(page.getByRole("heading", { level: 1, name: "Grade Calculator" })).toBeVisible();
+  await expect(page.getByText("สูตรโปร่งใส: หน่วยกิต × แต้มระดับคะแนน", { exact: true })).toBeVisible();
+
+  const initialLayout = await page.evaluate(() => {
+    const row = document.querySelector<HTMLElement>('[data-testid="grade-course-row"]');
+    const label = row?.querySelector<HTMLLabelElement>('label[for$="-credits"]');
+    const input = label?.htmlFor ? document.getElementById(label.htmlFor) : null;
+    const labelBox = label?.getBoundingClientRect();
+    const inputBox = input?.getBoundingClientRect();
+    return {
+      labelGap: labelBox && inputBox ? Math.round(inputBox.top - labelBox.bottom) : 0,
+      hasHorizontalOverflow: document.documentElement.scrollWidth > document.documentElement.clientWidth,
+    };
+  });
+  expect(initialLayout.labelGap).toBeGreaterThanOrEqual(10);
+  expect(initialLayout.hasHorizontalOverflow).toBe(false);
+
+  await page.getByRole("button", { name: "โหลดตัวอย่าง" }).click();
+  await expect(page.getByTestId("grade-course-row")).toHaveCount(7);
+  await page.getByRole("button", { name: "คำนวณ GPA" }).click();
+  const courseResult = page.getByTestId("course-gpa-result");
+  await expect(page.getByTestId("course-gpa-rounded")).toHaveText("2.37");
+  await expect(courseResult).toContainText("2.36");
+  await expect(courseResult).toContainText("45.00 ÷ 19 = 2.3684");
+  await expect(courseResult).toContainText("นับ 7 วิชา");
+
+  await page.getByRole("tab", { name: "หลายเทอม · GPAX" }).click();
+  await page.getByRole("button", { name: "โหลดตัวอย่าง" }).click();
+  await expect(page.getByTestId("gpax-term-row")).toHaveCount(4);
+  await page.getByRole("button", { name: "คำนวณ GPAX" }).click();
+  const gpaxResult = page.getByTestId("gpax-result");
+  await expect(page.getByTestId("gpax-rounded")).toHaveText("3.48");
+  await expect(gpaxResult).toContainText("271.25 ÷ 78 = 3.4776");
+  await expect(gpaxResult).toContainText("ผลหลายเทอมเป็นค่าประมาณ");
+
+  const finalLayout = await page.evaluate(() => ({
+    hasHorizontalOverflow: document.documentElement.scrollWidth > document.documentElement.clientWidth,
+  }));
+  expect(finalLayout.hasHorizontalOverflow).toBe(false);
+  expect(requests.some((url) => !url.startsWith("http://127.0.0.1:3100") && !url.startsWith("blob:") && !url.startsWith("data:"))).toBe(false);
+  expect(consoleErrors).toEqual([]);
 });
 
 test("typing test measures Thai graphemes and switches to English", async ({ page }) => {

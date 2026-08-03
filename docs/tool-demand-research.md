@@ -235,3 +235,29 @@ Batch 21 ส่งมอบช่องว่างที่เหลือเ�
 - [Google Autocomplete — คำนวณเกรด](https://suggestqueries.google.com/complete/search?client=firefox&hl=th&q=%E0%B8%84%E0%B8%B3%E0%B8%99%E0%B8%A7%E0%B8%93%E0%B9%80%E0%B8%81%E0%B8%A3%E0%B8%94)
 - [JsBarcode — รูปแบบและ API ที่รองรับ](https://github.com/lindell/JsBarcode)
 - [GS1 Thailand — สมัครและจัดการเลขหมาย GTIN](https://gs1th.org/get-a-barcode/)
+
+## รอบที่ 13 — Grade Calculator และ intent นักเรียน/นักศึกษา
+
+สำรวจต่อเมื่อ 3 สิงหาคม 2026 จากหลักฐาน Trends ชุดเดียวกับรอบ 11–12 ซึ่ง `คำนวณเกรด` มีค่าเฉลี่ย 37 และตรวจ Google Autocomplete ปัจจุบันซ้ำเพื่อแยกงานจริง:
+
+| คำตั้งต้น | คำแนะนำหลักที่พบ |
+|---|---|
+| คำนวณเกรด | เกรดเฉลี่ย, มหาลัย, 5 เทอม, GPAX, เกรดเฉลี่ยสะสม, 4 เทอม, เกรดรวม |
+| คำนวณเกรดเฉลี่ย | สะสม, มหาลัย, รวม, 2/4/5/6 เทอม, GPAX |
+| คำนวณ GPA | GPAX, มหาลัย, รายวิชา, 4/5/6 เทอม, รวม |
+| เครื่องคิดเลขค่าไฟ | ไม่มีคำแนะนำในรอบนี้ |
+| คำนวณโอที | 1.5 เท่า, รายวัน, วันหยุด, วันอาทิตย์, 2/3 เท่า, Excel |
+| csv to excel | converter, online, free, file, columns |
+
+Grade Calculator จึงมี intent ทั้งระดับรายวิชาและหลายภาคเรียนที่ทำฟรีใน Browser ได้ครบโดยไม่อาศัยข้อมูลกฎหมายหรือ API ภายนอก ส่วน Overtime มี long-tail จริงแต่ต้องตรวจฐานกฎหมายและประเภทการจ้างปัจจุบันก่อนจึงเลื่อนไปวิจัย Batch 24 ขณะที่ CSV to Excel เป็นผู้สมัคร low-risk อีกตัวที่ต้องเทียบ Trends ภาษาอังกฤษเพิ่ม
+
+ขอบเขตที่ส่งมอบมีสองโหมด: (1) GPA รายภาคจากหน่วยกิต × แต้ม A, B+, B, C+, C, D+, D, F โดย F นับแต้ม 0 และ W/S/U ไม่นับ และ (2) ประมาณ GPAX จาก GPA กับหน่วยกิตของ 2–20 ภาคเรียนแบบถ่วงน้ำหนัก ไม่ใช้ค่าเฉลี่ยธรรมดา คู่มือมหาวิทยาลัยแม่ฟ้าหลวงยืนยันสูตรคะแนนรวม ÷ หน่วยกิตรวมและตัวอย่าง 45 ÷ 19 = 2.36 ในเอกสาร รวมทั้งแสดง W/S/U ว่าไม่นำมาคำนวณ เครื่องมือแสดงค่าละเอียด ค่าปัด 2 ตำแหน่ง และค่าตัด 2 ตำแหน่งควบคู่กัน เพราะข้อกำหนดการแสดงผลอาจต่างกัน และระบุว่า GPAX จาก GPA รายเทอมเป็นเพียงค่าประมาณหากค่าต้นทางถูกปัดมาแล้ว
+
+Google Trends เป็นข้อมูลความสนใจสัมพัทธ์ที่ถูก normalize ไม่ใช่จำนวนค้นหารายเดือน จึงต้องติดตาม impressions, queries และ CTR จริงหลังเปิดตัวผ่าน Search Console ก่อนสรุปผลเชิงรายได้
+
+- [Google Autocomplete — คำนวณเกรด](https://suggestqueries.google.com/complete/search?client=firefox&hl=th&q=%E0%B8%84%E0%B8%B3%E0%B8%99%E0%B8%A7%E0%B8%93%E0%B9%80%E0%B8%81%E0%B8%A3%E0%B8%94)
+- [Google Autocomplete — คำนวณเกรดเฉลี่ย](https://suggestqueries.google.com/complete/search?client=firefox&hl=th&q=%E0%B8%84%E0%B8%B3%E0%B8%99%E0%B8%A7%E0%B8%93%E0%B9%80%E0%B8%81%E0%B8%A3%E0%B8%94%E0%B9%80%E0%B8%89%E0%B8%A5%E0%B8%B5%E0%B9%88%E0%B8%A2)
+- [Google Autocomplete — คำนวณ GPA](https://suggestqueries.google.com/complete/search?client=firefox&hl=th&q=%E0%B8%84%E0%B8%B3%E0%B8%99%E0%B8%A7%E0%B8%93%20GPA)
+- [Google Trends — ชุดเปรียบเทียบเครื่องมือสำนักงานประเทศไทย](https://trends.google.com/trends/explore?date=today%2012-m&geo=TH&q=%E0%B9%81%E0%B8%9B%E0%B8%A5%E0%B8%87%20jpg%20%E0%B9%80%E0%B8%9B%E0%B9%87%E0%B8%99%20png,%E0%B8%84%E0%B8%B3%E0%B8%99%E0%B8%A7%E0%B8%93%E0%B9%80%E0%B8%81%E0%B8%A3%E0%B8%94,%E0%B9%80%E0%B8%84%E0%B8%A3%E0%B8%B7%E0%B9%88%E0%B8%AD%E0%B8%87%E0%B8%84%E0%B8%B4%E0%B8%94%E0%B9%80%E0%B8%A5%E0%B8%82%E0%B8%84%E0%B9%88%E0%B8%B2%E0%B9%84%E0%B8%9F,%E0%B8%AA%E0%B8%A3%E0%B9%89%E0%B8%B2%E0%B8%87%E0%B8%9A%E0%B8%B2%E0%B8%A3%E0%B9%8C%E0%B9%82%E0%B8%84%E0%B9%89%E0%B8%94,%E0%B9%81%E0%B8%9B%E0%B8%A5%E0%B8%87%E0%B8%82%E0%B9%89%E0%B8%AD%E0%B8%84%E0%B8%A7%E0%B8%B2%E0%B8%A1%E0%B9%80%E0%B8%9B%E0%B9%87%E0%B8%99%E0%B9%80%E0%B8%AA%E0%B8%B5%E0%B8%A2%E0%B8%87)
+- [มหาวิทยาลัยแม่ฟ้าหลวง — วิธีคำนวณ GPA และ GPAX](https://reg.mfu.ac.th/backend/api/files/media_library/CAL_2022-09-07%2013%3A40%3A41.809577.pdf)
+- [Google Trends Help — ข้อมูล Trends เป็นค่าความสนใจสัมพัทธ์](https://support.google.com/trends/answer/4365533?hl=en)

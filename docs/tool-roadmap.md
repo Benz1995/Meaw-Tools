@@ -43,6 +43,7 @@
 | 35 | Text to Speech Reader | นักเรียน, นักเขียน, ผู้สูงอายุ, ผู้ใช้ทั่วไป | อ่านข้อความไทย/อังกฤษด้วยเสียงจาก Browser/OS พร้อมควบคุมความเร็วและพัก/อ่านต่อ | พร้อมใช้ |
 | 36 | JPG to PNG Batch Converter | ร้านค้าออนไลน์, Content, บุคคลทั่วไป | แปลง JPG/PNG/WebP หลายไฟล์เป็นรูปแบบเดียวกัน พร้อม ZIP และ resource limits | พร้อมใช้ |
 | 37 | Barcode Generator | ร้านค้า, คลังสินค้า, โลจิสติกส์, นักพัฒนา | สร้าง Code 128/EAN/UPC/ITF/Code 39 หลายรายการ พร้อม Check Digit และ PNG/SVG/ZIP | พร้อมใช้ |
+| 38 | Grade Calculator | นักเรียน, นักศึกษา, ผู้ปกครอง | คำนวณ GPA จากรายวิชาและประมาณ GPAX หลายเทอมแบบถ่วงหน่วยกิต พร้อมเทียบการปัด/ตัดทศนิยม | พร้อมใช้ |
 
 ## หลักฐาน Google Trends ประเทศไทย
 
@@ -81,6 +82,7 @@
 - รอบ Batch 20 กลุ่มรูปภาพ: `แปลง jpg เป็น png` 61, `แปลงรูปเป็น png` 21, `ทำรูปติดบัตร` 17, `ครอปรูป` 13 และ `ใส่ลายน้ำรูป` 0 ในชุดเดียวกัน
 - เทียบสำนักงานด้วย Anchor เดิม: `แปลงข้อความเป็นเสียง` 60, `แปลง jpg เป็น png` 55, `คำนวณเกรด` 37, `สร้างบาร์โค้ด` 37 และ `เครื่องคิดเลขค่าไฟ` 0 ส่วนชุดอังกฤษพบ `text to speech` 69 สูงกว่า `jpg to png` 35, `countdown timer` 13, `barcode generator` 8 และ `photo collage` 8
 - รอบ Batch 22 ใช้ค่า Trends เดิมที่ `สร้างบาร์โค้ด` และ `คำนวณเกรด` เสมอกัน 37 แล้วเจาะ Google Autocomplete เพิ่ม: Barcode แตก intent ไปยังฟรี, 13 หลัก, สินค้า, Excel, Code 128, ITF-14 และ SVG/vector ส่วน Grade เน้นเกรดเฉลี่ยรายเทอม/สะสม จึงส่งมอบ Barcode ก่อนเพราะครอบคลุมร้านค้า คลัง งานพิมพ์ และนักพัฒนาได้กว้างกว่า
+- รอบ Batch 23 เจาะ Autocomplete ซ้ำ พบ `คำนวณเกรด` แตกไปยังมหาลัย, GPAX, เกรดเฉลี่ยสะสม และ 4/5 เทอม ส่วน `คำนวณเกรดเฉลี่ย` แตกถึง 2/4/5/6 เทอมอย่างต่อเนื่อง ขณะที่ `เครื่องคิดเลขค่าไฟ` ไม่มีคำแนะนำ จึงส่งมอบ Grade Calculator สองโหมด โดยอ้างสูตรหน่วยกิต × แต้มเกรดจากคู่มือมหาวิทยาลัยและไม่อ้างว่าผลเป็นระเบียนทางการ
 - เจาะ intent เสียง: `อ่านข้อความ` 64, `text to speech` 43, `แปลงข้อความเป็นเสียง` 24, `แปลง jpg เป็น png` 22 และ `เสียงอ่านข้อความ` 6 จึงส่งมอบตัวอ่านจริงด้วยเสียง Browser/OS โดยไม่อ้างว่าสร้าง MP3 และเตือนว่าเสียงออนไลน์อาจใช้ผู้ให้บริการภายนอก
 - ค่า Google Trends เป็นดัชนีความสนใจสัมพัทธ์ในชุดคำและช่วงเวลาที่เลือก ไม่ใช่จำนวนค้นหาจริง จึงใช้คัดลำดับร่วมกับประโยชน์ ความเสี่ยง และความเป็นไปได้ทางเทคนิค
 
@@ -100,19 +102,21 @@
 | 8 | Image to Text OCR | สูงในชุดล่าสุด: ไทย 52; อังกฤษ 56 | 5 | 5 | 5 | 5 | 4 | ส่งมอบ Batch 19; OCR ไทย/อังกฤษแบบ self-host, lazy Worker และตรวจแก้ผลลัพธ์ได้ |
 | 9 | Text to Speech Reader | สูง: text to speech 69; อ่านข้อความ 64 | 3 | 5 | 5 | 5 | 3 | ส่งมอบ Batch 20; Browser/OS voices, ไทย/อังกฤษ, chunked playback และ privacy disclosure |
 | 10 | JPG to PNG Batch Converter | สูง: แปลง JPG เป็น PNG 61; jpg to png 35 | 3 | 5 | 5 | 5 | 2 | ส่งมอบ Batch 21; หลายไฟล์ JPG/PNG/WebP, sequential processing, ZIP และ resource limits |
-| 11 | CSV Cleaner + Duplicate Finder | ต่ำในคำไทยชุดนี้: Trends 1–2 | 3 | 5 | 4 | 5 | 3 | Client-only และรองรับไฟล์ใหญ่แบบ Worker |
-| 12 | Workday Planner พร้อมวันหยุดไทย | ต่ำในชุดนี้: Trends 2 | 3 | 5 | 4 | 4 | 3 | ชุดข้อมูลวันหยุดแบบ versioned |
-| 13 | JSON / CSV Converter | ต้องวิจัยคำอังกฤษเพิ่ม | 2 | 4 | 4 | 5 | 2 | Client-only |
-| 14 | Thai ID Checksum Validator | สูงในชุดล่าสุด: เช็ค 25; intent กว้าง 44 | 2 | 4 | 4 | 3 | 2 | ส่งมอบ Batch 11; ตรวจ checksum เท่านั้น ไม่เชื่อมฐานรัฐ ไม่สร้างหรือบันทึกเลข |
-| 15 | Sign PDF | สูงใน intent เฉพาะ: เซ็น PDF 72 | 5 | 5 | 4 | 4 | 4 | ส่งมอบ Batch 14; วางรูปภาพลายเซ็นหลายหน้าแบบ client-only พร้อมคำเตือนเรื่อง certificate |
-| 16 | VAT Calculator | ต่ำ: Trends 3 ในชุดนี้ | 2 | 4 | 4 | 4 | 2 | ต้อง version อัตราและแยกรวม/ไม่รวม VAT |
-| 17 | PDF Organizer | สูง: ลบ 76, หมุน 34, แยก 22 | 4 | 5 | 4 | 4 | 3 | ส่งมอบ Batch 12; ลากเรียง หมุน และลบหน้าพร้อม preview ใน Browser |
-| 18 | Thai Number to Words / Baht Text | ต่ำ: Trends 0–1 | 2 | 4 | 3 | 4 | 3 | Client-only; เน้น edge case ล้านซ้อนและสตางค์ |
-| 19 | Markdown Preview + Export | ต้องวิจัยเพิ่ม | 3 | 4 | 4 | 4 | 3 | sanitize HTML และ export |
-| 20 | Quotation Generator | สูง: ใบเสนอราคา 81 | 4 | 5 | 5 | 5 | 3 | ส่งมอบ Batch 13; Template + PDF ภาษาไทย พร้อมระบุว่าไม่ใช่ใบกำกับภาษีหรือหลักฐานรับเงิน |
-| 21 | Favicon / PWA Icon Generator | ต่ำในชุดล่าสุด: Trends 0 | 3 | 4 | 4 | 4 | 3 | Client-only |
-| 22 | EXIF Viewer / Remover | ต่ำในชุดล่าสุด: Trends 0 | 3 | 4 | 4 | 4 | 4 | Client-only และเน้น Privacy |
-| 23 | Overtime Estimator | ต่ำ: Trends 0–1 | 4 | 4 | 4 | 4 | 3 | ต้องอ้างกฎหมายแรงงานและรองรับหลายเงื่อนไข |
+| 11 | Barcode Generator | กลาง-สูงในชุดล่าสุด: Trends 37 พร้อม long-tail สินค้า/Excel | 3 | 5 | 5 | 5 | 3 | ส่งมอบ Batch 22; หลายรูปแบบ, Check Digit, PNG/SVG/ZIP และคำเตือน GS1 |
+| 12 | Grade Calculator | กลาง-สูงในชุดล่าสุด: Trends 37 พร้อม long-tail 2/4/5/6 เทอม | 3 | 5 | 5 | 5 | 3 | ส่งมอบ Batch 23; GPA รายวิชา + GPAX หลายเทอม พร้อมสูตรและนโยบายทศนิยมโปร่งใส |
+| 13 | CSV Cleaner + Duplicate Finder | ต่ำในคำไทยชุดนี้: Trends 1–2 แต่ `csv to excel` มี Autocomplete อังกฤษกว้าง | 3 | 5 | 4 | 5 | 3 | Client-only และรองรับไฟล์ใหญ่แบบ Worker |
+| 14 | Workday Planner พร้อมวันหยุดไทย | ต่ำในชุดนี้: Trends 2 | 3 | 5 | 4 | 4 | 3 | ชุดข้อมูลวันหยุดแบบ versioned |
+| 15 | JSON / CSV Converter | ต้องวิจัยคำอังกฤษเพิ่ม | 2 | 4 | 4 | 5 | 2 | Client-only |
+| 16 | Thai ID Checksum Validator | สูงในชุดล่าสุด: เช็ค 25; intent กว้าง 44 | 2 | 4 | 4 | 3 | 2 | ส่งมอบ Batch 11; ตรวจ checksum เท่านั้น ไม่เชื่อมฐานรัฐ ไม่สร้างหรือบันทึกเลข |
+| 17 | Sign PDF | สูงใน intent เฉพาะ: เซ็น PDF 72 | 5 | 5 | 4 | 4 | 4 | ส่งมอบ Batch 14; วางรูปภาพลายเซ็นหลายหน้าแบบ client-only พร้อมคำเตือนเรื่อง certificate |
+| 18 | VAT Calculator | ต่ำ: Trends 3 ในชุดนี้ | 2 | 4 | 4 | 4 | 2 | ต้อง version อัตราและแยกรวม/ไม่รวม VAT |
+| 19 | PDF Organizer | สูง: ลบ 76, หมุน 34, แยก 22 | 4 | 5 | 4 | 4 | 3 | ส่งมอบ Batch 12; ลากเรียง หมุน และลบหน้าพร้อม preview ใน Browser |
+| 20 | Thai Number to Words / Baht Text | ต่ำ: Trends 0–1 | 2 | 4 | 3 | 4 | 3 | Client-only; เน้น edge case ล้านซ้อนและสตางค์ |
+| 21 | Markdown Preview + Export | ต้องวิจัยเพิ่ม | 3 | 4 | 4 | 4 | 3 | sanitize HTML และ export |
+| 22 | Quotation Generator | สูง: ใบเสนอราคา 81 | 4 | 5 | 5 | 5 | 3 | ส่งมอบ Batch 13; Template + PDF ภาษาไทย พร้อมระบุว่าไม่ใช่ใบกำกับภาษีหรือหลักฐานรับเงิน |
+| 23 | Favicon / PWA Icon Generator | ต่ำในชุดล่าสุด: Trends 0 | 3 | 4 | 4 | 4 | 3 | Client-only |
+| 24 | EXIF Viewer / Remover | ต่ำในชุดล่าสุด: Trends 0 | 3 | 4 | 4 | 4 | 4 | Client-only และเน้น Privacy |
+| 25 | Overtime Estimator | Trends เดิมต่ำ แต่ Autocomplete ปัจจุบันแตก 1.5/2/3 เท่าและวันหยุด | 4 | 4 | 4 | 4 | 3 | ต้องตรวจฐานกฎหมายล่าสุดและแยกพนักงานรายวัน/รายเดือนก่อนพัฒนา |
 
 ## ลำดับส่งมอบที่แนะนำ
 
@@ -136,7 +140,8 @@
 18. Batch 20 — Text to Speech Reader ไทย/อังกฤษด้วยเสียง Browser/OS พร้อมพัก อ่านต่อ และคำเตือน Privacy — ส่งมอบแล้ว
 19. Batch 21 — JPG to PNG Batch Converter หลายไฟล์ JPG/PNG/WebP พร้อม ZIP, ตรวจ signature และ resource limits — ส่งมอบแล้ว
 20. Batch 22 — Barcode Generator หลายรายการจาก Excel รองรับ Code 128, EAN-13/EAN-8, UPC-A, ITF-14, Code 39 พร้อม Check Digit และ PNG/SVG/ZIP — ส่งมอบแล้ว
-21. Batch 23 — วิจัย Grade Calculator, เครื่องคิดเลขค่าไฟ และ long-tail งานสำนักงาน/นักเรียนก่อนเลือกงานถัดไป
+21. Batch 23 — Grade Calculator สองโหมด: GPA รายวิชาตามหน่วยกิต และ GPAX หลายเทอม พร้อมแสดงค่าปัด/ตัดและคำเตือนผลประมาณ — ส่งมอบแล้ว
+22. Batch 24 — วิจัย CSV to Excel/Cleaner, Overtime Estimator, Workday Planner และ Target GPA Planner ก่อนเลือกงานถัดไป
 
 ทุก Batch ควรมี unit test ของสูตรหรือ parser, E2E อย่างน้อยหนึ่งเส้นทาง, ตรวจ keyboard/mobile และวัด Core Web Vitals ก่อนเปิด AdSense ใน production
 

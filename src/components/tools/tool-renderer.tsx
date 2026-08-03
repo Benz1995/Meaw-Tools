@@ -22,6 +22,7 @@ const components = {
   "typing-test": dynamic(() => import("@/features/tools/typing-test-tool").then((module) => module.TypingTestTool), { loading, ssr: false }),
   "special-characters": dynamic(() => import("@/features/tools/special-characters-tool").then((module) => module.SpecialCharactersTool), { loading, ssr: false }),
   "text-to-speech": dynamic(() => import("@/features/tools/text-to-speech-tool").then((module) => module.TextToSpeechTool), { loading, ssr: false }),
+  "grade-calculator": dynamic(() => import("@/features/tools/grade-calculator-tool").then((module) => module.GradeCalculatorTool), { loading, ssr: false }),
   "percentage-calculator": dynamic(() => import("@/features/tools/work-tools").then((module) => module.PercentageCalculatorTool), { loading, ssr: false }),
   "unit-converter": dynamic(() => import("@/features/tools/work-tools").then((module) => module.UnitConverterTool), { loading, ssr: false }),
   "date-calculator": dynamic(() => import("@/features/tools/work-tools").then((module) => module.DateCalculatorTool), { loading, ssr: false }),
