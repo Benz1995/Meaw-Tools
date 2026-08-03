@@ -6,7 +6,7 @@
 
 - Next.js 16 App Router, React 19, TypeScript strict และ Tailwind CSS 4
 - shadcn/ui + Radix, Noto Sans Thai, JetBrains Mono และ dark mode
-- เครื่องมือ 48 รายการ พร้อม validation, empty/error state, clear และ action ที่เหมาะกับแต่ละงาน
+- เครื่องมือ 49 รายการ พร้อม validation, empty/error state, clear และ action ที่เหมาะกับแต่ละงาน
 - กลุ่มงานทั่วไป: นับคำ จัดระเบียบข้อความ คำนวณเปอร์เซ็นต์ แปลงหน่วย และคำนวณวัน
 - JPG to PDF, QR Code Generator, QR Code Scanner และ Age Calculator ประมวลผลภายใน Browser
 - Loan Calculator, BMI Calculator และ Profit & Margin Calculator พร้อมสูตรและข้อจำกัดที่ตรวจสอบได้
@@ -19,6 +19,7 @@
 - Typing Test รองรับข้อความฝึกภาษาไทย/อังกฤษ พร้อม WPM, CPM, accuracy และการแบ่งอักขระผสมภาษาไทย
 - Special Characters & Fancy Text สร้างข้อความ Unicode แต่งชื่อไทย/อังกฤษ และค้นหาสัญลักษณ์ตาม intent ภาษาไทย
 - Text to Speech Reader อ่านข้อความไทย/อังกฤษด้วยเสียงจาก Browser หรือระบบ พร้อมความเร็ว โทนเสียง ความดัง และพัก/อ่านต่อ โดยไม่ใช้ API Key
+- Barcode Generator สร้าง Code 128, EAN-13, EAN-8, UPC-A, ITF-14 และ Code 39 หลายรายการจากข้อมูลที่วางจาก Excel พร้อมตรวจ Check Digit และดาวน์โหลด PNG/SVG/ZIP
 - Color Picker/Contrast, Password Generator และ Random Number Generator ใช้สูตรที่ทดสอบได้และ Web Crypto
 - PDF to JPG, Merge PDF, Split PDF, PDF Organizer และ Sign PDF ใช้ PDF.js, pdf-lib และ ZIP ภายใน Browser โดยไม่อัปโหลดเอกสาร
 - หน้า `/categories` และหน้า Tag รายหมวด พร้อมจำนวนเครื่องมือ metadata และ sitemap

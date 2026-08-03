@@ -27,6 +27,7 @@ const components = {
   "date-calculator": dynamic(() => import("@/features/tools/work-tools").then((module) => module.DateCalculatorTool), { loading, ssr: false }),
   "jpg-to-pdf": dynamic(() => import("@/features/tools/jpg-to-pdf-tool").then((module) => module.JpgToPdfTool), { loading, ssr: false }),
   "qr-code-generator": dynamic(() => import("@/features/tools/qr-code-tool").then((module) => module.QrCodeTool), { loading, ssr: false }),
+  "barcode-generator": dynamic(() => import("@/features/tools/barcode-generator-tool").then((module) => module.BarcodeGeneratorTool), { loading, ssr: false }),
   "qr-code-scanner": dynamic(() => import("@/features/tools/qr-scanner-tool").then((module) => module.QrScannerTool), { loading, ssr: false }),
   "image-to-text": dynamic(() => import("@/features/tools/image-to-text-tool").then((module) => module.ImageToTextTool), { loading, ssr: false }),
   "age-calculator": dynamic(() => import("@/features/tools/age-calculator-tool").then((module) => module.AgeCalculatorTool), { loading, ssr: false }),

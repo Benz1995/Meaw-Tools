@@ -27,6 +27,7 @@ const toolRoutes = [
   ["date-calculator", "Date Calculator"],
   ["jpg-to-pdf", "JPG to PDF Converter"],
   ["qr-code-generator", "QR Code Generator"],
+  ["barcode-generator", "Barcode Generator"],
   ["qr-code-scanner", "QR Code Scanner"],
   ["image-to-text", "Image to Text OCR"],
   ["age-calculator", "Age Calculator"],
@@ -338,6 +339,89 @@ test("age calculator and QR generator produce results", async ({ page }) => {
   await page.getByRole("button", { name: "สร้าง QR Code" }).click();
   await expect(page.getByAltText("QR Code ที่สร้างแล้ว")).toBeVisible();
   await expect(page.getByRole("link", { name: "PNG", exact: true })).toBeVisible();
+});
+
+test("barcode generator validates, renders, and exports batch files locally", async ({ page }) => {
+  const requests: string[] = [];
+  const consoleErrors: string[] = [];
+  page.on("request", (request) => requests.push(request.url()));
+  page.on("console", (message) => {
+    if (message.type() === "error") consoleErrors.push(message.text());
+  });
+
+  await page.goto("/barcode-generator");
+  await expect(page.getByRole("heading", { level: 1, name: "Barcode Generator" })).toBeVisible();
+  await expect(page.getByText("ไม่ส่งรหัสขึ้น Server", { exact: true })).toBeVisible();
+
+  const layout = await page.evaluate(() => {
+    const label = document.querySelector<HTMLLabelElement>('label[for="barcode-format"]');
+    const input = document.querySelector<HTMLElement>("#barcode-format");
+    const labelBox = label?.getBoundingClientRect();
+    const inputBox = input?.getBoundingClientRect();
+    return {
+      labelGap: labelBox && inputBox ? Math.round(inputBox.top - labelBox.bottom) : 0,
+      hasHorizontalOverflow: document.documentElement.scrollWidth > document.documentElement.clientWidth,
+    };
+  });
+  expect(layout.labelGap).toBeGreaterThanOrEqual(10);
+  expect(layout.hasHorizontalOverflow).toBe(false);
+
+  await page.getByRole("button", { name: "โหลดตัวอย่าง" }).click();
+  await expect(page.getByLabel("รหัสที่ต้องการสร้าง · หนึ่งรายการต่อบรรทัด")).toHaveValue(/SKU-TH-0001/);
+  await page.getByRole("button", { name: "สร้างบาร์โค้ด" }).click();
+  const results = page.getByTestId("barcode-results");
+  await expect(results).toContainText("พร้อมดาวน์โหลด 3 รายการ");
+  await expect(page.getByTestId("barcode-result-row")).toHaveCount(3);
+  await expect(page.getByAltText("บาร์โค้ด SKU-TH-0001")).toBeVisible();
+
+  const pngDownloadPromise = page.waitForEvent("download");
+  await page.getByRole("button", { name: "PNG เป็น ZIP" }).click();
+  const pngDownload = await pngDownloadPromise;
+  expect(pngDownload.suggestedFilename()).toBe("meaw-barcodes-png.zip");
+  const { unzipSync } = await import("fflate");
+  const pngEntries = unzipSync(new Uint8Array(await readFile((await pngDownload.path())!)));
+  expect(Object.keys(pngEntries)).toHaveLength(3);
+  for (const bytes of Object.values(pngEntries)) expect([...bytes.subarray(0, 8)]).toEqual([0x89, 0x50, 0x4e, 0x47, 0x0d, 0x0a, 0x1a, 0x0a]);
+
+  const svgDownloadPromise = page.waitForEvent("download");
+  await page.getByRole("button", { name: "SVG เป็น ZIP" }).click();
+  const svgDownload = await svgDownloadPromise;
+  expect(svgDownload.suggestedFilename()).toBe("meaw-barcodes-svg.zip");
+  const svgEntries = unzipSync(new Uint8Array(await readFile((await svgDownload.path())!)));
+  expect(Object.keys(svgEntries)).toHaveLength(3);
+  for (const bytes of Object.values(svgEntries)) {
+    const svg = new TextDecoder().decode(bytes);
+    expect(svg).toMatch(/^<svg/);
+    expect(svg).not.toContain("<script");
+  }
+
+  await page.getByRole("combobox", { name: "รูปแบบบาร์โค้ด" }).click();
+  await page.getByRole("option", { name: /^EAN-13/ }).click();
+  await page.getByLabel("รหัสที่ต้องการสร้าง · หนึ่งรายการต่อบรรทัด").fill("885012345678");
+  await page.getByRole("button", { name: "สร้างบาร์โค้ด" }).click();
+  await expect(page.getByTestId("barcode-results")).toContainText("8850123456787");
+
+  const formatChecks = [
+    { option: /^EAN-8/, input: "1234567", output: "12345670" },
+    { option: /^UPC-A/, input: "12345678901", output: "123456789012" },
+    { option: /^ITF-14/, input: "1234567890123", output: "12345678901231" },
+    { option: /^Code 39/, input: "box-42", output: "BOX-42" },
+  ];
+  for (const check of formatChecks) {
+    await page.getByRole("combobox", { name: "รูปแบบบาร์โค้ด" }).click();
+    await page.getByRole("option", { name: check.option }).click();
+    await page.getByLabel("รหัสที่ต้องการสร้าง · หนึ่งรายการต่อบรรทัด").fill(check.input);
+    await page.getByRole("button", { name: "สร้างบาร์โค้ด" }).click();
+    await expect(page.getByTestId("barcode-results")).toContainText(check.output);
+  }
+
+  const finalLayout = await page.evaluate(() => ({
+    hasHorizontalOverflow: document.documentElement.scrollWidth > document.documentElement.clientWidth,
+  }));
+  expect(finalLayout.hasHorizontalOverflow).toBe(false);
+
+  expect(requests.some((url) => !url.startsWith("http://127.0.0.1:3100") && !url.startsWith("blob:") && !url.startsWith("data:"))).toBe(false);
+  expect(consoleErrors).toEqual([]);
 });
 
 test("QR scanner reads a local sample without opening the result automatically", async ({ page, context }) => {

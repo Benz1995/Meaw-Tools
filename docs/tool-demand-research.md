@@ -213,3 +213,25 @@ Batch 21 ส่งมอบช่องว่างที่เหลือเ�
 - [Google Trends — Text to Speech เทียบเครื่องมือสำนักงาน](https://trends.google.com/trends/explore?date=today%2012-m&geo=TH&q=%E0%B9%81%E0%B8%9B%E0%B8%A5%E0%B8%87%20jpg%20%E0%B9%80%E0%B8%9B%E0%B9%87%E0%B8%99%20png,%E0%B8%84%E0%B8%B3%E0%B8%99%E0%B8%A7%E0%B8%93%E0%B9%80%E0%B8%81%E0%B8%A3%E0%B8%94,%E0%B9%80%E0%B8%84%E0%B8%A3%E0%B8%B7%E0%B9%88%E0%B8%AD%E0%B8%87%E0%B8%84%E0%B8%B4%E0%B8%94%E0%B9%80%E0%B8%A5%E0%B8%82%E0%B8%84%E0%B9%88%E0%B8%B2%E0%B9%84%E0%B8%9F,%E0%B8%AA%E0%B8%A3%E0%B9%89%E0%B8%B2%E0%B8%87%E0%B8%9A%E0%B8%B2%E0%B8%A3%E0%B9%8C%E0%B9%82%E0%B8%84%E0%B9%89%E0%B8%94,%E0%B9%81%E0%B8%9B%E0%B8%A5%E0%B8%87%E0%B8%82%E0%B9%89%E0%B8%AD%E0%B8%84%E0%B8%A7%E0%B8%B2%E0%B8%A1%E0%B9%80%E0%B8%9B%E0%B9%87%E0%B8%99%E0%B9%80%E0%B8%AA%E0%B8%B5%E0%B8%A2%E0%B8%87)
 - [Google Trends — เจาะ Intent อ่านข้อความและเสียง](https://trends.google.com/trends/explore?date=today%2012-m&geo=TH&q=%E0%B9%81%E0%B8%9B%E0%B8%A5%E0%B8%87%E0%B8%82%E0%B9%89%E0%B8%AD%E0%B8%84%E0%B8%A7%E0%B8%B2%E0%B8%A1%E0%B9%80%E0%B8%9B%E0%B9%87%E0%B8%99%E0%B9%80%E0%B8%AA%E0%B8%B5%E0%B8%A2%E0%B8%87,text%20to%20speech,%E0%B8%AD%E0%B9%88%E0%B8%B2%E0%B8%99%E0%B8%82%E0%B9%89%E0%B8%AD%E0%B8%84%E0%B8%A7%E0%B8%B2%E0%B8%A1,%E0%B9%80%E0%B8%AA%E0%B8%B5%E0%B8%A2%E0%B8%87%E0%B8%AD%E0%B9%88%E0%B8%B2%E0%B8%99%E0%B8%82%E0%B9%89%E0%B8%AD%E0%B8%84%E0%B8%A7%E0%B8%B2%E0%B8%A1,%E0%B9%81%E0%B8%9B%E0%B8%A5%E0%B8%87%20jpg%20%E0%B9%80%E0%B8%9B%E0%B9%87%E0%B8%99%20png)
 - [Google Trends — คำอังกฤษ Text to Speech เทียบ Tools อื่น](https://trends.google.com/trends/explore?date=today%2012-m&geo=TH&q=jpg%20to%20png,barcode%20generator,text%20to%20speech,countdown%20timer,photo%20collage)
+
+## รอบที่ 12 — Barcode Generator เทียบ Grade Calculator
+
+สำรวจต่อเมื่อ 3 สิงหาคม 2026 โดยใช้หลักฐาน Google Trends ประเทศไทยช่วง 12 เดือนจากรอบที่ 11 ซึ่ง `สร้างบาร์โค้ด` และ `คำนวณเกรด` มีค่าเฉลี่ยเท่ากันที่ 37 ในชุดเปรียบเทียบเดียวกัน จึงไม่ใช้ตัวเลขนี้ตัดสินเพียงอย่างเดียว และเจาะคำแนะนำการค้นหาปัจจุบันจาก Google Autocomplete เพิ่ม:
+
+| คำตั้งต้น | ตัวอย่างคำแนะนำที่พบ |
+|---|---|
+| สร้างบาร์โค้ด | สร้างบาร์โค้ดฟรี, 13 หลัก, Excel, สินค้า, ออนไลน์, Code 128, 14 หลัก |
+| barcode generator | free, EAN-13, vector, SVG, online, Code 128, ITF-14, Excel |
+| คำนวณเกรด | เกรดเฉลี่ย, มหาลัย, 5 เทอม, GPAX, เกรดเฉลี่ยสะสม |
+| คำนวณเกรดเฉลี่ย | สะสม, มหาลัย, รวม, 2/4/5/6 เทอม, GPAX |
+
+ทั้งสองกลุ่มมี intent จริง แต่ Barcode ครอบคลุมหลายสายงานกว่า ทั้งร้านค้า คลังสินค้า โลจิสติกส์ งานพิมพ์ และนักพัฒนา และมี action ที่ทำฟรีใน Browser ได้ครบกว่า จึงส่งมอบ `Barcode Generator` ก่อน แล้วเก็บ Grade Calculator เป็นผู้สมัคร Batch 23 ขอบเขตรองรับ Code 128, EAN-13, EAN-8, UPC-A, ITF-14 และ Code 39 วางหนึ่งคอลัมน์จาก Excel ได้สูงสุด 50 รายการ เติมหรือตรวจ Check Digit และดาวน์โหลด PNG/SVG/ZIP
+
+ใช้ `jsbarcode` 3.12.3 แบบ dynamic import เฉพาะเมื่อกดสร้าง ไม่มี CDN ภายนอก และใช้ `fflate` เฉพาะเมื่อดาวน์โหลด ZIP หน้าเครื่องมือแยกชัดเจนว่าการสร้างภาพ EAN/UPC ไม่ได้จดทะเบียน GTIN: สินค้าจริงต้องใช้เลขหมายตามกระบวนการ GS1 และควรสแกนทดสอบบนงานพิมพ์จริง Google Trends และ Autocomplete เป็นสัญญาณความสนใจ/intent ไม่ใช่จำนวนค้นหารายเดือน จึงต้องยืนยันผลหลังเปิดตัวด้วย Search Console
+
+- [Google Trends — Text to Speech เทียบ Barcode, Grade และ JPG to PNG](https://trends.google.com/trends/explore?date=today%2012-m&geo=TH&q=%E0%B9%81%E0%B8%9B%E0%B8%A5%E0%B8%87%20jpg%20%E0%B9%80%E0%B8%9B%E0%B9%87%E0%B8%99%20png,%E0%B8%84%E0%B8%B3%E0%B8%99%E0%B8%A7%E0%B8%93%E0%B9%80%E0%B8%81%E0%B8%A3%E0%B8%94,%E0%B9%80%E0%B8%84%E0%B8%A3%E0%B8%B7%E0%B9%88%E0%B8%AD%E0%B8%87%E0%B8%84%E0%B8%B4%E0%B8%94%E0%B9%80%E0%B8%A5%E0%B8%82%E0%B8%84%E0%B9%88%E0%B8%B2%E0%B9%84%E0%B8%9F,%E0%B8%AA%E0%B8%A3%E0%B9%89%E0%B8%B2%E0%B8%87%E0%B8%9A%E0%B8%B2%E0%B8%A3%E0%B9%8C%E0%B9%82%E0%B8%84%E0%B9%89%E0%B8%94,%E0%B9%81%E0%B8%9B%E0%B8%A5%E0%B8%87%E0%B8%82%E0%B9%89%E0%B8%AD%E0%B8%84%E0%B8%A7%E0%B8%B2%E0%B8%A1%E0%B9%80%E0%B8%9B%E0%B9%87%E0%B8%99%E0%B9%80%E0%B8%AA%E0%B8%B5%E0%B8%A2%E0%B8%87)
+- [Google Autocomplete — สร้างบาร์โค้ด](https://suggestqueries.google.com/complete/search?client=firefox&hl=th&q=%E0%B8%AA%E0%B8%A3%E0%B9%89%E0%B8%B2%E0%B8%87%E0%B8%9A%E0%B8%B2%E0%B8%A3%E0%B9%8C%E0%B9%82%E0%B8%84%E0%B9%89%E0%B8%94)
+- [Google Autocomplete — Barcode Generator](https://suggestqueries.google.com/complete/search?client=firefox&hl=th&q=barcode%20generator)
+- [Google Autocomplete — คำนวณเกรด](https://suggestqueries.google.com/complete/search?client=firefox&hl=th&q=%E0%B8%84%E0%B8%B3%E0%B8%99%E0%B8%A7%E0%B8%93%E0%B9%80%E0%B8%81%E0%B8%A3%E0%B8%94)
+- [JsBarcode — รูปแบบและ API ที่รองรับ](https://github.com/lindell/JsBarcode)
+- [GS1 Thailand — สมัครและจัดการเลขหมาย GTIN](https://gs1th.org/get-a-barcode/)
