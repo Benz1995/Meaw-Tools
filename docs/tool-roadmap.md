@@ -41,6 +41,7 @@
 | 33 | QR Code Scanner | บุคคลทั่วไป, ร้านค้า, ธุรการ | อ่าน QR จากรูปหรือกล้องใน Browser แสดงโดเมนก่อนเปิด และไม่เปิดลิงก์อัตโนมัติ | พร้อมใช้ |
 | 34 | Image to Text OCR | นักเรียน, ธุรการ, ร้านค้า, Content | อ่านภาษาไทย/อังกฤษจากรูปใน Browser พร้อมแก้ไข คัดลอก และ TXT | พร้อมใช้ |
 | 35 | Text to Speech Reader | นักเรียน, นักเขียน, ผู้สูงอายุ, ผู้ใช้ทั่วไป | อ่านข้อความไทย/อังกฤษด้วยเสียงจาก Browser/OS พร้อมควบคุมความเร็วและพัก/อ่านต่อ | พร้อมใช้ |
+| 36 | JPG to PNG Batch Converter | ร้านค้าออนไลน์, Content, บุคคลทั่วไป | แปลง JPG/PNG/WebP หลายไฟล์เป็นรูปแบบเดียวกัน พร้อม ZIP และ resource limits | พร้อมใช้ |
 
 ## หลักฐาน Google Trends ประเทศไทย
 
@@ -96,7 +97,7 @@
 | 7 | QR Code Scanner | สูงในชุดไทยล่าสุด: สแกน QR Code 74 | 3 | 5 | 5 | 5 | 4 | ส่งมอบ Batch 18; รูป+กล้อง, client-only, แสดงโดเมนและไม่เปิดลิงก์อัตโนมัติ |
 | 8 | Image to Text OCR | สูงในชุดล่าสุด: ไทย 52; อังกฤษ 56 | 5 | 5 | 5 | 5 | 4 | ส่งมอบ Batch 19; OCR ไทย/อังกฤษแบบ self-host, lazy Worker และตรวจแก้ผลลัพธ์ได้ |
 | 9 | Text to Speech Reader | สูง: text to speech 69; อ่านข้อความ 64 | 3 | 5 | 5 | 5 | 3 | ส่งมอบ Batch 20; Browser/OS voices, ไทย/อังกฤษ, chunked playback และ privacy disclosure |
-| 10 | Image Format Batch Converter | สูง: แปลง JPG เป็น PNG 61; jpg to png 35 | 3 | 5 | 5 | 5 | 2 | Batch ถัดไป; หลายไฟล์ JPG/PNG/WebP พร้อม ZIP และ resource limits |
+| 10 | JPG to PNG Batch Converter | สูง: แปลง JPG เป็น PNG 61; jpg to png 35 | 3 | 5 | 5 | 5 | 2 | ส่งมอบ Batch 21; หลายไฟล์ JPG/PNG/WebP, sequential processing, ZIP และ resource limits |
 | 11 | CSV Cleaner + Duplicate Finder | ต่ำในคำไทยชุดนี้: Trends 1–2 | 3 | 5 | 4 | 5 | 3 | Client-only และรองรับไฟล์ใหญ่แบบ Worker |
 | 12 | Workday Planner พร้อมวันหยุดไทย | ต่ำในชุดนี้: Trends 2 | 3 | 5 | 4 | 4 | 3 | ชุดข้อมูลวันหยุดแบบ versioned |
 | 13 | JSON / CSV Converter | ต้องวิจัยคำอังกฤษเพิ่ม | 2 | 4 | 4 | 5 | 2 | Client-only |
@@ -131,7 +132,8 @@
 16. Batch 18 — QR Code Scanner จากรูปและกล้องแบบ client-only พร้อมแสดงโดเมนและไม่เปิดลิงก์อัตโนมัติ — ส่งมอบแล้ว
 17. Batch 19 — Image to Text OCR ไทย/อังกฤษแบบ client-only พร้อมแก้ไข คัดลอก ดาวน์โหลด และ resource limits — ส่งมอบแล้ว
 18. Batch 20 — Text to Speech Reader ไทย/อังกฤษด้วยเสียง Browser/OS พร้อมพัก อ่านต่อ และคำเตือน Privacy — ส่งมอบแล้ว
-19. Batch 21 — Image Format Batch Converter หลายไฟล์ JPG/PNG/WebP พร้อม ZIP และ resource limits
+19. Batch 21 — JPG to PNG Batch Converter หลายไฟล์ JPG/PNG/WebP พร้อม ZIP, ตรวจ signature และ resource limits — ส่งมอบแล้ว
+20. Batch 22 — วิจัย Barcode Generator, Grade Calculator และเครื่องมือรูปภาพ intent ใหม่ก่อนเลือกงานถัดไป
 
 ทุก Batch ควรมี unit test ของสูตรหรือ parser, E2E อย่างน้อยหนึ่งเส้นทาง, ตรวจ keyboard/mobile และวัด Core Web Vitals ก่อนเปิด AdSense ใน production
 

@@ -39,6 +39,7 @@ const toolRoutes = [
   ["profit-margin-calculator", "Profit & Margin Calculator"],
   ["quotation-generator", "Quotation Generator"],
   ["heic-to-jpg", "HEIC to JPG"],
+  ["jpg-to-png", "JPG to PNG Batch Converter"],
   ["png-to-jpg", "PNG to JPG Converter"],
   ["image-compressor", "Image Compressor & Resizer"],
   ["background-remover", "AI Background Remover"],
@@ -312,7 +313,7 @@ test("category tags navigate to a category page", async ({ page }) => {
   await page.getByRole("link", { name: "ดูหมวดรูปภาพและ PDF" }).click();
   await expect(page).toHaveURL(/\/categories\/media$/);
   await expect(page.getByRole("heading", { level: 1, name: "รูปภาพและ PDF" })).toBeVisible();
-  await expect(page.getByRole("link", { name: /เปิดเครื่องมือ/ })).toHaveCount(13);
+  await expect(page.getByRole("link", { name: /เปิดเครื่องมือ/ })).toHaveCount(14);
 });
 
 test("cat walker can be disabled and remembers the preference", async ({ page }) => {
@@ -450,6 +451,59 @@ test("image tools convert and resize locally", async ({ page }) => {
   await page.getByLabel("ความกว้างสูงสุด (px)").fill("640");
   await page.getByRole("button", { name: "บีบอัดและย่อรูป" }).click();
   await expect(page.getByTestId("image-output")).toContainText("640 × 360");
+});
+
+test("JPG to PNG batch converter creates real images and ZIP locally", async ({ page }) => {
+  const requests: string[] = [];
+  const consoleErrors: string[] = [];
+  page.on("request", (request) => requests.push(request.url()));
+  page.on("console", (message) => {
+    if (message.type() === "error") consoleErrors.push(message.text());
+  });
+
+  await page.goto("/jpg-to-png");
+  await expect(page.getByRole("heading", { level: 1, name: "JPG to PNG Batch Converter" })).toBeVisible();
+  await expect(page.getByText("ไม่อัปโหลดรูป", { exact: true })).toBeVisible();
+
+  const layout = await page.evaluate(() => {
+    const label = document.querySelector<HTMLLabelElement>('label[for="batch-output-format"]');
+    const input = document.querySelector<HTMLElement>("#batch-output-format");
+    const labelBox = label?.getBoundingClientRect();
+    const inputBox = input?.getBoundingClientRect();
+    return {
+      labelGap: labelBox && inputBox ? Math.round(inputBox.top - labelBox.bottom) : 0,
+      hasHorizontalOverflow: document.documentElement.scrollWidth > document.documentElement.clientWidth,
+    };
+  });
+  expect(layout.labelGap).toBeGreaterThanOrEqual(10);
+  expect(layout.hasHorizontalOverflow).toBe(false);
+
+  await page.getByRole("button", { name: "โหลดตัวอย่าง" }).click();
+  await expect(page.getByTestId("batch-file-row")).toHaveCount(2);
+  await expect(page.getByTestId("batch-file-list")).toContainText("meaw-cafe.jpg");
+  await expect(page.getByTestId("batch-file-list")).toContainText("1,200 × 800 px");
+  await page.getByRole("button", { name: "แปลงทั้งหมดเป็น PNG" }).click();
+
+  const output = page.getByTestId("batch-output");
+  await expect(output).toContainText("ไฟล์พร้อมดาวน์โหลด");
+  await expect(output).toContainText("meaw-cafe-converted.png");
+  await expect(output).toContainText("meaw-sticker-converted.png");
+  await expect(page.getByRole("progressbar", { name: "ความคืบหน้าการแปลงรูป" })).toHaveAttribute("aria-valuenow", "100");
+
+  const downloadPromise = page.waitForEvent("download");
+  await page.getByRole("button", { name: "ดาวน์โหลด ZIP 2 รูป" }).click();
+  const download = await downloadPromise;
+  expect(download.suggestedFilename()).toBe("meaw-images-png.zip");
+  const zip = await readFile((await download.path())!);
+  const { unzipSync } = await import("fflate");
+  const entries = unzipSync(new Uint8Array(zip));
+  expect(Object.keys(entries).sort()).toEqual(["meaw-cafe-converted.png", "meaw-sticker-converted.png"]);
+  for (const bytes of Object.values(entries)) expect([...bytes.subarray(0, 8)]).toEqual([0x89, 0x50, 0x4e, 0x47, 0x0d, 0x0a, 0x1a, 0x0a]);
+
+  expect(requests.some((url) => !url.startsWith("http://127.0.0.1:3100") && !url.startsWith("blob:"))).toBe(false);
+  expect(consoleErrors).toEqual([]);
+  await page.getByRole("button", { name: "ล้างข้อมูล" }).click();
+  await expect(page.getByTestId("batch-file-row")).toHaveCount(0);
 });
 
 test("HEIC to JPG decodes a real HEIC sample in a worker", async ({ page }) => {

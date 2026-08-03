@@ -9,11 +9,11 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { type BrowserImageMime as OutputMime, canvasToImageBlob, decodeBrowserImage } from "@/lib/tools/image-browser";
 import { IMAGE_FILE_LIMIT_BYTES } from "@/lib/tools/limits";
 import { IMAGE_MAX_DIMENSION, calculateSavingPercent, createImageOutputName, fitImageWithin, formatImageBytes, validateDecodedImage } from "@/lib/tools/images";
 
 type ImageToolMode = "compress" | "convert-jpg";
-type OutputMime = "image/jpeg" | "image/png" | "image/webp";
 
 type ImageInfo = {
   file: File;
@@ -30,13 +30,6 @@ type ProcessedImage = {
   savingPercent: number;
 };
 
-type DecodedImage = {
-  source: CanvasImageSource;
-  width: number;
-  height: number;
-  close: () => void;
-};
-
 const outputFormats: Array<{ value: OutputMime; label: string; extension: "jpg" | "png" | "webp" }> = [
   { value: "image/webp", label: "WebP — ไฟล์เล็ก เหมาะกับเว็บ", extension: "webp" },
   { value: "image/jpeg", label: "JPG — รองรับทั่วไป", extension: "jpg" },
@@ -45,38 +38,6 @@ const outputFormats: Array<{ value: OutputMime; label: string; extension: "jpg" 
 
 function getFormat(mime: OutputMime) {
   return outputFormats.find((format) => format.value === mime) ?? outputFormats[0]!;
-}
-
-async function decodeImage(file: File): Promise<DecodedImage> {
-  if ("createImageBitmap" in window) {
-    const bitmap = await createImageBitmap(file, { imageOrientation: "from-image" });
-    return { source: bitmap, width: bitmap.width, height: bitmap.height, close: () => bitmap.close() };
-  }
-
-  const objectUrl = URL.createObjectURL(file);
-  const image = document.createElement("img");
-  image.decoding = "async";
-  image.src = objectUrl;
-  await new Promise<void>((resolve, reject) => {
-    image.onload = () => resolve();
-    image.onerror = () => reject(new Error("Browser ไม่สามารถอ่านไฟล์รูปนี้ได้"));
-  });
-  return {
-    source: image,
-    width: image.naturalWidth,
-    height: image.naturalHeight,
-    close: () => URL.revokeObjectURL(objectUrl),
-  };
-}
-
-function canvasToBlob(canvas: HTMLCanvasElement, mime: OutputMime, quality: number) {
-  return new Promise<Blob>((resolve, reject) => {
-    canvas.toBlob(
-      (blob) => blob ? resolve(blob) : reject(new Error("Browser ไม่สามารถสร้างไฟล์ผลลัพธ์ได้")),
-      mime,
-      mime === "image/png" ? undefined : quality,
-    );
-  });
 }
 
 async function createSampleFile() {
@@ -98,7 +59,7 @@ async function createSampleFile() {
   context.fillStyle = "#082f2b";
   context.font = "700 64px sans-serif";
   context.fillText("Meaw Tools", 76, 590);
-  const blob = await canvasToBlob(canvas, "image/png", 1);
+  const blob = await canvasToImageBlob(canvas, "image/png", 1);
   return new File([blob], "meaw-sample.png", { type: "image/png", lastModified: Date.now() });
 }
 
@@ -155,9 +116,9 @@ function ImageProcessingTool({ mode }: { mode: ImageToolMode }) {
       return;
     }
 
-    let decoded: DecodedImage | null = null;
+    let decoded: Awaited<ReturnType<typeof decodeBrowserImage>> | null = null;
     try {
-      decoded = await decodeImage(file);
+      decoded = await decodeBrowserImage(file);
       validateDecodedImage(decoded.width, decoded.height);
       if (selection !== selectionRef.current) return;
       setImageInfo({ file, width: decoded.width, height: decoded.height });
@@ -202,9 +163,9 @@ function ImageProcessingTool({ mode }: { mode: ImageToolMode }) {
     setProcessing(true);
     setError("");
     clearOutput();
-    let decoded: DecodedImage | null = null;
+    let decoded: Awaited<ReturnType<typeof decodeBrowserImage>> | null = null;
     try {
-      decoded = await decodeImage(imageInfo.file);
+      decoded = await decodeBrowserImage(imageInfo.file);
       const target = mode === "compress"
         ? fitImageWithin(decoded.width, decoded.height, maxWidth, maxHeight)
         : { width: decoded.width, height: decoded.height };
@@ -223,7 +184,7 @@ function ImageProcessingTool({ mode }: { mode: ImageToolMode }) {
       context.imageSmoothingQuality = "high";
       context.drawImage(decoded.source, 0, 0, target.width, target.height);
 
-      const blob = await canvasToBlob(canvas, outputMime, quality / 100);
+      const blob = await canvasToImageBlob(canvas, outputMime, quality / 100);
       const format = getFormat(outputMime);
       const processed: ProcessedImage = {
         blob,

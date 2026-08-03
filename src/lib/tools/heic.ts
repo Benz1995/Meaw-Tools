@@ -75,14 +75,4 @@ export function heicJpegFilename(filename: string): string {
   return `${stem || "meaw-photo"}.jpg`;
 }
 
-export function makeUniqueFilenames(filenames: readonly string[]): string[] {
-  const counts = new Map<string, number>();
-  return filenames.map((filename) => {
-    const key = filename.toLowerCase();
-    const count = (counts.get(key) ?? 0) + 1;
-    counts.set(key, count);
-    if (count === 1) return filename;
-    const dot = filename.lastIndexOf(".");
-    return dot > 0 ? `${filename.slice(0, dot)}-${count}${filename.slice(dot)}` : `${filename}-${count}`;
-  });
-}
+export { makeUniqueFilenames } from "@/lib/tools/images";
