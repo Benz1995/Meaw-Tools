@@ -104,7 +104,7 @@
 | 10 | JPG to PNG Batch Converter | สูง: แปลง JPG เป็น PNG 61; jpg to png 35 | 3 | 5 | 5 | 5 | 2 | ส่งมอบ Batch 21; หลายไฟล์ JPG/PNG/WebP, sequential processing, ZIP และ resource limits |
 | 11 | Barcode Generator | กลาง-สูงในชุดล่าสุด: Trends 37 พร้อม long-tail สินค้า/Excel | 3 | 5 | 5 | 5 | 3 | ส่งมอบ Batch 22; หลายรูปแบบ, Check Digit, PNG/SVG/ZIP และคำเตือน GS1 |
 | 12 | Grade Calculator | กลาง-สูงในชุดล่าสุด: Trends 37 พร้อม long-tail 2/4/5/6 เทอม | 3 | 5 | 5 | 5 | 3 | ส่งมอบ Batch 23; GPA รายวิชา + GPAX หลายเทอม พร้อมสูตรและนโยบายทศนิยมโปร่งใส |
-| 13 | CSV Cleaner + Duplicate Finder | ต่ำในคำไทยชุดนี้: Trends 1–2 แต่ `csv to excel` มี Autocomplete อังกฤษกว้าง | 3 | 5 | 4 | 5 | 3 | Client-only และรองรับไฟล์ใหญ่แบบ Worker |
+| 13 | CSV to Excel Converter | Trends ภาษาไทยเดิมต่ำ แต่ Autocomplete อังกฤษปัจจุบันกว้างถึง converter/online/free/file/columns | 3 | 5 | 5 | 5 | 3 | ส่งมอบ Batch 24; CSV/TSV/TXT, UTF-8/Windows-874, Preview, Web Worker และ .xlsx ที่ป้องกันสูตรจากข้อมูล |
 | 14 | Workday Planner พร้อมวันหยุดไทย | ต่ำในชุดนี้: Trends 2 | 3 | 5 | 4 | 4 | 3 | ชุดข้อมูลวันหยุดแบบ versioned |
 | 15 | JSON / CSV Converter | ต้องวิจัยคำอังกฤษเพิ่ม | 2 | 4 | 4 | 5 | 2 | Client-only |
 | 16 | Thai ID Checksum Validator | สูงในชุดล่าสุด: เช็ค 25; intent กว้าง 44 | 2 | 4 | 4 | 3 | 2 | ส่งมอบ Batch 11; ตรวจ checksum เท่านั้น ไม่เชื่อมฐานรัฐ ไม่สร้างหรือบันทึกเลข |
@@ -141,7 +141,8 @@
 19. Batch 21 — JPG to PNG Batch Converter หลายไฟล์ JPG/PNG/WebP พร้อม ZIP, ตรวจ signature และ resource limits — ส่งมอบแล้ว
 20. Batch 22 — Barcode Generator หลายรายการจาก Excel รองรับ Code 128, EAN-13/EAN-8, UPC-A, ITF-14, Code 39 พร้อม Check Digit และ PNG/SVG/ZIP — ส่งมอบแล้ว
 21. Batch 23 — Grade Calculator สองโหมด: GPA รายวิชาตามหน่วยกิต และ GPAX หลายเทอม พร้อมแสดงค่าปัด/ตัดและคำเตือนผลประมาณ — ส่งมอบแล้ว
-22. Batch 24 — วิจัย CSV to Excel/Cleaner, Overtime Estimator, Workday Planner และ Target GPA Planner ก่อนเลือกงานถัดไป
+22. Batch 24 — CSV to Excel Converter รองรับตัวคั่นอัตโนมัติ, UTF-8/Windows-874, quoted/multiline CSV, Preview, Web Worker และ .xlsx ที่รักษาเลขศูนย์นำหน้า — ส่งมอบแล้ว
+23. Batch 25 — วิจัย Overtime Estimator, Workday Planner, Target GPA Planner และ CSV Cleaner/Duplicate Finder ก่อนเลือกงานถัดไป
 
 ทุก Batch ควรมี unit test ของสูตรหรือ parser, E2E อย่างน้อยหนึ่งเส้นทาง, ตรวจ keyboard/mobile และวัด Core Web Vitals ก่อนเปิด AdSense ใน production
 

@@ -261,3 +261,31 @@ Google Trends เป็นข้อมูลความสนใจสัมพ
 - [Google Trends — ชุดเปรียบเทียบเครื่องมือสำนักงานประเทศไทย](https://trends.google.com/trends/explore?date=today%2012-m&geo=TH&q=%E0%B9%81%E0%B8%9B%E0%B8%A5%E0%B8%87%20jpg%20%E0%B9%80%E0%B8%9B%E0%B9%87%E0%B8%99%20png,%E0%B8%84%E0%B8%B3%E0%B8%99%E0%B8%A7%E0%B8%93%E0%B9%80%E0%B8%81%E0%B8%A3%E0%B8%94,%E0%B9%80%E0%B8%84%E0%B8%A3%E0%B8%B7%E0%B9%88%E0%B8%AD%E0%B8%87%E0%B8%84%E0%B8%B4%E0%B8%94%E0%B9%80%E0%B8%A5%E0%B8%82%E0%B8%84%E0%B9%88%E0%B8%B2%E0%B9%84%E0%B8%9F,%E0%B8%AA%E0%B8%A3%E0%B9%89%E0%B8%B2%E0%B8%87%E0%B8%9A%E0%B8%B2%E0%B8%A3%E0%B9%8C%E0%B9%82%E0%B8%84%E0%B9%89%E0%B8%94,%E0%B9%81%E0%B8%9B%E0%B8%A5%E0%B8%87%E0%B8%82%E0%B9%89%E0%B8%AD%E0%B8%84%E0%B8%A7%E0%B8%B2%E0%B8%A1%E0%B9%80%E0%B8%9B%E0%B9%87%E0%B8%99%E0%B9%80%E0%B8%AA%E0%B8%B5%E0%B8%A2%E0%B8%87)
 - [มหาวิทยาลัยแม่ฟ้าหลวง — วิธีคำนวณ GPA และ GPAX](https://reg.mfu.ac.th/backend/api/files/media_library/CAL_2022-09-07%2013%3A40%3A41.809577.pdf)
 - [Google Trends Help — ข้อมูล Trends เป็นค่าความสนใจสัมพัทธ์](https://support.google.com/trends/answer/4365533?hl=en)
+
+## รอบที่ 14 — CSV to Excel และ intent งานสำนักงานหลายสาย
+
+สำรวจต่อเมื่อ 3 สิงหาคม 2026 โดยตรวจ Google Autocomplete ปัจจุบันของผู้สมัคร Batch 24 และพยายามเปิด Google Trends Explore ชุดเปรียบเทียบประเทศไทย 12 เดือน แต่ได้รับ HTTP 429 จึงไม่สร้างหรืออ้างตัวเลข Trends ใหม่จากรอบนี้ การตัดสินใจใช้ intent เชิงคุณภาพจาก Autocomplete ร่วมกับความกว้างของกลุ่มผู้ใช้ ความเสี่ยงข้อมูล และความสามารถในการทำงานจริงใน Browser:
+
+| คำตั้งต้น | คำแนะนำหลักที่พบ |
+|---|---|
+| csv to excel | converter, online, converter online, free, table, convert, file, columns |
+| convert csv to excel | online, online free, free, Power Automate, table, columns, automatically, Python, Mac |
+| csv cleaner | online, tool, AI, Python, data cleaner, duplicate cleaner |
+| คำนวณ OT / คำนวณโอที | 1.5 เท่า, ฐานเงินเดือน, รายวัน, ออนไลน์, วันหยุด, 2/3 เท่า, Excel |
+| คำนวณวันทำงาน / นับวันทำงาน | ราชการ, ออนไลน์, Excel, 119 วัน |
+| คำนวณเกรดที่ต้องได้ / วางแผนเกรด | ไม่พบคำแนะนำในรอบนี้; `target gpa calculator` มีคำแนะนำภาษาอังกฤษแต่เน้นชื่อสถาบันต่างประเทศ |
+
+CSV to Excel จึงชนะผู้สมัคร low-risk ในรอบนี้เพราะมี action ชัดเจนและใช้ได้กับสำนักงาน บัญชี ฝ่ายขาย โลจิสติกส์ นักวิเคราะห์ และนักพัฒนา ส่วน OT มี long-tail ภาษาไทยแข็งแรงกว่าแต่ต้องแยกประเภทลูกจ้าง วันทำงาน วันหยุด และตรวจฐานกฎหมายล่าสุดก่อนพัฒนา Workday มี intent จริงแต่แคบกว่า และ Target GPA ภาษาไทยยังไม่เห็นสัญญาณแยกจาก Grade Calculator เดิมเพียงพอ
+
+ขอบเขตที่ส่งมอบคืออ่านไฟล์ CSV/TSV/TXT หรือข้อความที่วาง รองรับ comma/tab/semicolon/pipe, UTF-8 และ Windows-874, quoted fields, escaped quote และ multiline field ตรวจ Preview/แถวผิดรูปใน Web Worker แล้วสร้าง .xlsx หนึ่ง Worksheet พร้อมหัวตาราง Filter และ freeze row ตัวเลขที่ปลอดภัยถูกเขียนเป็นเซลล์ตัวเลข แต่รหัสที่มีเลขศูนย์นำหน้าและค่าที่อาจเป็น Formula Injection ถูกเก็บเป็น inline string ไม่สร้างสูตรจาก input จำกัด 10 MB, 50,000 แถว, 200 คอลัมน์ และ 500,000 เซลล์เพื่อคุม RAM และเวลาบนอุปกรณ์พกพา
+
+Microsoft ระบุว่าไฟล์ข้อความแบบ delimited ใช้ tab ได้และ CSV ใช้ comma โดยตัวคั่นสามารถเปลี่ยนได้ อีกทั้ง Excel รองรับสูงสุด 1,048,576 แถว × 16,384 คอลัมน์ แต่เครื่องมือ Browser ใช้เพดานต่ำกว่ามากเพื่อความเสถียร RFC 4180 ใช้เป็นฐานสำหรับ comma, quote, quote ซ้อน และ newline ใน quoted field ส่วนคะแนน Trends ต้องตีความเป็นค่าความสนใจสัมพัทธ์ ไม่ใช่จำนวนค้นหารายเดือน
+
+- [Google Autocomplete — csv to excel](https://suggestqueries.google.com/complete/search?client=firefox&hl=th&q=csv%20to%20excel)
+- [Google Autocomplete — convert csv to excel](https://suggestqueries.google.com/complete/search?client=firefox&hl=th&q=convert%20csv%20to%20excel)
+- [Google Autocomplete — คำนวณ OT](https://suggestqueries.google.com/complete/search?client=firefox&hl=th&q=%E0%B8%84%E0%B8%B3%E0%B8%99%E0%B8%A7%E0%B8%93%20ot)
+- [Google Autocomplete — คำนวณวันทำงาน](https://suggestqueries.google.com/complete/search?client=firefox&hl=th&q=%E0%B8%84%E0%B8%B3%E0%B8%99%E0%B8%A7%E0%B8%93%E0%B8%A7%E0%B8%B1%E0%B8%99%E0%B8%97%E0%B8%B3%E0%B8%87%E0%B8%B2%E0%B8%99)
+- [RFC 4180 — Common Format and MIME Type for CSV](https://www.rfc-editor.org/info/rfc4180/)
+- [Microsoft — Import or export text and CSV files](https://support.microsoft.com/en-us/excel/get-started/import-or-export-text-txt-or-csv-files)
+- [Microsoft — Excel specifications and limits](https://support.microsoft.com/en-us/excel/excel-specifications-and-limits)
+- [Google Trends Help — ข้อมูล Trends เป็นค่าความสนใจสัมพัทธ์](https://support.google.com/trends/answer/4365533?hl=en)

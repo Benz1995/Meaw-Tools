@@ -1,5 +1,6 @@
 import { expect, test } from "@playwright/test";
 import { readFile } from "node:fs/promises";
+import { strFromU8, unzipSync } from "fflate";
 import { PDFDocument } from "pdf-lib";
 import { HEIC_SAMPLE_BASE64 } from "@/lib/tools/heic-sample";
 
@@ -19,6 +20,7 @@ const toolRoutes = [
   ["hash-generator", "Hash Generator"],
   ["word-counter", "Word Counter"],
   ["text-cleaner", "Text Cleaner"],
+  ["csv-to-excel", "CSV to Excel Converter"],
   ["typing-test", "Typing Test"],
   ["special-characters", "Special Characters & Fancy Text"],
   ["text-to-speech", "Text to Speech Reader"],
@@ -126,6 +128,67 @@ test("word counter and percentage calculator produce useful results", async ({ p
   await page.getByLabel("จำนวนทั้งหมด").fill("200");
   await page.getByRole("button", { name: "คำนวณเปอร์เซ็นต์" }).click();
   await expect(page.getByTestId("percentage-result")).toHaveText("30");
+});
+
+test("CSV to Excel previews columns and downloads a safe XLSX locally", async ({ page }) => {
+  const requests: string[] = [];
+  const consoleErrors: string[] = [];
+  page.on("request", (request) => requests.push(request.url()));
+  page.on("console", (message) => {
+    if (message.type() === "error") consoleErrors.push(message.text());
+  });
+  page.on("pageerror", (error) => consoleErrors.push(error.message));
+
+  await page.goto("/csv-to-excel");
+  await expect(page.getByRole("heading", { level: 1, name: "CSV to Excel Converter" })).toBeVisible();
+  await expect(page.getByText("Web Worker · ไม่อัปโหลดไฟล์", { exact: true })).toBeVisible();
+  await page.locator("#csv-source-file").setInputFiles({
+    name: "orders.csv",
+    mimeType: "text/csv",
+    buffer: Buffer.from('รหัส,สินค้า,หมวดหมู่,ราคา,คงเหลือ,หมายเหตุ\n00123,"ชาเขียว, สูตรพิเศษ",เครื่องดื่ม,55,18,"เก็บรหัสนำหน้าด้วย 0"\n00124,ชาไทย,เครื่องดื่ม,45,24,พร้อมส่ง\nSKU-009,แก้วแมว,ของใช้,129,7,"บรรทัดแรก\nบรรทัดที่สอง"\nSAFE-01,ข้อมูลตัวอย่าง,ทดสอบ,0,1,"=SUM(1,1)"', "utf8"),
+  });
+  await expect(page.getByText("orders.csv", { exact: true })).toBeVisible();
+
+  const labelGap = await page.evaluate(() => {
+    const input = document.getElementById("csv-sheet-name");
+    const label = document.querySelector<HTMLLabelElement>('label[for="csv-sheet-name"]');
+    const inputBox = input?.getBoundingClientRect();
+    const labelBox = label?.getBoundingClientRect();
+    return labelBox && inputBox ? Math.round(inputBox.top - labelBox.bottom) : 0;
+  });
+  expect(labelGap).toBeGreaterThanOrEqual(10);
+
+  await page.getByRole("button", { name: "ตรวจและดูตัวอย่าง" }).click();
+  const result = page.getByTestId("csv-inspection-result");
+  await expect(result).toBeVisible();
+  await expect(page.getByTestId("csv-row-count")).toHaveText("5");
+  await expect(page.getByTestId("csv-column-count")).toHaveText("6");
+  await expect(page.getByTestId("csv-detected-delimiter")).toContainText("Comma");
+  await expect(page.getByTestId("csv-preview-table")).toContainText("00123");
+  await expect(page.getByTestId("csv-preview-table")).toContainText("ชาเขียว, สูตรพิเศษ");
+  await expect(page.getByTestId("csv-preview-table")).toContainText("=SUM(1,1)");
+
+  const downloadPromise = page.waitForEvent("download");
+  await page.getByRole("button", { name: "ดาวน์โหลด Excel" }).click();
+  const download = await downloadPromise;
+  expect(download.suggestedFilename()).toBe("orders.xlsx");
+  const path = await download.path();
+  expect(path).toBeTruthy();
+  const workbook = unzipSync(new Uint8Array(await readFile(path!)));
+  const sheet = strFromU8(workbook["xl/worksheets/sheet1.xml"]!);
+  expect(sheet).toContain('state="frozen"');
+  expect(sheet).toContain('<c r="A2" t="inlineStr"><is><t xml:space="preserve">00123</t>');
+  expect(sheet).toContain('<c r="D2"><v>55</v></c>');
+  expect(sheet).toContain("=SUM(1,1)");
+  expect(sheet).not.toContain("<f>");
+
+  const layout = await page.evaluate(() => ({
+    width: document.documentElement.clientWidth,
+    scrollWidth: document.documentElement.scrollWidth,
+  }));
+  expect(layout.scrollWidth).toBe(layout.width);
+  expect(requests.some((url) => !url.startsWith("http://127.0.0.1:3100") && !url.startsWith("blob:") && !url.startsWith("data:"))).toBe(false);
+  expect(consoleErrors).toEqual([]);
 });
 
 test("grade calculator weights course GPA and multi-term GPAX transparently", async ({ page }) => {

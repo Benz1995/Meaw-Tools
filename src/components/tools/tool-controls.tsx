@@ -28,8 +28,8 @@ export function downloadBlob(blob: Blob, filename: string) {
 }
 
 export function CopyButton({ value, label = "คัดลอก" }: { value: string; label?: string }) { return <Button type="button" variant="outline" onClick={() => void copyText(value)} aria-label={label}><Clipboard className="size-4" />{label}</Button>; }
-export function ClearButton({ onClear }: { onClear: () => void }) { return <Button type="button" variant="outline" onClick={() => { onClear(); toast.info("ล้างข้อมูลแล้ว"); }} aria-label="ล้างข้อมูล"><Eraser className="size-4" />ล้าง</Button>; }
-export function ExampleButton({ onExample }: { onExample: () => void }) { return <Button type="button" variant="outline" onClick={onExample} aria-label="โหลดตัวอย่าง"><FlaskConical className="size-4" />ตัวอย่าง</Button>; }
+export function ClearButton({ onClear, disabled = false }: { onClear: () => void; disabled?: boolean }) { return <Button type="button" variant="outline" disabled={disabled} onClick={() => { onClear(); toast.info("ล้างข้อมูลแล้ว"); }} aria-label="ล้างข้อมูล"><Eraser className="size-4" />ล้าง</Button>; }
+export function ExampleButton({ onExample, disabled = false }: { onExample: () => void; disabled?: boolean }) { return <Button type="button" variant="outline" disabled={disabled} onClick={onExample} aria-label="โหลดตัวอย่าง"><FlaskConical className="size-4" />ตัวอย่าง</Button>; }
 export function DownloadButton({ value, filename, type }: { value: string; filename: string; type?: string }) { return <Button type="button" variant="outline" onClick={() => downloadText(value, filename, type)} aria-label={`ดาวน์โหลด ${filename}`}><Download className="size-4" />ดาวน์โหลด</Button>; }
 
 export function WorkspaceFrame({ children }: { children: React.ReactNode }) { return <div className="rounded-2xl border bg-card p-4 shadow-sm sm:p-6">{children}</div>; }

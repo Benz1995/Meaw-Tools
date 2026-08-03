@@ -19,6 +19,7 @@ const components = {
   "cron-generator": dynamic(() => import("@/features/tools/advanced-tools").then((module) => module.CronTool), { loading, ssr: false }),
   "word-counter": dynamic(() => import("@/features/tools/work-tools").then((module) => module.WordCounterTool), { loading, ssr: false }),
   "text-cleaner": dynamic(() => import("@/features/tools/work-tools").then((module) => module.TextCleanerTool), { loading, ssr: false }),
+  "csv-to-excel": dynamic(() => import("@/features/tools/csv-to-excel-tool").then((module) => module.CsvToExcelTool), { loading, ssr: false }),
   "typing-test": dynamic(() => import("@/features/tools/typing-test-tool").then((module) => module.TypingTestTool), { loading, ssr: false }),
   "special-characters": dynamic(() => import("@/features/tools/special-characters-tool").then((module) => module.SpecialCharactersTool), { loading, ssr: false }),
   "text-to-speech": dynamic(() => import("@/features/tools/text-to-speech-tool").then((module) => module.TextToSpeechTool), { loading, ssr: false }),
