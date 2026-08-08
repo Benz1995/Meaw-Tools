@@ -378,3 +378,40 @@ VAT Calculator ถูกเลือกเพราะเพิ่มเคร�
 - [กรมสรรพากร — คู่มือภาษีมูลค่าเพิ่มสำหรับ SMEs](https://www.rd.go.th/fileadmin/user_upload/SMEs/infographic/SME_lv3_1.pdf)
 - [กรมสรรพากร — สูตร 7/107 เมื่อ VAT รวมในราคา](https://www.rd.go.th/fileadmin/user_upload/SMEs/infographic/info-e-business-63.pdf)
 - [กรมสรรพากร — คู่มือภาษีหัก ณ ที่จ่ายและหลายอัตรา](https://interweb1.rd.go.th/publish/seminar/training/RD06.pdf)
+
+## รอบที่ 18 — Markdown Table Generator และการจัดอันดับ Batch 28
+
+สำรวจต่อเมื่อ 8 สิงหาคม 2569 ด้วย Google Autocomplete locale ไทย โดยเทียบคำตั้งต้นภาษาอังกฤษและภาษาไทยของผู้สมัครเดิมกับ long-tail เฉพาะงาน ตารางด้านล่างใช้จำนวนคำแนะนำสูงสุด 10 รายการเป็นสัญญาณความกว้างของ intent เท่านั้น ไม่ใช่ search volume รายเดือน การรับประกันอันดับหน้าแรกทำไม่ได้ จึงให้คะแนนร่วมกับประโยชน์จริง ความสามารถทำฟรีใน Browser, catalog overlap, ความเสี่ยง และคุณภาพหน้าที่ทำได้ครบ
+
+คะแนน 5 คือสูงที่สุด คอลัมน์ TH/EN เป็นจำนวนคำแนะนำสูงสุดจาก endpoint ที่ตรวจในรอบนี้:
+
+| อันดับ | แนวคิด | TH/EN | ยาก | คุณค่าธุรกิจ | รายได้ | ขยายต่อ | นวัตกรรม | ข้อสรุป |
+|---:|---|---:|---:|---:|---:|---:|---:|---|
+| 1 | Markdown Table Generator | 9/10 | 2 | 4 | 4 | 4 | 3 | ชนะ: generator, formatter และ editor มี intent อังกฤษกว้าง; ทำ visual editor และ import Excel/CSV ได้โดยไม่ใช้ Server |
+| 2 | Excel to CSV Converter | 10/10 | 3 | 5 | 4 | 5 | 2 | demand ไทยและอังกฤษแข็งแรง แต่จะเป็น Batch สาย CSV ลำดับที่สามติดกันหากเลือกทันที |
+| 3 | HTML Table Generator | 8/10 | 3 | 4 | 4 | 4 | 3 | intent ดีและต่อยอดข้อมูลตารางได้ แต่ scope ที่ดีต้องรองรับ caption, scope, colspan/rowspan และ CSS accessibility |
+| 4 | Resume Builder | 10/10 | 5 | 5 | 5 | 5 | 4 | มูลค่าสูง แต่ต้องมี ATS semantics, template, PDF, privacy และไม่ล็อก download หลัง login |
+| 5 | Image Cropper | 1/10 | 3 | 5 | 5 | 5 | 3 | อังกฤษ 10/10 พร้อม circle, pixel, cm/mm และ quality; ไทยยังแคบ |
+| 6 | Word Cloud Generator | 3/10 | 4 | 4 | 4 | 4 | 4 | อังกฤษ 10/10; ภาษาไทยต้องพิสูจน์ tokenization, ฟอนต์ และ export ภาพ |
+| 7 | Favicon / PWA Icon Generator | 2/10 | 3 | 4 | 4 | 4 | 3 | อังกฤษ 10/10; ต้องสร้าง ICO/PNG หลายขนาดและ manifest ที่ถูกต้อง |
+| 8 | Business Days Calculator | 4/10 | 3 | 4 | 4 | 4 | 3 | อังกฤษ 10/10 แต่ long-tail ผูกประเทศ; วันหยุดไทยและองค์กรต้อง version แยก |
+| 9 | JSON to CSV Converter | 1/10 | 3 | 4 | 4 | 5 | 2 | อังกฤษ 10/10 แต่ทับ catalog JSON/CSV และต้องอธิบาย flatten nested object อย่างโปร่งใส |
+| 10 | Remove Image Metadata | 1/10 | 4 | 4 | 4 | 4 | 4 | อังกฤษ 10/10 และมี privacy value; ต้องตรวจ metadata ทุก format หลัง re-encode จริง |
+| 11 | Password Strength Checker | 0/10 | 2 | 4 | 4 | 4 | 3 | อังกฤษ 10/10; ต้อง client-only และไม่อ้างเวลาถอดรหัสจากสมมติฐานที่ตรวจไม่ได้ |
+| 12 | Online Signature Maker | 2/10 | 3 | 4 | 4 | 4 | 3 | อังกฤษ 10/10 แต่ทับ Sign PDF และต้องแยกภาพลายเซ็นจาก digital certificate |
+| 13 | Invoice Generator | 1/10 | 5 | 5 | 5 | 5 | 3 | อังกฤษ 10/10; เอกสารภาษีไทยและเลขที่เอกสารทำให้ scope เสี่ยงกว่า Quotation เดิม |
+| 14 | Lorem Ipsum Generator | 1/10 | 2 | 3 | 3 | 3 | 2 | อังกฤษ 10/10แต่ utility value และ differentiation ต่ำกว่า visual table editor |
+| 15 | Thai Number to Words | 4/1 | 2 | 4 | 3 | 4 | 3 | ใช้จริงในบัญชีแต่ intent ต่ำกว่า และ logic บาทถ้วนมีใน Quotation เดิมแล้ว |
+
+Markdown Table Generator ถูกเลือกเพราะเพิ่มเครื่องมือสาย developer, documentation, data analyst และ content โดยไม่สร้าง Batch CSV ลำดับที่สามติดกัน ขอบเขตประกอบด้วย visual cell editor, เพิ่ม/ลบแถวและคอลัมน์, alignment รายคอลัมน์, import ข้อมูลจาก Excel/Google Sheets แบบ Tab และ CSV/Semicolon/Pipe ที่มี quote, Preview แบบ semantic table, คัดลอก และดาวน์โหลด `.md` ทุกอย่างทำใน Browser
+
+ตาม GitHub Flavored Markdown ตารางต้องมี header row และ delimiter row, ใช้ Colon ที่ด้านซ้าย/ขวาของ Hyphen เพื่อกำหนด alignment และ Pipe ใน cell ต้อง escape ด้วย Backslash เครื่องมือจึงสร้างหัวว่างเป็น `คอลัมน์ N`, escape Backslash ก่อน Pipe, แปลง line break เป็น `<br>` และแจ้งว่า GFM ไม่รองรับ merged cells/colspan/rowspan รวมถึง renderer บางตัวอาจไม่รองรับ table extension หรือ raw HTML เหมือน GitHub จำกัด 100 แถว, 20 คอลัมน์, 1,000 ตัวอักษรต่อ cell และข้อความนำเข้า 100,000 ตัวอักษรเพื่อไม่ให้ editor input จำนวนมากทำให้ Browser ค้าง
+
+- [Google Autocomplete — Markdown Table Generator](https://suggestqueries.google.com/complete/search?client=firefox&hl=th&gl=th&q=markdown%20table%20generator)
+- [Google Autocomplete — Markdown Table Formatter](https://suggestqueries.google.com/complete/search?client=firefox&hl=th&gl=th&q=markdown%20table%20formatter)
+- [Google Autocomplete — Markdown Table Editor](https://suggestqueries.google.com/complete/search?client=firefox&hl=th&gl=th&q=markdown%20table%20editor)
+- [Google Autocomplete — สร้างตาราง Markdown](https://suggestqueries.google.com/complete/search?client=firefox&hl=th&gl=th&q=%E0%B8%AA%E0%B8%A3%E0%B9%89%E0%B8%B2%E0%B8%87%E0%B8%95%E0%B8%B2%E0%B8%A3%E0%B8%B2%E0%B8%87%20markdown)
+- [Google Autocomplete — แปลง Excel เป็น CSV](https://suggestqueries.google.com/complete/search?client=firefox&hl=th&gl=th&q=%E0%B9%81%E0%B8%9B%E0%B8%A5%E0%B8%87%20excel%20%E0%B9%80%E0%B8%9B%E0%B9%87%E0%B8%99%20csv)
+- [Google Autocomplete — HTML Table Generator](https://suggestqueries.google.com/complete/search?client=firefox&hl=th&gl=th&q=html%20table%20generator)
+- [GitHub Docs — Organizing information with tables](https://docs.github.com/en/get-started/writing-on-github/working-with-advanced-formatting/organizing-information-with-tables)
+- [GitHub Flavored Markdown Spec — Tables extension](https://github.github.com/gfm/#tables-extension-)

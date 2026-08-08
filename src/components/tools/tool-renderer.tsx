@@ -18,6 +18,7 @@ const components = {
   "regex-tester": dynamic(() => import("@/features/tools/advanced-tools").then((module) => module.RegexTool), { loading, ssr: false }),
   "diff-checker": dynamic(() => import("@/features/tools/advanced-tools").then((module) => module.DiffTool), { loading, ssr: false }),
   "cron-generator": dynamic(() => import("@/features/tools/advanced-tools").then((module) => module.CronTool), { loading, ssr: false }),
+  "markdown-table-generator": dynamic(() => import("@/features/tools/markdown-table-tool").then((module) => module.MarkdownTableTool), { loading, ssr: false }),
   "word-counter": dynamic(() => import("@/features/tools/work-tools").then((module) => module.WordCounterTool), { loading, ssr: false }),
   "text-cleaner": dynamic(() => import("@/features/tools/work-tools").then((module) => module.TextCleanerTool), { loading, ssr: false }),
   "csv-to-excel": dynamic(() => import("@/features/tools/csv-to-excel-tool").then((module) => module.CsvToExcelTool), { loading, ssr: false }),

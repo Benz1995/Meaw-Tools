@@ -18,6 +18,7 @@ const toolRoutes = [
   ["regex-tester", "Regex Tester"],
   ["diff-checker", "Text Diff Checker"],
   ["cron-generator", "Cron Generator"],
+  ["markdown-table-generator", "Markdown Table Generator"],
   ["hash-generator", "Hash Generator"],
   ["word-counter", "Word Counter"],
   ["text-cleaner", "Text Cleaner"],
@@ -247,6 +248,56 @@ test("CSV cleaner removes selected duplicates and protects spreadsheet formulas 
   expect(csv.match(/somchai@example\.com/gi)).toHaveLength(1);
   expect(csv).toContain('"004","","Namfon"');
   expect(csv).toContain('"005","","Por"');
+
+  const layout = await page.evaluate(() => ({
+    width: document.documentElement.clientWidth,
+    scrollWidth: document.documentElement.scrollWidth,
+  }));
+  expect(layout.scrollWidth).toBe(layout.width);
+  expect(requests.some((url) => !url.startsWith("http://127.0.0.1:3100") && !url.startsWith("blob:") && !url.startsWith("data:"))).toBe(false);
+  expect(consoleErrors).toEqual([]);
+});
+
+test("Markdown table generator imports spreadsheet data and produces safe GFM", async ({ page }) => {
+  const requests: string[] = [];
+  const consoleErrors: string[] = [];
+  page.on("request", (request) => requests.push(request.url()));
+  page.on("console", (message) => {
+    if (message.type() === "error") consoleErrors.push(message.text());
+  });
+  page.on("pageerror", (error) => consoleErrors.push(error.message));
+
+  await page.goto("/markdown-table-generator");
+  await expect(page.getByRole("heading", { level: 1, name: "Markdown Table Generator" })).toBeVisible();
+  const importInput = page.getByLabel("ข้อมูลจาก Excel / Sheets / CSV / TSV");
+  await expect(importInput).toBeVisible();
+  const labelGap = await importInput.evaluate((input) => {
+    const label = document.querySelector<HTMLLabelElement>('label[for="markdown-import-text"]');
+    const inputBox = input.getBoundingClientRect();
+    const labelBox = label?.getBoundingClientRect();
+    return labelBox ? Math.round(inputBox.top - labelBox.bottom) : 0;
+  });
+  expect(labelGap).toBeGreaterThanOrEqual(10);
+
+  await importInput.fill("สินค้า\tราคา\tสถานะ\nชาไทย\t65\tพร้อมขาย\nครัวซองต์ | เนยสด\t95\tพร้อมขาย");
+  await page.getByRole("button", { name: "นำเข้าตาราง" }).click();
+  await expect(page.getByRole("status")).toContainText("2 แถว × 3 คอลัมน์");
+  await page.getByLabel("การจัดแนวคอลัมน์ 2").selectOption("right");
+
+  const output = page.getByTestId("markdown-table-output");
+  await expect(output).toContainText("ครัวซองต์ \\| เนยสด");
+  await expect(output).toContainText(/\| -+: \|/);
+  await expect(page.getByRole("table", { name: "ตัวอย่างผลลัพธ์ตาราง Markdown" })).toContainText("ชาไทย");
+
+  const downloadPromise = page.waitForEvent("download");
+  await page.getByRole("button", { name: "ดาวน์โหลด meaw-markdown-table.md" }).click();
+  const download = await downloadPromise;
+  expect(download.suggestedFilename()).toBe("meaw-markdown-table.md");
+  const path = await download.path();
+  expect(path).toBeTruthy();
+  const markdown = await readFile(path!, "utf8");
+  expect(markdown).toContain("ครัวซองต์ \\| เนยสด");
+  expect(markdown).toContain("---:");
 
   const layout = await page.evaluate(() => ({
     width: document.documentElement.clientWidth,
