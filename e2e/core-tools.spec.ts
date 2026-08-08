@@ -38,6 +38,7 @@ const toolRoutes = [
   ["unit-converter", "Unit Converter"],
   ["date-calculator", "Date Calculator"],
   ["business-days-calculator", "Business Days Calculator"],
+  ["working-hours-calculator", "Working Hours Calculator"],
   ["jpg-to-pdf", "JPG to PDF Converter"],
   ["qr-code-generator", "QR Code Generator"],
   ["barcode-generator", "Barcode Generator"],
@@ -1488,6 +1489,54 @@ test("business days calculator handles Thai bank holidays, endpoint policy, cust
   const csv = await readFile(csvPath!, "utf8");
   expect(csv).toContain("2026-04-13");
   expect(csv).toContain("วันสงกรานต์");
+
+  const layout = await page.evaluate(() => ({
+    width: document.documentElement.clientWidth,
+    scrollWidth: document.documentElement.scrollWidth,
+  }));
+  expect(layout.scrollWidth).toBe(layout.width);
+  expect(consoleErrors).toEqual([]);
+});
+
+test("working hours calculator handles breaks, overnight shifts, transparent rounding, and CSV", async ({ page }) => {
+  const consoleErrors: string[] = [];
+  page.on("console", (message) => {
+    if (message.type() === "error") consoleErrors.push(message.text());
+  });
+  page.on("pageerror", (error) => consoleErrors.push(error.message));
+
+  await page.goto("/working-hours-calculator");
+  await expect(page.getByRole("heading", { level: 1, name: "Working Hours Calculator" })).toBeVisible();
+  await expect(page.locator("main header").getByText("คำนวณชั่วโมงทำงานและ Timesheet", { exact: true })).toBeVisible();
+  await expect(page.locator("#working-entry-entry-1-date")).toBeVisible();
+  await page.evaluate(() => document.fonts.ready);
+
+  const labelGap = await page.evaluate(() => {
+    const label = document.querySelector<HTMLLabelElement>('label[for="working-entry-entry-1-date"]');
+    const input = document.querySelector<HTMLInputElement>("#working-entry-entry-1-date");
+    const labelBox = label?.getBoundingClientRect();
+    const inputBox = input?.getBoundingClientRect();
+    return labelBox && inputBox ? Math.round(inputBox.top - labelBox.bottom) : 0;
+  });
+  expect(labelGap).toBeGreaterThanOrEqual(10);
+
+  await page.getByRole("button", { name: "โหลดตัวอย่าง" }).click();
+  await page.getByRole("button", { name: "คำนวณชั่วโมงทำงาน" }).click();
+  await expect(page.getByTestId("working-hours-total")).toContainText("38 ชม.");
+  await expect(page.getByTestId("working-hours-result")).toContainText("38.00 ชั่วโมงทศนิยม");
+  await expect(page.getByTestId("working-hours-target")).toContainText("ขาดจากเป้าหมาย 2 ชม.");
+  await expect(page.getByTestId("working-hours-result")).toContainText("กะข้ามวัน");
+  await expect(page.getByRole("row", { name: /2026-08-05 กะกลางคืน 22:00–06:30 ข้ามวัน/ })).toBeVisible();
+
+  const csvDownloadPromise = page.waitForEvent("download");
+  await page.getByRole("button", { name: "ดาวน์โหลด CSV" }).click();
+  const csvDownload = await csvDownloadPromise;
+  expect(csvDownload.suggestedFilename()).toBe("meaw-working-hours.csv");
+  const csvPath = await csvDownload.path();
+  expect(csvPath).toBeTruthy();
+  const csv = await readFile(csvPath!, "utf8");
+  expect(csv).toContain("2026-08-05");
+  expect(csv).toContain("38.00");
 
   const layout = await page.evaluate(() => ({
     width: document.documentElement.clientWidth,

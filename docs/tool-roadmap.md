@@ -46,6 +46,7 @@
 | 38 | Grade Calculator | นักเรียน, นักศึกษา, ผู้ปกครอง | คำนวณ GPA จากรายวิชาและประมาณ GPAX หลายเทอมแบบถ่วงหน่วยกิต พร้อมเทียบการปัด/ตัดทศนิยม | พร้อมใช้ |
 | 39 | Word Cloud Generator ภาษาไทย | นักเรียน, ครู, นักวิจัย, Marketing, ทีมงาน | ตัดคำไทย/อังกฤษหรือรับวลีพร้อมน้ำหนัก ตรวจความถี่ และส่งออก PNG/SVG/CSV ใน Browser | พร้อมใช้ |
 | 40 | Business Days Calculator | HR, PM, ธุรการ, การเงิน, SME | นับช่วงวันหรือเพิ่ม/ลบวันทำการ พร้อมสัปดาห์ทำงานกำหนดเอง วันหยุดบริษัท และ preset ธปท. ปี 2569 | พร้อมใช้ |
+| 41 | Working Hours Calculator | พนักงาน, ฟรีแลนซ์, HR, ผู้ทำงานเป็นกะ | รวมเวลาเข้า–ออก หักพัก กะข้ามวัน กะแยก การปัดแบบโปร่งใส ชั่วโมงทศนิยม เป้าหมาย และ CSV | พร้อมใช้ |
 
 ## หลักฐาน Google Trends ประเทศไทย
 
@@ -129,6 +130,7 @@
 | 33 | Fuel Cost Calculator | Autocomplete ไทย/อังกฤษ 10/10; ไทยแตกตามระยะทาง รถ ไป-กลับ ต่างจังหวัด และมอเตอร์ไซค์ | 2 | 5 | 5 | 5 | 3 | ส่งมอบ Batch 35; เที่ยวเดียว/ไป-กลับ, km/L, L/100 km, ค่าเพิ่ม, ต่อกิโลเมตร และหารต่อคน |
 | 34 | Word Cloud Generator ภาษาไทย | Autocomplete อังกฤษ 10/10, ไทย 5/10; มี free, online, students, phrases และ shapes | 4 | 4 | 4 | 4 | 4 | ส่งมอบ Batch 36; Thai tokenization, stopwords, weighted phrases, deterministic layout และ PNG/SVG/CSV |
 | 35 | Business Days Calculator | Autocomplete อังกฤษ 10/10, ไทย 4/10; วันหยุดธนาคาร 2569 10/10 | 3 | 5 | 4 | 5 | 3 | ส่งมอบ Batch 37; range/shift, custom workweek, endpoint policy, custom holidays, preset ธปท. และ CSV |
+| 36 | Working Hours Calculator | Autocomplete EN 10/10 ทุกแกนหลัก; ไทย 2–3/10 และมี Excel/ออนไลน์ | 3 | 5 | 5 | 5 | 4 | ส่งมอบ Batch 38; multi-shift, breaks, overnight, transparent rounding, target, decimal hours และ CSV |
 
 ## ลำดับส่งมอบที่แนะนำ
 
@@ -167,6 +169,7 @@
 33. Batch 35 — Fuel Cost Calculator แบบ client-only รองรับเที่ยวเดียว/ไป-กลับ, กม./ลิตร และลิตร/100 กม., ราคาที่ผู้ใช้กรอก, ทางด่วน/จอดรถ/ค่าอื่น, ต้นทุนต่อกิโลเมตร และหารต่อคน — ส่งมอบแล้ว
 34. Batch 36 — Word Cloud Generator ภาษาไทยแบบ client-only รองรับข้อความไทย/อังกฤษ, stopwords, คำ/วลีพร้อมน้ำหนัก, สี/พื้นหลัง/การหมุน, ตารางความถี่ และ PNG 2×/SVG/CSV — ส่งมอบแล้ว
 35. Batch 37 — Business Days Calculator แบบ client-only รองรับนับช่วงวัน, เพิ่ม/ลบวันทำการ, เลือกวันทำงาน 7 วัน, รวม/ไม่รวมปลายช่วง, วันหยุดบริษัท, preset วันหยุดสถาบันการเงิน ธปท. ปี 2569, breakdown และ CSV — ส่งมอบแล้ว
+36. Batch 38 — Working Hours Calculator แบบ client-only รองรับหลายกะและกะแยก, หักพัก, กะข้ามวัน, ปัดเวลาสุทธิ 5/6/10/15 นาทีแบบแสดงผลจริงเทียบผลปัด, ชั่วโมงทศนิยม, เป้าหมาย และ CSV — ส่งมอบแล้ว
 
 ทุก Batch ควรมี unit test ของสูตรหรือ parser, E2E อย่างน้อยหนึ่งเส้นทาง, ตรวจ keyboard/mobile และวัด Core Web Vitals ก่อนเปิด AdSense ใน production
 

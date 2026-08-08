@@ -37,6 +37,7 @@ const components = {
   "unit-converter": dynamic(() => import("@/features/tools/work-tools").then((module) => module.UnitConverterTool), { loading, ssr: false }),
   "date-calculator": dynamic(() => import("@/features/tools/work-tools").then((module) => module.DateCalculatorTool), { loading, ssr: false }),
   "business-days-calculator": dynamic(() => import("@/features/tools/business-days-calculator-tool").then((module) => module.BusinessDaysCalculatorTool), { loading, ssr: false }),
+  "working-hours-calculator": dynamic(() => import("@/features/tools/working-hours-calculator-tool").then((module) => module.WorkingHoursCalculatorTool), { loading, ssr: false }),
   "jpg-to-pdf": dynamic(() => import("@/features/tools/jpg-to-pdf-tool").then((module) => module.JpgToPdfTool), { loading, ssr: false }),
   "qr-code-generator": dynamic(() => import("@/features/tools/qr-code-tool").then((module) => module.QrCodeTool), { loading, ssr: false }),
   "barcode-generator": dynamic(() => import("@/features/tools/barcode-generator-tool").then((module) => module.BarcodeGeneratorTool), { loading, ssr: false }),

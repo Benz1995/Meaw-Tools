@@ -770,3 +770,39 @@ HTML Table Generator ถูกเลือกเพราะตอบ intent ส
 - [W3C WAI — Table Tips](https://www.w3.org/WAI/tutorials/tables/tips/)
 - [Google Search Central — Creating helpful, reliable, people-first content](https://developers.google.com/search/docs/fundamentals/creating-helpful-content)
 - [Google Search Central — Title links](https://developers.google.com/search/docs/appearance/title-link)
+
+## รอบที่ 28 — Working Hours Calculator และการจัดอันดับ Batch 38
+
+สำรวจเมื่อ 8 สิงหาคม 2569 ด้วย Google Autocomplete locale ไทย (`hl=th`, `gl=th`) และตรวจหน้าคู่แข่งที่เปิดใช้งานจริง คำอังกฤษ `working hours calculator`, `work hours calculator`, `time card calculator` และ `timesheet calculator` ได้คำแนะนำ 10/10 ทั้งหมด โดย long-tail ระบุ Excel, online, breaks, lunch, decimal, weekly และ two weeks ส่วนคำไทย `คำนวณชั่วโมงทำงาน` ได้ 2/10 และ `คํานวณเวลาทํางาน` ได้ 3/10 พร้อมคำ Excel และออนไลน์ จำนวนคำแนะนำเป็น demand proxy เพื่อดูความกว้างของ intent ไม่ใช่ search volume และไม่รับประกันอันดับ Google
+
+คะแนน 5 คือสูงที่สุด รายการรองที่ยังไม่มีตัวเลข Autocomplete ในรอบนี้ถูกลดคะแนนความมั่นใจแทนการเดาความนิยม:
+
+| อันดับ | แนวคิด | Demand ที่พบ | ยาก | คุณค่าธุรกิจ | รายได้ | ขยายต่อ | นวัตกรรม | ข้อสรุป |
+|---:|---|---|---:|---:|---:|---:|---:|---|
+| 1 | Working Hours Calculator | EN 10/10 ทุกแกนหลัก; TH 2–3/10 | 3 | 5 | 5 | 5 | 4 | ส่งมอบ Batch 38; แก้โจทย์ clock in/out, break, overnight, rounding, decimal และ CSV โดยไม่ทับหน้า OT |
+| 2 | Shift Pattern Planner | ยังไม่ตรวจตัวเลขรอบนี้ | 4 | 5 | 4 | 5 | 4 | มีประโยชน์กับงานกะ แต่ต้องจัดการรอบหมุน วันหยุด และ timezone ให้ชัดเจน |
+| 3 | Hourly Rate Calculator | long-tail pay ปรากฏใต้ work hours | 3 | 5 | 5 | 4 | 3 | ควรแยกจากค่าจ้างตามกฎหมายและคำนวณจากรายได้/เวลาที่ผู้ใช้กรอกเท่านั้น |
+| 4 | Time Duration Calculator | intent hours and minutes ปรากฏใต้ timesheet | 2 | 4 | 4 | 4 | 2 | ทำง่ายและกว้าง แต่ต้องแตกต่างจาก Date Calculator และ Working Hours ที่มีอยู่ |
+| 5 | Billable Hours Calculator | ยังไม่ตรวจตัวเลขรอบนี้ | 3 | 5 | 4 | 5 | 3 | เหมาะฟรีแลนซ์ เอเจนซี และทนาย พร้อม rate หลายงานและ export |
+| 6 | Meeting Cost Calculator | ยังไม่ตรวจตัวเลขรอบนี้ | 2 | 4 | 4 | 4 | 4 | เห็นต้นทุนประชุมแบบ real time ได้ แต่ต้องไม่เก็บเงินเดือนรายบุคคล |
+| 7 | Break Time Calculator | breaks/lunch ปรากฏต่อเนื่องใน time card/timesheet | 2 | 4 | 4 | 3 | 2 | ควรทำเมื่อมี use case จัดตารางพัก ไม่สร้างหน้า thin ที่ซ้ำกับ Batch 38 |
+| 8 | Timesheet Template Generator | Excel ปรากฏทั้ง EN/TH | 3 | 5 | 4 | 4 | 3 | สร้าง XLSX/PDF ได้ แต่ต้องแยก template จากเครื่องคำนวณและกัน formula injection |
+| 9 | Payroll Hours Reconciliation | payroll ปรากฏในคู่แข่ง | 4 | 5 | 5 | 5 | 4 | มีมูลค่าสูงแต่ต้องหลีกเลี่ยงการอ้าง compliance และรองรับ import ที่ตรวจสอบได้ |
+| 10 | Time Zone Meeting Planner | ยังไม่ตรวจตัวเลขรอบนี้ | 3 | 4 | 4 | 4 | 3 | เหมาะทีม remote แต่ catalog มี Timestamp Converter จึงต้องออกแบบ intent แยก |
+| 11 | Invoice Due Date Calculator | ยังไม่ตรวจตัวเลขรอบนี้ | 3 | 4 | 4 | 4 | 3 | ใช้ Business Days engine ได้ แต่ต้องกำหนด endpoint/holiday policy และไม่วินิจฉัยสัญญา |
+| 12 | Attendance Percentage Calculator | ยังไม่ตรวจตัวเลขรอบนี้ | 2 | 4 | 3 | 4 | 2 | เหมาะโรงเรียนและ HR แต่ต้องไม่เก็บข้อมูลนักเรียนหรือพนักงานโดยไม่จำเป็น |
+| 13 | Mileage & Work Log | ยังไม่ตรวจตัวเลขรอบนี้ | 3 | 4 | 4 | 4 | 3 | ต่อกับ Fuel Cost ได้ แต่ต้องชัดว่าเป็นบันทึกส่วนตัวไม่ใช่เอกสารภาษี |
+| 14 | Study Hours Planner | ยังไม่ตรวจตัวเลขรอบนี้ | 2 | 4 | 3 | 4 | 3 | ทำฟรีได้และใช้กับนักเรียน แต่ควรพิสูจน์ demand ก่อนสร้างหน้าใหม่ |
+| 15 | Pomodoro / Focus Timer | ยังไม่ตรวจตัวเลขรอบนี้ | 2 | 3 | 3 | 3 | 2 | คู่แข่งสูงและมูลค่า SEO ไม่ชัด จึงไม่ควรแซงเครื่องมือสำนักงานที่แก้ปัญหาจริงกว่า |
+
+ขอบเขต Batch 38 ใช้ `<input type="time">` ซึ่งคืนค่าเป็น `HH:mm` แบบ 24 ชั่วโมงอย่างสม่ำเสมอ แล้วคำนวณเป็นนาทีโดยไม่พึ่ง timezone รองรับหลายกะในวันเดียวกันและถือว่าเวลาออกน้อยกว่าเวลาเข้าคือกะข้ามวัน เวลาเท่ากันถูกปฏิเสธเพื่อไม่เดาว่าเป็น 0 หรือ 24 ชั่วโมง การปัดใช้กับเวลาสุทธิของแต่ละกะหลังหักพักและแสดงผลจริงเทียบผลปัดเสมอ ส่วนเป้าหมายเป็นเพียงการเปรียบเทียบ ไม่เรียกส่วนเกินว่า OT
+
+แนวทาง SEO แยก primary intent `คำนวณชั่วโมงทำงาน` ออกจาก `คำนวณโอที` และ `คำนวณวันทำงาน` ใช้ FAQ ตอบกะข้ามวัน เวลาพัก ชั่วโมงทศนิยม Excel และการปัดโดยไม่สร้างหน้าคำใกล้เคียงหลายหน้าบาง ๆ ฟีเจอร์คู่แข่งที่พบร่วมกันคือหลายวัน หักพัก กะข้ามวัน ผลแบบชั่วโมง:นาที/ทศนิยม และ export ขณะที่ Meaw Tools เพิ่มการเปิดเผย rounding delta, เป้าหมายที่ไม่ตีความเป็น OT, formula-safe CSV และประมวลผลใน Browser
+
+- [Google Autocomplete — working hours calculator](https://suggestqueries.google.com/complete/search?client=firefox&hl=th&gl=th&q=working%20hours%20calculator)
+- [Google Autocomplete — work hours calculator](https://suggestqueries.google.com/complete/search?client=firefox&hl=th&gl=th&q=work%20hours%20calculator)
+- [Google Autocomplete — time card calculator](https://suggestqueries.google.com/complete/search?client=firefox&hl=th&gl=th&q=time%20card%20calculator)
+- [Google Autocomplete — timesheet calculator](https://suggestqueries.google.com/complete/search?client=firefox&hl=th&gl=th&q=timesheet%20calculator)
+- [Google Autocomplete — คำนวณชั่วโมงทำงาน](https://suggestqueries.google.com/complete/search?client=firefox&hl=th&gl=th&q=%E0%B8%84%E0%B8%B3%E0%B8%99%E0%B8%A7%E0%B8%93%E0%B8%8A%E0%B8%B1%E0%B9%88%E0%B8%A7%E0%B9%82%E0%B8%A1%E0%B8%87%E0%B8%97%E0%B8%B3%E0%B8%87%E0%B8%B2%E0%B8%99)
+- [MDN — input type=time](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/input/time)
+- [QuickBooks — Time Card Calculator](https://quickbooks.intuit.com/uk/time-tracking/time-card-calculator/)
