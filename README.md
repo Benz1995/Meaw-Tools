@@ -6,7 +6,7 @@
 
 - Next.js 16 App Router, React 19, TypeScript strict และ Tailwind CSS 4
 - shadcn/ui + Radix, Noto Sans Thai, JetBrains Mono และ dark mode
-- เครื่องมือ 74 รายการ พร้อม validation, empty/error state, clear และ action ที่เหมาะกับแต่ละงาน
+- เครื่องมือ 75 รายการ พร้อม validation, empty/error state, clear และ action ที่เหมาะกับแต่ละงาน
 - กลุ่มงานทั่วไป: นับคำ จัดระเบียบข้อความ คำนวณเปอร์เซ็นต์ แปลงหน่วย และคำนวณวัน
 - Word Cloud Generator ตัดคำไทย/อังกฤษ กรอง stopwords รองรับวลีพร้อมน้ำหนัก ปรับสี/พื้นหลัง และส่งออก PNG 2×, SVG หรือ CSV ภายใน Browser
 - Business Days Calculator นับช่วงวันหรือเพิ่ม/ลบวันทำการ ปรับสัปดาห์ทำงาน ตัดวันหยุดกำหนดเอง และใช้ preset วันหยุดสถาบันการเงิน ธปท. ปี 2569 แบบระบุขอบเขต
@@ -20,6 +20,7 @@
 - Labor Cost & Employee Cost Calculator รวมค่าจ้าง โบนัส ภาระนายจ้าง สวัสดิการ ต้นทุนคงที่ Overhead และ Productive hours พร้อม Burden rate, Cost multiplier, ต้นทุนต่อชั่วโมง งบทีม และ CSV
 - Sales Commission Calculator คำนวณ Flat, Marginal/Retroactive tiers, Sales credit, Quota bonus, Accelerator, Cap และ Clawback จากยอดขายหรือกำไรขั้นต้น พร้อม OTE โดยประมาณและ CSV
 - Safety Stock & Reorder Point Calculator รองรับ Service level + Demand/Lead-time variability, Days of cover หรือ Manual buffer พร้อม Inventory position, จุดสั่งซื้อ Pack-size rounding และ CSV
+- Inventory Turnover & Inventory Days Calculator ใช้ COGS กับ Average inventory จากต้น–ปลาย หลาย Snapshot หรือค่าจากระบบ พร้อม DIO/DOH, Annualized turnover, Target inventory และ CSV
 - JPG to PDF, QR Code Generator, QR Code Scanner และ Age Calculator ประมวลผลภายใน Browser
 - Loan Calculator, BMI Calculator และ Profit & Margin Calculator พร้อมสูตรและข้อจำกัดที่ตรวจสอบได้
 - VAT Calculator Thailand บวกหรือถอด VAT ด้วยสูตรที่อธิบายได้ รองรับ Service Charge และแยกภาษีหัก ณ ที่จ่าย พร้อมอัตรา versioned จากกรมสรรพากร
@@ -125,6 +126,7 @@ flowchart LR
 - Labor Cost & Employee Cost Calculator จำกัดค่าต่อช่อง 1 ล้านล้าน จำนวนพนักงาน 100,000 คน อัตรา 500% ตาราง 168 ชั่วโมง/สัปดาห์ 53 สัปดาห์/ปี และวันไม่ส่งมอบ 366 วัน พร้อมตรวจวันรวมไม่เกินตารางและไม่บันทึกข้อมูลเงินเดือน
 - Sales Commission Calculator จำกัดค่าต่อช่อง 1 ล้านล้าน อัตรา 1,000% ขั้นบันได 10 ขั้น และ 366 รอบต่อปี ตรวจ Threshold เรียงจากศูนย์ จำกัดผลลัพธ์ 1 พันล้านล้าน ส่งออก CSV จากตัวเลขและ label ที่ระบบกำหนดโดยไม่มีช่องข้อความอิสระ และไม่บันทึกยอดขายหรือค่าจ้างฐาน
 - Safety Stock & Reorder Point Calculator จำกัด Quantity 1 ล้านล้าน Lead time/ช่วงสำรอง 3,660 ช่วง Service level 50–99.99% และผลลัพธ์ 1 ล้านล้านล้านล้าน ตรวจฐานเวลา/วิธีคำนวณ ปัดขึ้นตาม Pack multiple ได้ และไม่บันทึก Demand หรือ Inventory position
+- Inventory Turnover & Inventory Days Calculator จำกัดยอดเงิน 1,000 ล้านล้าน จำนวนวันและ Snapshot 3,660 ค่า เป้าหมาย 100,000 รอบ/ปี ตรวจ COGS กับ Average inventory ที่มากกว่าศูนย์ และไม่บันทึกต้นทุนหรือยอด Inventory
 - Regex ทำงานใน Web Worker และถูก terminate เมื่อเกิน 750 ms
 - JWT เป็นการ Decode เท่านั้น ไม่ verify signature
 - SQL ถูกจัดรูปเท่านั้น ไม่ execute

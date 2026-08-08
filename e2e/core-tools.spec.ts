@@ -62,6 +62,7 @@ const toolRoutes = [
   ["labor-cost-calculator", "Labor Cost & Employee Cost Calculator"],
   ["sales-commission-calculator", "Sales Commission Calculator"],
   ["safety-stock-calculator", "Safety Stock & Reorder Point Calculator"],
+  ["inventory-turnover-calculator", "Inventory Turnover & Inventory Days Calculator"],
   ["jpg-to-pdf", "JPG to PDF Converter"],
   ["qr-code-generator", "QR Code Generator"],
   ["barcode-generator", "Barcode Generator"],
@@ -2051,6 +2052,68 @@ test("safety stock calculator separates inventory policies without mobile overfl
   expect(csv).toContain('"Safety Stock แนะนำ","187.00","หน่วย"');
   expect(csv).toContain('"Reorder Point แนะนำ","887.00","หน่วย"');
   expect(csv).toContain('"สถานะสั่งซื้อ","ถึงจุดสั่งซื้อ",""');
+
+  const layout = await page.evaluate(() => ({ width: document.documentElement.clientWidth, scrollWidth: document.documentElement.scrollWidth }));
+  expect(layout.scrollWidth).toBe(layout.width);
+  expect(hasExternalRequest(requestUrls, page.url())).toBe(false);
+  expect(consoleErrors).toEqual([]);
+});
+
+test("inventory turnover calculator separates COGS, average inventory, and days without mobile overflow", async ({ page }) => {
+  const consoleErrors: string[] = [];
+  const requestUrls: string[] = [];
+  page.on("console", (message) => {
+    if (message.type() === "error") consoleErrors.push(message.text());
+  });
+  page.on("pageerror", (error) => consoleErrors.push(error.message));
+  page.on("request", (request) => requestUrls.push(request.url()));
+  await page.setViewportSize({ width: 390, height: 844 });
+
+  await page.goto("/inventory-turnover-calculator");
+  await expect(page.getByRole("heading", { level: 1, name: "Inventory Turnover & Inventory Days Calculator" })).toBeVisible();
+  await expect(page.locator("main header").getByText("คำนวณ Inventory Turnover และ Inventory Days", { exact: true })).toBeVisible();
+  await expect(page.locator("#inventory-cogs")).toBeVisible();
+  await page.evaluate(() => document.fonts.ready);
+
+  const labelGap = await page.evaluate(() => {
+    const label = document.querySelector<HTMLLabelElement>('label[for="inventory-cogs"]');
+    const input = document.querySelector<HTMLInputElement>("#inventory-cogs");
+    const labelBox = label?.getBoundingClientRect();
+    const inputBox = input?.getBoundingClientRect();
+    return labelBox && inputBox ? Math.round(inputBox.top - labelBox.bottom) : 0;
+  });
+  expect(labelGap).toBeGreaterThanOrEqual(10);
+
+  await page.locator("#inventory-average-method").click();
+  await page.getByRole("option", { name: "เฉลี่ยจากหลาย Snapshot" }).click();
+  await expect(page.locator("#inventory-snapshots")).toBeVisible();
+  await expect(page.locator("#inventory-opening")).toHaveCount(0);
+  await page.locator("#inventory-average-method").click();
+  await page.getByRole("option", { name: "Inventory ต้นรอบ + ปลายรอบ" }).click();
+  await expect(page.locator("#inventory-opening")).toBeVisible();
+
+  await page.getByRole("button", { name: "โหลดตัวอย่าง" }).click();
+  await page.getByRole("button", { name: "คำนวณ Inventory Turnover" }).click();
+  await expect(page.getByTestId("inventory-turnover-period")).toHaveText("4.8 รอบ");
+  await expect(page.getByTestId("inventory-turnover-annualized")).toHaveText("4.8 รอบ/ปี");
+  await expect(page.getByTestId("inventory-days")).toHaveText("76.04 วัน");
+  await expect(page.getByTestId("inventory-average")).toHaveText("฿250,000.00");
+  await expect(page.getByTestId("inventory-weeks")).toHaveText("10.86 สัปดาห์");
+  await expect(page.getByTestId("inventory-cogs-per-day")).toHaveText("฿3,287.67");
+  await expect(page.getByTestId("inventory-target-average")).toHaveText("฿200,000.00");
+  await expect(page.getByTestId("inventory-target-status")).toHaveText("Average inventory สูงกว่าระดับตามเป้าหมาย");
+  await expect(page.getByTestId("inventory-turnover-result")).toContainText("Inventory ปลายรอบเทียบ COGS เฉลี่ยปัจจุบันครอบคลุมประมาณ 60.83 วัน");
+
+  const csvPromise = page.waitForEvent("download");
+  await page.getByRole("button", { name: "ดาวน์โหลด CSV" }).click();
+  const csvDownload = await csvPromise;
+  expect(csvDownload.suggestedFilename()).toBe("meaw-inventory-turnover.csv");
+  const csvPath = await csvDownload.path();
+  expect(csvPath).toBeTruthy();
+  const csv = await readFile(csvPath!, "utf8");
+  expect(csv).toContain('"Average inventory","250000.00","THB"');
+  expect(csv).toContain('"Inventory turnover ในรอบ","4.80","รอบ"');
+  expect(csv).toContain('"Inventory days / DIO","76.04","วัน"');
 
   const layout = await page.evaluate(() => ({ width: document.documentElement.clientWidth, scrollWidth: document.documentElement.scrollWidth }));
   expect(layout.scrollWidth).toBe(layout.width);

@@ -1197,3 +1197,50 @@ Inventory position ในหน้าเป็น `On hand + On order − Backor
 - [Google Search Central — Creating helpful, reliable, people-first content](https://developers.google.com/search/docs/fundamentals/creating-helpful-content)
 - [Google Search Central — AI features and your website](https://developers.google.com/search/docs/fundamentals/ai-optimization-guide)
 - [Google Search Central Blog — Doorway pages](https://developers.google.com/search/blog/2015/03/an-update-on-doorway-pages)
+
+## รอบที่ 38 — Inventory Turnover & Inventory Days Calculator และการจัดอันดับ Batch 48
+
+สำรวจเมื่อ 9 สิงหาคม 2569 ด้วย Google Autocomplete locale ไทย (`hl=th`, `gl=th`) จำนวน 60 คำตั้งต้น ครอบคลุม Inventory turnover/ratio/formula, Stock turn, DIO/DSI/Days on hand, Average inventory, COGS, EOQ, Warehouse space, Lead time, FIFO, Weighted average, Sell-through, Shrinkage, Fill rate, Service level และคำไทย จำนวนคำแนะนำสูงสุด 10 รายการเป็น demand proxy สำหรับดู intent และ long-tail เท่านั้น ไม่ใช่ Search volume และไม่รับประกันอันดับหน้าแรก Google
+
+`inventory turnover calculator`, `inventory turnover formula`, `inventory turnover ratio formula`, `inventory turnover`, `inventory days formula`, `days inventory outstanding formula`, `average inventory formula`, `cost of goods sold calculator`, `cogs calculator` และ `inventory turnover in days` ได้ 10/10; `inventory turnover ratio calculator` 5/10; `inventory days calculator` 6/10; `average inventory calculator` 7/10; `stock turnover calculator` 4/10; `inventory turnover Excel` 10/10; monthly 6/10; calculator Excel/online 2/10 และ Inventory turnover by industry 10/10 ขณะที่คำไทย `สูตร inventory turnover` ได้ 3/10, `อัตราหมุนเวียนสินค้าคงเหลือ` และ `สูตรต้นทุนขาย` 1/10 ส่วนคำคำนวณไทยอื่นได้ 0/10 ในรอบนี้ จึงใช้ชื่ออังกฤษหลักและอธิบายไทยโดยไม่อ้าง Demand ไทยเกินหลักฐาน
+
+หน้าเดียวรวม Inventory Turnover, Inventory Turnover Ratio/Rate/Period, Stock turn, Inventory days, DIO/DSI/DOH, Weeks/Months on hand และ Average inventory เพราะใช้ Inputs และการตีความชุดเดียวกัน ไม่สร้างหน้า Excel/online/monthly แยกซึ่งจะซ้ำ Intent และเสี่ยง Doorway/Cannibalization ส่วน COGS Calculator แบบเต็มยังแยกไว้ใน Backlog เพราะต้องรองรับ Opening inventory, Net purchases, Freight/direct cost, Returns และวิธีตีราคามากกว่าการรับยอด COGS จาก P&L ในหน้านี้
+
+คะแนน 5 คือสูงที่สุด การจัดอันดับพิจารณา Demand, คุณค่าผู้ใช้จริง, ความต่างจาก 74 tools เดิม, ความโปร่งใสของสูตร, โอกาสรายได้ B2B, Scalability, Innovation และความเสี่ยงจากข้อมูลบัญชี/การปฏิบัติงาน:
+
+| อันดับ | แนวคิด | Demand ที่พบ | ยาก | คุณค่าธุรกิจ | รายได้ | ขยายต่อ | นวัตกรรม | ข้อสรุป |
+|---:|---|---|---:|---:|---:|---:|---:|---|
+| 1 | Inventory Turnover & Inventory Days Calculator | Calculator/Formula 10/10; Ratio calculator 5/10; Days 6–10/10 | 3 | 5 | 5 | 5 | 4 | ส่งมอบ Batch 48; COGS/Average inventory, DIO/DOH, multi-snapshot, annualized, target gap และ CSV |
+| 2 | COGS Calculator | Cost of goods sold/COGS 10/10 | 4 | 5 | 5 | 5 | 3 | แยกเป็น workflow บัญชีเต็มในอนาคต; Batch 48 รับยอด COGS ที่ผ่าน Cutoff แล้วและไม่แย่ง Keyword generic เกิน scope |
+| 3 | EOQ & Order Quantity Calculator | EOQ 5/10; Economic EOQ 4/10 | 4 | 5 | 5 | 5 | 4 | คู่กับ ROP แต่ต้องรวม Ordering/Holding cost, Annual demand, MOQ, Price break และข้อจำกัด Capacity |
+| 4 | Warehouse Space & Pallet Calculator | 8/10 พร้อม Excel/pallet/rack/utilization/cost | 4 | 5 | 5 | 5 | 4 | Intent ปฏิบัติการสูง ต้องแยก Floor/clear height, Aisle, Rack และ Pallet position |
+| 5 | Sell-through Rate Calculator | 7/10 พร้อม free/app/eBay variants | 3 | 5 | 4 | 5 | 3 | ควรแยก Units received/sold/ending กับ Sales velocity และ Period cutoff ไม่รวม Marketplace scrape |
+| 6 | Lead Time Working Days Calculator | 10/10 แต่มี Wheel/DHL/Freight noise มาก | 3 | 4 | 4 | 5 | 3 | ขยาย Business Days ด้วย Procurement milestones เมื่อ Search Console ยืนยัน Intent ธุรกิจจริง |
+| 7 | Weighted Average Inventory Cost Calculator | Average inventory 7/10; Weighted variants 4/10 | 4 | 5 | 5 | 4 | 3 | ต้องแยก Periodic/Perpetual และ Transaction ledger; ไม่สร้างหน้า Average inventory บางซ้ำ Batch 48 |
+| 8 | Inventory Cost & Carrying Cost Calculator | Inventory cost 10/10 แต่ Gaming noise; Carrying 2/10 | 4 | 5 | 5 | 5 | 4 | แยก Purchase, Ordering, Holding, Shortage และ Obsolescence โดยไม่ใช้ Benchmark เปอร์เซ็นต์เดียว |
+| 9 | FIFO Inventory Calculator | 4/10 | 4 | 5 | 4 | 4 | 3 | ต้องคำนวณ Layers, COGS และ Ending inventory พร้อม Periodic/Perpetual ที่ชัดเจน |
+| 10 | Inventory Accuracy & Shrinkage Calculator | Accuracy 2/10; Shrinkage 2/10 | 3 | 4 | 4 | 4 | 3 | รวม Book vs Count, Unit/value variance, Shrinkage rate และ Cycle-count trend |
+| 11 | Fill Rate Calculator | 8/10 แต่ Plumbing/tank noise ปน; Relevant percentage 1/10 | 4 | 4 | 4 | 5 | 4 | ต้องแยก Order/Line/Unit fill rate และ Backorder policy ก่อนสร้างหน้า |
+| 12 | Inventory Service Level Calculator | Service level 9/10 แต่ Call-center/SLA noise; Cycle-specific 1/10 | 4 | 4 | 4 | 5 | 4 | ต้องแยก Cycle service level, Fill rate และ z-score ไม่รวมกับ Call-center Intent |
+| 13 | Minimum Stock & Coverage Calculator | 2/10; Weeks/Months on hand 1/10 | 3 | 4 | 4 | 4 | 3 | Weeks/Months on hand รวม Batch 48 แล้ว Minimum stock บางส่วนซ้อน Safety Stock จึงรอ Query จริง |
+| 14 | Demand Forecast Accuracy Calculator | 2/10 | 5 | 5 | 5 | 5 | 5 | ควรรวม MAE, WAPE, Bias และ Intermittent-demand caveat แทน Forecast จากข้อมูลน้อย |
+| 15 | GMROI Calculator | 1/10 | 3 | 4 | 4 | 4 | 3 | ใช้ Gross margin ÷ Average inventory cost แต่ต้องนิยาม Period, Returns และ Markdown ให้ตรงกัน |
+
+Batch 48 ใช้ `Average inventory = (Opening inventory + Closing inventory) ÷ 2` หรือค่า Average จากระบบ/หลาย Snapshot, `Inventory turnover = COGS ÷ Average inventory` และ `Inventory days = Days in period ÷ Turnover` ซึ่งเท่ากับ `Average inventory ÷ COGS × Days in period` รอบที่สั้นกว่าปีแสดง Annualized turnover ด้วย `Turnover × 365 ÷ Period days` พร้อมระบุชัดว่าเป็น Run-rate ไม่ใช่ Forecast
+
+QuickBooks Enterprise ระบุสูตร COGS/Average inventory, สูตร Average ต้น–ปลาย และ Inventory turnover days โดยตรง ส่วน QuickBooks Average Inventory อธิบายว่าการใช้ข้อมูลหลายช่วงช่วยลดอคติจากความผันผวน แต่ค่าเฉลี่ยก็ยังมีข้อจำกัดกับ Seasonality Xero ยืนยันสูตร Turnover และ DSI ขณะที่การตีความสูง/ต่ำต้องดู Industry/Product mix หน้าจึงไม่ใช้ Sales แทน COGS ไม่ตัดสิน Benchmark อัตโนมัติ และให้ Target เป็นค่าที่ผู้ใช้กำหนดเอง
+
+UI แบ่ง Period/COGS, Average inventory method และ Target comparison มี Label gap สม่ำเสมอ, Responsive cards, Formula panel, Target gap, Ending inventory point-in-time coverage, Interpretation และ CSV ทุกข้อมูลคำนวณใน Browser ไม่มี API หรือ LocalStorage การเลือกหน่วยเงินเปลี่ยนเฉพาะรูปแบบแสดงผลและไม่มี FX conversion
+
+- [Google Autocomplete — inventory turnover calculator](https://suggestqueries.google.com/complete/search?client=firefox&hl=th&gl=th&q=inventory%20turnover%20calculator)
+- [Google Autocomplete — inventory turnover formula](https://suggestqueries.google.com/complete/search?client=firefox&hl=th&gl=th&q=inventory%20turnover%20formula)
+- [Google Autocomplete — inventory turnover ratio formula](https://suggestqueries.google.com/complete/search?client=firefox&hl=th&gl=th&q=inventory%20turnover%20ratio%20formula)
+- [Google Autocomplete — inventory days calculator](https://suggestqueries.google.com/complete/search?client=firefox&hl=th&gl=th&q=inventory%20days%20calculator)
+- [Google Autocomplete — inventory days formula](https://suggestqueries.google.com/complete/search?client=firefox&hl=th&gl=th&q=inventory%20days%20formula)
+- [Google Autocomplete — average inventory calculator](https://suggestqueries.google.com/complete/search?client=firefox&hl=th&gl=th&q=average%20inventory%20calculator)
+- [Google Autocomplete — COGS calculator](https://suggestqueries.google.com/complete/search?client=firefox&hl=th&gl=th&q=cogs%20calculator)
+- [QuickBooks Enterprise — Inventory Turnover report](https://quickbooks.intuit.com/learn-support/en-us/help-article/inventory-management/use-inventory-turnover-report-quickbooks-2024/L6nNqyuvy_US_en_US)
+- [QuickBooks — How to find average inventory](https://quickbooks.intuit.com/r/midsize-business/average-inventory/)
+- [Xero — Inventory management systems and KPIs](https://www.xero.com/us/guides/inventory-management-system/)
+- [Google Search Central — Creating helpful, reliable, people-first content](https://developers.google.com/search/docs/fundamentals/creating-helpful-content)
+- [Google Search Central Blog — Doorway pages](https://developers.google.com/search/blog/2015/03/an-update-on-doorway-pages)
