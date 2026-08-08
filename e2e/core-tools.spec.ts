@@ -815,6 +815,12 @@ test("background remover validates a local image before lazy model loading", asy
 });
 
 test("popular generators and color checker produce useful results", async ({ page }) => {
+  const errors: string[] = [];
+  page.on("console", (message) => {
+    if (message.type() === "error") errors.push(message.text());
+  });
+  page.on("pageerror", (error) => errors.push(error.message));
+
   await page.goto("/color-picker");
   await page.getByLabel("สีข้อความหรือวัตถุ", { exact: true }).fill("#000000");
   await page.getByLabel("สีพื้นหลัง", { exact: true }).fill("#FFFFFF");
@@ -831,6 +837,7 @@ test("popular generators and color checker produce useful results", async ({ pag
   await page.getByLabel("จำนวนผลลัพธ์").fill("5");
   await page.getByRole("button", { name: "สุ่มตัวเลข" }).click();
   await expect(page.getByTestId("random-value")).toHaveCount(5);
+  expect(errors).toEqual([]);
 });
 
 test("random wheel and Buddhist year converter complete common Thai tasks", async ({ page }) => {

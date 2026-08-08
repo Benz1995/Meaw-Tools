@@ -29,7 +29,7 @@ function ColorField({ id, label, value, onChange }: { id: string; label: string;
   let pickerValue = "#000000";
   try { pickerValue = normalizeHex(value); } catch { /* Keep the native picker valid while the text input is incomplete. */ }
   return (
-    <div>
+    <div className="space-y-2.5">
       <Label htmlFor={`${id}-text`}>{label}</Label>
       <div className="flex gap-2">
         <Input id={`${id}-text`} value={value} onChange={(event) => onChange(event.target.value)} onBlur={() => { try { onChange(normalizeHex(value)); } catch { /* Error is shown by the parent. */ } }} spellCheck={false} className="font-mono uppercase" />
@@ -117,9 +117,9 @@ export function ColorPickerTool() {
       <section className="mt-5" aria-labelledby="palette-heading">
         <h2 id="palette-heading" className="text-sm font-semibold">เฉดสีอัตโนมัติ</h2>
         <div className="mt-3 grid grid-cols-2 overflow-hidden rounded-xl border sm:grid-cols-4 lg:grid-cols-7">
-          {colorData.palette.map((color) => {
+          {colorData.palette.map((color, index) => {
             const textColor = contrastRatio(color, "#FFFFFF") >= 4.5 ? "#FFFFFF" : "#111827";
-            return <button type="button" key={color} onClick={() => void copyText(color, `คัดลอก ${color} แล้ว`)} className="min-h-24 p-3 text-left font-mono text-xs font-semibold transition-transform hover:scale-[1.02] focus-visible:z-10" style={{ backgroundColor: color, color: textColor }} aria-label={`คัดลอกสี ${color}`}>{color}</button>;
+            return <button type="button" key={`${index}-${color}`} onClick={() => void copyText(color, `คัดลอก ${color} แล้ว`)} className="min-h-24 p-3 text-left font-mono text-xs font-semibold transition-transform hover:scale-[1.02] focus-visible:z-10" style={{ backgroundColor: color, color: textColor }} aria-label={`คัดลอกสี ${color} เฉดที่ ${index + 1}`}>{color}</button>;
           })}
         </div>
       </section>
