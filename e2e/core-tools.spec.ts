@@ -43,6 +43,7 @@ const toolRoutes = [
   ["hourly-rate-calculator", "Hourly Rate Calculator"],
   ["meeting-cost-calculator", "Meeting Cost Calculator"],
   ["billable-hours-calculator", "Billable Hours Calculator"],
+  ["project-cost-calculator", "Project Cost & Profit Calculator"],
   ["jpg-to-pdf", "JPG to PDF Converter"],
   ["qr-code-generator", "QR Code Generator"],
   ["barcode-generator", "Barcode Generator"],
@@ -1764,6 +1765,55 @@ test("billable hours calculator rounds each entry and explains utilization and r
   const csv = await readFile(csvPath!, "utf8");
   expect(csv).toContain('"เวลาที่ออกบิลหลังปัด","270.00","นาที"');
   expect(csv).toContain('"ประชุมเริ่มงาน","Billable","52.00","54.00","2.00","1350.00"');
+
+  const layout = await page.evaluate(() => ({ width: document.documentElement.clientWidth, scrollWidth: document.documentElement.scrollWidth }));
+  expect(layout.scrollWidth).toBe(layout.width);
+  expect(consoleErrors).toEqual([]);
+});
+
+test("project cost calculator compares budget with actual plus remaining on mobile", async ({ page }) => {
+  const consoleErrors: string[] = [];
+  page.on("console", (message) => {
+    if (message.type() === "error") consoleErrors.push(message.text());
+  });
+  page.on("pageerror", (error) => consoleErrors.push(error.message));
+  await page.setViewportSize({ width: 390, height: 844 });
+
+  await page.goto("/project-cost-calculator");
+  await expect(page.getByRole("heading", { level: 1, name: "Project Cost & Profit Calculator" })).toBeVisible();
+  await expect(page.locator("main header").getByText("คำนวณต้นทุนและกำไรโครงการ", { exact: true })).toBeVisible();
+  await expect(page.locator("#project-base-revenue")).toBeVisible();
+  await page.evaluate(() => document.fonts.ready);
+
+  const labelGap = await page.evaluate(() => {
+    const label = document.querySelector<HTMLLabelElement>('label[for="project-base-revenue"]');
+    const input = document.querySelector<HTMLInputElement>("#project-base-revenue");
+    const labelBox = label?.getBoundingClientRect();
+    const inputBox = input?.getBoundingClientRect();
+    return labelBox && inputBox ? Math.round(inputBox.top - labelBox.bottom) : 0;
+  });
+  expect(labelGap).toBeGreaterThanOrEqual(10);
+
+  await page.getByRole("button", { name: "โหลดตัวอย่าง" }).click();
+  await expect(page.getByTestId("project-labor-item")).toHaveCount(3);
+  await expect(page.getByTestId("project-direct-cost-item")).toHaveCount(2);
+  await page.getByRole("button", { name: "คำนวณต้นทุนและกำไรโครงการ" }).click();
+  await expect(page.getByTestId("project-current-revenue")).toHaveText("฿640,000.00");
+  await expect(page.getByTestId("project-forecast-cost")).toHaveText("฿468,500.00");
+  await expect(page.getByTestId("project-forecast-profit")).toHaveText("฿171,500.00");
+  await expect(page.getByTestId("project-forecast-margin")).toHaveText("26.8%");
+  await expect(page.getByTestId("project-additional-revenue")).toHaveText("฿29,285.71");
+  await expect(page.getByTestId("project-cost-result")).toContainText("+฿45,000.00");
+
+  const csvPromise = page.waitForEvent("download");
+  await page.getByRole("button", { name: "ดาวน์โหลด CSV" }).click();
+  const csvDownload = await csvPromise;
+  expect(csvDownload.suggestedFilename()).toBe("meaw-project-cost-profit.csv");
+  const csvPath = await csvDownload.path();
+  expect(csvPath).toBeTruthy();
+  const csv = await readFile(csvPath!, "utf8");
+  expect(csv).toContain('"ต้นทุนรวม","423500.00","355000.00","113500.00","468500.00","45000.00","THB"');
+  expect(csv).toContain('"พัฒนา","850.00","250.00","220.00","50.00","270.00","212500.00","229500.00","17000.00","THB"');
 
   const layout = await page.evaluate(() => ({ width: document.documentElement.clientWidth, scrollWidth: document.documentElement.scrollWidth }));
   expect(layout.scrollWidth).toBe(layout.width);

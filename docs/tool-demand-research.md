@@ -970,3 +970,44 @@ UI ใช้รายการงานทั่วไปแทนชื่อ�
 - [Corcava — Billable Hours Calculator](https://corcava.com/tools/billable-hours-calculator)
 - [Productive — Billable Hours Calculator](https://productive.io/billable-hours-calculator/)
 - [Google Search Central — Creating helpful, reliable, people-first content](https://developers.google.com/search/docs/fundamentals/creating-helpful-content)
+
+## รอบที่ 33 — Project Cost & Profit Calculator และการจัดอันดับ Batch 43
+
+สำรวจเมื่อ 8 สิงหาคม 2569 ด้วย Google Autocomplete locale ไทย (`hl=th`, `gl=th`) หลังส่งมอบ Billable Hours Calculator โดยเทียบ 27 คำตั้งต้นด้าน project cost, profitability, job costing, pricing, break-even และ capacity จำนวนคำแนะนำสูงสุด 10 รายการใช้เป็น demand proxy เพื่อดูความกว้างของ intent เท่านั้น ไม่ใช่ search volume และไม่รับประกันอันดับหน้าแรก Google
+
+`project cost calculator`, `job cost calculator`, `labor cost calculator`, `break even calculator` และ `markup calculator` ได้ 10/10 แต่ `job cost` และ `break even` ปะปนงานเฉพาะทางหลายชนิด ขณะที่ `project profitability calculator` ได้ 3/10 พร้อม long-tail Excel, `project profit calculator` 2/10, `job costing calculator` 3/10, `project budget calculator` 2/10, `project ROI calculator` 5/10 และ `team capacity calculator` 6/10 คำไทย `คำนวณกำไรโครงการ`, `คำนวณต้นทุนโครงการ`, `คำนวณงบโครงการ` และ `คำนวณราคางาน` ยังไม่เกิดคำแนะนำในรอบนี้ จึงใช้ชื่ออังกฤษที่ตรง intent เป็นชื่อหลักและอธิบายไทยอย่างครบถ้วนในหน้าเดียว
+
+คะแนน 5 คือสูงที่สุด การเลือกคำนึงถึง demand, ประโยชน์ข้ามฟรีแลนซ์ เอเจนซี ที่ปรึกษา ทีมโครงการ และ SME, ความต่างจาก Profit Margin/Quotation เดิม, ความโปร่งใสของ Forecast และศักยภาพรายได้จาก intent งานธุรกิจ:
+
+| อันดับ | แนวคิด | Demand ที่พบ | ยาก | คุณค่าธุรกิจ | รายได้ | ขยายต่อ | นวัตกรรม | ข้อสรุป |
+|---:|---|---|---:|---:|---:|---:|---:|---|
+| 1 | Project Cost & Profit Calculator | Project cost 10/10; profitability 3/10; profit 2/10 | 4 | 5 | 5 | 5 | 4 | ส่งมอบ Batch 43; Budget vs Actual + Remaining, labor/direct/overhead, Forecast profit, margin, target และ CSV |
+| 2 | Labor Cost Calculator | EN 10/10 พร้อม Excel/ก่อสร้าง/ร้านอาหาร/โรงงาน | 4 | 5 | 5 | 5 | 3 | demand สูงแต่ intent ต่างตามอุตสาหกรรม ควรเลือก persona จาก Search Console ก่อนสร้างสูตรกว้าง |
+| 3 | Business Break-even Calculator | คำกว้าง 10/10 พร้อม business/online | 3 | 5 | 5 | 5 | 3 | ต้องระบุ fixed cost, variable cost และหน่วยขายให้ชัดเพื่อไม่ชน mortgage/pension |
+| 4 | Markup Calculator | EN 10/10 พร้อม Excel/percentage/formula | 2 | 4 | 5 | 4 | 2 | ทับ Profit & Margin Calculator เดิม ควรขยายหน้าเดิมแทนสร้างหน้า keyword ซ้ำ |
+| 5 | Team Capacity Calculator | EN 6/10 พร้อม Excel/Agile/Scrum/Sprint | 4 | 5 | 5 | 5 | 4 | เหมาะ Batch ถัดไปเมื่อกำหนด availability, leave, focus factor และ role demand ให้ชัด |
+| 6 | Project ROI Calculator | EN 5/10 พร้อม Excel/management | 4 | 5 | 5 | 5 | 3 | ต้องแยก financial ROI จาก project success และไม่เดามูลค่าผลลัพธ์ที่วัดไม่ได้ |
+| 7 | Job Costing Calculator | EN 3/10 พร้อม job order costing | 4 | 5 | 5 | 5 | 4 | intent บัญชีตอบบางส่วนใน Batch 43 ผ่าน labor, direct cost, overhead และ cost variance |
+| 8 | Cost-plus Pricing Calculator | EN 3/10 พร้อม formula | 3 | 5 | 5 | 4 | 3 | เหมาะตั้งราคาก่อนเสนอ แต่ต้องแยก Margin กับ Markup และค่าธรรมเนียมให้ชัด |
+| 9 | Project Profitability Calculator | EN 3/10 พร้อม Excel | 4 | 5 | 5 | 5 | 4 | รวมเป็น secondary intent ของ Batch 43 ไม่สร้างหน้าซ้ำกับ Project Cost |
+| 10 | Project Budget Calculator | EN 2/10 | 3 | 5 | 4 | 5 | 3 | Budget อย่างเดียวบางเกินไป จึงรวมการติดตาม Actual + Remaining ในหน้า Batch 43 |
+| 11 | Project Margin Calculator | EN 2/10 | 2 | 4 | 4 | 4 | 2 | รวม Margin ตามแผนและ Forecast ใน Batch 43 แทนหน้าสูตรเดี่ยว |
+| 12 | Resource Capacity Calculator | EN 2/10 และปะปนระบบคอมพิวเตอร์ | 4 | 5 | 4 | 5 | 4 | ต้องใช้คำ Team/Agency Capacity เพื่อแยกจาก YARN และ cloud infrastructure |
+| 13 | Project Revenue Calculator | EN 2/10 | 3 | 4 | 4 | 4 | 2 | รายรับอย่างเดียวไม่สะท้อนกำไร จึงรวม base revenue กับ approved changes ใน Batch 43 |
+| 14 | Client Profitability Calculator | EN 0/10 ใน locale นี้ | 4 | 5 | 5 | 5 | 4 | ต้องรองรับหลาย project และ shared acquisition/support cost จึงเป็น product phase มากกว่าหน้าเดี่ยว |
+| 15 | Quote Profit Calculator | EN 0/10 | 3 | 5 | 5 | 4 | 3 | เชื่อม use case ผ่าน Project Cost ไป Quotation และ Hourly Rate โดยไม่สร้าง doorway page |
+
+Batch 43 นิยาม Forecast cost เป็น `Actual cost + Remaining cost` ตามแนวคิด Estimate to Complete โดยแยกแรงงาน ต้นทุนตรง และ Overhead ชัดเจน ต้นทุนแรงงานต่อบทบาทใช้ `ชั่วโมง × ต้นทุนภายในต่อชั่วโมง` และส่วนต่างต้นทุนเป็น `Forecast - Budget` ค่าบวกจึงหมายถึงคาดว่าจะเกินงบ ไม่ใช้เปอร์เซ็นต์ความคืบหน้าหาร Actual เพราะ burn rate อาจไม่สม่ำเสมอและทำให้ปลายโครงการคลาดเคลื่อน
+
+รายรับปัจจุบันเป็น `สัญญาเดิม + งานเพิ่มที่อนุมัติแล้ว` กำไร Forecast เป็น `รายรับปัจจุบัน - Forecast cost` และ Margin เป็น `กำไร ÷ รายรับ × 100` รายรับขั้นต่ำเพื่อถึง Target margin เป็น `Forecast cost ÷ (1 - Target margin)` โดยหน้าจอแสดงส่วนที่ยังขาดจากรายรับปัจจุบันและเตือนว่าสูตรสมมติว่าต้นทุนไม่เพิ่มตามงานใหม่ ไม่คำนวณ Earned Value, CPI, SPI หรือการรับรู้รายได้ตามมาตรฐานบัญชี
+
+UI ใช้การ์ด responsive สำหรับข้อมูลหลายบทบาทและต้นทุน แยก Budget/Actual/Remaining ด้วย label ห่างจาก input อย่างสม่ำเสมอ ตารางเปรียบเทียบเลื่อนภายในจอเล็กโดยไม่ทำให้ทั้งหน้า overflow รองรับ THB/USD/EUR/GBP/JPY เฉพาะหน่วยโดยไม่แปลง exchange rate และ CSV มี UTF-8 BOM กับ Formula Injection protection หน้า SEO รวม project cost, profitability, job costing, budget, margin และ Excel intent ไว้หน้าเดียวตาม people-first content แทนการสร้างหน้าคล้ายกันจำนวนมาก
+
+- [Google Autocomplete — project cost calculator](https://suggestqueries.google.com/complete/search?client=firefox&hl=th&gl=th&q=project%20cost%20calculator)
+- [Google Autocomplete — project profitability calculator](https://suggestqueries.google.com/complete/search?client=firefox&hl=th&gl=th&q=project%20profitability%20calculator)
+- [Google Autocomplete — job costing calculator](https://suggestqueries.google.com/complete/search?client=firefox&hl=th&gl=th&q=job%20costing%20calculator)
+- [Google Autocomplete — labor cost calculator](https://suggestqueries.google.com/complete/search?client=firefox&hl=th&gl=th&q=labor%20cost%20calculator)
+- [Microsoft Learn — Key concepts in project budget management](https://learn.microsoft.com/en-us/dynamics365/project-operations/pro/budget/keyconcepts-projectbudget)
+- [Oracle — Project Planning and Control User Guide](https://docs.oracle.com/cd/E26401_01/doc.122/e49016/T185673T185678.htm)
+- [OpenStax — Job Order Costing](https://openstax.org/books/principles-managerial-accounting/pages/4-1-distinguish-between-job-order-costing-and-process-costing)
+- [Google Search Central — Creating helpful, reliable, people-first content](https://developers.google.com/search/docs/fundamentals/creating-helpful-content)
