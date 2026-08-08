@@ -52,6 +52,7 @@ const toolRoutes = [
   ["jpg-to-png", "JPG to PNG Batch Converter"],
   ["png-to-jpg", "PNG to JPG Converter"],
   ["image-compressor", "Image Compressor & Resizer"],
+  ["image-cropper", "Image Cropper Online"],
   ["background-remover", "AI Background Remover"],
   ["color-picker", "Color Picker & Contrast Checker"],
   ["password-generator", "Password Generator"],
@@ -702,7 +703,7 @@ test("category tags navigate to a category page", async ({ page }) => {
   await page.getByRole("link", { name: "ดูหมวดรูปภาพและ PDF" }).click();
   await expect(page).toHaveURL(/\/categories\/media$/);
   await expect(page.getByRole("heading", { level: 1, name: "รูปภาพและ PDF" })).toBeVisible();
-  await expect(page.getByRole("link", { name: /เปิดเครื่องมือ/ })).toHaveCount(14);
+  await expect(page.getByRole("link", { name: /เปิดเครื่องมือ/ })).toHaveCount(15);
 });
 
 test("cat walker can be disabled and remembers the preference", async ({ page }) => {
@@ -923,6 +924,77 @@ test("image tools convert and resize locally", async ({ page }) => {
   await page.getByLabel("ความกว้างสูงสุด (px)").fill("640");
   await page.getByRole("button", { name: "บีบอัดและย่อรูป" }).click();
   await expect(page.getByTestId("image-output")).toContainText("640 × 360");
+});
+
+test("image cropper creates an exact circular PNG locally", async ({ page }) => {
+  const requests: string[] = [];
+  const consoleErrors: string[] = [];
+  page.on("request", (request) => requests.push(request.url()));
+  page.on("console", (message) => {
+    if (message.type() === "error") consoleErrors.push(message.text());
+  });
+
+  await page.goto("/image-cropper");
+  await expect(page.getByRole("heading", { level: 1, name: "Image Cropper Online" })).toBeVisible();
+  await expect(page.getByText(/รูปไม่ถูกอัปโหลด/)).toBeVisible();
+
+  const layout = await page.evaluate(() => {
+    const label = document.querySelector<HTMLLabelElement>('label[for="crop-image-file"]');
+    const input = document.querySelector<HTMLInputElement>("#crop-image-file");
+    const labelBox = label?.getBoundingClientRect();
+    const inputBox = input?.getBoundingClientRect();
+    return {
+      labelGap: labelBox && inputBox ? Math.round(inputBox.top - labelBox.bottom) : 0,
+      hasHorizontalOverflow: document.documentElement.scrollWidth > document.documentElement.clientWidth,
+    };
+  });
+  expect(layout.labelGap).toBeGreaterThanOrEqual(10);
+  expect(layout.hasHorizontalOverflow).toBe(false);
+
+  await page.getByRole("button", { name: "โหลดตัวอย่าง" }).click();
+  await expect(page.getByTestId("crop-stage")).toBeVisible();
+  await expect(page.getByText("meaw-cafe.webp")).toBeVisible();
+
+  const xInput = page.getByLabel("X (px)");
+  const beforeX = Number(await xInput.inputValue());
+  await page.getByTestId("crop-selection").focus();
+  await page.keyboard.press("ArrowRight");
+  expect(Number(await xInput.inputValue())).toBeGreaterThan(beforeX);
+
+  await page.getByRole("button", { name: "หมุน" }).click();
+  await page.getByRole("button", { name: "แนวนอน" }).click();
+  await expect(page.getByRole("button", { name: "แนวนอน" })).toHaveAttribute("aria-pressed", "true");
+  await page.getByText("ครอปเป็นวงกลม", { exact: true }).click();
+  await page.getByLabel("ความละเอียด").click();
+  await page.getByRole("option", { name: "กำหนดพิกเซลเอง" }).click();
+  await page.getByLabel("กว้าง (px)").fill("480");
+  await expect(page.getByLabel("สูง (px)")).toHaveValue("480");
+
+  await page.getByRole("button", { name: "ครอปและสร้างไฟล์" }).click();
+  const output = page.getByTestId("crop-output");
+  await expect(output).toContainText("480 × 480");
+  await expect(output).toContainText("PNG · วงกลม");
+  await expect(page.getByAltText("ตัวอย่างรูปที่ครอปแล้ว")).toBeVisible();
+  const alpha = await page.getByAltText("ตัวอย่างรูปที่ครอปแล้ว").evaluate(async (image: HTMLImageElement) => {
+    await image.decode();
+    const canvas = document.createElement("canvas");
+    canvas.width = image.naturalWidth;
+    canvas.height = image.naturalHeight;
+    const context = canvas.getContext("2d")!;
+    context.drawImage(image, 0, 0);
+    return {
+      corner: context.getImageData(0, 0, 1, 1).data[3],
+      center: context.getImageData(Math.floor(canvas.width / 2), Math.floor(canvas.height / 2), 1, 1).data[3],
+    };
+  });
+  expect(alpha.corner).toBe(0);
+  expect(alpha.center).toBe(255);
+
+  const downloadPromise = page.waitForEvent("download");
+  await page.getByRole("button", { name: "ดาวน์โหลด meaw-cafe-circle.png" }).click();
+  expect((await downloadPromise).suggestedFilename()).toBe("meaw-cafe-circle.png");
+  expect(requests.some((url) => !url.startsWith("http://127.0.0.1:3100") && !url.startsWith("blob:"))).toBe(false);
+  expect(consoleErrors).toEqual([]);
 });
 
 test("JPG to PNG batch converter creates real images and ZIP locally", async ({ page }) => {

@@ -2,7 +2,7 @@
 
 import dynamic from "next/dynamic";
 
-const loading = () => <div className="h-96 animate-pulse rounded-2xl border bg-muted/50" aria-label="กำลังโหลดเครื่องมือ" />;
+const loading = () => <div role="status" aria-live="polite" className="h-96 animate-pulse rounded-2xl border bg-muted/50" aria-label="กำลังโหลดเครื่องมือ" />;
 const components = {
   "json-formatter": dynamic(() => import("@/features/tools/json-tools").then((module) => module.JsonFormatterTool), { loading, ssr: false }),
   "json-validator": dynamic(() => import("@/features/tools/json-tools").then((module) => module.JsonValidatorTool), { loading, ssr: false }),
@@ -52,6 +52,7 @@ const components = {
   "png-to-jpg": dynamic(() => import("@/features/tools/image-processing-tools").then((module) => module.PngToJpgTool), { loading, ssr: false }),
   "background-remover": dynamic(() => import("@/features/tools/background-remover-tool").then((module) => module.BackgroundRemoverTool), { loading, ssr: false }),
   "image-compressor": dynamic(() => import("@/features/tools/image-processing-tools").then((module) => module.ImageCompressorTool), { loading, ssr: false }),
+  "image-cropper": dynamic(() => import("@/features/tools/image-cropper-tool").then((module) => module.ImageCropperTool), { loading, ssr: false }),
   "color-picker": dynamic(() => import("@/features/tools/color-picker-tool").then((module) => module.ColorPickerTool), { loading, ssr: false }),
   "password-generator": dynamic(() => import("@/features/tools/popular-generator-tools").then((module) => module.PasswordGeneratorTool), { loading, ssr: false }),
   "random-number-generator": dynamic(() => import("@/features/tools/popular-generator-tools").then((module) => module.RandomNumberGeneratorTool), { loading, ssr: false }),

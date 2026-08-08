@@ -453,6 +453,49 @@ Excel to CSV ถูกเลือกเพราะเพิ่มเส้น�
 - [Google Search Central — SEO Starter Guide](https://developers.google.com/search/docs/fundamentals/seo-starter-guide)
 - [Google Search Central — Title links](https://developers.google.com/search/docs/appearance/title-link)
 
+## รอบที่ 21 — Image Cropper และการจัดอันดับ Batch 31
+
+สำรวจต่อเมื่อ 8 สิงหาคม 2569 ด้วย Google Autocomplete locale ไทย (`hl=th`, `gl=th`) และตรวจคู่แข่งที่เปิดใช้งานจริง จำนวนคำแนะนำสูงสุด 10 รายการเป็นเพียงสัญญาณความกว้างของ intent ไม่ใช่ search volume และไม่รับประกันอันดับหน้าแรก Google การเลือกงานจึงพิจารณาความครบที่ทำได้ฟรีใน Browser, ความเป็นส่วนตัว, ความเสี่ยง, catalog overlap และโอกาสสร้างหน้าที่ช่วยผู้ใช้จริงร่วมกัน
+
+คะแนน 5 คือสูงที่สุด:
+
+| อันดับ | แนวคิด | สัญญาณ Autocomplete | ยาก | คุณค่าธุรกิจ | รายได้ | ขยายต่อ | นวัตกรรม | ข้อสรุป |
+|---:|---|---:|---:|---:|---:|---:|---:|---|
+| 1 | Image Cropper Online | EN 10/10, TH 10/10 | 3 | 5 | 5 | 5 | 3 | ชนะ: ไทยแตกครอป/ตัดรูป/วงกลมชัด และทำ client-only ที่ครบได้โดยไม่เพิ่ม dependency |
+| 2 | Resume Builder | EN 10/10, TH 8/10 | 5 | 5 | 5 | 5 | 4 | มูลค่าสูง แต่ต้องทำ ATS semantics, PDF ภาษาไทย, privacy และหลาย template ไม่ควรปล่อยบาง |
+| 3 | Favicon / PWA Icon Generator | EN 10/10, TH 2/10 | 3 | 4 | 4 | 4 | 3 | ทำฟรีได้ แต่ต้องสร้าง ICO/PNG/manifest และตรวจไฟล์จริงหลายขนาด |
+| 4 | Word Cloud Generator | EN 10/10, TH 3/10 | 4 | 4 | 4 | 4 | 4 | ต้องพิสูจน์การตัดคำไทย stop words ฟอนต์ และ export PNG/SVG |
+| 5 | Business Days Calculator | EN 10/10, TH 4/10 | 3 | 4 | 4 | 4 | 3 | ต้อง version ชุดวันหยุดไทยและแยกวันหยุดองค์กรจากวันหยุดราชการ |
+| 6 | Remove Image Metadata | EN 10/10, TH 1/10 | 4 | 4 | 4 | 4 | 4 | มี privacy value แต่ต้องตรวจ EXIF/XMP/IPTC หลัง encode จริงทุก format |
+| 7 | JSON to CSV Converter | EN 10/10, TH 1/10 | 3 | 4 | 4 | 5 | 2 | demand กว้างแต่ทับเครื่องมือ data เดิม ต้องออกแบบ flatten อย่างโปร่งใส |
+| 8 | Password Strength Checker | EN 10/10, TH 0/10 | 2 | 4 | 4 | 4 | 3 | client-only ได้ แต่ห้ามอ้างเวลา crack จากสมมติฐานที่ตรวจไม่ได้ |
+| 9 | Color Palette Generator | EN 10/10, TH 0/10 | 3 | 4 | 4 | 4 | 3 | ต้องเพิ่ม contrast, lock color และ export design tokens จึงต่างจาก Color Picker |
+| 10 | PDF Compressor | EN/TH 10/10 | 5 | 5 | 5 | 5 | 4 | ยังชะลอ: rasterize ทำลาย text/search/accessibility และไม่รับประกันว่าเล็กลง |
+| 11 | Aspect Ratio Calculator | EN 10/10, TH 1/10 | 2 | 4 | 3 | 4 | 2 | ทำง่ายแต่ใกล้ฟังก์ชันใน Image Cropper และความต่างเชิงผลิตภัณฑ์ต่ำ |
+| 12 | Online Signature Maker | EN กว้าง, TH 2/10 | 3 | 4 | 4 | 4 | 3 | ทับ Sign PDF และต้องแยกภาพลายเซ็นออกจาก digital certificate ให้ชัด |
+| 13 | Character Counter | EN/TH 8–10/10 | 1 | 3 | 3 | 3 | 1 | ทับ Word Counter ควรปรับหน้าเดิมแทนสร้างหน้า keyword ซ้ำ |
+| 14 | File Checksum Calculator | EN 10/10, TH 0/10 | 2 | 4 | 3 | 4 | 3 | ควรขยาย Hash Generator เดิมแทนสร้าง thin page |
+| 15 | Overtime Estimator | long-tail 1.5/2/3 เท่า | 4 | 4 | 4 | 4 | 3 | ต้องตรวจฐานกฎหมายปัจจุบันและแยกรายวัน/รายเดือนก่อนพัฒนา |
+
+คำตั้งต้น `image cropper`, `crop image online`, `ครอปรูป` และ `ตัดรูป ออนไลน์` ต่างคืนคำแนะนำเต็ม 10 รายการ โดย long-tail ระบุ online, free, circle, by pixel, ratio, PNG/WebP และไม่เสียคุณภาพ ส่วน `ครอปรูป ออนไลน์` แตกเป็นวงกลมและโปรแกรมครอปออนไลน์ ทำให้ scope ที่ตอบ intent จริงต้องมากกว่าการเลือกสี่เหลี่ยม: รองรับ free/1:1/4:3/3:2/16:9/9:16/custom, วงกลม, drag + resize, X/Y/W/H, keyboard movement, rotate/flip, exact output size และ PNG/JPG/WebP
+
+คู่แข่งปัจจุบันอย่าง Pixcircle, UseBoldTools, Circlecropimage, Utilium และ EveryTool ต่างเน้น local processing, circle, ratio, rotate/flip, zoom หรือ exact pixels การส่งมอบจึงใช้การ decode ตาม EXIF orientation, วาดด้วย Canvas `drawImage()`, สร้าง Blob ด้วย `toBlob()` และคืนหน่วยความจำจาก Blob URL เมื่อเปลี่ยนผลลัพธ์ จำกัด input 10 MB / 40 ล้านพิกเซล และ output 8,000 px / 24 ล้านพิกเซลเพื่อไม่ให้ Browser ใช้ RAM สูงโดยไม่มีเพดาน
+
+SEO ใช้ primary intent ที่มองเห็นได้จริงใน H1/คำอธิบาย/ขั้นตอน/FAQ พร้อม long-tail ที่ตรงฟังก์ชัน ไม่สร้างหน้าซ้ำสำหรับ circle cropper หรือ aspect ratio calculator และไม่อ้างรับประกันหน้าแรก Google เพราะอันดับขึ้นกับคู่แข่ง คุณภาพเนื้อหา authority และสัญญาณภายนอกที่ตัวโค้ดควบคุมไม่ได้
+
+- [Google Autocomplete — image cropper](https://suggestqueries.google.com/complete/search?client=firefox&hl=th&gl=th&q=image%20cropper)
+- [Google Autocomplete — crop image online](https://suggestqueries.google.com/complete/search?client=firefox&hl=th&gl=th&q=crop%20image%20online)
+- [Google Autocomplete — ครอปรูป](https://suggestqueries.google.com/complete/search?client=firefox&hl=th&gl=th&q=%E0%B8%84%E0%B8%A3%E0%B8%AD%E0%B8%9B%E0%B8%A3%E0%B8%B9%E0%B8%9B)
+- [Google Autocomplete — ตัดรูป ออนไลน์](https://suggestqueries.google.com/complete/search?client=firefox&hl=th&gl=th&q=%E0%B8%95%E0%B8%B1%E0%B8%94%E0%B8%A3%E0%B8%B9%E0%B8%9B%20%E0%B8%AD%E0%B8%AD%E0%B8%99%E0%B9%84%E0%B8%A5%E0%B8%99%E0%B9%8C)
+- [Pixcircle — Circle Crop Image](https://pixcircle.app/)
+- [UseBoldTools — Image Cropper](https://useboldtools.com/image-cropper)
+- [Circlecropimage — Circle Crop Image](https://circlecropimage.com/)
+- [Utilium — Image Cropper](https://utilium.dev/tools/image-cropper/)
+- [EveryTool — Crop Image](https://everytool.solutions/tools/crop-image)
+- [MDN — Window.createImageBitmap()](https://developer.mozilla.org/en-US/docs/Web/API/Window/createImageBitmap)
+- [MDN — CanvasRenderingContext2D.drawImage()](https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/drawImage)
+- [MDN — HTMLCanvasElement.toBlob()](https://developer.mozilla.org/en-US/docs/Web/API/HTMLCanvasElement/toBlob)
+
 ## รอบที่ 20 — HTML Table Generator และการจัดอันดับ Batch 30
 
 สำรวจต่อเมื่อ 8 สิงหาคม 2569 ด้วย Google Autocomplete locale ไทย โดยเทียบคำตั้งต้นภาษาไทยและอังกฤษ รวมทั้ง long-tail ของแต่ละงาน จำนวนคำแนะนำสูงสุด 10 รายการเป็นสัญญาณความกว้างของ intent เท่านั้น ไม่ใช่ search volume และไม่สามารถรับประกันอันดับหน้าแรก Google ได้ การจัดอันดับจึงรวมประโยชน์จริง ความครบที่ทำได้ฟรีใน Browser, ความเสี่ยง, catalog overlap และโอกาสสร้างเนื้อหาที่ช่วยผู้ใช้จริงโดยไม่ยัดคำค้น
