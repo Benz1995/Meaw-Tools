@@ -286,6 +286,7 @@ Microsoft ระบุว่าไฟล์ข้อความแบบ delimi
 - [Google Autocomplete — คำนวณ OT](https://suggestqueries.google.com/complete/search?client=firefox&hl=th&q=%E0%B8%84%E0%B8%B3%E0%B8%99%E0%B8%A7%E0%B8%93%20ot)
 - [Google Autocomplete — คำนวณวันทำงาน](https://suggestqueries.google.com/complete/search?client=firefox&hl=th&q=%E0%B8%84%E0%B8%B3%E0%B8%99%E0%B8%A7%E0%B8%93%E0%B8%A7%E0%B8%B1%E0%B8%99%E0%B8%97%E0%B8%B3%E0%B8%87%E0%B8%B2%E0%B8%99)
 - [RFC 4180 — Common Format and MIME Type for CSV](https://www.rfc-editor.org/info/rfc4180/)
+
 - [Microsoft — Import or export text and CSV files](https://support.microsoft.com/en-us/excel/get-started/import-or-export-text-txt-or-csv-files)
 - [Microsoft — Excel specifications and limits](https://support.microsoft.com/en-us/excel/excel-specifications-and-limits)
 - [Google Trends Help — ข้อมูล Trends เป็นค่าความสนใจสัมพัทธ์](https://support.google.com/trends/answer/4365533?hl=en)
@@ -338,3 +339,42 @@ Google Analytics ระบุว่าค่า UTM แยกตัวพิม�
 - [OWASP — CSV Injection](https://owasp.org/www-community/attacks/CSV_Injection)
 - [OWASP WSTG — Testing for CSV Injection](https://owasp.org/www-project-web-security-testing-guide/latest/4-Web_Application_Security_Testing/07-Input_Validation_Testing/21-Testing_for_CSV_Injection)
 - [RFC 4180 — Common Format and MIME Type for CSV](https://www.rfc-editor.org/info/rfc4180/)
+
+## รอบที่ 17 — VAT Calculator Thailand และการจัดอันดับ Batch 27
+
+สำรวจต่อเมื่อ 8 สิงหาคม 2569 โดยตรวจ Google Autocomplete ด้วย locale ไทยสำหรับคำตั้งต้นภาษาอังกฤษ 22 คำและภาษาไทย 20 คำ แล้วคัดแนวคิดที่ไม่ซ้ำ catalog มากเกินไป Google อธิบายว่า Autocomplete มาจากการค้นหาจริงและสะท้อนคำที่พบบ่อยหรือกำลังเป็นกระแสตามบริบท แต่ไม่ควรตีความจำนวนคำแนะนำเป็น search volume ส่วน Google Trends เป็นค่าความสนใจสัมพัทธ์และไม่ใช่ผลสำรวจ จึงใช้จำนวนคำแนะนำเพียงเป็นหลักฐานความกว้างของ long-tail intent ร่วมกับคุณค่าผู้ใช้ ความเสี่ยง ความสามารถทำฟรีใน Browser และโอกาสสร้างหน้าคุณภาพ
+
+คะแนน 5 คือสูงที่สุด คอลัมน์ TH/EN คือจำนวนคำแนะนำสูงสุด 10 รายการจาก endpoint ที่ตรวจในรอบนี้ ไม่ใช่จำนวนค้นหารายเดือน:
+
+| อันดับ | แนวคิด | TH/EN | ยาก | คุณค่าธุรกิจ | รายได้ | ขยายต่อ | นวัตกรรม | ข้อสรุป |
+|---:|---|---:|---:|---:|---:|---:|---:|---|
+| 1 | VAT Calculator Thailand | 10/10 | 3 | 5 | 5 | 4 | 3 | ชนะ: intent ไทยชัดทั้ง VAT 7, ย้อนกลับ, Service Charge และ Excel; มีสูตรกับอัตราปัจจุบันจากกรมสรรพากร |
+| 2 | Markdown Table Generator | 9/10 | 2 | 4 | 4 | 4 | 2 | demand กว้างและ client-only แต่กลุ่ม developer/content แคบกว่า VAT |
+| 3 | Excel to CSV Converter | 10/10 | 3 | 5 | 4 | 5 | 2 | ใช้จริงสูง แต่ต่อจาก CSV สอง Batch จะทำ catalog กระจุกงานข้อมูล |
+| 4 | HTML Table Generator | 8/10 | 3 | 4 | 4 | 4 | 3 | long-tail ไทยดีและต่อยอด Markdown ได้ แต่ควรออกแบบ accessibility/colspan ให้ครบ |
+| 5 | Overtime Calculator Thailand | 10/10 | 4 | 5 | 5 | 4 | 3 | intent ไทยแข็งแรงมาก แต่ต้องแยกประเภทลูกจ้าง วันทำงาน วันหยุด และ version กฎหมายแรงงาน |
+| 6 | Resume Builder | 10/10 | 5 | 5 | 5 | 5 | 4 | มูลค่าสูง แต่ต้องมี template, PDF, ATS semantics และความเป็นส่วนตัวก่อนเปิดตัว |
+| 7 | Word Cloud Generator | 3/10 | 4 | 4 | 4 | 4 | 4 | เหมาะการศึกษา/คอนเทนต์ แต่ต้องตัดคำไทย ฟอนต์ และ export ภาพให้เชื่อถือได้ |
+| 8 | Image Cropper | 1/10 | 3 | 5 | 5 | 5 | 2 | intent อังกฤษกว้าง มีงานวงกลม/พิกเซล/ขนาดจริง แต่สัญญาณคำไทยรอบนี้แคบ |
+| 9 | Favicon / PWA Icon Generator | 2/10 | 3 | 4 | 4 | 4 | 3 | ทำฟรีได้และช่วย developer/ร้านค้า แต่ต้อง export หลายขนาดและ manifest อย่างถูกต้อง |
+| 10 | Remove Image Metadata | 1/10 | 4 | 4 | 4 | 4 | 4 | privacy value สูง แต่ต้องพิสูจน์ชนิด metadata ที่ลบได้จริงในแต่ละ format |
+| 11 | Password Strength Checker | 0/10 | 2 | 4 | 4 | 4 | 3 | อังกฤษกว้างแต่ไทยไม่แตกคำ; ต้องไม่ส่งรหัสผ่านและไม่อ้างเวลาถอดรหัสเกินหลักฐาน |
+| 12 | Business Days Calculator | 4/10 | 3 | 4 | 4 | 4 | 3 | มี intent ออนไลน์/Excel แต่ต้องมีชุดวันหยุดไทย versioned และแยกวันหยุดองค์กร |
+| 13 | JSON ↔ CSV Converter | 1/10 | 3 | 4 | 4 | 5 | 2 | intent อังกฤษ 10/10 ทั้งสองทิศทาง แต่ซ้ำกลุ่ม JSON/CSV เดิมและต้องเปิดเผยการ flatten nested data |
+| 14 | Online Signature Maker | 2/10 | 3 | 4 | 4 | 4 | 3 | demand อังกฤษกว้าง แต่ทับกับ Sign PDF และต้องย้ำว่าไม่ใช่ digital certificate |
+| 15 | Thai Number to Words | 4/1 | 2 | 4 | 3 | 4 | 3 | งานบัญชีใช้ง่าย แต่ intent ต่ำกว่ากลุ่มบนและมี logic บาทถ้วนอยู่ใน Quotation แล้ว |
+
+VAT Calculator ถูกเลือกเพราะเพิ่มเครื่องมือสายธุรกิจ/บัญชีที่ใช้ได้กับร้านค้า ฟรีแลนซ์ พนักงานจัดซื้อ ฝ่ายขาย และผู้บริโภค โดยไม่ต้องเก็บข้อมูลหรือเรียก API ขอบเขตมีสองโหมด: บวก VAT จากราคาก่อนภาษี และถอด VAT จากราคารวมด้วยสูตร `ราคารวม × อัตรา / (100 + อัตรา)` รองรับ Service Charge ก่อน VAT และภาษีหัก ณ ที่จ่ายแบบปิดเป็นค่าเริ่มต้น อัตราทุกส่วนแก้ไขได้ ผลลัพธ์แสดงฐาน VAT ภาษี ยอดรวม ยอดหัก และยอดจ่ายสุทธิ พร้อมสูตรและนโยบายปัดแต่ละองค์ประกอบสองตำแหน่ง
+
+กรมสรรพากรยืนยันเมื่อ 2 สิงหาคม 2569 ว่าการขายสินค้าและบริการทั่วไปยังใช้อัตรา VAT 7% และการขยายปัจจุบันถึง 30 กันยายน 2570 แต่มีสินค้า บริการ และกิจการที่ยกเว้น เครื่องมือจึงเก็บ preset พร้อมวันที่ตรวจสอบ/วันสิ้นสุดประกาศ ไม่อ้างว่า 7% ใช้กับทุกกรณี และไม่สร้างใบกำกับภาษี คู่มือกรมสรรพากรระบุสูตรภาษีขายเป็นมูลค่าสินค้าหรือบริการ × อัตราภาษี และกรณี VAT รวมอยู่ในราคายกตัวอย่างสูตร 7/107 ส่วนภาษีหัก ณ ที่จ่ายมีหลายอัตราตามประเภทเงินได้ ผู้จ่าย และผู้รับ จึงต้องแยกจาก VAT อย่างชัดเจนและให้ผู้ใช้เลือกเอง
+
+- [Google Autocomplete — คำนวณ VAT](https://suggestqueries.google.com/complete/search?client=firefox&hl=th&gl=th&q=%E0%B8%84%E0%B8%B3%E0%B8%99%E0%B8%A7%E0%B8%93%20vat)
+- [Google Autocomplete — Markdown Table Generator](https://suggestqueries.google.com/complete/search?client=firefox&hl=th&gl=th&q=markdown%20table%20generator)
+- [Google Autocomplete — แปลง Excel เป็น CSV](https://suggestqueries.google.com/complete/search?client=firefox&hl=th&gl=th&q=%E0%B9%81%E0%B8%9B%E0%B8%A5%E0%B8%87%20excel%20%E0%B9%80%E0%B8%9B%E0%B9%87%E0%B8%99%20csv)
+- [Google Autocomplete — คำนวณโอที](https://suggestqueries.google.com/complete/search?client=firefox&hl=th&gl=th&q=%E0%B8%84%E0%B8%B3%E0%B8%99%E0%B8%A7%E0%B8%93%E0%B9%82%E0%B8%AD%E0%B8%97%E0%B8%B5)
+- [Google Trends Help — Trends และ Autocomplete ต้องตีความอย่างไร](https://support.google.com/trends/answer/4365533?hl=en)
+- [กรมสรรพากร — ยืนยัน VAT 7% เมื่อ 2 สิงหาคม 2569](https://rd.go.th/fileadmin/user_upload/news/2569thai/news19_2569.pdf)
+- [กรมสรรพากร — ขยาย VAT 7% ถึง 30 กันยายน 2570](https://rd.go.th/fileadmin/user_upload/news/2569thai/news18_2569.pdf)
+- [กรมสรรพากร — คู่มือภาษีมูลค่าเพิ่มสำหรับ SMEs](https://www.rd.go.th/fileadmin/user_upload/SMEs/infographic/SME_lv3_1.pdf)
+- [กรมสรรพากร — สูตร 7/107 เมื่อ VAT รวมในราคา](https://www.rd.go.th/fileadmin/user_upload/SMEs/infographic/info-e-business-63.pdf)
+- [กรมสรรพากร — คู่มือภาษีหัก ณ ที่จ่ายและหลายอัตรา](https://interweb1.rd.go.th/publish/seminar/training/RD06.pdf)

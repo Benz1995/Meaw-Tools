@@ -28,6 +28,7 @@ const toolRoutes = [
   ["text-to-speech", "Text to Speech Reader"],
   ["grade-calculator", "Grade Calculator"],
   ["percentage-calculator", "Percentage Calculator"],
+  ["vat-calculator", "VAT Calculator Thailand"],
   ["unit-converter", "Unit Converter"],
   ["date-calculator", "Date Calculator"],
   ["jpg-to-pdf", "JPG to PDF Converter"],
@@ -940,6 +941,53 @@ test("loan, BMI, and profit calculators produce transparent results", async ({ p
   await page.getByRole("button", { name: "คำนวณกำไร" }).click();
   await expect(page.getByTestId("profit-result")).toContainText("400.00");
   await expect(page.getByText("40%", { exact: true })).toBeVisible();
+});
+
+test("VAT calculator adds and extracts VAT while keeping withholding separate", async ({ page }) => {
+  const consoleErrors: string[] = [];
+  page.on("console", (message) => {
+    if (message.type() === "error") consoleErrors.push(message.text());
+  });
+  page.on("pageerror", (error) => consoleErrors.push(error.message));
+
+  await page.goto("/vat-calculator");
+  await expect(page.getByRole("heading", { level: 1, name: "VAT Calculator Thailand" })).toBeVisible();
+
+  const amountInput = page.locator("#vat-amount");
+  await expect(amountInput).toBeVisible();
+  const labelGap = await amountInput.evaluate((input) => {
+    const label = document.querySelector<HTMLLabelElement>('label[for="vat-amount"]');
+    const inputBox = input.getBoundingClientRect();
+    const labelBox = label?.getBoundingClientRect();
+    return labelBox && inputBox ? Math.round(inputBox.top - labelBox.bottom) : 0;
+  });
+  expect(labelGap).toBeGreaterThanOrEqual(10);
+
+  await page.getByLabel("ราคาก่อน Service Charge และ VAT (บาท)").fill("1000");
+  await page.getByLabel("Service Charge ก่อน VAT (%)").fill("10");
+  await page.getByRole("switch", { name: "ประมาณภาษีหัก ณ ที่จ่าย" }).click();
+  await page.getByRole("button", { name: "คำนวณ VAT", exact: true }).click();
+  await expect(page.getByTestId("vat-base")).toContainText("1,100.00");
+  await expect(page.getByTestId("vat-tax")).toContainText("77.00");
+  await expect(page.getByTestId("vat-gross-total")).toContainText("1,177.00");
+  await expect(page.getByTestId("vat-withholding")).toContainText("33.00");
+  await expect(page.getByTestId("vat-net-total")).toContainText("1,144.00");
+
+  await page.getByRole("button", { name: /ถอด VAT ราคารวม VAT แล้ว/ }).click();
+  await page.getByLabel("ราคารวม VAT แล้ว (บาท)").fill("1070");
+  await page.getByRole("switch", { name: "ประมาณภาษีหัก ณ ที่จ่าย" }).click();
+  await page.getByRole("button", { name: "ถอด VAT", exact: true }).click();
+  await expect(page.getByTestId("vat-base")).toContainText("1,000.00");
+  await expect(page.getByTestId("vat-tax")).toContainText("70.00");
+  await expect(page.getByTestId("vat-net-total")).toContainText("1,070.00");
+  await expect(page.getByText(/VAT = ราคารวม × 7 ÷ 107/)).toBeVisible();
+
+  const layout = await page.evaluate(() => ({
+    width: document.documentElement.clientWidth,
+    scrollWidth: document.documentElement.scrollWidth,
+  }));
+  expect(layout.scrollWidth).toBe(layout.width);
+  expect(consoleErrors).toEqual([]);
 });
 
 test("Thai income tax calculator explains progressive tax and withholding", async ({ page }) => {
