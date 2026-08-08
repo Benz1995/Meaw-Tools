@@ -6,7 +6,7 @@
 
 - Next.js 16 App Router, React 19, TypeScript strict และ Tailwind CSS 4
 - shadcn/ui + Radix, Noto Sans Thai, JetBrains Mono และ dark mode
-- เครื่องมือ 52 รายการ พร้อม validation, empty/error state, clear และ action ที่เหมาะกับแต่ละงาน
+- เครื่องมือ 53 รายการ พร้อม validation, empty/error state, clear และ action ที่เหมาะกับแต่ละงาน
 - กลุ่มงานทั่วไป: นับคำ จัดระเบียบข้อความ คำนวณเปอร์เซ็นต์ แปลงหน่วย และคำนวณวัน
 - JPG to PDF, QR Code Generator, QR Code Scanner และ Age Calculator ประมวลผลภายใน Browser
 - Loan Calculator, BMI Calculator และ Profit & Margin Calculator พร้อมสูตรและข้อจำกัดที่ตรวจสอบได้
@@ -22,6 +22,7 @@
 - Barcode Generator สร้าง Code 128, EAN-13, EAN-8, UPC-A, ITF-14 และ Code 39 หลายรายการจากข้อมูลที่วางจาก Excel พร้อมตรวจ Check Digit และดาวน์โหลด PNG/SVG/ZIP
 - Grade Calculator คำนวณ GPA จากรายวิชาและประมาณ GPAX หลายเทอมแบบถ่วงหน่วยกิต พร้อมเทียบค่าปัดกับค่าตัดทศนิยม
 - CSV to Excel Converter อ่าน CSV/TSV/TXT ด้วย UTF-8 หรือ Windows-874 ตรวจคอลัมน์ใน Web Worker และสร้าง .xlsx โดยรักษาเลขศูนย์นำหน้าและไม่สร้างสูตรจากข้อมูล
+- CSV Cleaner & Duplicate Finder ตัดช่องว่าง ลบแถวว่าง ตรวจ/ลบข้อมูลซ้ำตามคอลัมน์ และสร้าง UTF-8 CSV ที่ป้องกัน Formula Injection ใน Web Worker
 - UTM Link Builder สร้าง Campaign URL สำหรับ GA4 โดยรักษา query/hash เดิม จัด naming convention และเตือนการใช้ร่วมกับ Google Ads auto-tagging
 - Color Picker/Contrast, Password Generator และ Random Number Generator ใช้สูตรที่ทดสอบได้และ Web Crypto
 - PDF to JPG, Merge PDF, Split PDF, PDF Organizer และ Sign PDF ใช้ PDF.js, pdf-lib และ ZIP ภายใน Browser โดยไม่อัปโหลดเอกสาร

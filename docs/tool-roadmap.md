@@ -106,18 +106,19 @@
 | 12 | Grade Calculator | กลาง-สูงในชุดล่าสุด: Trends 37 พร้อม long-tail 2/4/5/6 เทอม | 3 | 5 | 5 | 5 | 3 | ส่งมอบ Batch 23; GPA รายวิชา + GPAX หลายเทอม พร้อมสูตรและนโยบายทศนิยมโปร่งใส |
 | 13 | CSV to Excel Converter | Trends ภาษาไทยเดิมต่ำ แต่ Autocomplete อังกฤษปัจจุบันกว้างถึง converter/online/free/file/columns | 3 | 5 | 5 | 5 | 3 | ส่งมอบ Batch 24; CSV/TSV/TXT, UTF-8/Windows-874, Preview, Web Worker และ .xlsx ที่ป้องกันสูตรจากข้อมูล |
 | 14 | UTM Link Builder | Autocomplete ปัจจุบัน 10/10 ทั้ง `utm builder` และ `utm link builder`; มี free/google/GA4/excel | 2 | 5 | 5 | 5 | 3 | ส่งมอบ Batch 25; GA4 fields, presets, import UTM เดิม, naming normalization และคำเตือน auto-tagging |
-| 15 | Workday Planner พร้อมวันหยุดไทย | ต่ำในชุดนี้: Trends 2 | 3 | 5 | 4 | 4 | 3 | ชุดข้อมูลวันหยุดแบบ versioned |
-| 16 | JSON / CSV Converter | Autocomplete `json to csv converter` 10/10 แต่ซ้ำกลุ่มข้อมูลเดิมบางส่วน | 2 | 4 | 4 | 5 | 2 | Client-only |
-| 17 | Thai ID Checksum Validator | สูงในชุดล่าสุด: เช็ค 25; intent กว้าง 44 | 2 | 4 | 4 | 3 | 2 | ส่งมอบ Batch 11; ตรวจ checksum เท่านั้น ไม่เชื่อมฐานรัฐ ไม่สร้างหรือบันทึกเลข |
-| 18 | Sign PDF | สูงใน intent เฉพาะ: เซ็น PDF 72 | 5 | 5 | 4 | 4 | 4 | ส่งมอบ Batch 14; วางรูปภาพลายเซ็นหลายหน้าแบบ client-only พร้อมคำเตือนเรื่อง certificate |
-| 19 | VAT Calculator | ต่ำ: Trends 3 ในชุดนี้ | 2 | 4 | 4 | 4 | 2 | ต้อง version อัตราและแยกรวม/ไม่รวม VAT |
-| 20 | PDF Organizer | สูง: ลบ 76, หมุน 34, แยก 22 | 4 | 5 | 4 | 4 | 3 | ส่งมอบ Batch 12; ลากเรียง หมุน และลบหน้าพร้อม preview ใน Browser |
-| 21 | Thai Number to Words / Baht Text | ต่ำ: Trends 0–1 | 2 | 4 | 3 | 4 | 3 | Client-only; เน้น edge case ล้านซ้อนและสตางค์ |
-| 22 | Markdown Preview + Export | Autocomplete `markdown table generator` 10/10; ต้องแยก scope table กับ preview | 3 | 4 | 4 | 4 | 3 | sanitize HTML และ export |
-| 23 | Quotation Generator | สูง: ใบเสนอราคา 81 | 4 | 5 | 5 | 5 | 3 | ส่งมอบ Batch 13; Template + PDF ภาษาไทย พร้อมระบุว่าไม่ใช่ใบกำกับภาษีหรือหลักฐานรับเงิน |
-| 24 | Favicon / PWA Icon Generator | ต่ำในชุดล่าสุด: Trends 0 | 3 | 4 | 4 | 4 | 3 | Client-only |
-| 25 | EXIF Viewer / Remover | ต่ำในชุดล่าสุด: Trends 0 | 3 | 4 | 4 | 4 | 4 | Client-only และเน้น Privacy |
-| 26 | Overtime Estimator | Trends เดิมต่ำ แต่ Autocomplete ปัจจุบันแตก 1.5/2/3 เท่าและวันหยุด | 4 | 4 | 4 | 4 | 3 | ต้องตรวจฐานกฎหมายล่าสุดและแยกพนักงานรายวัน/รายเดือนก่อนพัฒนา |
+| 15 | CSV Cleaner & Duplicate Finder | Autocomplete `csv cleaner` 8/10 และ `csv duplicate remover` 7/10 พร้อม online/tool/data cleaner | 3 | 5 | 4 | 5 | 3 | ส่งมอบ Batch 26; เลือกคอลัมน์ตรวจซ้ำ, trim, blank rows, keep first/last, Web Worker และ Formula Injection protection |
+| 16 | Workday Planner พร้อมวันหยุดไทย | ต่ำในชุดนี้: Trends 2 | 3 | 5 | 4 | 4 | 3 | ชุดข้อมูลวันหยุดแบบ versioned |
+| 17 | JSON / CSV Converter | Autocomplete `json to csv converter` 10/10 แต่ซ้ำกลุ่มข้อมูลเดิมบางส่วน | 2 | 4 | 4 | 5 | 2 | Client-only |
+| 18 | Thai ID Checksum Validator | สูงในชุดล่าสุด: เช็ค 25; intent กว้าง 44 | 2 | 4 | 4 | 3 | 2 | ส่งมอบ Batch 11; ตรวจ checksum เท่านั้น ไม่เชื่อมฐานรัฐ ไม่สร้างหรือบันทึกเลข |
+| 19 | Sign PDF | สูงใน intent เฉพาะ: เซ็น PDF 72 | 5 | 5 | 4 | 4 | 4 | ส่งมอบ Batch 14; วางรูปภาพลายเซ็นหลายหน้าแบบ client-only พร้อมคำเตือนเรื่อง certificate |
+| 20 | VAT Calculator | ต่ำ: Trends 3 ในชุดนี้ | 2 | 4 | 4 | 4 | 2 | ต้อง version อัตราและแยกรวม/ไม่รวม VAT |
+| 21 | PDF Organizer | สูง: ลบ 76, หมุน 34, แยก 22 | 4 | 5 | 4 | 4 | 3 | ส่งมอบ Batch 12; ลากเรียง หมุน และลบหน้าพร้อม preview ใน Browser |
+| 22 | Thai Number to Words / Baht Text | ต่ำ: Trends 0–1 | 2 | 4 | 3 | 4 | 3 | Client-only; เน้น edge case ล้านซ้อนและสตางค์ |
+| 23 | Markdown Preview + Export | Autocomplete `markdown table generator` 10/10; ต้องแยก scope table กับ preview | 3 | 4 | 4 | 4 | 3 | sanitize HTML และ export |
+| 24 | Quotation Generator | สูง: ใบเสนอราคา 81 | 4 | 5 | 5 | 5 | 3 | ส่งมอบ Batch 13; Template + PDF ภาษาไทย พร้อมระบุว่าไม่ใช่ใบกำกับภาษีหรือหลักฐานรับเงิน |
+| 25 | Favicon / PWA Icon Generator | ต่ำในชุดล่าสุด: Trends 0 | 3 | 4 | 4 | 4 | 3 | Client-only |
+| 26 | EXIF Viewer / Remover | ต่ำในชุดล่าสุด: Trends 0 | 3 | 4 | 4 | 4 | 4 | Client-only และเน้น Privacy |
+| 27 | Overtime Estimator | Trends เดิมต่ำ แต่ Autocomplete ปัจจุบันแตก 1.5/2/3 เท่าและวันหยุด | 4 | 4 | 4 | 4 | 3 | ต้องตรวจฐานกฎหมายล่าสุดและแยกพนักงานรายวัน/รายเดือนก่อนพัฒนา |
 
 ## ลำดับส่งมอบที่แนะนำ
 
@@ -144,7 +145,8 @@
 21. Batch 23 — Grade Calculator สองโหมด: GPA รายวิชาตามหน่วยกิต และ GPAX หลายเทอม พร้อมแสดงค่าปัด/ตัดและคำเตือนผลประมาณ — ส่งมอบแล้ว
 22. Batch 24 — CSV to Excel Converter รองรับตัวคั่นอัตโนมัติ, UTF-8/Windows-874, quoted/multiline CSV, Preview, Web Worker และ .xlsx ที่รักษาเลขศูนย์นำหน้า — ส่งมอบแล้ว
 23. Batch 25 — UTM Link Builder สำหรับ GA4 พร้อม presets, import URL เดิม, query/hash preservation, naming normalization และคำเตือน Google Ads auto-tagging — ส่งมอบแล้ว
-24. Batch 26 — วิจัย CSV Cleaner/Duplicate Finder, JSON to CSV, Markdown Table Generator, Workday Planner และ Overtime Estimator ก่อนเลือกงานถัดไป
+24. Batch 26 — CSV Cleaner & Duplicate Finder รองรับ CSV/TSV, UTF-8/Windows-874, เลือกคอลัมน์ตรวจซ้ำ, keep first/last, trim, blank rows, Formula Injection protection และ Web Worker — ส่งมอบแล้ว
+25. Batch 27 — วิจัย JSON to CSV, Markdown Table Generator, Workday Planner, Overtime Estimator และเครื่องมือสายคอนเทนต์ก่อนเลือกงานถัดไป
 
 ทุก Batch ควรมี unit test ของสูตรหรือ parser, E2E อย่างน้อยหนึ่งเส้นทาง, ตรวจ keyboard/mobile และวัด Core Web Vitals ก่อนเปิด AdSense ใน production
 

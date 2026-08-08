@@ -22,6 +22,7 @@ const toolRoutes = [
   ["word-counter", "Word Counter"],
   ["text-cleaner", "Text Cleaner"],
   ["csv-to-excel", "CSV to Excel Converter"],
+  ["csv-cleaner", "CSV Cleaner & Duplicate Finder"],
   ["typing-test", "Typing Test"],
   ["special-characters", "Special Characters & Fancy Text"],
   ["text-to-speech", "Text to Speech Reader"],
@@ -182,6 +183,69 @@ test("CSV to Excel previews columns and downloads a safe XLSX locally", async ({
   expect(sheet).toContain('<c r="D2"><v>55</v></c>');
   expect(sheet).toContain("=SUM(1,1)");
   expect(sheet).not.toContain("<f>");
+
+  const layout = await page.evaluate(() => ({
+    width: document.documentElement.clientWidth,
+    scrollWidth: document.documentElement.scrollWidth,
+  }));
+  expect(layout.scrollWidth).toBe(layout.width);
+  expect(requests.some((url) => !url.startsWith("http://127.0.0.1:3100") && !url.startsWith("blob:") && !url.startsWith("data:"))).toBe(false);
+  expect(consoleErrors).toEqual([]);
+});
+
+test("CSV cleaner removes selected duplicates and protects spreadsheet formulas locally", async ({ page }) => {
+  const requests: string[] = [];
+  const consoleErrors: string[] = [];
+  page.on("request", (request) => requests.push(request.url()));
+  page.on("console", (message) => {
+    if (message.type() === "error") consoleErrors.push(message.text());
+  });
+  page.on("pageerror", (error) => consoleErrors.push(error.message));
+
+  await page.goto("/csv-cleaner");
+  await expect(page.getByRole("heading", { level: 1, name: "CSV Cleaner & Duplicate Finder" })).toBeVisible();
+  await page.locator("#csv-cleaner-source-file").setInputFiles({
+    name: "customers.csv",
+    mimeType: "text/csv",
+    buffer: Buffer.from('id,email,name,note\n001,mali@example.com," Mali ",ok\n002,SOMCHAI@example.com," Somchai ","=HYPERLINK(""https://example.com"",""open"")"\n003,somchai@example.com,Somchai,"=HYPERLINK(""https://example.com"",""open"")"\n,,,\n004,,Namfon,keep\n005,,Por,keep', "utf8"),
+  });
+
+  const labelGap = await page.evaluate(() => {
+    const input = document.getElementById("csv-cleaner-delimiter");
+    const label = document.querySelector<HTMLLabelElement>('label[for="csv-cleaner-delimiter"]');
+    const inputBox = input?.getBoundingClientRect();
+    const labelBox = label?.getBoundingClientRect();
+    return labelBox && inputBox ? Math.round(inputBox.top - labelBox.bottom) : 0;
+  });
+  expect(labelGap).toBeGreaterThanOrEqual(10);
+
+  await page.getByRole("button", { name: "วิเคราะห์และดู Preview" }).click();
+  await expect(page.getByTestId("csv-cleaner-source-rows")).toHaveText("7");
+  await page.getByRole("button", { name: "1. id", exact: true }).click();
+  await page.getByRole("button", { name: "3. name", exact: true }).click();
+  await page.getByRole("button", { name: "4. note", exact: true }).click();
+  await page.getByRole("button", { name: "ทำความสะอาดและสร้างไฟล์" }).click();
+
+  await expect(page.getByTestId("csv-cleaner-summary")).toBeVisible();
+  await expect(page.getByTestId("csv-cleaner-output-rows")).toHaveText("4");
+  await expect(page.getByTestId("csv-cleaner-duplicates")).toHaveText("1");
+  await expect(page.getByTestId("csv-cleaner-protected")).toHaveText("1 เซลล์");
+  await expect(page.getByTestId("csv-cleaner-preview-table")).toContainText("SOMCHAI@example.com");
+  await expect(page.getByTestId("csv-cleaner-preview-table")).toContainText("Namfon");
+  await expect(page.getByTestId("csv-cleaner-preview-table")).toContainText("Por");
+
+  const downloadPromise = page.waitForEvent("download");
+  await page.getByRole("button", { name: "ดาวน์โหลด CSV" }).click();
+  const download = await downloadPromise;
+  expect(download.suggestedFilename()).toBe("customers-cleaned.csv");
+  const path = await download.path();
+  expect(path).toBeTruthy();
+  const csv = await readFile(path!, "utf8");
+  expect(csv.charCodeAt(0)).toBe(0xfeff);
+  expect(csv).toContain("\t=HYPERLINK(");
+  expect(csv.match(/somchai@example\.com/gi)).toHaveLength(1);
+  expect(csv).toContain('"004","","Namfon"');
+  expect(csv).toContain('"005","","Por"');
 
   const layout = await page.evaluate(() => ({
     width: document.documentElement.clientWidth,

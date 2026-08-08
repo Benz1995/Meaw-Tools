@@ -323,3 +323,18 @@ Google Analytics ระบุว่าค่า UTM แยกตัวพิม�
 - [Google Analytics Help — Collect campaign data with custom URLs](https://support.google.com/analytics/answer/10917952?hl=en)
 - [Google Campaign URL Builder](https://ga-dev-tools.google/campaign-url-builder/)
 - [Google Analytics Help — Traffic-source dimension scopes and GCLID caution](https://support.google.com/analytics/answer/11080067?hl=en)
+
+## รอบที่ 16 — CSV Cleaner และ Duplicate Finder
+
+พัฒนาต่อเมื่อ 8 สิงหาคม 2026 จากผู้สมัครอันดับ 2 ของรอบที่ 15 โดยใช้หลักฐาน Google Autocomplete วันเดียวกัน: `csv cleaner` มีคำแนะนำ 8 รายการ เช่น online, tool, AI, Python, data cleaner และ duplicate cleaner ส่วน `csv duplicate remover` มี 7 รายการ ขณะที่ `remove duplicate rows online` มี 3 รายการ จึงรวม intent เหล่านี้เป็นหน้าเดียวแทนสร้างหน้าบางหลายหน้า
+
+ขอบเขตถูกออกแบบให้ใช้ได้กับฝ่ายขาย การตลาด บัญชี ร้านค้า นักวิเคราะห์ และนักพัฒนา: รับ CSV/TSV/TXT หรือข้อความ, UTF-8/Windows-874, ตรวจตัวคั่นอัตโนมัติ, ตัดช่องว่างหัวท้าย, ลบแถวว่าง, เลือกหนึ่งหรือหลายคอลัมน์สำหรับตรวจซ้ำ, เทียบแบบแยกหรือไม่แยกตัวพิมพ์เล็ก-ใหญ่, ข้ามคีย์ว่าง, เลือกเก็บแถวแรกหรือแถวสุดท้าย และใช้โหมดค้นหาอย่างเดียวโดยไม่ลบได้ งาน parse/clean/serialize ทำใน Web Worker ภายใต้เพดานเดิม 10 MB, 50,000 แถว, 200 คอลัมน์ และ 500,000 เซลล์
+
+ด้านความปลอดภัย OWASP ระบุว่า Spreadsheet อาจตีความเซลล์ที่ขึ้นต้นด้วย `=`, `+`, `-` หรือ `@` เป็นสูตร และไม่มีวิธี sanitize แบบเดียวที่ปลอดภัยกับทุกโปรแกรมและทุก downstream workflow เครื่องมือจึงเปิดการเติม Tab หน้าเซลล์เสี่ยงเป็นค่าเริ่มต้นสำหรับไฟล์ที่คนเปิดใน Spreadsheet แต่แสดงจำนวนเซลล์ที่เปลี่ยนและให้ปิดได้เมื่อระบบนำเข้าต้องรักษาข้อมูลเดิม ผู้ใช้ต้องยอมรับ trade-off อย่างชัดเจน ผลลัพธ์ quote ทุกเซลล์, escape quote ซ้อน, ใช้ CRLF และ UTF-8 BOM ตามโครงสร้าง CSV ที่สอดคล้องกับ RFC 4180
+
+- [Google Autocomplete — csv cleaner](https://suggestqueries.google.com/complete/search?client=firefox&hl=th&q=csv%20cleaner)
+- [Google Autocomplete — csv duplicate remover](https://suggestqueries.google.com/complete/search?client=firefox&hl=th&q=csv%20duplicate%20remover)
+- [Google Autocomplete — remove duplicate rows online](https://suggestqueries.google.com/complete/search?client=firefox&hl=th&q=remove%20duplicate%20rows%20online)
+- [OWASP — CSV Injection](https://owasp.org/www-community/attacks/CSV_Injection)
+- [OWASP WSTG — Testing for CSV Injection](https://owasp.org/www-project-web-security-testing-guide/latest/4-Web_Application_Security_Testing/07-Input_Validation_Testing/21-Testing_for_CSV_Injection)
+- [RFC 4180 — Common Format and MIME Type for CSV](https://www.rfc-editor.org/info/rfc4180/)
