@@ -37,6 +37,7 @@ const toolRoutes = [
   ["fuel-cost-calculator", "Fuel Cost Calculator"],
   ["unit-converter", "Unit Converter"],
   ["date-calculator", "Date Calculator"],
+  ["business-days-calculator", "Business Days Calculator"],
   ["jpg-to-pdf", "JPG to PDF Converter"],
   ["qr-code-generator", "QR Code Generator"],
   ["barcode-generator", "Barcode Generator"],
@@ -1429,6 +1430,64 @@ test("fuel cost calculator covers round trips, expense sharing, and both economy
   await expect(page.getByTestId("fuel-liters")).toContainText("20.00 ลิตร");
   await expect(page.getByTestId("fuel-total-cost")).toContainText("800.00");
   await expect(page.getByText("12.50 กม./ลิตร", { exact: true })).toBeVisible();
+
+  const layout = await page.evaluate(() => ({
+    width: document.documentElement.clientWidth,
+    scrollWidth: document.documentElement.scrollWidth,
+  }));
+  expect(layout.scrollWidth).toBe(layout.width);
+  expect(consoleErrors).toEqual([]);
+});
+
+test("business days calculator handles Thai bank holidays, endpoint policy, custom workweeks, and CSV", async ({ page }) => {
+  const consoleErrors: string[] = [];
+  page.on("console", (message) => {
+    if (message.type() === "error") consoleErrors.push(message.text());
+  });
+  page.on("pageerror", (error) => consoleErrors.push(error.message));
+
+  await page.goto("/business-days-calculator");
+  await expect(page.getByRole("heading", { level: 1, name: "Business Days Calculator" })).toBeVisible();
+  await expect(page.locator("main header").getByText("คำนวณวันทำงานและวันทำการ", { exact: true })).toBeVisible();
+  await expect(page.getByRole("link", { name: /ประกาศ ธปท. ล่าสุด/ })).toHaveAttribute("href", "https://www.bot.or.th/th/financial-institutions-holiday.html");
+  await page.evaluate(() => document.fonts.ready);
+
+  const labelGap = await page.evaluate(() => {
+    const label = document.querySelector<HTMLLabelElement>('label[for="business-start-date"]');
+    const input = document.querySelector<HTMLInputElement>("#business-start-date");
+    const labelBox = label?.getBoundingClientRect();
+    const inputBox = input?.getBoundingClientRect();
+    return labelBox && inputBox ? Math.round(inputBox.top - labelBox.bottom) : 0;
+  });
+  expect(labelGap).toBeGreaterThanOrEqual(10);
+
+  await page.getByRole("button", { name: "โหลดตัวอย่าง" }).click();
+  await page.getByRole("button", { name: "คำนวณวันทำงาน" }).click();
+  await expect(page.getByTestId("business-days-working-count")).toHaveText("20");
+  await expect(page.getByTestId("business-days-result")).toContainText("31 วันปฏิทิน");
+  await expect(page.getByTestId("business-days-result")).toContainText("วันขึ้นปีใหม่");
+  await expect(page.getByRole("row", { name: /มกราคม 2569 31 20 9 2/ })).toBeVisible();
+
+  await page.getByRole("tab", { name: "เพิ่ม / ลบวันทำการ" }).click();
+  await page.locator("#business-shift-start").fill("2026-04-10");
+  await page.locator("#business-shift-days").fill("10");
+  await page.getByRole("button", { name: "เพิ่มวันทำการ" }).click();
+  await expect(page.getByTestId("business-days-target")).toContainText("29 เมษายน 2569");
+  await expect(page.getByTestId("business-days-result")).toContainText("วันสงกรานต์");
+
+  await page.getByRole("button", { name: "เสาร์ เป็นวันหยุด" }).click();
+  await page.getByRole("button", { name: "เพิ่มวันทำการ" }).click();
+  await expect(page.getByTestId("business-days-target")).toContainText("25 เมษายน 2569");
+
+  const csvDownloadPromise = page.waitForEvent("download");
+  await page.getByRole("button", { name: "ดาวน์โหลด CSV" }).click();
+  const csvDownload = await csvDownloadPromise;
+  expect(csvDownload.suggestedFilename()).toBe("meaw-business-days.csv");
+  const csvPath = await csvDownload.path();
+  expect(csvPath).toBeTruthy();
+  const csv = await readFile(csvPath!, "utf8");
+  expect(csv).toContain("2026-04-13");
+  expect(csv).toContain("วันสงกรานต์");
 
   const layout = await page.evaluate(() => ({
     width: document.documentElement.clientWidth,

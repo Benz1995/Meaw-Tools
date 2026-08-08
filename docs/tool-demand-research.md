@@ -525,6 +525,46 @@ SEO ใช้ primary intent เดียวพร้อม FAQ ตอบคำ�
 - [FuelCalc — Fuel Cost Formula](https://www.fuelcalc.com.au/)
 - [Google Search Central — Creating helpful, reliable, people-first content](https://developers.google.com/search/docs/fundamentals/creating-helpful-content)
 
+## รอบที่ 27 — Business Days Calculator และการจัดอันดับ Batch 37
+
+สำรวจเมื่อ 8 สิงหาคม 2569 ด้วย Google Autocomplete locale ไทย (`hl=th`, `gl=th`) และตรวจเครื่องมือที่เปิดใช้งานจริง คำว่า `business days calculator`, `working days calculator` และ `workday calculator` ได้คำแนะนำ 10/10 ทั้งหมด ส่วน `คำนวณวันทำงาน` และ `นับวันทำงาน` ได้ 4/10, `นับวันทำงาน ไม่รวมเสาร์อาทิตย์` ได้ 3/10 และ `วันหยุดธนาคาร 2569` ได้ 10/10 จำนวนคำแนะนำใช้เป็น demand proxy เพื่อดูความกว้างของ intent ไม่ใช่ search volume และไม่รับประกันอันดับ Google
+
+คะแนน 5 คือสูงที่สุด โดย “ยาก” รวมความซับซ้อนของข้อมูลที่ต้อง version, UX, ความปลอดภัย และการพิสูจน์ผล:
+
+| อันดับ | แนวคิด | สัญญาณ | ยาก | คุณค่าธุรกิจ | รายได้ | ขยายต่อ | นวัตกรรม | ข้อสรุป |
+|---:|---|---:|---:|---:|---:|---:|---:|---|
+| 1 | Business Days Calculator | EN 10/10, TH 4/10, วันหยุดธนาคาร 10/10 | 3 | 5 | 4 | 5 | 3 | ส่งมอบ Batch 37: range/shift, workweek, endpoint policy, holidays, breakdown และ CSV |
+| 2 | Working Hours Calculator | EN 10/10, TH 2/10 | 3 | 5 | 4 | 5 | 3 | แยกจากวันทำงานด้วยเวลาเริ่ม/จบ พัก กะข้ามวัน และหลายกะ โดยไม่ตีความสิทธิแรงงาน |
+| 3 | Expense Splitter | EN 10/10, TH 2/10 | 3 | 5 | 4 | 5 | 3 | ต้องรองรับใครออกแทนใคร สัดส่วนไม่เท่ากัน เศษ และสรุปยอดโอนให้น้อยรายการ |
+| 4 | Subtitle Converter SRT/VTT | EN 10/10 | 3 | 4 | 4 | 4 | 3 | รักษาเวลา numbering line breaks และ encoding พร้อมตรวจ cue ที่ผิด โดยไม่อ้างว่าแปลภาษา |
+| 5 | Image Metadata Remover | EN 10/10, TH 1/10 | 4 | 4 | 4 | 4 | 4 | privacy value สูงแต่ต้องพิสูจน์ EXIF/XMP/IPTC หลัง encode และเตือนเรื่องคุณภาพภาพ |
+| 6 | CSV to JSON Converter | EN 10/10 | 3 | 4 | 4 | 5 | 3 | ต้องควบคุมชนิดข้อมูล nested paths และ arrays เพื่อไม่เป็น thin page ทับ CSV tools เดิม |
+| 7 | PDF Text Extractor | EN 10/10 | 4 | 4 | 4 | 4 | 3 | แยก text layer จาก OCR, ลำดับหลายคอลัมน์, password และขนาดไฟล์อย่างตรงไปตรงมา |
+| 8 | Shift Schedule Maker | EN 10/10 | 5 | 5 | 5 | 5 | 5 | รองรับพนักงาน กะ วันลา ชั่วโมงสูงสุด coverage และ fairness แต่ scope ใหญ่กว่าหน้า calculator |
+| 9 | Color Palette Generator | EN 10/10, TH 0/10 | 3 | 4 | 4 | 4 | 3 | ต้องมี lock color, contrast, color-blind preview และ export design tokens จึงต่างจาก Color Picker |
+| 10 | Timeline Maker | EN 10/10 | 4 | 4 | 4 | 4 | 4 | editor ต้องรองรับ keyboard order, responsive layout, print และ export ที่ยังอ่านได้ |
+| 11 | Freelance Rate Calculator | EN 10/10, TH 0/10 | 4 | 4 | 4 | 4 | 3 | เปิดสมมติฐานวันขายได้ ค่าใช้จ่าย วันลา buffer และภาษี ไม่ให้ผลลัพธ์ดูเป็นเรตรับรอง |
+| 12 | Salary Proration Calculator | long-tail งาน HR | 4 | 5 | 4 | 4 | 3 | ต้องเลือกฐาน 30 วัน/วันปฏิทิน/วันทำงาน และไม่ทับ Salary Calculator แบบหน้าเนื้อหาบาง |
+| 13 | Invoice Generator | EN 10/10 | 4 | 5 | 5 | 5 | 3 | ทับ Quotation บางส่วนและเสี่ยงถูกเข้าใจเป็นใบกำกับภาษีหรือหลักฐานรับเงิน จึงต้องคุมคำเรียก |
+| 14 | Countdown Timer | EN 10/10, TH 0/10 | 2 | 3 | 3 | 4 | 2 | ทำฟรีได้แต่ถูกแทนนาฬิการะบบง่าย ต้องมี shareable target, timezone และ background tab accuracy |
+| 15 | Lorem Ipsum ภาษาไทย | long-tail เนื้อหาตัวอย่าง | 2 | 3 | 3 | 4 | 2 | ทำง่ายแต่คุณค่าต่ำกว่าและต้องบอกชัดว่าเป็น placeholder ไม่ใช่ข้อความสำหรับเผยแพร่จริง |
+
+รุ่นที่ส่งมอบแก้จุดกำกวมของการนับวันโดยตรง: แยกโหมด “นับระหว่างสองวันที่” กับ “เพิ่ม/ลบวันทำการ”, ให้ผู้ใช้เลือกว่าจะรวมวันต้นทางและปลายทางหรือไม่, เลือกวันทำงานใดก็ได้ในสัปดาห์, เพิ่มวันหยุดองค์กร และแสดงสูตร `วันปฏิทิน − วันหยุดประจำสัปดาห์ − วันหยุดที่ตรงกับวันทำงาน` พร้อมตารางรายเดือน รายวัน และ CSV ฟังก์ชันลักษณะเดียวกับ `NETWORKDAYS.INTL` และ `WORKDAY.INTL` แต่ไม่ผูกกับ Excel และประมวลผลใน Browser
+
+ข้อมูล preset ใช้วันหยุดสถาบันการเงินและสถาบันการเงินเฉพาะกิจของธนาคารแห่งประเทศไทยปี 2569 จำนวน 19 วันในรายการหลัก และมีตัวเลือกกรุงเทพมหานคร 20 วันซึ่งเพิ่มวันศุกร์ที่ 16 ตุลาคม 2569 ชุดข้อมูลระบุปีและวันที่อัปเดต ไม่เหมารวมเป็นวันหยุดบริษัท วันหยุดราชการ หรือวันหยุดของทุกพื้นที่ และไม่ hardcode วันเพิ่มของธนาคารอิสลามหรือสาขาบางจังหวัดภาคใต้ที่ต้องอ้างประกาศเฉพาะ ผู้ใช้ต้องตรวจประกาศที่ใช้กับองค์กรของตนและกรอกวันเพิ่มเติมได้สูงสุด 500 รายการ
+
+SEO แยก primary intent ของหน้าใหม่นี้เป็น `คำนวณวันทำงาน` ส่วน Date Calculator เดิมคง intent `คำนวณวัน` และเอาคำรองเกี่ยวกับวันทำงานออกเพื่อลด semantic cannibalization หน้าเดียวรวมคำไทย/อังกฤษ, NETWORKDAYS, วันหยุดธนาคาร และการเพิ่มวันทำการเพราะเป็น workflow เดียวกัน ไม่สร้าง thin page แยกตามคำค้น และไม่อ้างรับประกันหน้าแรก
+
+- [Google Autocomplete — business days calculator](https://suggestqueries.google.com/complete/search?client=firefox&hl=th&gl=th&q=business%20days%20calculator)
+- [Google Autocomplete — working days calculator](https://suggestqueries.google.com/complete/search?client=firefox&hl=th&gl=th&q=working%20days%20calculator)
+- [Google Autocomplete — คำนวณวันทำงาน](https://suggestqueries.google.com/complete/search?client=firefox&hl=th&gl=th&q=%E0%B8%84%E0%B8%B3%E0%B8%99%E0%B8%A7%E0%B8%93%E0%B8%A7%E0%B8%B1%E0%B8%99%E0%B8%97%E0%B8%B3%E0%B8%87%E0%B8%B2%E0%B8%99)
+- [Google Autocomplete — วันหยุดธนาคาร 2569](https://suggestqueries.google.com/complete/search?client=firefox&hl=th&gl=th&q=%E0%B8%A7%E0%B8%B1%E0%B8%99%E0%B8%AB%E0%B8%A2%E0%B8%B8%E0%B8%94%E0%B8%98%E0%B8%99%E0%B8%B2%E0%B8%84%E0%B8%B2%E0%B8%A3%202569)
+- [ธนาคารแห่งประเทศไทย — วันหยุดของสถาบันการเงิน](https://www.bot.or.th/th/financial-institutions-holiday.html)
+- [ธนาคารแห่งประเทศไทย — วันหยุดพิเศษ 16 ตุลาคม 2569 ในกรุงเทพมหานคร](https://www.bot.or.th/th/news-and-media/news/news-20260609.html)
+- [Microsoft Support — NETWORKDAYS.INTL](https://support.microsoft.com/th-th/office/%E0%B8%9F%E0%B8%B1%E0%B8%87%E0%B8%81%E0%B9%8C%E0%B8%8A%E0%B8%B1%E0%B8%99-networkdays-intl-a9b26239-4f20-46a1-9ab8-4e925bfd5e28)
+- [Microsoft Support — WORKDAY.INTL](https://support.microsoft.com/en-us/excel/workday-intl-function)
+- [Google Search Central — Creating helpful, reliable, people-first content](https://developers.google.com/search/docs/fundamentals/creating-helpful-content)
+
 ## รอบที่ 26 — Word Cloud ภาษาไทย และการจัดอันดับ Batch 36
 
 สำรวจเมื่อ 8 สิงหาคม 2569 ด้วย Google Autocomplete locale ไทย (`hl=th`, `gl=th`) และตรวจเครื่องมือที่เปิดใช้งานจริง คำว่า `word cloud generator`, `word cloud maker` และ `word cloud online` ได้คำแนะนำ 10/10 ส่วน `word cloud ภาษาไทย` ได้ 5/10 และ `สร้าง word cloud` ได้ 3/10 โดยแตกเป็น intent ฟรี, online, students, phrases และ shapes จำนวนคำแนะนำเป็น demand proxy ที่บอกความกว้างของ intent ไม่ใช่ search volume และไม่รับประกันอันดับ Google
