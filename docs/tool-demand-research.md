@@ -844,3 +844,44 @@ UI แสดง Preset เป็นตัวอย่าง ไม่อ้า�
 - [RFC 5545 — Internet Calendaring and Scheduling Core Object Specification](https://www.rfc-editor.org/rfc/rfc5545)
 - [MDN — input type=date](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/input/date)
 - [Shifty — Shift Pattern Generator](https://shifty.ldcoda.com/)
+
+## รอบที่ 30 — Hourly Rate Calculator และการจัดอันดับ Batch 40
+
+สำรวจเมื่อ 8 สิงหาคม 2569 ด้วย Google Autocomplete locale ไทย (`hl=th`, `gl=th`) หลังส่งมอบเครื่องมือตารางกะ โดยเทียบ 16 คำตั้งต้นสายรายได้ ฟรีแลนซ์ ที่ปรึกษา ชั่วโมงขายได้ และต้นทุนประชุม จำนวนคำแนะนำสูงสุด 10 รายการเป็น demand proxy เพื่อดูความกว้างของ intent ไม่ใช่ search volume และไม่รับประกันอันดับหน้าแรก Google
+
+คำอังกฤษ `hourly rate calculator`, `salary to hourly calculator`, `annual salary to hourly calculator`, `meeting cost calculator`, `billable hours calculator`, `day rate calculator` และ `overtime rate calculator` ได้ 10/10 ทั้งหมด ส่วน `คำนวณค่าแรง` ได้ 9/10 พร้อม long-tail รายวัน รายเดือน รายชั่วโมง OT, Excel, รปภ. และก่อสร้าง ขณะที่ `freelance hourly rate calculator` ได้ 3/10, `consulting rate calculator` 4/10 และคำไทยเฉพาะเรทฟรีแลนซ์ยังไม่เกิดคำแนะนำ
+
+คะแนน 5 คือสูงที่สุด การเลือกคำนึงถึง demand, ประโยชน์ข้ามสายงาน, catalog overlap, ความเสี่ยง และความครบที่ทำฟรีใน Browser ได้:
+
+| อันดับ | แนวคิด | Demand ที่พบ | ยาก | คุณค่าธุรกิจ | รายได้ | ขยายต่อ | นวัตกรรม | ข้อสรุป |
+|---:|---|---|---:|---:|---:|---:|---:|---|
+| 1 | Hourly Rate Calculator | EN 10/10; `คำนวณค่าแรง` 9/10 | 3 | 5 | 5 | 5 | 4 | ส่งมอบ Batch 40; 5 pay periods, work capacity, bonus, freelance target, fee gross-up, project quote และ CSV |
+| 2 | Salary to Hourly Calculator | EN 10/10 | 2 | 5 | 5 | 4 | 3 | รวมเป็นโหมดแรกในหน้าเดียวเพื่อไม่สร้าง thin page ใกล้กัน |
+| 3 | Annual Salary to Hourly Calculator | EN 10/10 | 2 | 5 | 4 | 4 | 2 | รวมใน pay-period selector พร้อมโบนัสและสัปดาห์ทำงานที่ผู้ใช้กำหนด |
+| 4 | Billable Hours Calculator | EN 10/10 และมี Excel/6-minute/lawyer | 3 | 5 | 5 | 5 | 4 | น่าทำต่อ แต่ต้องแยก time log/rounding/target จาก Working Hours และ Hourly Rate ให้ชัด |
+| 5 | Meeting Cost Calculator | EN 10/10 พร้อม live/Teams/Outlook | 3 | 5 | 4 | 5 | 5 | มีผลต่อพฤติกรรมองค์กร แต่ต้องออกแบบ privacy และไม่แสดงเงินเดือนรายบุคคล |
+| 6 | Day Rate Calculator | EN 10/10 | 2 | 4 | 4 | 4 | 2 | รวม Day rate ในผลฟรีแลนซ์แทนหน้าแยกบาง |
+| 7 | Freelance Hourly Rate Calculator | EN 3/10 | 3 | 5 | 5 | 5 | 4 | รวมเป็นโหมดสอง เพราะเพิ่มคุณค่าจริงแม้ primary demand แคบกว่า salary conversion |
+| 8 | Consulting Rate Calculator | EN 4/10 | 3 | 5 | 5 | 4 | 4 | สูตรใกล้ฟรีแลนซ์มาก ควรเพิ่ม template อุตสาหกรรมภายหลังแทน duplicate page |
+| 9 | Project Rate Calculator | EN 5/10 แต่ suggestion ส่วนใหญ่เป็น burn/return/loan | 3 | 4 | 4 | 4 | 3 | intent ไม่บริสุทธิ์ จึงใส่ project quote เป็นผลรอง ไม่ใช้ primary keyword |
+| 10 | Overtime Rate Calculator | EN 10/10; ไทยอยู่ใต้ `คำนวณค่าแรง` | 4 | 5 | 5 | 4 | 3 | มีหน้า Overtime Thailand พร้อมกฎหมายและตัวคูณอยู่แล้ว ไม่สร้างหน้าซ้ำ |
+| 11 | Wage Calculator Thailand | ไทยมีรายวัน/เดือน/ชั่วโมง | 5 | 5 | 5 | 5 | 3 | ต้องมี minimum wage รายจังหวัด/อาชีพแบบ versioned และแหล่งราชการก่อนเปิด |
+| 12 | Contractor vs Employee Comparison | ปรากฏใน intent salary/day rate | 5 | 5 | 5 | 5 | 4 | ต้องเทียบ benefits, tax, leave และ risk อย่าง country-specific จึงยังไม่ควรเดา |
+| 13 | Platform Fee Calculator | fee เป็น feature คู่แข่งฟรีแลนซ์ | 2 | 4 | 4 | 4 | 3 | รวม gross-up ใน Batch 40; ไม่สร้างหน้าแยกจนกว่าจะมีหลาย platform/scenario |
+| 14 | Break-even Utilization Calculator | billable/non-billable เป็น pain point ชัด | 3 | 4 | 4 | 5 | 4 | เหมาะต่อยอด dashboard แต่ต้องมี time log จริงเพื่อพิสูจน์ utilization |
+| 15 | Quote Profit Checker | ต่อกับ Quotation/Profit Margin | 3 | 5 | 5 | 5 | 4 | ควรออกแบบเป็นการตรวจใบเสนอราคา ไม่ซ้อน project quote แบบง่ายใน Batch 40 |
+
+Batch 40 แยกความหมายสองโหมดชัดเจน โหมดค่าจ้าง annualize งวดรายชั่วโมง/วัน/สัปดาห์/เดือน/ปี บวกโบนัส แล้วหารด้วยชั่วโมงหรือวันทำงานตามสมมติฐานของผู้ใช้ โหมดฟรีแลนซ์ใช้สูตร `(รายได้ส่วนตัวเป้าหมาย + ต้นทุนธุรกิจ + เงินสำรอง) × (1 + buffer) ÷ (1 - fee) ÷ annual billable hours` โดยไม่เดาภาษี ไม่ใช้ benchmark รายอาชีพ และไม่เรียกผลว่า “ราคาตลาด”
+
+การชดเชยค่าธรรมเนียมใช้ gross-up ด้วยการหาร `1 - fee` แทนการบวกเปอร์เซ็นต์ตรง ๆ เช่น ต้องเหลือ 90,000 หลังหัก 10% ต้องเรียกเก็บ 100,000 ส่วนการปัดเรททำได้เฉพาะปัดขึ้นและแสดงค่าก่อนปัดเสมอ Project quote ใช้เรทหลังปัดคูณชั่วโมง แล้ว gross-up ค่าใช้จ่ายตรงตาม fee โดยระบุว่าไม่รวม VAT, scope change, revision, term ชำระ หรือความเสี่ยงเฉพาะงาน
+
+UI ใช้ 2 Tabs เพื่อไม่ปะปนโจทย์พนักงานกับฟรีแลนซ์ ทุก label เว้นจาก input อย่างสม่ำเสมอ ผลลัพธ์มีสูตรและ breakdown ที่ตรวจย้อนกลับได้ รองรับ THB/USD/EUR/GBP/JPY เฉพาะการแสดงหน่วยโดยไม่แปลง exchange rate และสร้าง CSV ใน Browser หน้า SEO ใช้ primary intent `hourly rate calculator` กับ `คำนวณค่าแรงรายชั่วโมง` พร้อม FAQ แยก OT, tax, billable time, fee และ project quote โดยไม่สร้างหน้า keyword ใกล้เคียงหลายหน้า
+
+- [Google Autocomplete — hourly rate calculator](https://suggestqueries.google.com/complete/search?client=firefox&hl=th&gl=th&q=hourly%20rate%20calculator)
+- [Google Autocomplete — salary to hourly calculator](https://suggestqueries.google.com/complete/search?client=firefox&hl=th&gl=th&q=salary%20to%20hourly%20calculator)
+- [Google Autocomplete — billable hours calculator](https://suggestqueries.google.com/complete/search?client=firefox&hl=th&gl=th&q=billable%20hours%20calculator)
+- [Google Autocomplete — คำนวณค่าแรง](https://suggestqueries.google.com/complete/search?client=firefox&hl=th&gl=th&q=%E0%B8%84%E0%B8%B3%E0%B8%99%E0%B8%A7%E0%B8%93%E0%B8%84%E0%B9%88%E0%B8%B2%E0%B9%81%E0%B8%A3%E0%B8%87)
+- [Pearson — Annual Income Calculator](https://www.pearson.com/channels/calculators/annual-income-calculator)
+- [RateCalc — Freelance Hourly Rate Calculator](https://www.ratecalc.app/)
+- [Everhour — Calculate freelance hourly rate](https://everhour.com/calculators/calculate-freelance-hourly-rate)
+- [Google Search Central — Creating helpful, reliable, people-first content](https://developers.google.com/search/docs/fundamentals/creating-helpful-content)

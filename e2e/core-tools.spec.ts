@@ -40,6 +40,7 @@ const toolRoutes = [
   ["business-days-calculator", "Business Days Calculator"],
   ["working-hours-calculator", "Working Hours Calculator"],
   ["shift-pattern-calculator", "Shift Pattern Calculator"],
+  ["hourly-rate-calculator", "Hourly Rate Calculator"],
   ["jpg-to-pdf", "JPG to PDF Converter"],
   ["qr-code-generator", "QR Code Generator"],
   ["barcode-generator", "Barcode Generator"],
@@ -1603,6 +1604,64 @@ test("shift pattern calculator builds an overnight roster calendar and exports C
     width: document.documentElement.clientWidth,
     scrollWidth: document.documentElement.scrollWidth,
   }));
+  expect(layout.scrollWidth).toBe(layout.width);
+  expect(consoleErrors).toEqual([]);
+});
+
+test("hourly rate calculator converts salary and builds a transparent freelance rate", async ({ page }) => {
+  const consoleErrors: string[] = [];
+  page.on("console", (message) => {
+    if (message.type() === "error") consoleErrors.push(message.text());
+  });
+  page.on("pageerror", (error) => consoleErrors.push(error.message));
+
+  await page.goto("/hourly-rate-calculator");
+  await expect(page.getByRole("heading", { level: 1, name: "Hourly Rate Calculator" })).toBeVisible();
+  await expect(page.locator("main header").getByText("คำนวณค่าแรงรายชั่วโมงและเรทฟรีแลนซ์", { exact: true })).toBeVisible();
+  await expect(page.locator("#salary-rate-amount")).toBeVisible();
+  await page.evaluate(() => document.fonts.ready);
+
+  const labelGap = await page.evaluate(() => {
+    const label = document.querySelector<HTMLLabelElement>('label[for="salary-rate-amount"]');
+    const input = document.querySelector<HTMLInputElement>("#salary-rate-amount");
+    const labelBox = label?.getBoundingClientRect();
+    const inputBox = input?.getBoundingClientRect();
+    return labelBox && inputBox ? Math.round(inputBox.top - labelBox.bottom) : 0;
+  });
+  expect(labelGap).toBeGreaterThanOrEqual(10);
+
+  await page.getByRole("button", { name: "โหลดตัวอย่าง" }).click();
+  await page.getByRole("button", { name: "แปลงเป็นรายชั่วโมง" }).click();
+  await expect(page.getByTestId("salary-hourly-rate")).toContainText("฿187.50/ชม.");
+  await expect(page.getByTestId("salary-rate-result")).toContainText("฿390,000.00");
+  await expect(page.getByTestId("salary-rate-result")).toContainText("2,080 ชั่วโมง");
+
+  const salaryCsvPromise = page.waitForEvent("download");
+  await page.getByRole("button", { name: "ดาวน์โหลด CSV" }).click();
+  const salaryCsvDownload = await salaryCsvPromise;
+  expect(salaryCsvDownload.suggestedFilename()).toBe("meaw-hourly-rate.csv");
+  const salaryCsvPath = await salaryCsvDownload.path();
+  expect(salaryCsvPath).toBeTruthy();
+  expect(await readFile(salaryCsvPath!, "utf8")).toContain('"เทียบรายชั่วโมง","187.50","THB"');
+
+  await page.getByRole("tab", { name: "คำนวณเรทฟรีแลนซ์" }).click();
+  await page.getByRole("button", { name: "โหลดตัวอย่าง" }).click();
+  await page.getByRole("button", { name: "คำนวณเรทฟรีแลนซ์" }).click();
+  await expect(page.getByTestId("freelance-hourly-rate")).toContainText("฿800.00/ชม.");
+  await expect(page.getByTestId("freelance-rate-result")).toContainText("ขั้นต่ำก่อนปัด ฿794.44");
+  await expect(page.getByTestId("freelance-rate-result")).toContainText("฿6,400.00");
+  await expect(page.getByTestId("freelance-rate-result")).toContainText("฿27,111.11");
+  await expect(page.getByTestId("freelance-rate-result")).toContainText("1,200 ชม.");
+
+  const freelanceCsvPromise = page.waitForEvent("download");
+  await page.getByRole("button", { name: "ดาวน์โหลด CSV" }).click();
+  const freelanceCsvDownload = await freelanceCsvPromise;
+  expect(freelanceCsvDownload.suggestedFilename()).toBe("meaw-freelance-rate.csv");
+  const freelanceCsvPath = await freelanceCsvDownload.path();
+  expect(freelanceCsvPath).toBeTruthy();
+  expect(await readFile(freelanceCsvPath!, "utf8")).toContain('"เรทหลังปัดขึ้น","800.00","THB/ชั่วโมง"');
+
+  const layout = await page.evaluate(() => ({ width: document.documentElement.clientWidth, scrollWidth: document.documentElement.scrollWidth }));
   expect(layout.scrollWidth).toBe(layout.width);
   expect(consoleErrors).toEqual([]);
 });
