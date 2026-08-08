@@ -6,7 +6,7 @@
 
 - Next.js 16 App Router, React 19, TypeScript strict และ Tailwind CSS 4
 - shadcn/ui + Radix, Noto Sans Thai, JetBrains Mono และ dark mode
-- เครื่องมือ 59 รายการ พร้อม validation, empty/error state, clear และ action ที่เหมาะกับแต่ละงาน
+- เครื่องมือ 60 รายการ พร้อม validation, empty/error state, clear และ action ที่เหมาะกับแต่ละงาน
 - กลุ่มงานทั่วไป: นับคำ จัดระเบียบข้อความ คำนวณเปอร์เซ็นต์ แปลงหน่วย และคำนวณวัน
 - JPG to PDF, QR Code Generator, QR Code Scanner และ Age Calculator ประมวลผลภายใน Browser
 - Loan Calculator, BMI Calculator และ Profit & Margin Calculator พร้อมสูตรและข้อจำกัดที่ตรวจสอบได้
@@ -30,6 +30,7 @@
 - HTML Table Generator วางข้อมูลจาก Excel/Sheets/CSV/TSV แก้ไขและรวมเซลล์ สร้าง caption, thead/tbody, scope, colspan/rowspan และ CSS แบบ responsive ใน Browser
 - Image Cropper ครอปกรอบอิสระ/วงกลม เลือกสัดส่วน หมุน พลิก กำหนดพิกเซล และส่งออก PNG/JPG/WebP โดยไม่อัปโหลดรูป
 - Favicon & PWA Icon Generator สร้าง ICO หลายขนาด, PNG, Apple touch, PWA any/maskable, Web Manifest, HTML และ ZIP ภายใน Browser
+- Resume Builder สร้างเรซูเม่ไทย/อังกฤษแบบ Single column พร้อม Live Preview, PDF A4 ที่มี text layer, Plain text และ Keyword coverage โดยไม่ส่งข้อมูลส่วนตัวไป Server
 - Color Picker/Contrast, Password Generator และ Random Number Generator ใช้สูตรที่ทดสอบได้และ Web Crypto
 - PDF to JPG, Merge PDF, Split PDF, PDF Organizer และ Sign PDF ใช้ PDF.js, pdf-lib และ ZIP ภายใน Browser โดยไม่อัปโหลดเอกสาร
 - หน้า `/categories` และหน้า Tag รายหมวด พร้อมจำนวนเครื่องมือ metadata และ sitemap
@@ -96,6 +97,7 @@ flowchart LR
 - HTML Table Generator escape ข้อความในเซลล์และ caption ก่อน Preview/Export จำกัด 100 แถว, 20 คอลัมน์ และ 1,000 ตัวอักษรต่อเซลล์
 - Image Cropper จำกัดไฟล์ 10 MB / 40 ล้านพิกเซล และผลลัพธ์ด้านยาว 8,000 px / 24 ล้านพิกเซล พร้อมปิด ImageBitmap และ Blob URL เมื่อเลิกใช้
 - Favicon Generator จำกัดต้นฉบับ 10 MB / 40 ล้านพิกเซล รับเฉพาะ PNG/JPG/WebP และคืน ImageBitmap กับ Blob URL เมื่อเปลี่ยนงานหรือออกจากหน้า
+- Resume Builder จำกัดข้อความรวม 20,000 ตัวอักษร, Job Description 12,000 ตัวอักษร, ประสบการณ์ 8 และการศึกษา 6 รายการ ไม่บันทึกลง LocalStorage และไม่อ้างรับประกันผล ATS
 - Regex ทำงานใน Web Worker และถูก terminate เมื่อเกิน 750 ms
 - JWT เป็นการ Decode เท่านั้น ไม่ verify signature
 - SQL ถูกจัดรูปเท่านั้น ไม่ execute

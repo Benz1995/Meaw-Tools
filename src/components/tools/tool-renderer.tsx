@@ -25,6 +25,7 @@ const components = {
   "csv-to-excel": dynamic(() => import("@/features/tools/csv-to-excel-tool").then((module) => module.CsvToExcelTool), { loading, ssr: false }),
   "excel-to-csv": dynamic(() => import("@/features/tools/excel-to-csv-tool").then((module) => module.ExcelToCsvTool), { loading, ssr: false }),
   "csv-cleaner": dynamic(() => import("@/features/tools/csv-cleaner-tool").then((module) => module.CsvCleanerTool), { loading, ssr: false }),
+  "resume-builder": dynamic(() => import("@/features/tools/resume-builder-tool").then((module) => module.ResumeBuilderTool), { loading, ssr: false }),
   "typing-test": dynamic(() => import("@/features/tools/typing-test-tool").then((module) => module.TypingTestTool), { loading, ssr: false }),
   "special-characters": dynamic(() => import("@/features/tools/special-characters-tool").then((module) => module.SpecialCharactersTool), { loading, ssr: false }),
   "text-to-speech": dynamic(() => import("@/features/tools/text-to-speech-tool").then((module) => module.TextToSpeechTool), { loading, ssr: false }),

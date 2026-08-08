@@ -453,6 +453,43 @@ Excel to CSV ถูกเลือกเพราะเพิ่มเส้น�
 - [Google Search Central — SEO Starter Guide](https://developers.google.com/search/docs/fundamentals/seo-starter-guide)
 - [Google Search Central — Title links](https://developers.google.com/search/docs/appearance/title-link)
 
+## รอบที่ 23 — Resume Builder ไทย/English และการจัดอันดับ Batch 33
+
+สำรวจเมื่อ 8 สิงหาคม 2569 ด้วย Google Autocomplete locale ไทย (`hl=th`, `gl=th`) ทั้งคำไทยและอังกฤษ พร้อมตรวจคู่แข่งและคำแนะนำรูปแบบ Resume จากสถาบันการศึกษา จำนวนคำแนะนำสูงสุด 10 รายการเป็นเพียงสัญญาณความกว้างของ intent ไม่ใช่ search volume และไม่รับประกันอันดับ Google หรือผล ATS
+
+คะแนน 5 คือสูงที่สุด:
+
+| อันดับ | แนวคิด | สัญญาณ Autocomplete | ยาก | คุณค่าธุรกิจ | รายได้ | ขยายต่อ | นวัตกรรม | ข้อสรุป |
+|---:|---|---:|---:|---:|---:|---:|---:|---|
+| 1 | Resume Builder ไทย/English | EN 10/10, ไทย 8–10/10 | 5 | 5 | 5 | 5 | 4 | ชนะและส่งมอบ: free/no sign up/PDF มี intent ชัด และทำเวอร์ชันครบแบบ client-only ได้ |
+| 2 | Word Cloud ภาษาไทย | EN 10/10, ไทย 3/10 | 4 | 4 | 4 | 4 | 4 | ต้องพิสูจน์ tokenization, stop words, ฟอนต์ และ PNG/SVG |
+| 3 | Business Days Calculator | EN 10/10, ไทย 4/10 | 3 | 4 | 4 | 4 | 3 | ต้องแยกเสาร์อาทิตย์, วันหยุดราชการ และวันหยุดองค์กร |
+| 4 | Remove Image Metadata | EN 10/10, ไทย 1/10 | 4 | 4 | 4 | 4 | 4 | มี privacy value แต่ต้องตรวจ EXIF/XMP/IPTC หลัง encode จริง |
+| 5 | JSON to CSV Converter | EN 10/10, ไทย 1/10 | 3 | 4 | 4 | 5 | 2 | ต้องอธิบาย flatten object/array และหลีกเลี่ยง keyword ชนกลุ่ม CSV เดิม |
+| 6 | Password Strength Checker | EN 10/10 | 2 | 4 | 4 | 4 | 3 | ทำ client-only ได้ แต่ไม่ควรอ้างเวลา crack จากสมมติฐานลวง |
+| 7 | Color Palette Generator | EN 10/10 | 3 | 4 | 4 | 4 | 3 | ต้องมี contrast, lock color และ export token จึงต่างจาก Color Picker |
+| 8 | PDF Compressor | EN/ไทย 10/10 | 5 | 5 | 5 | 5 | 4 | ชะลอ: rasterize ทำลาย text/search/accessibility และไม่รับประกันว่าเล็กลง |
+| 9 | Overtime Estimator | long-tail 1.5/2/3 เท่า | 4 | 4 | 4 | 4 | 3 | ต้องตรวจกฎหมายปัจจุบันและแยกรายวัน/รายเดือน |
+| 10 | Privacy Policy Generator | EN 10/10 | 4 | 4 | 4 | 4 | 3 | เสี่ยงให้คำแนะนำเชิงกฎหมาย; ต้องมี jurisdiction/version และ disclaimer ชัด |
+| 11 | Passport Photo Maker | EN 10/10 | 4 | 4 | 4 | 4 | 4 | ต้อง version กฎขนาดรูปแต่ละประเทศและไม่อ้างผ่านราชการ |
+| 12 | Image Upscaler | EN 10/10 | 5 | 4 | 5 | 5 | 4 | โมเดล client-side ใช้ RAM สูง ต้องมี fallback และวัดคุณภาพจริง |
+| 13 | Pomodoro Timer | EN 10/10 | 2 | 3 | 3 | 4 | 2 | ทำง่ายแต่คู่แข่งสูง ต้องมี persistence/notification ที่ไม่รบกวน |
+| 14 | Aspect Ratio Calculator | EN 10/10, ไทย 1/10 | 2 | 3 | 3 | 4 | 2 | ใกล้ Image Cropper เดิม ควรขยายหน้าเดิมแทน thin page |
+| 15 | File Checksum Calculator | EN 10/10 | 2 | 4 | 3 | 4 | 3 | ทับ Hash Generator; ควรเพิ่มโหมดไฟล์ในหน้าเดิมเมื่อจะทำ |
+
+Resume Builder ถูกเลือกเพราะ `resume builder`, `resume builder online`, `resume builder free`, `cv maker`, `ats resume checker`, `สร้าง resume`, `สร้างเรซูเม่` และ `เรซูเม่ สมัครงาน` มีคำแนะนำต่อเนื่องทั้งสองภาษา คู่แข่งปัจจุบันวาง baseline ที่ผู้ใช้คาดหวังไว้สูง: ฟรี, ไม่ต้องสมัคร, ไม่มีลายน้ำ, local processing, live preview และ PDF ดังนั้นเวอร์ชันที่ส่งมอบจึงรองรับไทย/อังกฤษ, สองสไตล์ Single column, ไม่ใช้รูป/ตาราง/กล่องข้อความ, จัดลำดับประสบการณ์/การศึกษา, PDF A4 ฝัง Sarabun พร้อม text layer, Plain text สำหรับตรวจลำดับ และ Keyword coverage ที่นับแบบ deterministic
+
+ขอบเขตตั้งใจไม่แสดงคะแนนผ่าน/ไม่ผ่าน ATS เพราะระบบและกฎของแต่ละบริษัทต่างกัน Keyword coverage ไม่ใช่ ATS score และไม่แนะนำให้ใส่คำที่ไม่มีประสบการณ์จริง ข้อมูลทั้งหมดอยู่ในหน่วยความจำ Browser, ไม่ใช้ LocalStorage และหายเมื่อ refresh หรือปิดหน้า
+
+- [Google Autocomplete — resume builder](https://suggestqueries.google.com/complete/search?client=firefox&hl=th&gl=th&q=resume%20builder)
+- [Google Autocomplete — resume builder free](https://suggestqueries.google.com/complete/search?client=firefox&hl=th&gl=th&q=resume%20builder%20free)
+- [Google Autocomplete — สร้างเรซูเม่](https://suggestqueries.google.com/complete/search?client=firefox&hl=th&gl=th&q=%E0%B8%AA%E0%B8%A3%E0%B9%89%E0%B8%B2%E0%B8%87%E0%B9%80%E0%B8%A3%E0%B8%8B%E0%B8%B9%E0%B9%80%E0%B8%A1%E0%B9%88)
+- [NoBsResume — Thai Resume Builder](https://nobsresume.com/resume-builder/thai)
+- [OpenResume — Resume Builder](https://www.open-resume.com/)
+- [Assumption University — Resume Checklist](https://cdn.uconnectlabs.com/wp-content/uploads/sites/11/2024/07/Resume-Checklist-2.pdf)
+- [Adobe — PDF Reference 1.5](https://opensource.adobe.com/dc-acrobat-sdk-docs/pdfstandards/pdfreference1.5_v6.pdf)
+- [Google Search Central — Creating helpful, reliable, people-first content](https://developers.google.com/search/docs/fundamentals/creating-helpful-content)
+
 ## รอบที่ 22 — Favicon/PWA Icon Generator และการจัดอันดับ Batch 32
 
 สำรวจเมื่อ 8 สิงหาคม 2569 ด้วย Google Autocomplete locale ไทย (`hl=th`, `gl=th`) ทั้งคำไทยและอังกฤษ พร้อมตรวจคู่แข่งและมาตรฐานจาก W3C, Apple, MDN และ web.dev จำนวนคำแนะนำสูงสุด 10 รายการเป็นเพียงสัญญาณความกว้างของ search intent ไม่ใช่ search volume และไม่รับประกันอันดับ Google การเลือกงานยังพิจารณาความครบที่ทำได้ฟรี, ความเป็นส่วนตัว, catalog overlap, ความเสี่ยง และโอกาสสร้างเนื้อหาที่ช่วยผู้ใช้จริง

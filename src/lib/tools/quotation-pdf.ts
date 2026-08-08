@@ -1,18 +1,19 @@
 import {
   PDFDocument,
   PageSizes,
-  beginText,
-  endText,
-  moveText,
   rgb,
-  setFillingColor,
-  setFontAndSize,
-  showText,
-  type PDFFont,
-  type PDFName,
   type PDFPage,
   type RGB,
 } from "pdf-lib";
+import {
+  drawShapedLines as drawLines,
+  drawShapedRight as drawRight,
+  drawShapedText,
+  loadSarabunFonts,
+  safePdfText,
+  type ShapedFont,
+  wrapShapedText as wrapText,
+} from "@/lib/tools/pdf-thai";
 import {
   calculateQuotation,
   formatThaiBahtText,
@@ -20,9 +21,6 @@ import {
   type QuotationDocument,
   type QuotationVatMode,
 } from "@/lib/tools/quotation";
-
-const SARABUN_REGULAR_URL = "/fonts/sarabun/Sarabun-Regular.ttf";
-const SARABUN_SEMIBOLD_URL = "/fonts/sarabun/Sarabun-SemiBold.ttf";
 
 const PAGE_WIDTH = 595.28;
 const PAGE_HEIGHT = 841.89;
@@ -38,104 +36,8 @@ type PdfColors = {
   white: RGB;
 };
 
-type FontkitGlyph = { codePoints: number[] };
-type FontkitPosition = { xAdvance: number; yAdvance: number; xOffset: number; yOffset: number };
-type FontkitFont = {
-  unitsPerEm: number;
-  layout: (text: string) => { glyphs: FontkitGlyph[]; positions: FontkitPosition[] };
-};
-type ShapedFont = { pdf: PDFFont; engine: FontkitFont };
-
-const pageFontKeys = new WeakMap<PDFPage, WeakMap<PDFFont, PDFName>>();
-
-function fontKeyFor(page: PDFPage, font: PDFFont): PDFName {
-  let pageKeys = pageFontKeys.get(page);
-  if (!pageKeys) {
-    pageKeys = new WeakMap<PDFFont, PDFName>();
-    pageFontKeys.set(page, pageKeys);
-  }
-  const existing = pageKeys.get(font);
-  if (existing) return existing;
-  const key = page.node.newFontDictionary(font.name, font.ref);
-  pageKeys.set(font, key);
-  return key;
-}
-
-function shapedWidth(font: ShapedFont, value: string, size: number): number {
-  const run = font.engine.layout(value);
-  const scale = size / font.engine.unitsPerEm;
-  return run.positions.reduce((total, position) => total + position.xAdvance * scale, 0);
-}
-
-function drawShapedText(page: PDFPage, value: string, x: number, y: number, font: ShapedFont, size: number, color: RGB): void {
-  const text = safePdfText(value);
-  if (!text) return;
-  const run = font.engine.layout(text);
-  const scale = size / font.engine.unitsPerEm;
-  const fontKey = fontKeyFor(page, font.pdf);
-  let cursorX = x;
-  let cursorY = y;
-
-  for (let index = 0; index < run.glyphs.length; index += 1) {
-    const glyph = run.glyphs[index]!;
-    const position = run.positions[index]!;
-    const glyphText = String.fromCodePoint(...glyph.codePoints);
-    if (!glyphText) continue;
-    page.pushOperators(
-      beginText(),
-      setFillingColor(color),
-      setFontAndSize(fontKey, size),
-      moveText(cursorX + position.xOffset * scale, cursorY + position.yOffset * scale),
-      showText(font.pdf.encodeText(glyphText)),
-      endText(),
-    );
-    cursorX += position.xAdvance * scale;
-    cursorY += position.yAdvance * scale;
-  }
-}
-
-function safePdfText(value: string): string {
-  return value.replace(/[\u0000-\u0008\u000b\u000c\u000e-\u001f\u007f]/g, " ").replace(/[\u{10000}-\u{10ffff}]/gu, "").trim();
-}
-
 function money(value: number): string {
   return new Intl.NumberFormat("th-TH", { minimumFractionDigits: 2, maximumFractionDigits: 2 }).format(value);
-}
-
-function wrapText(font: ShapedFont, value: string, size: number, maxWidth: number, maxLines = 4): string[] {
-  const text = safePdfText(value) || "-";
-  const lines: string[] = [];
-  for (const paragraph of text.split(/\r?\n/)) {
-    let current = "";
-    for (const character of Array.from(paragraph || " ")) {
-      const candidate = current + character;
-      if (current && shapedWidth(font, candidate, size) > maxWidth) {
-        lines.push(current.trimEnd());
-        current = character.trimStart();
-      } else {
-        current = candidate;
-      }
-      if (lines.length === maxLines) break;
-    }
-    if (lines.length < maxLines && current) lines.push(current.trimEnd());
-    if (lines.length === maxLines) break;
-  }
-  if (!lines.length) return ["-"];
-  if (lines.length === maxLines && shapedWidth(font, lines[maxLines - 1]!, size) > maxWidth - 8) {
-    let last = lines[maxLines - 1]!;
-    while (last && shapedWidth(font, `${last}...`, size) > maxWidth) last = last.slice(0, -1);
-    lines[maxLines - 1] = `${last.trimEnd()}...`;
-  }
-  return lines;
-}
-
-function drawLines(page: PDFPage, lines: string[], x: number, y: number, font: ShapedFont, size: number, color: RGB, lineHeight = size + 3): void {
-  lines.forEach((line, index) => drawShapedText(page, line, x, y - index * lineHeight, font, size, color));
-}
-
-function drawRight(page: PDFPage, value: string, right: number, y: number, font: ShapedFont, size: number, color: RGB): void {
-  const text = safePdfText(value);
-  drawShapedText(page, text, right - shapedWidth(font, text, size), y, font, size, color);
 }
 
 function drawLabelValue(page: PDFPage, label: string, value: string, x: number, y: number, width: number, regular: ShapedFont, semibold: ShapedFont, colors: PdfColors): number {
@@ -150,29 +52,10 @@ function vatLabel(mode: QuotationVatMode, rate: number): string {
   return mode === "included" ? `VAT ${rate}% (รวมแล้ว)` : `VAT ${rate}%`;
 }
 
-async function fetchFont(url: string): Promise<Uint8Array> {
-  const response = await fetch(url);
-  if (!response.ok) throw new Error("โหลดฟอนต์ภาษาไทยสำหรับ PDF ไม่สำเร็จ");
-  return new Uint8Array(await response.arrayBuffer());
-}
-
 export async function createQuotationPdf(documentData: QuotationDocument): Promise<Uint8Array> {
   const calculation = calculateQuotation(documentData.items, documentData.discount, documentData.vatMode, documentData.vatRate);
-  const [fontkitModule, regularBytes, semiboldBytes] = await Promise.all([
-    import("@pdf-lib/fontkit"),
-    fetchFont(SARABUN_REGULAR_URL),
-    fetchFont(SARABUN_SEMIBOLD_URL),
-  ]);
   const pdf = await PDFDocument.create();
-  pdf.registerFontkit(fontkitModule.default);
-  const [regularPdf, semiboldPdf, regularEngine, semiboldEngine] = await Promise.all([
-    pdf.embedFont(regularBytes, { subset: false }),
-    pdf.embedFont(semiboldBytes, { subset: false }),
-    fontkitModule.default.create(regularBytes),
-    fontkitModule.default.create(semiboldBytes),
-  ]);
-  const regular: ShapedFont = { pdf: regularPdf, engine: regularEngine };
-  const semibold: ShapedFont = { pdf: semiboldPdf, engine: semiboldEngine };
+  const { regular, semibold } = await loadSarabunFonts(pdf);
   pdf.setTitle(`Quotation ${safePdfText(documentData.number)}`);
   pdf.setAuthor(safePdfText(documentData.seller.name));
   pdf.setCreator("Meaw Tools Quotation Generator");

@@ -26,6 +26,7 @@ const toolRoutes = [
   ["csv-to-excel", "CSV to Excel Converter"],
   ["excel-to-csv", "Excel to CSV Converter"],
   ["csv-cleaner", "CSV Cleaner & Duplicate Finder"],
+  ["resume-builder", "Resume Builder ไทย/English"],
   ["typing-test", "Typing Test"],
   ["special-characters", "Special Characters & Fancy Text"],
   ["text-to-speech", "Text to Speech Reader"],
@@ -1320,6 +1321,75 @@ test("salary calculator checks monthly income and payslip deductions", async ({ 
   await expect(page.getByRole("heading", { name: "รายละเอียดรายรับ" })).toBeVisible();
   await expect(page.getByRole("heading", { name: "รายละเอียดรายการหัก" })).toBeVisible();
   await expect(page.getByText("฿33,500 − ฿2,575 = ฿30,925", { exact: true })).toBeVisible();
+});
+
+test("resume builder exports local Thai PDF and ordered plain text", async ({ page }) => {
+  const requests: string[] = [];
+  const consoleErrors: string[] = [];
+  page.on("request", (request) => requests.push(request.url()));
+  page.on("console", (message) => {
+    if (message.type() === "error") consoleErrors.push(message.text());
+  });
+  page.on("pageerror", (error) => consoleErrors.push(error.message));
+
+  await page.goto("/resume-builder");
+  await expect(page.getByRole("heading", { level: 1, name: "Resume Builder ไทย/English" })).toBeVisible();
+  await expect(page.getByText(/ไม่ส่งชื่อ อีเมล ประวัติการทำงาน/)).toBeVisible();
+  await expect(page.locator("#resume-full-name")).toBeVisible();
+  const initialLayout = await page.evaluate(() => {
+    const label = document.querySelector<HTMLLabelElement>('label[for="resume-full-name"]');
+    const input = document.querySelector<HTMLInputElement>("#resume-full-name");
+    const labelBox = label?.getBoundingClientRect();
+    const inputBox = input?.getBoundingClientRect();
+    return {
+      labelGap: labelBox && inputBox ? Math.round(inputBox.top - labelBox.bottom) : 0,
+      overflow: document.documentElement.scrollWidth > document.documentElement.clientWidth,
+    };
+  });
+  expect(initialLayout.labelGap).toBeGreaterThanOrEqual(10);
+  expect(initialLayout.overflow).toBe(false);
+
+  await page.getByRole("button", { name: "โหลดตัวอย่าง" }).click();
+  await expect(page.getByTestId("resume-experience")).toHaveCount(2);
+  await expect(page.getByTestId("resume-education")).toHaveCount(1);
+  await expect(page.getByRole("article", { name: "ตัวอย่างเรซูเม่" })).toContainText("กานต์ แมวดี");
+  await expect(page.getByTestId("resume-keyword-coverage")).toContainText("Keyword coverage");
+  expect(await page.evaluate(() => document.documentElement.scrollWidth > document.documentElement.clientWidth)).toBe(false);
+
+  const textDownloadPromise = page.waitForEvent("download");
+  await page.getByRole("button", { name: "ดาวน์โหลด Plain text" }).click();
+  const textDownload = await textDownloadPromise;
+  expect(textDownload.suggestedFilename()).toBe("กานต์-แมวดี-resume.txt");
+  const plainText = await readFile((await textDownload.path())!, "utf8");
+  expect(plainText).toContain("Frontend Developer");
+  expect(plainText).toContain("ประสบการณ์ทำงาน");
+  expect(plainText).toContain("• ลด Largest Contentful Paint");
+  expect(plainText.indexOf("ประสบการณ์ทำงาน")).toBeLessThan(plainText.indexOf("การศึกษา"));
+
+  const pdfDownloadPromise = page.waitForEvent("download");
+  await page.getByRole("button", { name: "สร้างและดาวน์โหลด PDF" }).click();
+  const pdfDownload = await pdfDownloadPromise;
+  expect(pdfDownload.suggestedFilename()).toBe("กานต์-แมวดี-resume.pdf");
+  await expect(page.getByTestId("resume-output")).toContainText("สร้าง กานต์-แมวดี-resume.pdf สำเร็จ");
+  const pdfBytes = await readFile((await pdfDownload.path())!);
+  const outputDocument = await PDFDocument.load(pdfBytes);
+  expect(outputDocument.getPageCount()).toBeGreaterThanOrEqual(1);
+  expect(outputDocument.getPageCount()).toBeLessThanOrEqual(3);
+  expect(outputDocument.getPage(0).getSize()).toEqual({ width: 595.28, height: 841.89 });
+
+  const pdfjs = await import("pdfjs-dist/legacy/build/pdf.mjs");
+  const loadingTask = pdfjs.getDocument({ data: new Uint8Array(pdfBytes) });
+  const parsedPdf = await loadingTask.promise;
+  let extractedText = "";
+  for (let pageNumber = 1; pageNumber <= parsedPdf.numPages; pageNumber += 1) {
+    const textContent = await (await parsedPdf.getPage(pageNumber)).getTextContent();
+    extractedText += textContent.items.map((item) => "str" in item ? item.str : "").join("");
+  }
+  expect(extractedText.replace(/\s+/g, "")).toContain("FrontendDeveloper");
+  expect(extractedText.replace(/\s+/g, "")).toContain("TypeScript");
+  await loadingTask.destroy();
+  expect(requests.some((url) => !url.startsWith("http://127.0.0.1:3100") && !url.startsWith("blob:"))).toBe(false);
+  expect(consoleErrors).toEqual([]);
 });
 
 test("quotation generator previews totals and exports a valid Thai PDF", async ({ page }) => {
