@@ -6,7 +6,7 @@
 
 - Next.js 16 App Router, React 19, TypeScript strict และ Tailwind CSS 4
 - shadcn/ui + Radix, Noto Sans Thai, JetBrains Mono และ dark mode
-- เครื่องมือ 61 รายการ พร้อม validation, empty/error state, clear และ action ที่เหมาะกับแต่ละงาน
+- เครื่องมือ 62 รายการ พร้อม validation, empty/error state, clear และ action ที่เหมาะกับแต่ละงาน
 - กลุ่มงานทั่วไป: นับคำ จัดระเบียบข้อความ คำนวณเปอร์เซ็นต์ แปลงหน่วย และคำนวณวัน
 - JPG to PDF, QR Code Generator, QR Code Scanner และ Age Calculator ประมวลผลภายใน Browser
 - Loan Calculator, BMI Calculator และ Profit & Margin Calculator พร้อมสูตรและข้อจำกัดที่ตรวจสอบได้
@@ -14,6 +14,7 @@
 - Quotation Generator สร้างใบเสนอราคาภาษาไทยพร้อมตัวอย่าง ยอดเป็นตัวอักษร VAT และ PDF A4 ภายใน Browser
 - Thai Income Tax, Salary/Payslip Checker และ Social Security Pension Calculator ใช้สูตรแบบ versioned พร้อมแหล่งราชการ
 - Overtime Calculator Thailand คำนวณฐานต่อชั่วโมงและแยก OT วันทำงาน 1.5 เท่า ทำงานวันหยุด 1/2 เท่า และ OT วันหยุด 3 เท่า พร้อมแหล่งกระทรวงแรงงาน
+- Fuel Cost Calculator คำนวณค่าน้ำมันเที่ยวเดียว/ไป-กลับจาก กม./ลิตร หรือ L/100 km รวมทางด่วน จอดรถ ต้นทุนต่อกิโลเมตร และหารต่อคน
 - Thai ID Checksum Validator ตรวจเฉพาะโครงสร้างใน Browser ซ่อนค่าที่กรอก และไม่อ้างว่าเชื่อมฐานข้อมูลรัฐ
 - HEIC to JPG, JPG to PNG Batch, PNG to JPG และ Image Compressor & Resizer แปลงและย่อรูปใน Browser โดยโหลด codec หรือ ZIP เฉพาะเมื่อใช้งาน
 - QR Code Scanner อ่านจากรูปหรือกล้องแบบ lazy-loaded หยุดกล้องเมื่ออ่านสำเร็จ และไม่เปิดลิงก์อัตโนมัติ
@@ -99,6 +100,7 @@ flowchart LR
 - Image Cropper จำกัดไฟล์ 10 MB / 40 ล้านพิกเซล และผลลัพธ์ด้านยาว 8,000 px / 24 ล้านพิกเซล พร้อมปิด ImageBitmap และ Blob URL เมื่อเลิกใช้
 - Favicon Generator จำกัดต้นฉบับ 10 MB / 40 ล้านพิกเซล รับเฉพาะ PNG/JPG/WebP และคืน ImageBitmap กับ Blob URL เมื่อเปลี่ยนงานหรือออกจากหน้า
 - Resume Builder จำกัดข้อความรวม 20,000 ตัวอักษร, Job Description 12,000 ตัวอักษร, ประสบการณ์ 8 และการศึกษา 6 รายการ ไม่บันทึกลง LocalStorage และไม่อ้างรับประกันผล ATS
+- Fuel Cost Calculator ไม่ดึงพิกัดหรือราคาน้ำมันอัตโนมัติ ระยะทาง ราคา และค่าใช้จ่ายอยู่ใน state ของหน้าปัจจุบันและไม่ถูกส่งไป Server
 - Regex ทำงานใน Web Worker และถูก terminate เมื่อเกิน 750 ms
 - JWT เป็นการ Decode เท่านั้น ไม่ verify signature
 - SQL ถูกจัดรูปเท่านั้น ไม่ execute

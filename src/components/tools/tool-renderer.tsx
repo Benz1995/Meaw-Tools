@@ -32,6 +32,7 @@ const components = {
   "grade-calculator": dynamic(() => import("@/features/tools/grade-calculator-tool").then((module) => module.GradeCalculatorTool), { loading, ssr: false }),
   "percentage-calculator": dynamic(() => import("@/features/tools/work-tools").then((module) => module.PercentageCalculatorTool), { loading, ssr: false }),
   "vat-calculator": dynamic(() => import("@/features/tools/vat-calculator-tool").then((module) => module.VatCalculatorTool), { loading, ssr: false }),
+  "fuel-cost-calculator": dynamic(() => import("@/features/tools/fuel-cost-calculator-tool").then((module) => module.FuelCostCalculatorTool), { loading, ssr: false }),
   "unit-converter": dynamic(() => import("@/features/tools/work-tools").then((module) => module.UnitConverterTool), { loading, ssr: false }),
   "date-calculator": dynamic(() => import("@/features/tools/work-tools").then((module) => module.DateCalculatorTool), { loading, ssr: false }),
   "jpg-to-pdf": dynamic(() => import("@/features/tools/jpg-to-pdf-tool").then((module) => module.JpgToPdfTool), { loading, ssr: false }),

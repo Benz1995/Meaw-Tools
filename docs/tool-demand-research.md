@@ -488,6 +488,43 @@ Excel to CSV ถูกเลือกเพราะเพิ่มเส้น�
 - [พ.ร.บ. คุ้มครองแรงงาน พ.ศ. 2541 — สำเนาข้อความสำนักงานคณะกรรมการกฤษฎีกาบนเว็บไซต์รัฐ](https://tdc.mi.th/assets/pdf/regulations/002/%E0%B8%9E.%E0%B8%A3.%E0%B8%9A.%E0%B8%84%E0%B8%B8%E0%B9%89%E0%B8%A1%E0%B8%84%E0%B8%A3%E0%B8%AD%E0%B8%87%E0%B9%81%E0%B8%A3%E0%B8%87%E0%B8%87%E0%B8%B2%E0%B8%99%20%E0%B8%9E.%E0%B8%A8.%202541.pdf)
 - [Google Search Central — Creating helpful, reliable, people-first content](https://developers.google.com/search/docs/fundamentals/creating-helpful-content)
 
+## รอบที่ 25 — คำนวณค่าน้ำมันและค่าเดินทาง และการจัดอันดับ Batch 35
+
+สำรวจเมื่อ 8 สิงหาคม 2569 ด้วย Google Autocomplete locale ไทย (`hl=th`, `gl=th`) จำนวน 25 คำตั้งต้น คำว่า `คำนวณค่าน้ำมัน` ได้คำแนะนำ 10/10 และแตกเป็น intent ระยะทาง รถยนต์ ไปต่างจังหวัด ไป-กลับ และมอเตอร์ไซค์ ขณะที่ `fuel cost calculator` ได้ 10/10 และมี trip intent ชัดเจน จำนวนคำแนะนำเป็นสัญญาณความกว้างของ intent เท่านั้น ไม่ใช่ search volume และไม่รับประกันอันดับ Google
+
+คะแนน 5 คือสูงที่สุด โดย “ยาก” หมายถึงความซับซ้อนในการส่งมอบให้ครบและปลอดภัย:
+
+| อันดับ | แนวคิด | TH/EN | ยาก | คุณค่าธุรกิจ | รายได้ | ขยายต่อ | นวัตกรรม | ข้อสรุป |
+|---:|---|---:|---:|---:|---:|---:|---:|---|
+| 1 | คำนวณค่าน้ำมันและค่าเดินทาง | 10/10 | 2 | 5 | 5 | 5 | 3 | ชนะ: demand ไทยตรงที่สุด ใช้ได้กับคนเดินทาง ส่งของ เซลส์ รถบริษัท และหารค่าเดินทาง โดยไม่ต้องใช้ API |
+| 2 | Word Cloud ภาษาไทย | 5/10 | 4 | 4 | 4 | 4 | 4 | อังกฤษ 10/10 แต่ต้องพิสูจน์ Thai tokenization, stop words, layout และ export |
+| 3 | Business Days Calculator | 4/10 | 3 | 4 | 4 | 4 | 3 | อังกฤษ 10/10 แต่วันหยุดไทยและวันหยุดองค์กรต้องใช้ข้อมูล versioned |
+| 4 | Working Hours Calculator | 2/10 | 3 | 4 | 4 | 4 | 3 | อังกฤษ 10/10 แต่ใกล้ Overtime และต้องแยกพัก กะข้ามวัน กับสิทธิแรงงาน |
+| 5 | Expense Splitter | 2/10 | 3 | 4 | 4 | 4 | 3 | อังกฤษ 10/10 แต่ต้องรองรับใครจ่ายแทนใคร เศษ และการหารไม่เท่ากันจึงจะต่างจาก Fuel Cost |
+| 6 | Subtitle Converter | —/10 | 3 | 4 | 4 | 4 | 3 | อังกฤษ 10/10 รองรับ SRT/VTT/encoding ได้ แต่ intent ไทยยังไม่ตรวจพบในรอบนี้ |
+| 7 | PDF Text Extractor | —/10 | 4 | 4 | 4 | 4 | 3 | อังกฤษ 10/10 แต่ต้องแยก text layer จาก OCR และรับมือภาษาไทยอย่างโปร่งใส |
+| 8 | Shift Schedule Maker | —/10 | 5 | 5 | 5 | 5 | 4 | อังกฤษ 10/10 แต่ constraint คน กะ วันลา และความเป็นธรรมทำให้ scope ใหญ่ |
+| 9 | Image Metadata Remover | 1/10 | 4 | 4 | 4 | 4 | 4 | อังกฤษ 10/10 และ privacy สูง แต่ demand ไทยยังต่ำกว่าเครื่องมือค่าน้ำมันมาก |
+| 10 | CSV to JSON Converter | —/10 | 3 | 4 | 4 | 5 | 2 | อังกฤษ 10/10 แต่ทับ catalog ข้อมูลเดิมและต้องควบคุมชนิดข้อมูล/โครงสร้างอย่างชัดเจน |
+| 11 | Invoice Generator | —/10 | 4 | 5 | 5 | 5 | 3 | อังกฤษ 10/10 แต่ทับ Quotation และเสี่ยงถูกเข้าใจเป็นใบกำกับภาษีหรือหลักฐานรับเงิน |
+| 12 | Timeline Maker | —/10 | 4 | 4 | 4 | 4 | 4 | อังกฤษ 10/10 แต่ต้องมี editor, layout, export และ accessibility มากกว่าหน้าแบบฟอร์ม |
+| 13 | Lorem Ipsum Generator ภาษาไทย | —/10 | 2 | 3 | 3 | 4 | 2 | อังกฤษ 10/10 และมี long-tail Thai แต่คุณค่าธุรกิจและความต่างต่ำกว่า |
+| 14 | Countdown Timer | 0/10 | 2 | 3 | 3 | 4 | 2 | อังกฤษ 10/10 แต่ intent ไทยที่ทดสอบไม่ขึ้นคำแนะนำ และใช้งานซ้ำกับระบบนาฬิกาทั่วไป |
+| 15 | Freelance Rate Calculator | 0/10 | 4 | 4 | 4 | 4 | 3 | อังกฤษ 10/10 แต่ไทยไม่ขึ้นคำแนะนำและสมมติฐานรายได้/ชั่วโมงเสี่ยงให้คำตอบลวง |
+
+Fuel Cost Calculator ที่ส่งมอบรับระยะทางขาเดียวแล้วคูณสองเมื่อเลือกไป-กลับ รองรับทั้ง กม./ลิตร (`ลิตรที่ใช้ = ระยะทาง ÷ กม./ลิตร`) และลิตร/100 กม. (`ลิตรที่ใช้ = ระยะทาง × ลิตร/100 กม. ÷ 100`) ก่อนคูณราคาต่อลิตร ผู้ใช้เพิ่มค่าทางด่วน จอดรถ และค่าอื่นเพื่อดูยอดรวม ต้นทุนต่อกิโลเมตร และหารเท่ากันต่อคนได้ ระบบไม่ปัดเศษระหว่างทางและไม่เดาราคาน้ำมันสด
+
+คู่แข่งที่ตรวจใช้ round-trip toggle, toll/parking, cost per distance และ passenger split เป็น baseline หน้าของ Meaw Tools จึงรวม feature เหล่านี้ใน workflow เดียว แต่ไม่เรียก Maps/GPS ไม่รับพิกัด และไม่ส่งข้อมูลไป Server ราคาขายปลีกเปลี่ยนตามชนิด พื้นที่ ปั๊ม และเวลา จึงให้ผู้ใช้กรอกเองพร้อมลิงก์สำนักงานนโยบายและแผนพลังงานแทนการฝังค่า versioned ที่ล้าสมัย
+
+SEO ใช้ primary intent เดียวพร้อม FAQ ตอบคำค้นระยะทาง ไป-กลับ หน่วย และหารกับเพื่อน ไม่สร้าง thin page แยกสำหรับรถยนต์ มอเตอร์ไซค์ หรือต่างจังหวัด แนวทางนี้ยึด people-first content และไม่อ้างว่าสามารถทำอันดับหน้าแรกได้แน่นอน
+
+- [Google Autocomplete — คำนวณค่าน้ำมัน](https://suggestqueries.google.com/complete/search?client=firefox&hl=th&gl=th&q=%E0%B8%84%E0%B8%B3%E0%B8%99%E0%B8%A7%E0%B8%93%E0%B8%84%E0%B9%88%E0%B8%B2%E0%B8%99%E0%B9%89%E0%B8%B3%E0%B8%A1%E0%B8%B1%E0%B8%99)
+- [Google Autocomplete — Fuel Cost Calculator](https://suggestqueries.google.com/complete/search?client=firefox&hl=th&gl=th&q=fuel%20cost%20calculator)
+- [สำนักงานนโยบายและแผนพลังงาน — ราคาขายปลีกน้ำมัน](https://www.eppo.go.th/energy-price/oil-retail-price-today/%E0%B9%82%E0%B8%84%E0%B8%A3%E0%B8%87%E0%B8%AA%E0%B8%A3%E0%B9%89%E0%B8%B2%E0%B8%87%E0%B8%A3%E0%B8%B2%E0%B8%84%E0%B8%B2%E0%B8%99%E0%B9%89%E0%B8%B3%E0%B8%A1%E0%B8%B1%E0%B8%99%E0%B8%A7%E0%B8%B1%E0%B8%99-2/)
+- [Numbersmith — Trip Cost Calculator feature baseline](https://numbersmith.co.uk/calculators/trip-cost-calculator)
+- [FuelCalc — Fuel Cost Formula](https://www.fuelcalc.com.au/)
+- [Google Search Central — Creating helpful, reliable, people-first content](https://developers.google.com/search/docs/fundamentals/creating-helpful-content)
+
 ## รอบที่ 23 — Resume Builder ไทย/English และการจัดอันดับ Batch 33
 
 สำรวจเมื่อ 8 สิงหาคม 2569 ด้วย Google Autocomplete locale ไทย (`hl=th`, `gl=th`) ทั้งคำไทยและอังกฤษ พร้อมตรวจคู่แข่งและคำแนะนำรูปแบบ Resume จากสถาบันการศึกษา จำนวนคำแนะนำสูงสุด 10 รายการเป็นเพียงสัญญาณความกว้างของ intent ไม่ใช่ search volume และไม่รับประกันอันดับ Google หรือผล ATS

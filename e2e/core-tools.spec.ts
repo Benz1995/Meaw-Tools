@@ -33,6 +33,7 @@ const toolRoutes = [
   ["grade-calculator", "Grade Calculator"],
   ["percentage-calculator", "Percentage Calculator"],
   ["vat-calculator", "VAT Calculator Thailand"],
+  ["fuel-cost-calculator", "Fuel Cost Calculator"],
   ["unit-converter", "Unit Converter"],
   ["date-calculator", "Date Calculator"],
   ["jpg-to-pdf", "JPG to PDF Converter"],
@@ -1289,6 +1290,57 @@ test("VAT calculator adds and extracts VAT while keeping withholding separate", 
   await expect(page.getByTestId("vat-tax")).toContainText("70.00");
   await expect(page.getByTestId("vat-net-total")).toContainText("1,070.00");
   await expect(page.getByText(/VAT = ราคารวม × 7 ÷ 107/)).toBeVisible();
+
+  const layout = await page.evaluate(() => ({
+    width: document.documentElement.clientWidth,
+    scrollWidth: document.documentElement.scrollWidth,
+  }));
+  expect(layout.scrollWidth).toBe(layout.width);
+  expect(consoleErrors).toEqual([]);
+});
+
+test("fuel cost calculator covers round trips, expense sharing, and both economy units", async ({ page }) => {
+  const consoleErrors: string[] = [];
+  page.on("console", (message) => {
+    if (message.type() === "error") consoleErrors.push(message.text());
+  });
+  page.on("pageerror", (error) => consoleErrors.push(error.message));
+
+  await page.goto("/fuel-cost-calculator");
+  await expect(page.getByRole("heading", { level: 1, name: "Fuel Cost Calculator" })).toBeVisible();
+  await expect(page.locator("main header").getByText("คำนวณค่าน้ำมันและค่าเดินทาง", { exact: true })).toBeVisible();
+  await expect(page.locator("#fuel-distance")).toBeVisible();
+  await page.evaluate(() => document.fonts.ready);
+  const labelGap = await page.evaluate(() => {
+    const label = document.querySelector<HTMLLabelElement>('label[for="fuel-distance"]');
+    const input = document.querySelector<HTMLInputElement>("#fuel-distance");
+    const labelBox = label?.getBoundingClientRect();
+    const inputBox = input?.getBoundingClientRect();
+    return labelBox && inputBox ? Math.round(inputBox.top - labelBox.bottom) : 0;
+  });
+  expect(labelGap).toBeGreaterThanOrEqual(10);
+
+  await page.getByRole("button", { name: "โหลดตัวอย่าง" }).click();
+  await page.getByRole("button", { name: "คำนวณค่าน้ำมัน" }).click();
+  await expect(page.getByTestId("fuel-liters")).toContainText("50.00 ลิตร");
+  await expect(page.getByTestId("fuel-only-cost")).toContainText("1,825.00");
+  await expect(page.getByTestId("fuel-total-cost")).toContainText("2,125.00");
+  await expect(page.getByTestId("fuel-per-person")).toContainText("708.33");
+
+  await page.getByLabel("รูปแบบการเดินทาง").click();
+  await page.getByRole("option", { name: "เที่ยวเดียว", exact: true }).click();
+  await page.getByLabel("หน่วยอัตราสิ้นเปลือง").click();
+  await page.getByRole("option", { name: "ลิตรต่อ 100 กิโลเมตร (L/100 km)" }).click();
+  await page.locator("#fuel-distance").fill("250");
+  await page.locator("#fuel-efficiency").fill("8");
+  await page.locator("#fuel-price").fill("40");
+  await page.locator("#fuel-passengers").fill("1");
+  await page.locator("#fuel-tolls").fill("0");
+  await page.locator("#fuel-parking").fill("0");
+  await page.getByRole("button", { name: "คำนวณค่าน้ำมัน" }).click();
+  await expect(page.getByTestId("fuel-liters")).toContainText("20.00 ลิตร");
+  await expect(page.getByTestId("fuel-total-cost")).toContainText("800.00");
+  await expect(page.getByText("12.50 กม./ลิตร", { exact: true })).toBeVisible();
 
   const layout = await page.evaluate(() => ({
     width: document.documentElement.clientWidth,
