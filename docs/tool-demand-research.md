@@ -806,3 +806,41 @@ HTML Table Generator ถูกเลือกเพราะตอบ intent ส
 - [Google Autocomplete — คำนวณชั่วโมงทำงาน](https://suggestqueries.google.com/complete/search?client=firefox&hl=th&gl=th&q=%E0%B8%84%E0%B8%B3%E0%B8%99%E0%B8%A7%E0%B8%93%E0%B8%8A%E0%B8%B1%E0%B9%88%E0%B8%A7%E0%B9%82%E0%B8%A1%E0%B8%87%E0%B8%97%E0%B8%B3%E0%B8%87%E0%B8%B2%E0%B8%99)
 - [MDN — input type=time](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/input/time)
 - [QuickBooks — Time Card Calculator](https://quickbooks.intuit.com/uk/time-tracking/time-card-calculator/)
+
+## รอบที่ 29 — Shift Pattern Calculator และการจัดอันดับ Batch 39
+
+สำรวจเมื่อ 8 สิงหาคม 2569 ด้วย Google Autocomplete locale ไทย (`hl=th`, `gl=th`) โดยเทียบงานต่อจาก Working Hours Calculator ทั้งภาษาไทยและอังกฤษ จำนวนคำแนะนำสูงสุด 10 รายการเป็นเพียงสัญญาณความกว้างของ intent ไม่ใช่ search volume และไม่รับประกันอันดับหน้าแรก Google คำอังกฤษ `shift pattern calculator`, `shift schedule generator` และ `work schedule generator` ได้ 10/10 ทั้งหมด ส่วน `ตารางกะ` ได้ 10/10 พร้อม long-tail ตารางกะทำงาน, พนักงาน, Excel, 5 หยุด 2 และ 6 หยุด 1 ซึ่งชัดกว่าคำไทยของเครื่องมืออัตราค่าจ้างในรอบเดียวกัน
+
+คะแนน 5 คือสูงที่สุด การเลือกคำนึงถึงประโยชน์จริง ขอบเขตที่ทำฟรีใน Browser ได้ ความเสี่ยง และการไม่สร้างหน้าบางที่ทับเครื่องมือเดิม:
+
+| อันดับ | แนวคิด | Demand ที่พบ | ยาก | คุณค่าธุรกิจ | รายได้ | ขยายต่อ | นวัตกรรม | ข้อสรุป |
+|---:|---|---|---:|---:|---:|---:|---:|---|
+| 1 | Shift Pattern Calculator | EN 10/10; `ตารางกะ` 10/10 | 4 | 5 | 4 | 5 | 4 | ส่งมอบ Batch 39; รอบซ้ำ, เริ่มกลางรอบ, กะข้ามวัน, calendar, CSV และ ICS |
+| 2 | Shift Schedule Generator | EN 10/10 | 5 | 5 | 5 | 5 | 4 | demand กว้าง แต่การจัดหลายพนักงานต้องมี coverage, availability, fairness และ constraints; ไม่ควรแอบอ้างว่า feature รอบซ้ำทำได้ครบ |
+| 3 | Work Schedule Generator | EN 10/10; `โปรแกรมจัดตารางงาน` 4/10 | 5 | 5 | 5 | 5 | 4 | intent กว้างเกินกะ ต้องวิจัย persona และงานหลายประเภทก่อน |
+| 4 | Hourly Rate Calculator | EN 10/10; ไทย 1/10 | 3 | 5 | 5 | 4 | 3 | น่าทำต่อสำหรับ salary-to-hourly แต่ต้องแยก gross/net และ paid hours ให้ชัด |
+| 5 | Time Duration Calculator | EN 10/10 | 2 | 4 | 4 | 4 | 2 | ทำง่ายและมี demand แต่ทับ Date/Working Hours หากไม่มี batch/add/subtract use case ที่ต่างจริง |
+| 6 | Meeting Cost Calculator | EN 10/10 | 2 | 4 | 4 | 4 | 4 | เหมาะทีมและธุรกิจ แต่ต้องไม่บันทึกเงินเดือนรายบุคคล |
+| 7 | Freelance Hourly Rate Calculator | EN 3/10; ไทย 0/10 | 3 | 5 | 5 | 4 | 4 | value สูงหากรวม utilization, overhead, leave และ tax buffer แต่ demand proxy ยังแคบ |
+| 8 | Staff Rota Generator | ปรากฏใต้ shift schedule | 5 | 5 | 5 | 5 | 4 | ต้องมีรายชื่อ, skills, leave, minimum staffing และ audit trail จึงเกินขอบเขต client utility ตอนนี้ |
+| 9 | 4 On 4 Off Calendar | long-tail ใต้ shift pattern | 2 | 4 | 4 | 4 | 2 | รวมไว้เป็น Preset ในหน้าเดียว ดีกว่าสร้าง thin page แยก |
+| 10 | 2-2-3 Shift Calendar | long-tail คู่แข่งและ pattern มาตรฐาน | 3 | 4 | 4 | 4 | 3 | รวมเป็น Preset ตัวอย่างพร้อมคำเตือนว่าองค์กรอาจกำหนดต่างกัน |
+| 11 | Break Roster Planner | ยังไม่พบตัวเลขตรงในรอบนี้ | 4 | 5 | 4 | 5 | 4 | มีประโยชน์กับร้าน/โรงงาน แต่ต้องตรวจ coverage และกฎหมายพัก |
+| 12 | On-call Rotation Calendar | intent ใกล้ rotating schedule | 3 | 4 | 4 | 4 | 4 | ต้องรองรับ handoff, escalation และ timezone ก่อนจึงต่างจากตารางกะจริง |
+| 13 | Timesheet Template Generator | Excel ปรากฏใต้ `ตารางกะ` | 3 | 4 | 4 | 4 | 2 | CSV จาก Batch 38/39 ตอบบางส่วนแล้ว ควรพิสูจน์ว่าต้องการ template เปล่าจริงก่อน |
+| 14 | Attendance Roster | intent ใกล้ HR | 4 | 4 | 4 | 5 | 3 | เกี่ยวกับข้อมูลส่วนบุคคลและประวัติการมาทำงาน จึงต้องออกแบบ privacy มากกว่า utility ปัจจุบัน |
+| 15 | Focus / Study Schedule | ยังไม่ตรวจตัวเลขรอบนี้ | 2 | 3 | 3 | 3 | 2 | ใช้ได้กว้างแต่ไม่ควรแซงเครื่องมือสำนักงานที่มี demand ชัดกว่า |
+
+ขอบเขตที่ส่งมอบคือปฏิทิน “รอบกะซ้ำ” สำหรับคน ทีม หรือบทบาทหนึ่งชุด ไม่ใช่ automatic employee rostering ผู้ใช้กำหนดรหัสกะ เวลา พัก วันที่เริ่ม/สิ้นสุด และตำแหน่งวันแรกภายในรอบได้ รองรับช่วงสูงสุด 366 วัน รอบ 56 วัน และกะ 6 ประเภท ใช้เลขวัน UTC ภายใน engine เพื่อไม่ให้ daylight-saving หรือ timezone ของเครื่องเปลี่ยนวันที่ ส่วนไฟล์ ICS ใช้ DTSTART/DTEND แบบ local/floating และ DTEND ของวันหยุดเป็นวันถัดไปตาม semantics แบบ non-inclusive ของ RFC 5545
+
+UI แสดง Preset เป็นตัวอย่าง ไม่อ้างว่าเป็นมาตรฐานบังคับ แยกปฏิทิน สรุป และตารางตรวจทีละวัน พร้อม inner horizontal scroll บนจอเล็กโดยไม่ทำให้ทั้งหน้า overflow การส่งออก CSV ป้องกัน Spreadsheet Formula Injection ในข้อความ และ ICS เลือกรวมวันหยุดได้ ข้อจำกัดระบุชัดว่าไม่ตรวจ availability, leave, minimum coverage, fairness, rest period หรือกฎหมายแรงงาน
+
+แนวทาง SEO ใช้หน้าเดียวตอบ intent หลัก `ตารางกะ` และ `shift pattern calculator` ด้วยเนื้อหาที่ตรงเครื่องมือจริง ไม่แยกหน้า thin สำหรับ 4 on 4 off, 2-2-3, Excel หรือ calendar และไม่อ้างรับประกันอันดับหน้าแรก Google
+
+- [Google Autocomplete — shift pattern calculator](https://suggestqueries.google.com/complete/search?client=firefox&hl=th&gl=th&q=shift%20pattern%20calculator)
+- [Google Autocomplete — shift schedule generator](https://suggestqueries.google.com/complete/search?client=firefox&hl=th&gl=th&q=shift%20schedule%20generator)
+- [Google Autocomplete — work schedule generator](https://suggestqueries.google.com/complete/search?client=firefox&hl=th&gl=th&q=work%20schedule%20generator)
+- [Google Autocomplete — ตารางกะ](https://suggestqueries.google.com/complete/search?client=firefox&hl=th&gl=th&q=%E0%B8%95%E0%B8%B2%E0%B8%A3%E0%B8%B2%E0%B8%87%E0%B8%81%E0%B8%B0)
+- [RFC 5545 — Internet Calendaring and Scheduling Core Object Specification](https://www.rfc-editor.org/rfc/rfc5545)
+- [MDN — input type=date](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/input/date)
+- [Shifty — Shift Pattern Generator](https://shifty.ldcoda.com/)

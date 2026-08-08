@@ -39,6 +39,7 @@ const toolRoutes = [
   ["date-calculator", "Date Calculator"],
   ["business-days-calculator", "Business Days Calculator"],
   ["working-hours-calculator", "Working Hours Calculator"],
+  ["shift-pattern-calculator", "Shift Pattern Calculator"],
   ["jpg-to-pdf", "JPG to PDF Converter"],
   ["qr-code-generator", "QR Code Generator"],
   ["barcode-generator", "Barcode Generator"],
@@ -1537,6 +1538,66 @@ test("working hours calculator handles breaks, overnight shifts, transparent rou
   const csv = await readFile(csvPath!, "utf8");
   expect(csv).toContain("2026-08-05");
   expect(csv).toContain("38.00");
+
+  const layout = await page.evaluate(() => ({
+    width: document.documentElement.clientWidth,
+    scrollWidth: document.documentElement.scrollWidth,
+  }));
+  expect(layout.scrollWidth).toBe(layout.width);
+  expect(consoleErrors).toEqual([]);
+});
+
+test("shift pattern calculator builds an overnight roster calendar and exports CSV and ICS", async ({ page }) => {
+  const consoleErrors: string[] = [];
+  page.on("console", (message) => {
+    if (message.type() === "error") consoleErrors.push(message.text());
+  });
+  page.on("pageerror", (error) => consoleErrors.push(error.message));
+
+  await page.goto("/shift-pattern-calculator");
+  await expect(page.getByRole("heading", { level: 1, name: "Shift Pattern Calculator" })).toBeVisible();
+  await expect(page.locator("main header").getByText("สร้างตารางกะและปฏิทินเวร", { exact: true })).toBeVisible();
+  await expect(page.locator("#shift-start-date")).toBeVisible();
+  await page.evaluate(() => document.fonts.ready);
+
+  const labelGap = await page.evaluate(() => {
+    const label = document.querySelector<HTMLLabelElement>('label[for="shift-start-date"]');
+    const input = document.querySelector<HTMLInputElement>("#shift-start-date");
+    const labelBox = label?.getBoundingClientRect();
+    const inputBox = input?.getBoundingClientRect();
+    return labelBox && inputBox ? Math.round(inputBox.top - labelBox.bottom) : 0;
+  });
+  expect(labelGap).toBeGreaterThanOrEqual(10);
+
+  await page.getByRole("button", { name: "โหลดตัวอย่าง" }).click();
+  await page.getByRole("button", { name: "สร้างตารางกะ" }).click();
+  await expect(page.getByTestId("shift-working-days")).toContainText("16 วัน");
+  await expect(page.getByTestId("shift-net-hours")).toContainText("176 ชม.");
+  await expect(page.getByTestId("shift-pattern-result")).toContainText("176.00 ชั่วโมงทศนิยม");
+  await expect(page.getByTestId("shift-pattern-result")).toContainText("กะข้ามวัน");
+  await expect(page.getByRole("heading", { name: /สิงหาคม 2569/ })).toBeVisible();
+  await expect(page.getByRole("row", { name: /2026-08-03.*N.*20:00–08:00.*ข้ามวัน/ })).toBeVisible();
+
+  const csvDownloadPromise = page.waitForEvent("download");
+  await page.getByRole("button", { name: "ดาวน์โหลด CSV" }).click();
+  const csvDownload = await csvDownloadPromise;
+  expect(csvDownload.suggestedFilename()).toBe("meaw-shift-pattern.csv");
+  const csvPath = await csvDownload.path();
+  expect(csvPath).toBeTruthy();
+  const csv = await readFile(csvPath!, "utf8");
+  expect(csv).toContain("2026-08-03");
+  expect(csv).toContain("176.00");
+
+  const icsDownloadPromise = page.waitForEvent("download");
+  await page.getByRole("button", { name: "ดาวน์โหลด ICS" }).click();
+  const icsDownload = await icsDownloadPromise;
+  expect(icsDownload.suggestedFilename()).toBe("meaw-shift-calendar.ics");
+  const icsPath = await icsDownload.path();
+  expect(icsPath).toBeTruthy();
+  const ics = await readFile(icsPath!, "utf8");
+  expect(ics).toContain("DTSTART:20260803T200000");
+  expect(ics).toContain("DTEND:20260804T080000");
+  expect(ics).toContain("DTSTART;VALUE=DATE:20260805");
 
   const layout = await page.evaluate(() => ({
     width: document.documentElement.clientWidth,
