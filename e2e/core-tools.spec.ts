@@ -44,6 +44,7 @@ const toolRoutes = [
   ["loan-calculator", "Loan Calculator"],
   ["thai-income-tax-calculator", "Thai Income Tax Calculator"],
   ["salary-calculator", "Salary & Payslip Calculator"],
+  ["overtime-calculator-thailand", "Overtime Calculator Thailand"],
   ["social-security-pension-calculator", "Social Security Pension Calculator"],
   ["thai-id-validator", "Thai ID Checksum Validator"],
   ["bmi-calculator", "BMI Calculator"],
@@ -1321,6 +1322,43 @@ test("salary calculator checks monthly income and payslip deductions", async ({ 
   await expect(page.getByRole("heading", { name: "รายละเอียดรายรับ" })).toBeVisible();
   await expect(page.getByRole("heading", { name: "รายละเอียดรายการหัก" })).toBeVisible();
   await expect(page.getByText("฿33,500 − ฿2,575 = ฿30,925", { exact: true })).toBeVisible();
+});
+
+test("overtime calculator separates workday and holiday rates without layout overflow", async ({ page }) => {
+  const consoleErrors: string[] = [];
+  page.on("console", (message) => {
+    if (message.type() === "error") consoleErrors.push(message.text());
+  });
+  page.on("pageerror", (error) => consoleErrors.push(error.message));
+
+  await page.goto("/overtime-calculator-thailand");
+  await expect(page.getByRole("heading", { level: 1, name: "Overtime Calculator Thailand" })).toBeVisible();
+  await expect(page.locator("main header").getByText("คำนวณโอที 1.5–3 เท่า", { exact: true })).toBeVisible();
+  await expect(page.locator("#overtime-wage-amount")).toBeVisible();
+  await page.evaluate(() => document.fonts.ready);
+  const labelGap = await page.evaluate(() => {
+    const label = document.querySelector<HTMLLabelElement>('label[for="overtime-wage-amount"]');
+    const input = document.querySelector<HTMLInputElement>("#overtime-wage-amount");
+    const labelBox = label?.getBoundingClientRect();
+    const inputBox = input?.getBoundingClientRect();
+    return labelBox && inputBox ? Math.round(inputBox.top - labelBox.bottom) : 0;
+  });
+  expect(labelGap).toBeGreaterThanOrEqual(10);
+
+  await page.getByRole("button", { name: "โหลดตัวอย่าง" }).click();
+  await page.getByRole("button", { name: "คำนวณโอที" }).click();
+  await expect(page.getByTestId("overtime-hourly-wage")).toContainText("125.00");
+  await expect(page.getByTestId("overtime-total")).toContainText("4,375.00");
+  await expect(page.getByTestId("overtime-monthly-gross")).toContainText("34,375.00");
+  await expect(page.getByRole("heading", { name: "รายละเอียดสูตร" })).toBeVisible();
+  await expect(page.getByText(/ข้อมูลทั้งหมดคำนวณใน Browser/)).toBeVisible();
+
+  const layout = await page.evaluate(() => ({
+    width: document.documentElement.clientWidth,
+    scrollWidth: document.documentElement.scrollWidth,
+  }));
+  expect(layout.scrollWidth).toBe(layout.width);
+  expect(consoleErrors).toEqual([]);
 });
 
 test("resume builder exports local Thai PDF and ordered plain text", async ({ page }) => {

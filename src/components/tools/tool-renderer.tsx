@@ -43,6 +43,7 @@ const components = {
   "loan-calculator": dynamic(() => import("@/features/tools/finance-calculator-tools").then((module) => module.LoanCalculatorTool), { loading, ssr: false }),
   "thai-income-tax-calculator": dynamic(() => import("@/features/tools/thai-income-tax-tool").then((module) => module.ThaiIncomeTaxTool), { loading, ssr: false }),
   "salary-calculator": dynamic(() => import("@/features/tools/salary-calculator-tool").then((module) => module.SalaryCalculatorTool), { loading, ssr: false }),
+  "overtime-calculator-thailand": dynamic(() => import("@/features/tools/overtime-calculator-tool").then((module) => module.OvertimeCalculatorTool), { loading, ssr: false }),
   "social-security-pension-calculator": dynamic(() => import("@/features/tools/social-security-pension-tool").then((module) => module.SocialSecurityPensionTool), { loading, ssr: false }),
   "thai-id-validator": dynamic(() => import("@/features/tools/thai-id-validator-tool").then((module) => module.ThaiIdValidatorTool), { loading, ssr: false }),
   "bmi-calculator": dynamic(() => import("@/features/tools/bmi-calculator-tool").then((module) => module.BmiCalculatorTool), { loading, ssr: false }),

@@ -123,7 +123,7 @@
 | 29 | Quotation Generator | สูง: ใบเสนอราคา 81 | 4 | 5 | 5 | 5 | 3 | ส่งมอบ Batch 13; Template + PDF ภาษาไทย พร้อมระบุว่าไม่ใช่ใบกำกับภาษีหรือหลักฐานรับเงิน |
 | 30 | Workday Planner พร้อมวันหยุดไทย | Autocomplete อังกฤษ 10/10, ไทย 4/10; ต้องแยกประเทศ/องค์กร | 3 | 5 | 4 | 4 | 3 | ชุดข้อมูลวันหยุดแบบ versioned |
 | 31 | EXIF Viewer / Remover | Autocomplete อังกฤษ 10/10, ไทย 1/10 | 3 | 4 | 4 | 4 | 4 | Client-only และเน้น Privacy |
-| 32 | Overtime Estimator | Trends เดิมต่ำ แต่ Autocomplete ปัจจุบันแตก 1.5/2/3 เท่าและวันหยุด | 4 | 4 | 4 | 4 | 3 | ต้องตรวจฐานกฎหมายล่าสุดและแยกพนักงานรายวัน/รายเดือนก่อนพัฒนา |
+| 32 | Overtime Calculator Thailand | Autocomplete ไทย/อังกฤษ 10/10; ไทยแตกวิธีคิด 1.5/2/3 เท่า รายวัน วันหยุด วันอาทิตย์ และ Excel | 4 | 5 | 5 | 4 | 3 | ส่งมอบ Batch 34; รายเดือน/รายวัน/รายชั่วโมง, 1.5/1/2/3 เท่า, breakdown และ ruleset อ้างอิงกระทรวงแรงงาน |
 
 ## ลำดับส่งมอบที่แนะนำ
 
@@ -158,7 +158,7 @@
 29. Batch 31 — Image Cropper Online แบบ client-only รองรับกรอบอิสระ/สัดส่วน/วงกลม, drag + keyboard, exact pixels, rotate/flip และ PNG/JPG/WebP — ส่งมอบแล้ว
 30. Batch 32 — Favicon & PWA Icon Generator แบบ client-only สร้าง ICO หลายขนาด, PNG, Apple touch, PWA any/maskable, site.webmanifest, HTML และ ZIP — ส่งมอบแล้ว
 31. Batch 33 — Resume Builder ไทย/English แบบ client-only พร้อม Single column, Live Preview, PDF A4 ที่มี text layer, Plain text, Keyword coverage และการจัดลำดับรายการ — ส่งมอบแล้ว
-32. Batch 34 — วิจัยต่อระหว่าง Word Cloud ภาษาไทย, Workday Planner, Remove Image Metadata และ JSON/CSV Converter โดยยึดความครบและไม่สร้างหน้า keyword ซ้ำ
+32. Batch 34 — Overtime Calculator Thailand แบบ client-only รองรับค่าจ้างรายเดือน/รายวัน/รายชั่วโมง, OT วันทำงาน 1.5 เท่า, ทำงานวันหยุด 1/2 เท่า, OT วันหยุด 3 เท่า, สูตรตรวจสอบได้ และแหล่งอ้างอิงกระทรวงแรงงาน — ส่งมอบแล้ว
 
 ทุก Batch ควรมี unit test ของสูตรหรือ parser, E2E อย่างน้อยหนึ่งเส้นทาง, ตรวจ keyboard/mobile และวัด Core Web Vitals ก่อนเปิด AdSense ใน production
 

@@ -453,6 +453,41 @@ Excel to CSV ถูกเลือกเพราะเพิ่มเส้น�
 - [Google Search Central — SEO Starter Guide](https://developers.google.com/search/docs/fundamentals/seo-starter-guide)
 - [Google Search Central — Title links](https://developers.google.com/search/docs/appearance/title-link)
 
+## รอบที่ 24 — คำนวณโอที 1.5–3 เท่า และการจัดอันดับ Batch 34
+
+สำรวจเมื่อ 8 สิงหาคม 2569 ด้วย Google Autocomplete locale ไทย (`hl=th`, `gl=th`) และเทียบคำตั้งต้นไทย/อังกฤษ คำว่า `คำนวณโอที` มีคำแนะนำครบ 10/10 และแตกเป็น intent ที่นำไปทำงานได้จริง เช่น วิธีคำนวณ, 1.5 เท่า, รายวัน, วันหยุด, วันอาทิตย์, 2 แรง, 3 แรง และ Excel ขณะที่ `overtime calculator` ได้ 10/10 เช่นกัน จำนวนคำแนะนำเป็นเพียงสัญญาณความกว้างของ intent ไม่ใช่ search volume และไม่รับประกันอันดับ Google
+
+คะแนน 5 คือสูงที่สุด โดยคอลัมน์ “ยาก” หมายถึงความซับซ้อนในการส่งมอบให้ครบและปลอดภัย:
+
+| อันดับ | แนวคิด | TH/EN | ยาก | คุณค่าธุรกิจ | รายได้ | ขยายต่อ | นวัตกรรม | ข้อสรุป |
+|---:|---|---:|---:|---:|---:|---:|---:|---|
+| 1 | คำนวณโอที 1.5–3 เท่า | 10/10 | 4 | 5 | 5 | 4 | 3 | ชนะ: intent ไทยตรงมาก แยกรายเดือน/รายวัน/รายชั่วโมง วันทำงานและวันหยุดได้โดยอ้างอิงกฎทางการ |
+| 2 | Word Cloud ภาษาไทย | 3/10 | 4 | 4 | 4 | 4 | 4 | ใช้ได้หลายสายงาน แต่ต้องทำ Thai tokenization, stop words, ฟอนต์และ export ให้ครบ |
+| 3 | Business Days Calculator | 4/10 | 3 | 4 | 4 | 4 | 3 | มีประโยชน์จริง แต่วันหยุดไทยและองค์กรต้องเป็นข้อมูล versioned |
+| 4 | EXIF Viewer / Metadata Remover | 1/10 | 4 | 4 | 4 | 4 | 4 | อังกฤษ 10/10 และมี privacy value แต่ intent ไทยต่ำกว่า OT ชัดเจน |
+| 5 | Expense Splitter | —/10 | 3 | 4 | 4 | 4 | 3 | ใช้ในกลุ่มเพื่อนได้จริง แต่ต้องรองรับเศษ การปัด และใครออกแทนใคร |
+| 6 | JSON to CSV Converter | —/10 | 3 | 4 | 4 | 5 | 2 | อังกฤษ 10/10 แต่ทับ catalog ข้อมูลเดิมและต้องควบคุม flatten อย่างโปร่งใส |
+| 7 | Password Strength Checker | —/10 | 2 | 4 | 4 | 4 | 3 | อังกฤษ 10/10 แต่ต้องเลี่ยงตัวเลขเวลา crack ที่สร้างความมั่นใจลวง |
+| 8 | Color Palette Generator | —/10 | 3 | 4 | 4 | 4 | 3 | อังกฤษ 10/10 แต่ใกล้ Color Picker เดิม ต้องมี lock, contrast และ export token |
+| 9 | Invoice Generator | —/10 | 4 | 5 | 5 | 5 | 3 | อังกฤษ 10/10 ธุรกิจสูง แต่ทับ Quotation และมีความเสี่ยงผู้ใช้เข้าใจเป็นเอกสารภาษี |
+| 10 | PDF Text Extractor | —/10 | 4 | 4 | 4 | 4 | 3 | อังกฤษ 10/10 แต่ภาษาไทยและ scanned PDF ต้องแยก OCR ออกจาก text layer |
+| 11 | Privacy Policy Generator | —/10 | 4 | 4 | 4 | 4 | 3 | อังกฤษ 10/10 แต่มีความเสี่ยงทางกฎหมายสูงและไม่ควรสร้างข้อความสำเร็จรูปที่อ้างว่าครบถ้วน |
+| 12 | Passport Photo Maker | —/10 | 4 | 4 | 4 | 4 | 4 | อังกฤษ 10/10 แต่กฎรูปแต่ละประเทศเปลี่ยนได้และต้อง versioned |
+| 13 | Image Upscaler | —/10 | 5 | 4 | 5 | 5 | 4 | อังกฤษ 10/10 แต่โมเดลใหญ่ ใช้ RAM สูง และ Vercel ไม่ช่วยงาน inference ใน Browser |
+| 14 | Pomodoro Timer | —/10 | 2 | 3 | 3 | 4 | 2 | อังกฤษ 10/10 ทำง่าย แต่ความต่างและรายได้ต่ำกว่าเครื่องมือคำนวณงานไทย |
+| 15 | PDF Compressor | —/10 | 5 | 5 | 5 | 5 | 4 | อังกฤษ 10/10 แต่ยังชะลอ เพราะ rasterize อาจทำลาย text, search และ accessibility |
+
+ขอบเขตที่เลือกเป็นเครื่องคำนวณแบบ client-only ไม่ขอชื่อ บริษัท หรือสลิป และไม่เก็บค่าจ้าง ผู้ใช้เลือกประเภทค่าจ้างกับสิทธิค่าจ้างวันหยุดเอง สูตรรายเดือนใช้ `ค่าจ้าง ÷ 30 ÷ ชั่วโมงปกติเฉลี่ยต่อวัน`; OT วันทำงานใช้ 1.5 เท่า; เวลาปกติในวันหยุดใช้เงินเพิ่ม 1 เท่าเมื่อได้รับค่าจ้างวันหยุดอยู่แล้ว หรือ 2 เท่าเมื่อไม่ได้รับ; OT วันหยุดใช้ 3 เท่า ระบบไม่ปัดเศษระหว่างคำนวณและแสดง breakdown ทุกส่วน
+
+เนื่องจากงานบางประเภท ข้อตกลง และวันหยุดแต่ละชนิดอาจมีเงื่อนไขต่างกัน หน้าผลลัพธ์ต้องระบุว่าเป็นประมาณการขั้นต่ำทั่วไป ไม่ใช่คำวินิจฉัยสิทธิ พร้อมวันตรวจทานกฎและลิงก์ทางการ แนวทาง SEO ใช้ชื่อและ FAQ ที่ตอบ long-tail จริงโดยไม่สร้างหน้า 1.5, 2 และ 3 เท่าแยกกัน จึงไม่เพิ่ม thin pages และไม่อ้างว่าสามารถทำอันดับหน้าแรกได้แน่นอน
+
+- [Google Autocomplete — คำนวณโอที](https://suggestqueries.google.com/complete/search?client=firefox&hl=th&gl=th&q=%E0%B8%84%E0%B8%B3%E0%B8%99%E0%B8%A7%E0%B8%93%E0%B9%82%E0%B8%AD%E0%B8%97%E0%B8%B5)
+- [Google Autocomplete — Overtime Calculator](https://suggestqueries.google.com/complete/search?client=firefox&hl=th&gl=th&q=overtime%20calculator)
+- [กระทรวงแรงงาน — ค่าทำงานล่วงเวลาในวันทำงานและวันหยุด](https://www.mol.go.th/forums/topic/%E0%B9%80%E0%B8%87%E0%B8%B4%E0%B8%99%E0%B8%84%E0%B9%88%E0%B8%B2%E0%B8%97%E0%B8%B3%E0%B8%87%E0%B8%B2%E0%B8%99%E0%B8%A5%E0%B9%88%E0%B8%A7%E0%B8%87%E0%B9%80%E0%B8%A7%E0%B8%A5%E0%B8%B2-2)
+- [กระทรวงแรงงาน — ค่าทำงานในวันหยุด](https://www.mol.go.th/forums/topic/%E0%B8%AA%E0%B8%AD%E0%B8%9A%E0%B8%96%E0%B8%B2%E0%B8%A1-%E0%B9%80%E0%B8%A3%E0%B8%B7%E0%B9%88%E0%B8%AD%E0%B8%87%E0%B8%81%E0%B8%B2%E0%B8%A3%E0%B8%97%E0%B8%B3%E0%B8%87%E0%B8%B2%E0%B8%99%E0%B9%83%E0%B8%99%E0%B8%A7%E0%B8%B1%E0%B8%99%E0%B8%AB%E0%B8%A2%E0%B8%B8%E0%B8%94%E0%B8%99%E0%B8%B1%E0%B8%81%E0%B8%82%E0%B8%B1%E0%B8%95%E0%B8%A4%E0%B8%81%E0%B8%A9%E0%B9%8C)
+- [พ.ร.บ. คุ้มครองแรงงาน พ.ศ. 2541 — สำเนาข้อความสำนักงานคณะกรรมการกฤษฎีกาบนเว็บไซต์รัฐ](https://tdc.mi.th/assets/pdf/regulations/002/%E0%B8%9E.%E0%B8%A3.%E0%B8%9A.%E0%B8%84%E0%B8%B8%E0%B9%89%E0%B8%A1%E0%B8%84%E0%B8%A3%E0%B8%AD%E0%B8%87%E0%B9%81%E0%B8%A3%E0%B8%87%E0%B8%87%E0%B8%B2%E0%B8%99%20%E0%B8%9E.%E0%B8%A8.%202541.pdf)
+- [Google Search Central — Creating helpful, reliable, people-first content](https://developers.google.com/search/docs/fundamentals/creating-helpful-content)
+
 ## รอบที่ 23 — Resume Builder ไทย/English และการจัดอันดับ Batch 33
 
 สำรวจเมื่อ 8 สิงหาคม 2569 ด้วย Google Autocomplete locale ไทย (`hl=th`, `gl=th`) ทั้งคำไทยและอังกฤษ พร้อมตรวจคู่แข่งและคำแนะนำรูปแบบ Resume จากสถาบันการศึกษา จำนวนคำแนะนำสูงสุด 10 รายการเป็นเพียงสัญญาณความกว้างของ intent ไม่ใช่ search volume และไม่รับประกันอันดับ Google หรือผล ATS
