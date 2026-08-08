@@ -1101,3 +1101,50 @@ UI แบ่งเป็นค่าจ้าง/ตาราง, เงิน�
 - [OECD — Employee compensation by activity](https://www.oecd.org/en/data/indicators/employee-compensation-by-activity.html)
 - [GOV.UK — Work out National Insurance contributions](https://www.gov.uk/guidance/work-out-an-employees-national-insurance-contributions)
 - [Google Search Central — Creating helpful, reliable, people-first content](https://developers.google.com/search/docs/fundamentals/creating-helpful-content)
+
+## รอบที่ 36 — Sales Commission Calculator และการจัดอันดับ Batch 46
+
+สำรวจเมื่อ 9 สิงหาคม 2569 ด้วย Google Autocomplete locale ไทย (`hl=th`, `gl=th`) จำนวน 30 คำตั้งต้น ครอบคลุม sales/commission rate, tiered, split, quota, OTE, accelerator, cap, clawback และ vertical variants จำนวนคำแนะนำสูงสุด 10 รายการเป็น demand proxy สำหรับดู intent และ long-tail เท่านั้น ไม่ใช่ search volume และไม่รับประกันอันดับหน้าแรก Google
+
+`sales commission calculator`, `commission calculator`, `commission rate calculator` และ `commission calculator free` ได้ 10/10; `OTE calculator` 9/10; `commission split calculator` 7/10; `tiered commission calculator` 6/10; `percentage commission calculator` 5/10; `คำนวณค่าคอมมิชชั่น` และ `sales quota calculator` 4/10; `commission payout calculator`, `quota attainment calculator` และ `commission calculator online` 3/10; ส่วน sales commission Excel, bonus, compensation, on-target earnings, revenue commission และ `คิดค่าคอมมิชชั่น` ได้ 2/10 ขณะที่ gross-margin commission และ accelerator ได้ 1/10 และ cap/clawback/Thailand/per-sale ได้ 0/10 ในรอบนี้
+
+Affiliate, insurance และ real-estate commission ได้ 10/10 แต่มีสูตร แพลตฟอร์ม สัญญา และข้อกำหนดเฉพาะ vertical สูง จึงยังไม่สร้างหน้า country/industry ที่ดูคล้ายกันหลายหน้า Batch 46 รวม Flat, Marginal tiers, Retroactive tiers, split credit, quota, accelerator, cap, clawback, revenue/gross-profit basis และ OTE run-rate ที่ใช้แกนสูตรเดียวไว้หน้าเดียว ตามแนวทาง people-first และหลีกเลี่ยง doorway pages
+
+คะแนน 5 คือสูงที่สุด การจัดอันดับพิจารณา demand, คุณค่าผู้ใช้จริง, ความต่างจาก 72 tools เดิม, ความโปร่งใสของสูตร, โอกาสรายได้จาก B2B intent, scalability, innovation และความเสี่ยงจากกฎหมายหรือเงื่อนไขแผน:
+
+| อันดับ | แนวคิด | Demand ที่พบ | ยาก | คุณค่าธุรกิจ | รายได้ | ขยายต่อ | นวัตกรรม | ข้อสรุป |
+|---:|---|---|---:|---:|---:|---:|---:|---|
+| 1 | Sales Commission Calculator | Sales/Commission/Rate/Free 10/10 | 4 | 5 | 5 | 5 | 4 | ส่งมอบ Batch 46; รวม Flat, tiers, credit, quota, accelerator, cap, clawback, base pay และ CSV |
+| 2 | OTE Calculator | OTE 9/10; on-target earnings 2/10 | 3 | 5 | 5 | 5 | 3 | มีมูลค่า B2B แต่ Batch 46 รองรับเพียง annualized run-rate ไม่อ้าง OTE ทางสัญญา |
+| 3 | Insurance Commission Calculator | 10/10 | 5 | 5 | 5 | 4 | 3 | demand สูงแต่ policy, carrier, renewal, chargeback และกฎพื้นที่ต่างกัน ต้องวิจัย vertical แยก |
+| 4 | Affiliate Commission Calculator | 10/10 | 4 | 4 | 5 | 5 | 3 | ต้องรองรับ order status, refund window, network fee และ attribution ของแต่ละแพลตฟอร์ม |
+| 5 | Real Estate Commission Calculator | 10/10 | 5 | 5 | 5 | 4 | 3 | ต้องมี co-broke, brokerage split, fees, tax และ disclosure ตามพื้นที่ ไม่ควรใช้สูตร generic อ้างครบ |
+| 6 | Commission Split Calculator | 7/10 | 3 | 5 | 5 | 5 | 3 | Batch 46 รองรับ Sales credit percentage แล้ว; รอดู Search Console ก่อนแยกหน้า |
+| 7 | Tiered Commission Calculator | 6/10 | 4 | 5 | 5 | 5 | 4 | รวมใน Batch 46 และแยก Marginal จาก Retroactive ชัดเจน ไม่สร้างหน้า intent ซ้ำ |
+| 8 | Percentage Commission Calculator | 5/10 | 2 | 4 | 4 | 4 | 2 | Flat rate ใน Batch 46 ครอบคลุมแล้ว หน้าแยกจะบางและเสี่ยง cannibalization |
+| 9 | Sales Quota Calculator | 4/10 | 4 | 5 | 5 | 5 | 4 | Batch 46 วัด attainment/bonus ขั้นพื้นฐาน; รุ่นถัดไปควรมี ramp, weighted quota และ period pacing |
+| 10 | Quota Attainment Calculator | 3/10 | 2 | 4 | 4 | 4 | 2 | รวมในผล Batch 46 แล้ว พร้อม amount-to-quota โดยไม่ต้องสร้างหน้า doorway |
+| 11 | Sales Compensation Calculator | 2/10 | 5 | 5 | 5 | 5 | 4 | scope ใหญ่กว่า commission ต้องรวม draw, SPIFF, equity, territory และ scenario versioning |
+| 12 | Bonus Commission Calculator | 2/10 | 3 | 4 | 4 | 4 | 3 | Quota bonus ใน Batch 46 ครอบคลุม fixed trigger; matrix bonus ต้องวิจัยเพิ่ม |
+| 13 | Gross Margin Commission Calculator | 1/10 | 4 | 5 | 5 | 4 | 4 | Batch 46 รองรับ gross-profit basis พร้อม split cost และฐานไม่ต่ำกว่าศูนย์ |
+| 14 | Sales Accelerator Calculator | 1/10 | 4 | 5 | 5 | 5 | 4 | ทำผ่าน tier rates ใน Batch 46 และบอก Threshold inclusivity ชัดเจน |
+| 15 | Commission Clawback Calculator | 0/10 | 5 | 4 | 4 | 3 | 3 | Batch 46 รับยอด Adjustment ที่อนุมัติแล้ว แต่ไม่ตัดสินสิทธิ์เรียกคืนตามสัญญาหรือกฎหมาย |
+
+สูตรเริ่มจาก `Net sales = Gross sales − Refunds`, คูณ Sales credit และเลือกฐาน Revenue หรือ `max(0, Credited net sales − Credited direct cost)` สำหรับ Gross profit แผน Flat ใช้ฐาน × อัตราเดียว; Marginal tiers แบ่งยอดแต่ละช่วงคูณอัตราของช่วง; Retroactive tiers ใช้อัตราขั้นสูงสุดที่ถึงกับฐานทั้งก้อน จากนั้นบวก Quota bonus และ Adjustment, จำกัด Floor ที่ศูนย์และ Payout cap ก่อนแสดง Effective payout rate และ annualized run-rate
+
+Salesforce แยก Tier payout แบบ Retroactive ซึ่งใช้อัตราขั้นที่บรรลุกับฐานทั้งช่วง ออกจาก Marginal payout ซึ่งใช้แต่ละอัตรากับส่วนของฐานในช่วงนั้น และอธิบาย Accelerator ว่าเป็นตัวคูณหรืออัตราที่สูงขึ้นเมื่อผลงานผ่านระดับที่กำหนด จึงต้องให้ผู้ใช้เลือกสูตร ไม่เดาจากคำว่า “Tiered” เพียงคำเดียว เอกสาร compensation plan ควรระบุองค์ประกอบและกติกาให้ชัด หน้านี้จึงเตือนให้ตรวจเอกสารกับ Sales Ops/Finance และไม่อ้างเป็น Payroll ภาษี กฎหมาย หรือการอนุมัติ Payout
+
+UI แบ่งเป็นแผน/ฐานยอดขาย, Tier editor, Quota/Payout และผลลัพธ์ มี label gap สม่ำเสมอ การ์ดผล responsive, Payout waterfall, milestone, ตารางขั้นที่เลื่อนในกรอบได้ และ CSV ทุกข้อมูลคำนวณใน Browser ไม่มี API หรือ LocalStorage การเลือกสกุลเงินเปลี่ยนเฉพาะหน่วย ไม่มี FX conversion
+
+- [Google Autocomplete — sales commission calculator](https://suggestqueries.google.com/complete/search?client=firefox&hl=th&gl=th&q=sales%20commission%20calculator)
+- [Google Autocomplete — commission calculator](https://suggestqueries.google.com/complete/search?client=firefox&hl=th&gl=th&q=commission%20calculator)
+- [Google Autocomplete — commission rate calculator](https://suggestqueries.google.com/complete/search?client=firefox&hl=th&gl=th&q=commission%20rate%20calculator)
+- [Google Autocomplete — tiered commission calculator](https://suggestqueries.google.com/complete/search?client=firefox&hl=th&gl=th&q=tiered%20commission%20calculator)
+- [Google Autocomplete — commission split calculator](https://suggestqueries.google.com/complete/search?client=firefox&hl=th&gl=th&q=commission%20split%20calculator)
+- [Google Autocomplete — OTE calculator](https://suggestqueries.google.com/complete/search?client=firefox&hl=th&gl=th&q=ote%20calculator)
+- [Salesforce Help — Accelerator](https://help.salesforce.com/s/articleView?id=sales.spiff_accelerator.htm&language=en_US&type=5)
+- [Salesforce Trailhead — Tier payout rules](https://trailhead.salesforce.com/it/content/learn/modules/salesforce-spiff-tier-payout-rules/get-started-with-tier-payouts)
+- [Salesforce Trailhead — Compensation plans](https://trailhead.salesforce.com/it/content/learn/modules/annual-planning-with-sales-operations/put-it-all-in-writing-with-comp-plans)
+- [Google Search Central — Creating helpful, reliable, people-first content](https://developers.google.com/search/docs/fundamentals/creating-helpful-content)
+- [Google Search Central — AI features and your website](https://developers.google.com/search/docs/fundamentals/ai-optimization-guide)
+- [Google Search Central Blog — Doorway pages](https://developers.google.com/search/blog/2015/03/an-update-on-doorway-pages)

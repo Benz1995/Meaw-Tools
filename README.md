@@ -6,7 +6,7 @@
 
 - Next.js 16 App Router, React 19, TypeScript strict และ Tailwind CSS 4
 - shadcn/ui + Radix, Noto Sans Thai, JetBrains Mono และ dark mode
-- เครื่องมือ 72 รายการ พร้อม validation, empty/error state, clear และ action ที่เหมาะกับแต่ละงาน
+- เครื่องมือ 73 รายการ พร้อม validation, empty/error state, clear และ action ที่เหมาะกับแต่ละงาน
 - กลุ่มงานทั่วไป: นับคำ จัดระเบียบข้อความ คำนวณเปอร์เซ็นต์ แปลงหน่วย และคำนวณวัน
 - Word Cloud Generator ตัดคำไทย/อังกฤษ กรอง stopwords รองรับวลีพร้อมน้ำหนัก ปรับสี/พื้นหลัง และส่งออก PNG 2×, SVG หรือ CSV ภายใน Browser
 - Business Days Calculator นับช่วงวันหรือเพิ่ม/ลบวันทำการ ปรับสัปดาห์ทำงาน ตัดวันหยุดกำหนดเอง และใช้ preset วันหยุดสถาบันการเงิน ธปท. ปี 2569 แบบระบุขอบเขต
@@ -18,6 +18,7 @@
 - Project Cost & Profit Calculator เทียบ Budget กับ Actual + Remaining แยกแรงงาน ต้นทุนตรง และ Overhead พร้อม Forecast กำไร Margin เป้าหมาย และ CSV
 - Team Capacity & Workload Calculator เทียบกำลังทีมกับ Demand รายบทบาท หักวันลา Focus factor และ Buffer พร้อม Workload, Capacity gap, FTE ที่ต้องเพิ่ม และ CSV
 - Labor Cost & Employee Cost Calculator รวมค่าจ้าง โบนัส ภาระนายจ้าง สวัสดิการ ต้นทุนคงที่ Overhead และ Productive hours พร้อม Burden rate, Cost multiplier, ต้นทุนต่อชั่วโมง งบทีม และ CSV
+- Sales Commission Calculator คำนวณ Flat, Marginal/Retroactive tiers, Sales credit, Quota bonus, Accelerator, Cap และ Clawback จากยอดขายหรือกำไรขั้นต้น พร้อม OTE โดยประมาณและ CSV
 - JPG to PDF, QR Code Generator, QR Code Scanner และ Age Calculator ประมวลผลภายใน Browser
 - Loan Calculator, BMI Calculator และ Profit & Margin Calculator พร้อมสูตรและข้อจำกัดที่ตรวจสอบได้
 - VAT Calculator Thailand บวกหรือถอด VAT ด้วยสูตรที่อธิบายได้ รองรับ Service Charge และแยกภาษีหัก ณ ที่จ่าย พร้อมอัตรา versioned จากกรมสรรพากร
@@ -121,6 +122,7 @@ flowchart LR
 - Project Cost & Profit Calculator จำกัดแรงงาน 20 บทบาท ต้นทุนตรง 30 รายการ ชั่วโมง 1 ล้านต่อช่อง และยอดเงิน 1 ล้านล้าน พร้อมป้องกัน CSV Formula Injection และไม่บันทึกงบหรือข้อมูลโครงการ
 - Team Capacity & Workload Calculator จำกัด 30 กลุ่ม รอบ 366 วัน 24 ชั่วโมง/วัน กลุ่มละ 1,000 FTE และ Demand 1 พันล้านชั่วโมง พร้อมป้องกัน CSV Formula Injection และไม่บันทึกข้อมูลทีม
 - Labor Cost & Employee Cost Calculator จำกัดค่าต่อช่อง 1 ล้านล้าน จำนวนพนักงาน 100,000 คน อัตรา 500% ตาราง 168 ชั่วโมง/สัปดาห์ 53 สัปดาห์/ปี และวันไม่ส่งมอบ 366 วัน พร้อมตรวจวันรวมไม่เกินตารางและไม่บันทึกข้อมูลเงินเดือน
+- Sales Commission Calculator จำกัดค่าต่อช่อง 1 ล้านล้าน อัตรา 1,000% ขั้นบันได 10 ขั้น และ 366 รอบต่อปี ตรวจ Threshold เรียงจากศูนย์ จำกัดผลลัพธ์ 1 พันล้านล้าน ส่งออก CSV จากตัวเลขและ label ที่ระบบกำหนดโดยไม่มีช่องข้อความอิสระ และไม่บันทึกยอดขายหรือค่าจ้างฐาน
 - Regex ทำงานใน Web Worker และถูก terminate เมื่อเกิน 750 ms
 - JWT เป็นการ Decode เท่านั้น ไม่ verify signature
 - SQL ถูกจัดรูปเท่านั้น ไม่ execute

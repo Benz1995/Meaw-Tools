@@ -60,6 +60,7 @@ const toolRoutes = [
   ["project-cost-calculator", "Project Cost & Profit Calculator"],
   ["team-capacity-calculator", "Team Capacity & Workload Calculator"],
   ["labor-cost-calculator", "Labor Cost & Employee Cost Calculator"],
+  ["sales-commission-calculator", "Sales Commission Calculator"],
   ["jpg-to-pdf", "JPG to PDF Converter"],
   ["qr-code-generator", "QR Code Generator"],
   ["barcode-generator", "Barcode Generator"],
@@ -1938,6 +1939,60 @@ test("labor cost calculator explains loaded cost without mobile overflow", async
 
   const layout = await page.evaluate(() => ({ width: document.documentElement.clientWidth, scrollWidth: document.documentElement.scrollWidth }));
   expect(layout.scrollWidth).toBe(layout.width);
+  expect(consoleErrors).toEqual([]);
+});
+
+test("sales commission calculator explains tier payouts without mobile overflow", async ({ page }) => {
+  const consoleErrors: string[] = [];
+  const requestUrls: string[] = [];
+  page.on("console", (message) => {
+    if (message.type() === "error") consoleErrors.push(message.text());
+  });
+  page.on("pageerror", (error) => consoleErrors.push(error.message));
+  page.on("request", (request) => requestUrls.push(request.url()));
+  await page.setViewportSize({ width: 390, height: 844 });
+
+  await page.goto("/sales-commission-calculator");
+  await expect(page.getByRole("heading", { level: 1, name: "Sales Commission Calculator" })).toBeVisible();
+  await expect(page.locator("main header").getByText("คำนวณค่าคอมมิชชันและ Commission แบบขั้นบันได", { exact: true })).toBeVisible();
+  await expect(page.locator("#commission-gross-sales")).toBeVisible();
+  await page.evaluate(() => document.fonts.ready);
+
+  const labelGap = await page.evaluate(() => {
+    const label = document.querySelector<HTMLLabelElement>('label[for="commission-gross-sales"]');
+    const input = document.querySelector<HTMLInputElement>("#commission-gross-sales");
+    const labelBox = label?.getBoundingClientRect();
+    const inputBox = input?.getBoundingClientRect();
+    return labelBox && inputBox ? Math.round(inputBox.top - labelBox.bottom) : 0;
+  });
+  expect(labelGap).toBeGreaterThanOrEqual(10);
+
+  await page.getByRole("button", { name: "โหลดตัวอย่าง" }).click();
+  await expect(page.getByTestId("commission-tier-input")).toHaveCount(3);
+  await page.getByRole("button", { name: "คำนวณค่าคอมมิชชัน" }).click();
+  await expect(page.getByTestId("commission-payout")).toHaveText("฿8,000.00");
+  await expect(page.getByTestId("commission-before-adjustment")).toHaveText("฿7,800.00");
+  await expect(page.getByTestId("commission-total-earnings")).toHaveText("฿33,000.00");
+  await expect(page.getByTestId("commission-quota-attainment")).toHaveText("115%");
+  await expect(page.getByTestId("commission-annualized")).toHaveText("฿96,000.00");
+  await expect(page.getByTestId("commission-effective-rate")).toHaveText("6.96%");
+  await expect(page.getByTestId("sales-commission-result")).toContainText("Marginal ฿7,800.00");
+  await expect(page.getByTestId("sales-commission-result")).toContainText("Retroactive ฿13,800.00");
+  await expect(page.getByTestId("commission-tier-row")).toHaveCount(3);
+
+  const csvPromise = page.waitForEvent("download");
+  await page.getByRole("button", { name: "ดาวน์โหลด CSV" }).click();
+  const csvDownload = await csvPromise;
+  expect(csvDownload.suggestedFilename()).toBe("meaw-sales-commission.csv");
+  const csvPath = await csvDownload.path();
+  expect(csvPath).toBeTruthy();
+  const csv = await readFile(csvPath!, "utf8");
+  expect(csv).toContain('"Commission payout สุทธิ","8000.00","THB"');
+  expect(csv).toContain('"ขั้น 3","100000.00","ไม่จำกัด","15000.00","12.00","1800.00","THB"');
+
+  const layout = await page.evaluate(() => ({ width: document.documentElement.clientWidth, scrollWidth: document.documentElement.scrollWidth }));
+  expect(layout.scrollWidth).toBe(layout.width);
+  expect(hasExternalRequest(requestUrls, page.url())).toBe(false);
   expect(consoleErrors).toEqual([]);
 });
 
