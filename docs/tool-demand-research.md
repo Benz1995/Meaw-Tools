@@ -927,3 +927,46 @@ UI ใช้กลุ่มบทบาทแทนชื่อบุคคล �
 - [Calwise — Meeting Cost Calculator & Analytics](https://calwise.io/)
 - [U.S. DHS — Meeting Cost Estimator](https://www.dhs.gov/sites/default/files/publications/MeetingCostEstimatorForm508rb.pdf)
 - [Google Search Central — Creating helpful, reliable, people-first content](https://developers.google.com/search/docs/fundamentals/creating-helpful-content)
+
+## รอบที่ 32 — Billable Hours Calculator และการจัดอันดับ Batch 42
+
+สำรวจเมื่อ 8 สิงหาคม 2569 ด้วย Google Autocomplete locale ไทย (`hl=th`, `gl=th`) หลังส่งมอบ Meeting Cost Calculator โดยเทียบ 16 คำตั้งต้นด้าน Billable time, time tracking, utilization, invoicing และ project profitability จำนวนคำแนะนำสูงสุด 10 รายการเป็นเพียง demand proxy ของความกว้าง intent ไม่ใช่ search volume และไม่รับประกันอันดับหน้าแรก Google
+
+คำอังกฤษ `billable hours calculator`, `billable hours tracker` และ `billable hours chart` ได้ 10/10 ทั้งหมด โดยคำหลักแตกเป็น `6 minute increments`, Excel, lawyer, free, annual และ target อย่างชัดเจน `utilization calculator` ได้ 10/10 แต่ intent ปะปน credit, CPU, container และ bandwidth, `capacity planning calculator` ได้ 8/10 แต่ปะปนระบบไอที, `project profitability calculator` ได้ 3/10, `time billing calculator` 2/10 และ `billable utilization calculator`, `effective hourly rate calculator`, `invoice hours calculator` ได้ 1/10 ส่วน `agency utilization calculator`, `freelance utilization calculator`, `revenue gap calculator`, `คำนวณชั่วโมงคิดเงิน` และ `คำนวณชั่วโมง billable` ยังไม่เกิดคำแนะนำ จึงใช้ชื่ออังกฤษเป็น primary intent และอธิบายไทยในหน้าเดียว
+
+คะแนน 5 คือสูงที่สุด การเลือกคำนึงถึง demand, ประโยชน์ข้ามฟรีแลนซ์ เอเจนซี ที่ปรึกษา นักบัญชี และงานกฎหมาย, ความต่างจาก Working Hours/Hourly Rate, privacy ของ time log, ความโปร่งใสในการปัดเวลา และศักยภาพ AdSense จาก intent งานธุรกิจ:
+
+| อันดับ | แนวคิด | Demand ที่พบ | ยาก | คุณค่าธุรกิจ | รายได้ | ขยายต่อ | นวัตกรรม | ข้อสรุป |
+|---:|---|---|---:|---:|---:|---:|---:|---|
+| 1 | Billable Hours Calculator | EN 10/10; 6-minute/Excel/lawyer/annual/target | 3 | 5 | 5 | 5 | 4 | ส่งมอบ Batch 42; time log, per-entry rounding, utilization, target/revenue gap, annual projection และ CSV |
+| 2 | Billable Hours Tracker | EN 10/10; Excel/free/template/app | 4 | 5 | 5 | 5 | 4 | รวม manual time log ใน Batch 42; timer, persistence และหลายลูกค้าควรเป็น app phase เมื่อมี consent/storage design |
+| 3 | Billable Hours Chart | EN 10/10; conversion/.1/legal | 2 | 5 | 4 | 4 | 3 | รวมตารางตามรอบ 1/6/10/15/30/60 นาทีในหน้าเดียว ไม่สร้างหน้า chart บาง |
+| 4 | Billable Utilization Calculator | EN 1/10 แต่ pain point ชัด | 3 | 5 | 5 | 5 | 4 | รวมสูตรเวลาจริง ÷ capacity พร้อม denominator policy และผลเกิน 100% ใน Batch 42 |
+| 5 | Project Profitability Calculator | EN 3/10 พร้อม Excel | 4 | 5 | 5 | 5 | 4 | ตัวเลือก Batch ถัดไป; ต้องรวม quoted revenue, labor cost, direct cost, scope change และ margin โดยไม่ซ้ำ Profit Margin |
+| 6 | Capacity Planning Calculator | EN 8/10 แต่ปะปน Kafka/Splunk/SQL | 4 | 5 | 5 | 5 | 4 | ควรระบุ Agency/Team Capacity และรองรับหลายบทบาท ไม่ใช้ keyword กว้างอย่างเดียว |
+| 7 | Time Billing Calculator | EN 2/10 พร้อม legal | 2 | 5 | 4 | 4 | 3 | intent หลักตอบแล้วด้วย rate × rounded billable time ใน Batch 42 |
+| 8 | Invoice Hours Calculator | EN 1/10 | 3 | 5 | 5 | 4 | 3 | ควรเชื่อม Quotation/Invoice workflow ในอนาคต ไม่สร้างหน้า duplicate ตอนนี้ |
+| 9 | Effective Hourly Rate Calculator | EN 1/10 | 2 | 5 | 5 | 4 | 4 | รวมรายรับหลังปัด ÷ เวลาที่ลงทั้งหมดใน Batch 42 พร้อมระบุว่าไม่ใช่กำไรสุทธิ |
+| 10 | Annual Billable Hours Target | long-tail ใต้คำหลัก | 2 | 5 | 5 | 4 | 3 | รวม rounds/year, target hours และ annual revenue gap ใน Batch 42 |
+| 11 | Employee Cost Calculator | EN 10/10 จากรอบ 31 แต่ country-specific | 5 | 5 | 5 | 5 | 3 | ต้อง version payroll tax, benefits และกฎไทยก่อน ไม่ควรเดาตัวคูณ loaded cost |
+| 12 | Labor Cost Calculator | EN 10/10 จากรอบ 31 แต่หลายอุตสาหกรรม | 4 | 5 | 5 | 5 | 3 | ควรเลือก template ก่อสร้าง ร้านอาหาร หรือโรงงานจาก intent เพิ่มเติม |
+| 13 | Cost per Hire Calculator | EN 3/10 | 4 | 5 | 5 | 5 | 4 | ต้องกำหนดช่วงรายงานและ scope ค่าโฆษณา recruiter agency interview และ onboarding |
+| 14 | Quote Profit Checker | ต่อจาก Quotation และ time log | 3 | 5 | 5 | 5 | 4 | ใช้ตรวจราคาที่เสนอเทียบต้นทุนจริง เหมาะรวมกับ Project Profitability ในรอบเฉพาะ |
+| 15 | Business Break-even Calculator | keyword กว้าง 10/10 แต่ intent ปะปน | 3 | 5 | 5 | 5 | 3 | ทำได้เมื่อระบุ fixed cost, variable cost และ unit economics ชัด ไม่ทำหน้า generic ที่ชน mortgage/pension |
+
+Batch 42 แยก “เวลาจริง” ออกจาก “เวลาออกบิล” อย่างเคร่งครัด รายการ Billable แต่ละรายการใช้ `ceil(เวลาจริง ÷ รอบปัด) × รอบปัด` ขณะที่ Non-billable ไม่ถูกปัดและไม่มีมูลค่าออกบิล ตัวอย่าง 3 นาทีสองรายการในรอบ 6 นาทีจึงออกบิล 12 นาที ไม่ใช่ 6 นาทีจากการรวมก่อนปัด และระบบแสดงส่วนเพิ่มจากการปัดทั้งนาทีและเงิน
+
+Billable utilization ใช้ `นาที Billable จริงก่อนปัด ÷ (ชั่วโมงฐาน × 60) × 100` ไม่ใช้เวลาออกบิลหลังปัดและไม่ใช้เวลาที่ลงรวมเป็นตัวหาร เป้าหมายใช้ตัวหารเดียวกัน ช่องว่างรายรับต่อปีเป็น `max(0, นาทีเป้าหมาย - นาที Billable จริง) ÷ 60 × เรท × จำนวนรอบต่อปี` จึงไม่ติดลบเมื่อเกินเป้า ส่วน Effective Hourly Rate เป็นรายรับหลังปัดหารเวลาที่ลงทั้งหมดและไม่เรียกว่ากำไรสุทธิ
+
+UI ใช้รายการงานทั่วไปแทนชื่อลูกค้าลับ จำกัด 50 รายการ ชั่วโมง/นาทีเป็นช่องแยกที่ label เว้นจาก input อย่างสม่ำเสมอ ตาราง breakdown เลื่อนภายในจอเล็กโดยไม่ทำให้หน้า overflow รองรับ THB/USD/EUR/GBP/JPY เฉพาะหน่วยโดยไม่แปลง exchange rate และ CSV มี UTF-8 BOM กับ Formula Injection protection หน้า SEO รวม intent calculator, tracker, chart, 6-minute, Excel, lawyer, annual, target และ utilization ไว้หน้าเดียวพร้อม FAQ โดยไม่สร้าง doorway pages
+
+- [Google Autocomplete — billable hours calculator](https://suggestqueries.google.com/complete/search?client=firefox&hl=th&gl=th&q=billable%20hours%20calculator)
+- [Google Autocomplete — billable hours tracker](https://suggestqueries.google.com/complete/search?client=firefox&hl=th&gl=th&q=billable%20hours%20tracker)
+- [Google Autocomplete — billable hours chart](https://suggestqueries.google.com/complete/search?client=firefox&hl=th&gl=th&q=billable%20hours%20chart)
+- [Google Autocomplete — utilization calculator](https://suggestqueries.google.com/complete/search?client=firefox&hl=th&gl=th&q=utilization%20calculator)
+- [Google Autocomplete — project profitability calculator](https://suggestqueries.google.com/complete/search?client=firefox&hl=th&gl=th&q=project%20profitability%20calculator)
+- [Hour Cap — Billable Utilization Calculator](https://hourcap.com/free-tools/billable-utilization-calculator)
+- [Everhour — Billable Utilization Calculator](https://everhour.com/calculators/billable-utilization-calculator)
+- [Corcava — Billable Hours Calculator](https://corcava.com/tools/billable-hours-calculator)
+- [Productive — Billable Hours Calculator](https://productive.io/billable-hours-calculator/)
+- [Google Search Central — Creating helpful, reliable, people-first content](https://developers.google.com/search/docs/fundamentals/creating-helpful-content)

@@ -42,6 +42,7 @@ const toolRoutes = [
   ["shift-pattern-calculator", "Shift Pattern Calculator"],
   ["hourly-rate-calculator", "Hourly Rate Calculator"],
   ["meeting-cost-calculator", "Meeting Cost Calculator"],
+  ["billable-hours-calculator", "Billable Hours Calculator"],
   ["jpg-to-pdf", "JPG to PDF Converter"],
   ["qr-code-generator", "QR Code Generator"],
   ["barcode-generator", "Barcode Generator"],
@@ -1716,6 +1717,53 @@ test("meeting cost calculator estimates recurring cost and runs a private live t
   const csv = await readFile(csvPath!, "utf8");
   expect(csv).toContain('"ต้นทุนรวมต่อครั้ง","4250.00","THB"');
   expect(csv).toContain('"ผู้บริหาร","2","1200000.00","ต่อปี"');
+
+  const layout = await page.evaluate(() => ({ width: document.documentElement.clientWidth, scrollWidth: document.documentElement.scrollWidth }));
+  expect(layout.scrollWidth).toBe(layout.width);
+  expect(consoleErrors).toEqual([]);
+});
+
+test("billable hours calculator rounds each entry and explains utilization and revenue gap", async ({ page }) => {
+  const consoleErrors: string[] = [];
+  page.on("console", (message) => {
+    if (message.type() === "error") consoleErrors.push(message.text());
+  });
+  page.on("pageerror", (error) => consoleErrors.push(error.message));
+
+  await page.goto("/billable-hours-calculator");
+  await expect(page.getByRole("heading", { level: 1, name: "Billable Hours Calculator" })).toBeVisible();
+  await expect(page.locator("main header").getByText("คำนวณชั่วโมงคิดเงินและ Billable Utilization", { exact: true })).toBeVisible();
+  await expect(page.locator("#billable-hourly-rate")).toBeVisible();
+  await page.evaluate(() => document.fonts.ready);
+
+  const labelGap = await page.evaluate(() => {
+    const label = document.querySelector<HTMLLabelElement>('label[for="billable-hourly-rate"]');
+    const input = document.querySelector<HTMLInputElement>("#billable-hourly-rate");
+    const labelBox = label?.getBoundingClientRect();
+    const inputBox = input?.getBoundingClientRect();
+    return labelBox && inputBox ? Math.round(inputBox.top - labelBox.bottom) : 0;
+  });
+  expect(labelGap).toBeGreaterThanOrEqual(10);
+
+  await page.getByRole("button", { name: "โหลดตัวอย่าง" }).click();
+  await page.getByRole("button", { name: "คำนวณ Billable Hours" }).click();
+  await expect(page.getByTestId("billable-invoice-hours")).toHaveText("4 ชม. 30 นาที");
+  await expect(page.getByTestId("billable-invoice-revenue")).toHaveText("฿6,750.00");
+  await expect(page.getByTestId("billable-utilization")).toHaveText("55.21%");
+  await expect(page.getByTestId("billable-hours-result")).toContainText("฿324,000.00");
+  await expect(page.getByTestId("billable-hours-result")).toContainText("฿114,000.00");
+  await expect(page.getByTestId("billable-hours-result")).toContainText("1–6 นาที");
+  await expect(page.getByRole("row", { name: /ประชุมเริ่มงาน.*Billable.*52 นาที.*54 นาที.*฿1,350.00/ })).toBeVisible();
+
+  const csvPromise = page.waitForEvent("download");
+  await page.getByRole("button", { name: "ดาวน์โหลด CSV" }).click();
+  const csvDownload = await csvPromise;
+  expect(csvDownload.suggestedFilename()).toBe("meaw-billable-hours.csv");
+  const csvPath = await csvDownload.path();
+  expect(csvPath).toBeTruthy();
+  const csv = await readFile(csvPath!, "utf8");
+  expect(csv).toContain('"เวลาที่ออกบิลหลังปัด","270.00","นาที"');
+  expect(csv).toContain('"ประชุมเริ่มงาน","Billable","52.00","54.00","2.00","1350.00"');
 
   const layout = await page.evaluate(() => ({ width: document.documentElement.clientWidth, scrollWidth: document.documentElement.scrollWidth }));
   expect(layout.scrollWidth).toBe(layout.width);

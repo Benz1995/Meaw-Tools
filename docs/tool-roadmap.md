@@ -137,6 +137,7 @@
 | 37 | Shift Pattern Calculator | Autocomplete EN 10/10; `ตารางกะ` 10/10 | 4 | 5 | 4 | 5 | 4 | ส่งมอบ Batch 39; repeating cycle, alignment, custom shifts, overnight, calendar, CSV และ ICS |
 | 38 | Hourly Rate Calculator | Autocomplete EN 10/10 หลายแกน; `คำนวณค่าแรง` 9/10 | 3 | 5 | 5 | 5 | 4 | ส่งมอบ Batch 40; salary conversion, freelance target, billable capacity, fee gross-up, project quote และ CSV |
 | 39 | Meeting Cost Calculator | Autocomplete EN 10/10; `meeting timer` 10/10 | 3 | 5 | 4 | 5 | 5 | ส่งมอบ Batch 41; grouped compensation, user-defined overhead, recurrence, shorter scenario, live timer และ CSV |
+| 40 | Billable Hours Calculator | Autocomplete EN 10/10; tracker/chart 10/10; มี 6-minute, Excel, lawyer, annual และ target | 3 | 5 | 5 | 5 | 4 | ส่งมอบ Batch 42; time log, per-entry rounding, utilization denominator, annual revenue gap, billing chart และ CSV |
 
 ## ลำดับส่งมอบที่แนะนำ
 
@@ -179,6 +180,7 @@
 37. Batch 39 — Shift Pattern Calculator แบบ client-only รองรับ Preset และรอบกำหนดเอง, เริ่มกลางรอบ, หลายประเภทกะ, กะข้ามวัน, ปฏิทินรายเดือน, ชั่วโมงสุทธิ, formula-safe CSV และ ICS แบบ local/floating — ส่งมอบแล้ว
 38. Batch 40 — Hourly Rate Calculator แบบ client-only แยกโหมดแปลงค่าจ้างกับเรทฟรีแลนซ์ รองรับ 5 งวดค่าจ้าง, โบนัส, work capacity, รายได้/ต้นทุน/เงินสำรอง, billable hours, fee gross-up, upward rounding, Day rate, project quote, 5 สกุลเงินแบบไม่แลกเปลี่ยน และ CSV — ส่งมอบแล้ว
 39. Batch 41 — Meeting Cost Calculator แบบ client-only ใช้กลุ่มบทบาทแทนรายชื่อ รองรับเรทรายชั่วโมง/เดือน/ปี, work capacity, overhead, ค่าใช้จ่ายตรง, recurrence, shorter-meeting scenario, live timer, 5 สกุลเงินแบบไม่แลกเปลี่ยน และ CSV — ส่งมอบแล้ว
+40. Batch 42 — Billable Hours Calculator แบบ client-only รองรับ time log 50 รายการ, Billable/Non-billable, ปัดขึ้นต่อรายการ 1/6/10/15/30/60 นาที, 6-minute billing chart, utilization และ target gap จากตัวหารที่ผู้ใช้กำหนด, Effective Hourly Rate, รายรับต่อปี, 5 สกุลเงินแบบไม่แลกเปลี่ยน และ formula-safe CSV — ส่งมอบแล้ว
 
 ทุก Batch ควรมี unit test ของสูตรหรือ parser, E2E อย่างน้อยหนึ่งเส้นทาง, ตรวจ keyboard/mobile และวัด Core Web Vitals ก่อนเปิด AdSense ใน production
 
