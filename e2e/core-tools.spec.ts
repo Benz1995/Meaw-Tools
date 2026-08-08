@@ -59,6 +59,7 @@ const toolRoutes = [
   ["billable-hours-calculator", "Billable Hours Calculator"],
   ["project-cost-calculator", "Project Cost & Profit Calculator"],
   ["team-capacity-calculator", "Team Capacity & Workload Calculator"],
+  ["labor-cost-calculator", "Labor Cost & Employee Cost Calculator"],
   ["jpg-to-pdf", "JPG to PDF Converter"],
   ["qr-code-generator", "QR Code Generator"],
   ["barcode-generator", "Barcode Generator"],
@@ -117,6 +118,15 @@ test("desktop tool sidebar stays active while navigating", async ({ page }, test
 
   const sidebar = page.getByLabel("เมนูเครื่องมือด้านข้าง");
   await expect(sidebar.getByRole("link", { name: "JSON Formatter" })).toHaveAttribute("aria-current", "page");
+  const shellAlignment = await page.evaluate(() => {
+    const header = document.querySelector<HTMLElement>("header.cafe-header");
+    const sidebarElement = document.querySelector<HTMLElement>('[aria-label="เมนูเครื่องมือด้านข้าง"]');
+    const headerBox = header?.getBoundingClientRect();
+    const sidebarBox = sidebarElement?.getBoundingClientRect();
+    return headerBox && sidebarBox ? { headerBottom: Math.round(headerBox.bottom), sidebarTop: Math.round(sidebarBox.top) } : null;
+  });
+  expect(shellAlignment).not.toBeNull();
+  expect(shellAlignment?.headerBottom).toBe(shellAlignment?.sidebarTop);
   await page.getByRole("button", { name: "ย่อเมนูเครื่องมือ" }).click();
   await expect(page.getByRole("button", { name: "ขยายเมนูเครื่องมือ" })).toBeVisible();
 
@@ -1878,6 +1888,53 @@ test("team capacity calculator exposes role bottlenecks without mobile overflow"
   const csv = await readFile(csvPath!, "utf8");
   expect(csv).toContain('"Planned capacity หลัง buffer","417.42","ชั่วโมง"');
   expect(csv).toContain('"Development","4.00","1.00","75.00","320.00","32.00","72.00","216.00","21.60","194.40","240.00","-45.60","123.46","4.94","0.94"');
+
+  const layout = await page.evaluate(() => ({ width: document.documentElement.clientWidth, scrollWidth: document.documentElement.scrollWidth }));
+  expect(layout.scrollWidth).toBe(layout.width);
+  expect(consoleErrors).toEqual([]);
+});
+
+test("labor cost calculator explains loaded cost without mobile overflow", async ({ page }) => {
+  const consoleErrors: string[] = [];
+  page.on("console", (message) => {
+    if (message.type() === "error") consoleErrors.push(message.text());
+  });
+  page.on("pageerror", (error) => consoleErrors.push(error.message));
+  await page.setViewportSize({ width: 390, height: 844 });
+
+  await page.goto("/labor-cost-calculator");
+  await expect(page.getByRole("heading", { level: 1, name: "Labor Cost & Employee Cost Calculator" })).toBeVisible();
+  await expect(page.locator("main header").getByText("คำนวณต้นทุนพนักงานและค่าแรงจริง", { exact: true })).toBeVisible();
+  await expect(page.locator("#labor-pay-amount")).toBeVisible();
+  await page.evaluate(() => document.fonts.ready);
+
+  const labelGap = await page.evaluate(() => {
+    const label = document.querySelector<HTMLLabelElement>('label[for="labor-pay-amount"]');
+    const input = document.querySelector<HTMLInputElement>("#labor-pay-amount");
+    const labelBox = label?.getBoundingClientRect();
+    const inputBox = input?.getBoundingClientRect();
+    return labelBox && inputBox ? Math.round(inputBox.top - labelBox.bottom) : 0;
+  });
+  expect(labelGap).toBeGreaterThanOrEqual(10);
+
+  await page.getByRole("button", { name: "โหลดตัวอย่าง" }).click();
+  await page.getByRole("button", { name: "คำนวณต้นทุนพนักงาน" }).click();
+  await expect(page.getByTestId("labor-annual-cost")).toContainText("861,700.00");
+  await expect(page.getByTestId("labor-monthly-cost")).toContainText("71,808.33");
+  await expect(page.getByTestId("labor-productive-rate")).toContainText("468.32");
+  await expect(page.getByTestId("labor-team-cost")).toContainText("2,585,100.00");
+  await expect(page.getByTestId("labor-burden-rate")).toHaveText("43.62%");
+  await expect(page.getByTestId("labor-cost-multiplier")).toHaveText("1.44×");
+
+  const csvPromise = page.waitForEvent("download");
+  await page.getByRole("button", { name: "ดาวน์โหลด CSV" }).click();
+  const csvDownload = await csvPromise;
+  expect(csvDownload.suggestedFilename()).toBe("meaw-labor-cost.csv");
+  const csvPath = await csvDownload.path();
+  expect(csvPath).toBeTruthy();
+  const csv = await readFile(csvPath!, "utf8");
+  expect(csv).toContain('"ต้นทุนรวมต่อปี","861700.00","THB"');
+  expect(csv).toContain('"ต้นทุนทีมต่อปี","2585100.00","THB"');
 
   const layout = await page.evaluate(() => ({ width: document.documentElement.clientWidth, scrollWidth: document.documentElement.scrollWidth }));
   expect(layout.scrollWidth).toBe(layout.width);

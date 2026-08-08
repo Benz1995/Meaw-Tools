@@ -53,6 +53,7 @@
 | 45 | Billable Hours Calculator | ฟรีแลนซ์, เอเจนซี, ที่ปรึกษา, นักกฎหมาย | รวม time log แยก Billable/Non-billable ปัดต่อรายการ วัด utilization เป้าหมาย รายรับ และส่งออก CSV | พร้อมใช้ |
 | 46 | Project Cost & Profit Calculator | ฟรีแลนซ์, เอเจนซี, ที่ปรึกษา, PM, SME | เทียบ Budget กับ Actual + Remaining แยกแรงงาน ต้นทุนตรง และ Overhead พร้อม Forecast กำไร Margin เป้าหมาย และ CSV | พร้อมใช้ |
 | 47 | Team Capacity & Workload Calculator | Project Manager, Scrum Master, เอเจนซี, ทีมบริการ | เทียบ Planned capacity กับ Demand รายบทบาท หักวันลา Focus factor และ Buffer พร้อม Workload, Gap, FTE และ CSV | พร้อมใช้ |
+| 48 | Labor Cost & Employee Cost Calculator | เจ้าของธุรกิจ, HR, Finance, เอเจนซี, ผู้รับเหมา | รวมค่าจ้าง ภาระนายจ้าง สวัสดิการ ต้นทุนคงที่ Overhead และ Productive hours พร้อม Burden rate, Multiplier, งบทีม และ CSV | พร้อมใช้ |
 
 ## หลักฐาน Google Trends ประเทศไทย
 

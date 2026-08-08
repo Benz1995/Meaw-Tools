@@ -44,6 +44,7 @@ const components = {
   "billable-hours-calculator": dynamic(() => import("@/features/tools/billable-hours-calculator-tool").then((module) => module.BillableHoursCalculatorTool), { loading, ssr: false }),
   "project-cost-calculator": dynamic(() => import("@/features/tools/project-cost-calculator-tool").then((module) => module.ProjectCostCalculatorTool), { loading, ssr: false }),
   "team-capacity-calculator": dynamic(() => import("@/features/tools/team-capacity-calculator-tool").then((module) => module.TeamCapacityCalculatorTool), { loading, ssr: false }),
+  "labor-cost-calculator": dynamic(() => import("@/features/tools/labor-cost-calculator-tool").then((module) => module.LaborCostCalculatorTool), { loading, ssr: false }),
   "jpg-to-pdf": dynamic(() => import("@/features/tools/jpg-to-pdf-tool").then((module) => module.JpgToPdfTool), { loading, ssr: false }),
   "qr-code-generator": dynamic(() => import("@/features/tools/qr-code-tool").then((module) => module.QrCodeTool), { loading, ssr: false }),
   "barcode-generator": dynamic(() => import("@/features/tools/barcode-generator-tool").then((module) => module.BarcodeGeneratorTool), { loading, ssr: false }),

@@ -32,45 +32,45 @@
 }
 
 :root {
-  --background: oklch(0.975 0.018 86);
-  --foreground: oklch(0.245 0.035 54);
-  --card: oklch(0.995 0.008 88);
+  --background: oklch(0.978 0.012 86);
+  --foreground: oklch(0.245 0.025 58);
+  --card: oklch(0.997 0.006 88);
   --card-foreground: var(--foreground);
-  --popover: oklch(0.995 0.008 88);
+  --popover: oklch(0.997 0.006 88);
   --popover-foreground: var(--foreground);
   --primary: oklch(0.48 0.105 150);
   --primary-foreground: oklch(0.99 0.005 88);
-  --secondary: oklch(0.94 0.048 83);
+  --secondary: oklch(0.945 0.038 83);
   --secondary-foreground: oklch(0.34 0.055 54);
-  --muted: oklch(0.945 0.022 82);
+  --muted: oklch(0.95 0.018 82);
   --muted-foreground: oklch(0.48 0.035 58);
   --accent: oklch(0.925 0.062 55);
   --accent-foreground: oklch(0.35 0.09 43);
   --destructive: oklch(0.58 0.23 27);
-  --border: oklch(0.875 0.035 76);
-  --input: oklch(0.875 0.035 76);
+  --border: oklch(0.88 0.025 76);
+  --input: oklch(0.88 0.025 76);
   --ring: oklch(0.48 0.105 150);
   --radius: 0.9rem;
 }
 
 .dark {
-  --background: oklch(0.16 0.025 50);
-  --foreground: oklch(0.95 0.018 82);
-  --card: oklch(0.205 0.028 50);
+  --background: oklch(0.17 0.012 68);
+  --foreground: oklch(0.95 0.012 84);
+  --card: oklch(0.205 0.015 66);
   --card-foreground: var(--foreground);
-  --popover: oklch(0.205 0.028 50);
+  --popover: oklch(0.205 0.015 66);
   --popover-foreground: var(--foreground);
   --primary: oklch(0.72 0.105 145);
-  --primary-foreground: oklch(0.16 0.025 50);
-  --secondary: oklch(0.27 0.045 76);
+  --primary-foreground: oklch(0.16 0.02 60);
+  --secondary: oklch(0.27 0.03 76);
   --secondary-foreground: oklch(0.95 0.018 82);
-  --muted: oklch(0.245 0.025 50);
+  --muted: oklch(0.25 0.015 66);
   --muted-foreground: oklch(0.72 0.035 78);
-  --accent: oklch(0.31 0.065 52);
+  --accent: oklch(0.31 0.05 52);
   --accent-foreground: oklch(0.95 0.025 78);
   --destructive: oklch(0.65 0.2 25);
-  --border: oklch(0.82 0.035 76 / 18%);
-  --input: oklch(0.82 0.035 76 / 22%);
+  --border: oklch(0.82 0.025 76 / 20%);
+  --input: oklch(0.82 0.025 76 / 24%);
   --ring: oklch(0.72 0.105 145);
 }
 
@@ -79,8 +79,8 @@
   html { scroll-behavior: smooth; }
   body {
     @apply bg-background text-foreground;
-    background-image: radial-gradient(circle at 1px 1px, oklch(0.48 0.105 150 / 8%) 1px, transparent 0);
-    background-size: 24px 24px;
+    background-image: radial-gradient(circle at 1px 1px, oklch(0.48 0.105 150 / 6%) 1px, transparent 0);
+    background-size: 28px 28px;
   }
   ::selection { @apply bg-primary/20 text-foreground; }
   button, a, input, textarea, select { @apply focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background; }
@@ -91,7 +91,36 @@
 .code-editor .cm-focused { outline: none; }
 
 .cafe-header {
-  box-shadow: 0 8px 30px oklch(0.25 0.04 52 / 5%);
+  box-shadow: 0 8px 30px oklch(0.25 0.04 52 / 6%);
+}
+
+.meaw-sidebar-scroll {
+  scrollbar-color: oklch(0.48 0.105 150 / 28%) transparent;
+  scrollbar-width: thin;
+}
+
+.meaw-tool-heading::after {
+  position: absolute;
+  top: -2.5rem;
+  right: -2rem;
+  width: 9rem;
+  height: 9rem;
+  border-radius: 999px;
+  background: radial-gradient(circle, oklch(0.72 0.105 145 / 13%), transparent 68%);
+  pointer-events: none;
+  content: "";
+}
+
+.meaw-workspace-panel {
+  box-shadow:
+    0 1px 0 oklch(1 0 0 / 35%) inset,
+    0 18px 55px -42px oklch(0.22 0.05 55 / 40%);
+}
+
+.dark .meaw-workspace-panel {
+  box-shadow:
+    0 1px 0 oklch(1 0 0 / 5%) inset,
+    0 18px 55px -42px oklch(0 0 0 / 80%);
 }
 
 .cafe-hero {

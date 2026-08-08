@@ -1055,3 +1055,49 @@ Microsoft อธิบาย Capacity Planning ว่าเป็นการเ
 - [Oracle — Resource Schedule](https://docs.oracle.com/en/cloud/saas/project-management/26b/oapem/resource-schedule.html)
 - [Atlassian Support — Capacity in Scrum vs. Kanban teams](https://support.atlassian.com/jira-software-cloud/docs/capacity-in-scrum-vs-kanban-teams-in-advanced-roadmaps/)
 - [Google Search Central — Creating helpful, reliable, people-first content](https://developers.google.com/search/docs/fundamentals/creating-helpful-content)
+
+## รอบที่ 35 — Labor Cost & Employee Cost Calculator และการจัดอันดับ Batch 45
+
+สำรวจเมื่อ 8 สิงหาคม 2569 ด้วย Google Autocomplete locale ไทย (`hl=th`, `gl=th`) จำนวน 36 คำตั้งต้น ครอบคลุม labor/employee/employer cost, burden, loaded rate, contractor comparison, commission, inventory, ROI, CLV และต้นทุน HR จำนวนคำแนะนำสูงสุด 10 รายการเป็น demand proxy เพื่อดู intent และ long-tail เท่านั้น ไม่ใช่ search volume และไม่รับประกันอันดับหน้าแรก Google
+
+สัญญาณหลักของหน้าที่เลือกคือ `labor cost calculator`, `employee cost calculator`, `employer cost calculator`, `labor burden calculator`, `true cost of employee calculator` และ `cost to company calculator` ได้ 10/10 ทั้งหมด พร้อม long-tail Excel, hourly, free และ industry/country variants ส่วน `loaded labor rate calculator` ได้ 2/10 และ `fully burdened labor cost calculator` 0/10 จึงใช้ Labor Cost + Employee Cost เป็นชื่อหลัก แต่รองรับ loaded/burden ด้วยสูตรเดียว คำ `employee cost calculator thailand`, `labor cost calculator thailand`, `คำนวณต้นทุนพนักงาน`, `คำนวณค่าแรงพนักงาน` และ `คำนวณต้นทุนแรงงาน` ได้ 0/10 ในรอบนี้ จึงไม่อ้าง demand ไทยเกินหลักฐาน
+
+คะแนน 5 คือสูงที่สุด การจัดอันดับพิจารณา demand, คุณค่าผู้ใช้จริง, ความต่างจาก 71 tools เดิม, ความโปร่งใสของสูตร, โอกาสรายได้จาก B2B intent, scalability, innovation และความเสี่ยงจากกฎหมายหรือ benchmark:
+
+| อันดับ | แนวคิด | Demand ที่พบ | ยาก | คุณค่าธุรกิจ | รายได้ | ขยายต่อ | นวัตกรรม | ข้อสรุป |
+|---:|---|---|---:|---:|---:|---:|---:|---|
+| 1 | Labor Cost & Employee Cost Calculator | Labor, Employee, Employer, Burden, True cost และ CTC 10/10 | 4 | 5 | 5 | 5 | 4 | ส่งมอบ Batch 45; pay basis, cost stack, productive hours, burden, multiplier, team budget และ CSV |
+| 2 | Sales Commission Calculator | 10/10 พร้อม Excel/template/free | 4 | 5 | 5 | 5 | 4 | เหมาะ Batch 46 หากแยก flat, tier, accelerator, quota, cap และ clawback ชัดเจน |
+| 3 | Safety Stock Calculator | 10/10 พร้อม Excel/standard deviation/service level | 4 | 5 | 5 | 5 | 4 | ต้องแยก demand variability, lead-time variability และ service-level assumption |
+| 4 | Contractor vs Employee Cost Calculator | 10/10 แต่ country variants หนาแน่น | 5 | 5 | 5 | 5 | 4 | มูลค่าสูงแต่ต้องเปรียบเทียบ scope, hours, risk และ benefits โดยไม่วินิจฉัยสถานะจ้าง |
+| 5 | Business ROI Calculator | 10/10 พร้อม Excel/business case | 4 | 5 | 5 | 5 | 3 | ต้องมี cash flow, time horizon และ discounting แทน ROI เดี่ยว |
+| 6 | Unit Economics Calculator | 8/10 พร้อม Excel/online | 4 | 5 | 5 | 5 | 4 | รวม contribution margin, CAC, LTV:CAC และ payback โดยไม่ผสม revenue กับ gross profit |
+| 7 | Customer Lifetime Value Calculator | 7/10 พร้อม Excel/online/คำไทย | 4 | 5 | 5 | 5 | 4 | ต้องแยก simple average model จาก retention/cohort model |
+| 8 | Salary Employer Cost Calculator by Country | 3/10 และ country intent สูงใน Employer 10/10 | 5 | 5 | 5 | 5 | 3 | ต้องมีแหล่งทางการ versioned, cap และ effective date รายประเทศ จึงยังไม่ทำ preset |
+| 9 | Training ROI Calculator | 3/10 พร้อม Excel/คำไทย | 4 | 4 | 4 | 4 | 4 | ต้องแยกผลผลิตที่อ้างเหตุได้จากผลลัพธ์ที่มีปัจจัยอื่นร่วม |
+| 10 | Hiring Cost Calculator | 3/10 | 3 | 5 | 4 | 5 | 3 | รวม sourcing, recruiter, interview time, onboarding และ vacancy days ได้ |
+| 11 | Business Break-even Calculator | 3/10 | 3 | 5 | 5 | 5 | 3 | เหมาะ fixed/variable/unit/revenue break-even และ service business |
+| 12 | Cash Runway Calculator | 2/10 พร้อมคำไทย | 3 | 5 | 5 | 5 | 3 | ต้องแยก historical burn จาก forecast และรายรับไม่สม่ำเสมอ |
+| 13 | Recruitment Cost Calculator | 2/10 | 3 | 4 | 4 | 4 | 3 | ใกล้ Hiring Cost ควรรวมเป็นหน้าเดียวแทน doorway page |
+| 14 | Inventory Reorder Point Calculator | 1/10 | 3 | 4 | 4 | 4 | 3 | ควรจับคู่ Safety Stock ภายใต้ inventory hub ในอนาคต |
+| 15 | Overtime Cost Calculator | 1/10 | 4 | 4 | 4 | 4 | 3 | Meaw Tools มี OT Thailand แล้ว จึงไม่สร้างหน้า generic ซ้ำจน Search Console พิสูจน์ intent ใหม่ |
+
+Batch 45 แปลงค่าจ้างฐานเป็นรายปีตาม pay basis: รายเดือน × 12, รายปีใช้ตรงๆ และรายชั่วโมง × ชั่วโมงที่จ่ายต่อสัปดาห์ × สัปดาห์ที่จ่าย จากนั้นบวกโบนัส/เบี้ยเลี้ยง ภาระที่ผูกกับค่าจ้างฐาน ต้นทุนคงที่ต่อคน และ Overhead ที่คิดจากเงินสดรวม เพื่อหา Fully loaded annual cost
+
+Labor burden rate เป็น `(ต้นทุนรวม - ค่าจ้างฐาน) ÷ ค่าจ้างฐาน × 100` และ Cost multiplier เป็น `ต้นทุนรวม ÷ ค่าจ้างฐาน` ชั่วโมงที่จ่ายรวมเวลาลาที่ได้รับค่าจ้างแล้ว วันลา/หยุด/อบรมจึงลดเฉพาะ Productive hours ที่ใช้เป็นตัวหาร ไม่ถูกบวกเป็นค่าแรงซ้ำ หากไม่มี Productive hours ระบบคืนค่าคำนวณไม่ได้แทน Infinity
+
+Eurostat แยก labor cost เป็น wages/salaries กับ non-wage cost เช่น employer social contributions และเก็บทั้ง hours paid กับ hours worked ส่วน BLS ECEC วัด wages/salaries และ benefits ต่อ employee hour worked โดย benefits ครอบคลุม paid leave, supplemental pay, insurance, retirement และ legally required benefits OECD นิยาม compensation ว่ารวม gross wages กับ employer social contributions จึงทำให้หน้าแสดง cost stack และชั่วโมงสองฐานแทนการใช้ salary × benchmark เดียว
+
+UI แบ่งเป็นค่าจ้าง/ตาราง, เงินสดผันแปร, ภาระตามค่าจ้าง, ต้นทุนคงที่ และ availability พร้อม label gap สม่ำเสมอ การ์ดผลลัพธ์ responsive, cost bars, breakdown, CSV และคำเตือนประเทศ/ช่วงเวลา ทุกข้อมูลคำนวณใน Browser การเลือกสกุลเงินเปลี่ยนเฉพาะหน่วย ไม่มี FX API และหน้าเดียวรวม Labor Cost, Employee Cost, Employer Cost, Labor Burden, Loaded Rate และ Cost to Company intent ที่ใช้สูตรเดียวอย่างมีความหมาย
+
+- [Google Autocomplete — labor cost calculator](https://suggestqueries.google.com/complete/search?client=firefox&hl=th&gl=th&q=labor%20cost%20calculator)
+- [Google Autocomplete — employee cost calculator](https://suggestqueries.google.com/complete/search?client=firefox&hl=th&gl=th&q=employee%20cost%20calculator)
+- [Google Autocomplete — employer cost calculator](https://suggestqueries.google.com/complete/search?client=firefox&hl=th&gl=th&q=employer%20cost%20calculator)
+- [Google Autocomplete — labor burden calculator](https://suggestqueries.google.com/complete/search?client=firefox&hl=th&gl=th&q=labor%20burden%20calculator)
+- [Google Autocomplete — true cost of employee calculator](https://suggestqueries.google.com/complete/search?client=firefox&hl=th&gl=th&q=true%20cost%20of%20employee%20calculator)
+- [Google Autocomplete — cost to company calculator](https://suggestqueries.google.com/complete/search?client=firefox&hl=th&gl=th&q=cost%20to%20company%20calculator)
+- [Eurostat — Labour costs](https://ec.europa.eu/eurostat/web/labour-market/information-data/labour-costs)
+- [U.S. BLS — Employer Costs for Employee Compensation Calculation](https://www.bls.gov/opub/hom/ecec/calculation.htm)
+- [OECD — Employee compensation by activity](https://www.oecd.org/en/data/indicators/employee-compensation-by-activity.html)
+- [GOV.UK — Work out National Insurance contributions](https://www.gov.uk/guidance/work-out-an-employees-national-insurance-contributions)
+- [Google Search Central — Creating helpful, reliable, people-first content](https://developers.google.com/search/docs/fundamentals/creating-helpful-content)

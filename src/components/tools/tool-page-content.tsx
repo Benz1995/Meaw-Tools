@@ -75,9 +75,9 @@ export function ToolPageContent({ tool }: { tool: ToolConfig }) {
         <span aria-current="page">{tool.name}</span>
       </nav>
 
-      <header className="mt-4">
+      <header className="meaw-tool-heading relative mt-4 overflow-hidden rounded-2xl border bg-card/70 p-4 shadow-sm backdrop-blur sm:p-5">
         <div className="flex items-center gap-3">
-          <span className="grid size-10 place-items-center rounded-xl bg-primary/10 text-primary">
+          <span className="grid size-11 shrink-0 place-items-center rounded-2xl bg-primary/10 text-primary ring-1 ring-primary/15 shadow-sm">
             <ToolIcon name={tool.icon} className="size-5" />
           </span>
           <div>
@@ -88,7 +88,7 @@ export function ToolPageContent({ tool }: { tool: ToolConfig }) {
             <h1 className="text-2xl font-bold tracking-tight sm:text-3xl">{tool.name}</h1>
           </div>
         </div>
-        <p className="mt-2 max-w-3xl text-sm leading-6 text-muted-foreground sm:text-base">{tool.description}</p>
+        <p className="mt-3 max-w-4xl text-sm leading-6 text-muted-foreground sm:text-base">{tool.description}</p>
         <PrivacyNotice compact />
       </header>
 
