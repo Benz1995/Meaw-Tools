@@ -40,6 +40,7 @@ const components = {
   "working-hours-calculator": dynamic(() => import("@/features/tools/working-hours-calculator-tool").then((module) => module.WorkingHoursCalculatorTool), { loading, ssr: false }),
   "shift-pattern-calculator": dynamic(() => import("@/features/tools/shift-pattern-calculator-tool").then((module) => module.ShiftPatternCalculatorTool), { loading, ssr: false }),
   "hourly-rate-calculator": dynamic(() => import("@/features/tools/hourly-rate-calculator-tool").then((module) => module.HourlyRateCalculatorTool), { loading, ssr: false }),
+  "meeting-cost-calculator": dynamic(() => import("@/features/tools/meeting-cost-calculator-tool").then((module) => module.MeetingCostCalculatorTool), { loading, ssr: false }),
   "jpg-to-pdf": dynamic(() => import("@/features/tools/jpg-to-pdf-tool").then((module) => module.JpgToPdfTool), { loading, ssr: false }),
   "qr-code-generator": dynamic(() => import("@/features/tools/qr-code-tool").then((module) => module.QrCodeTool), { loading, ssr: false }),
   "barcode-generator": dynamic(() => import("@/features/tools/barcode-generator-tool").then((module) => module.BarcodeGeneratorTool), { loading, ssr: false }),

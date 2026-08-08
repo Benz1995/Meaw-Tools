@@ -6,13 +6,14 @@
 
 - Next.js 16 App Router, React 19, TypeScript strict และ Tailwind CSS 4
 - shadcn/ui + Radix, Noto Sans Thai, JetBrains Mono และ dark mode
-- เครื่องมือ 67 รายการ พร้อม validation, empty/error state, clear และ action ที่เหมาะกับแต่ละงาน
+- เครื่องมือ 68 รายการ พร้อม validation, empty/error state, clear และ action ที่เหมาะกับแต่ละงาน
 - กลุ่มงานทั่วไป: นับคำ จัดระเบียบข้อความ คำนวณเปอร์เซ็นต์ แปลงหน่วย และคำนวณวัน
 - Word Cloud Generator ตัดคำไทย/อังกฤษ กรอง stopwords รองรับวลีพร้อมน้ำหนัก ปรับสี/พื้นหลัง และส่งออก PNG 2×, SVG หรือ CSV ภายใน Browser
 - Business Days Calculator นับช่วงวันหรือเพิ่ม/ลบวันทำการ ปรับสัปดาห์ทำงาน ตัดวันหยุดกำหนดเอง และใช้ preset วันหยุดสถาบันการเงิน ธปท. ปี 2569 แบบระบุขอบเขต
 - Working Hours Calculator รวมเวลาเข้า–ออกหลายกะ หักพัก รองรับกะข้ามวัน ปัดเวลาสุทธิแบบเปิดเผย แสดงชั่วโมงทศนิยม เทียบเป้าหมาย และดาวน์โหลด CSV
 - Shift Pattern Calculator วางรอบกะซ้ำและกะข้ามวันบนปฏิทินรายเดือน เลือกวันเริ่มกลางรอบ สรุปชั่วโมง และส่งออก CSV/ICS
 - Hourly Rate Calculator แปลงค่าจ้างรายชั่วโมง/วัน/สัปดาห์/เดือน/ปี และย้อนหาเรทฟรีแลนซ์จากรายได้ ต้นทุน เงินสำรอง เวลาที่ขายได้ ค่าธรรมเนียม และราคาโปรเจกต์
+- Meeting Cost Calculator รวมต้นทุนผู้เข้าร่วมแบบกลุ่ม overhead ค่าใช้จ่ายตรง ต้นทุนประชุมซ้ำ ทางเลือกที่สั้นลง และตัวจับเวลาต้นทุนสดโดยไม่เก็บชื่อบุคคล
 - JPG to PDF, QR Code Generator, QR Code Scanner และ Age Calculator ประมวลผลภายใน Browser
 - Loan Calculator, BMI Calculator และ Profit & Margin Calculator พร้อมสูตรและข้อจำกัดที่ตรวจสอบได้
 - VAT Calculator Thailand บวกหรือถอด VAT ด้วยสูตรที่อธิบายได้ รองรับ Service Charge และแยกภาษีหัก ณ ที่จ่าย พร้อมอัตรา versioned จากกรมสรรพากร
@@ -111,6 +112,7 @@ flowchart LR
 - Working Hours Calculator จำกัด 62 กะต่อครั้ง เวลาพักไม่เกิน 720 นาทีต่อกะ และไม่บันทึก Timesheet ลง LocalStorage หรือ Server
 - Shift Pattern Calculator จำกัดช่วง 366 วัน รอบกะ 56 วัน และประเภทกะ 6 แบบต่อครั้ง โดยไม่บันทึกตารางลง LocalStorage หรือ Server
 - Hourly Rate Calculator จำกัดค่าเงินต่อช่อง 1 ล้านล้าน ชั่วโมงต่อสัปดาห์ 168 และสัปดาห์ต่อปี 53 พร้อมปฏิเสธสมมติฐานเวลาที่เกิน 24 ชั่วโมงต่อวัน และไม่บันทึกรายได้หรือต้นทุน
+- Meeting Cost Calculator จำกัด 20 กลุ่ม กลุ่มละ 10,000 คน ระยะเวลา 1,440 นาที และค่า overhead 500% พร้อมรีเซ็ตตัวจับเวลาเมื่อแก้สมมติฐาน และไม่บันทึกชื่อ ค่าจ้าง หรือต้นทุน
 - Regex ทำงานใน Web Worker และถูก terminate เมื่อเกิน 750 ms
 - JWT เป็นการ Decode เท่านั้น ไม่ verify signature
 - SQL ถูกจัดรูปเท่านั้น ไม่ execute

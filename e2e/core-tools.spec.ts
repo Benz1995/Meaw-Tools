@@ -41,6 +41,7 @@ const toolRoutes = [
   ["working-hours-calculator", "Working Hours Calculator"],
   ["shift-pattern-calculator", "Shift Pattern Calculator"],
   ["hourly-rate-calculator", "Hourly Rate Calculator"],
+  ["meeting-cost-calculator", "Meeting Cost Calculator"],
   ["jpg-to-pdf", "JPG to PDF Converter"],
   ["qr-code-generator", "QR Code Generator"],
   ["barcode-generator", "Barcode Generator"],
@@ -1660,6 +1661,61 @@ test("hourly rate calculator converts salary and builds a transparent freelance 
   const freelanceCsvPath = await freelanceCsvDownload.path();
   expect(freelanceCsvPath).toBeTruthy();
   expect(await readFile(freelanceCsvPath!, "utf8")).toContain('"เรทหลังปัดขึ้น","800.00","THB/ชั่วโมง"');
+
+  const layout = await page.evaluate(() => ({ width: document.documentElement.clientWidth, scrollWidth: document.documentElement.scrollWidth }));
+  expect(layout.scrollWidth).toBe(layout.width);
+  expect(consoleErrors).toEqual([]);
+});
+
+test("meeting cost calculator estimates recurring cost and runs a private live timer", async ({ page }) => {
+  const consoleErrors: string[] = [];
+  page.on("console", (message) => {
+    if (message.type() === "error") consoleErrors.push(message.text());
+  });
+  page.on("pageerror", (error) => consoleErrors.push(error.message));
+
+  await page.goto("/meeting-cost-calculator");
+  await expect(page.getByRole("heading", { level: 1, name: "Meeting Cost Calculator" })).toBeVisible();
+  await expect(page.locator("main header").getByText("คำนวณต้นทุนประชุมและจับเวลาแบบสด", { exact: true })).toBeVisible();
+  await expect(page.locator("#group-1-rate")).toBeVisible();
+  await page.evaluate(() => document.fonts.ready);
+
+  const labelGap = await page.evaluate(() => {
+    const label = document.querySelector<HTMLLabelElement>('label[for="group-1-rate"]');
+    const input = document.querySelector<HTMLInputElement>("#group-1-rate");
+    const labelBox = label?.getBoundingClientRect();
+    const inputBox = input?.getBoundingClientRect();
+    return labelBox && inputBox ? Math.round(inputBox.top - labelBox.bottom) : 0;
+  });
+  expect(labelGap).toBeGreaterThanOrEqual(10);
+
+  await page.getByRole("button", { name: "โหลดตัวอย่าง" }).click();
+  await page.getByRole("button", { name: "คำนวณต้นทุนประชุม" }).click();
+  await expect(page.getByTestId("meeting-total-cost")).toHaveText("฿4,250.00");
+  await expect(page.getByTestId("meeting-cost-result")).toContainText("฿70.83");
+  await expect(page.getByTestId("meeting-cost-result")).toContainText("8 ชม.");
+  await expect(page.getByTestId("meeting-cost-result")).toContainText("฿408,000.00");
+  await expect(page.getByTestId("meeting-cost-result")).toContainText("฿90,000.00");
+  await expect(page.getByTestId("meeting-live-cost")).toHaveText("฿500.00");
+
+  await page.getByRole("button", { name: "เริ่มจับเวลา" }).click();
+  await expect(page.getByText("กำลังจับเวลา ·", { exact: false })).toBeVisible();
+  await page.waitForTimeout(1_200);
+  await page.getByRole("button", { name: "พักเวลา" }).click();
+  await expect(page.getByTestId("meeting-live-time")).not.toHaveText("00:00:00");
+  const liveCost = Number((await page.getByTestId("meeting-live-cost").textContent())?.replace(/[^0-9.]/g, ""));
+  expect(liveCost).toBeGreaterThan(500);
+  await expect(page.getByText("หยุดอยู่ ·", { exact: false })).toBeVisible();
+
+  const csvPromise = page.waitForEvent("download");
+  await page.getByRole("button", { name: "ดาวน์โหลด CSV" }).click();
+  const csvDownload = await csvPromise;
+  expect(csvDownload.suggestedFilename()).toBe("meaw-meeting-cost.csv");
+  const csvPath = await csvDownload.path();
+  expect(csvPath).toBeTruthy();
+  const csv = await readFile(csvPath!, "utf8");
+  expect(csv).toContain('"ต้นทุนรวมต่อครั้ง","4250.00","THB"');
+  expect(csv).toContain('"ผู้บริหาร","2","1200000.00","ต่อปี"');
 
   const layout = await page.evaluate(() => ({ width: document.documentElement.clientWidth, scrollWidth: document.documentElement.scrollWidth }));
   expect(layout.scrollWidth).toBe(layout.width);

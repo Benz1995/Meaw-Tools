@@ -885,3 +885,45 @@ UI ใช้ 2 Tabs เพื่อไม่ปะปนโจทย์พนั
 - [RateCalc — Freelance Hourly Rate Calculator](https://www.ratecalc.app/)
 - [Everhour — Calculate freelance hourly rate](https://everhour.com/calculators/calculate-freelance-hourly-rate)
 - [Google Search Central — Creating helpful, reliable, people-first content](https://developers.google.com/search/docs/fundamentals/creating-helpful-content)
+
+## รอบที่ 31 — Meeting Cost Calculator และการจัดอันดับ Batch 41
+
+สำรวจเมื่อ 8 สิงหาคม 2569 ด้วย Google Autocomplete locale ไทย (`hl=th`, `gl=th`) หลังส่งมอบ Hourly Rate Calculator โดยเทียบ 16 คำตั้งต้นด้านต้นทุนประชุม ตัวจับเวลา ชั่วโมงขายได้ utilization และต้นทุนพนักงาน จำนวนคำแนะนำสูงสุด 10 รายการเป็น demand proxy ของความกว้าง intent ไม่ใช่ search volume และไม่รับประกันอันดับหน้าแรก Google
+
+คำอังกฤษ `meeting cost calculator`, `meeting timer`, `billable hours calculator`, `utilization calculator`, `employee cost calculator`, `labor cost calculator`, `project cost calculator` และ `break even calculator` ได้ 10/10 ขณะที่ `cost of meeting calculator` ได้ 4/10, `meeting agenda timer` และ `cost per hire calculator` ได้ 3/10, `meeting roi calculator` ได้ 1/10 ส่วนคำไทย `คำนวณต้นทุนประชุม`, `คำนวณค่าใช้จ่ายประชุม`, `จับเวลาประชุม` และ `คำนวณต้นทุนพนักงาน` ยังไม่เกิดคำแนะนำ จึงใช้ชื่ออังกฤษเป็น primary intent และอธิบายภาษาไทยให้ตรงงานจริงโดยไม่สร้างหลายหน้าบาง
+
+คะแนน 5 คือสูงที่สุด การเลือกคำนึงถึง demand, ประโยชน์ข้ามสายงาน, ความต่างจาก catalog เดิม, privacy, ความเสี่ยงจากการตีความตัวเลข และความครบที่ทำฟรีใน Browser ได้:
+
+| อันดับ | แนวคิด | Demand ที่พบ | ยาก | คุณค่าธุรกิจ | รายได้ | ขยายต่อ | นวัตกรรม | ข้อสรุป |
+|---:|---|---|---:|---:|---:|---:|---:|---|
+| 1 | Meeting Cost Calculator | EN 10/10 พร้อม Outlook/Teams/live/free | 3 | 5 | 4 | 5 | 5 | ส่งมอบ Batch 41; กลุ่มบทบาท, 3 pay periods, overhead, direct cost, recurrence, shorter scenario, live timer และ CSV |
+| 2 | Meeting Timer | EN 10/10 พร้อม Teams/Google Meet/Zoom/online | 2 | 5 | 4 | 4 | 4 | รวมตัวจับเวลาแบบ start/pause/resume/reset ในหน้าเดียว เพื่อไม่สร้าง timer บางที่ไม่มี cost context |
+| 3 | Billable Hours Calculator | EN 10/10 พร้อม 6-minute/Excel/lawyer/annual target | 3 | 5 | 5 | 5 | 4 | ตัวเลือก Batch ถัดไป ต้องแยก time log, rounding และ target จาก Working Hours/Hourly Rate ให้ชัด |
+| 4 | Employee Cost Calculator | EN 10/10 แต่ long-tail เป็นรายประเทศ/ปี | 5 | 5 | 5 | 5 | 3 | ต้องมี payroll tax, benefits และกฎ versioned รายประเทศ จึงไม่ควรเดาจากเงินเดือนอย่างเดียว |
+| 5 | Labor Cost Calculator | EN 10/10 พร้อม Excel/ก่อสร้าง/ร้านอาหาร/โรงงาน | 4 | 5 | 5 | 5 | 3 | intent กว้างและต่างสูตรตามอุตสาหกรรม ควรวิจัย persona ก่อนสร้างหน้าเดียวที่กว้างเกินไป |
+| 6 | Project Cost Calculator | EN 10/10 แต่ปะปน solar/game/construction/craft | 4 | 5 | 5 | 5 | 3 | primary intent ไม่บริสุทธิ์ ควรทำ project-specific template หรือ Quote Profit Checker แทนหน้า generic |
+| 7 | Utilization Calculator | EN 10/10 แต่ปะปน credit/CPU/container | 3 | 5 | 5 | 5 | 4 | ควรใช้คำ Billable Utilization เป็นหลักและมี denominator policy ชัดเจน |
+| 8 | Cost of Meeting Calculator | EN 4/10 | 2 | 5 | 4 | 4 | 3 | รวมเป็น secondary keyword และ FAQ ใน Batch 41 แทน duplicate page |
+| 9 | Cost per Hire Calculator | EN 3/10 พร้อม Excel/ความหมาย | 4 | 5 | 5 | 5 | 4 | ต้องกำหนด scope ค่าโฆษณา เวลา recruiter agency onboarding และช่วงเวลารายงานก่อน |
+| 10 | Meeting Agenda Timer | EN 3/10 | 3 | 4 | 3 | 4 | 4 | live timer ปัจจุบันตอบเวลารวม; agenda item timer ควรเพิ่มเมื่อมีหลักฐาน demand ไทยหรือ usage จริง |
+| 11 | Meeting ROI Calculator | EN 1/10 | 5 | 4 | 4 | 4 | 5 | ไม่ส่งมอบ เพราะ outcome และคุณค่าการตัดสินใจวัดอัตโนมัติไม่ได้ ต้นทุนอย่างเดียวไม่ใช่ ROI |
+| 12 | Recurring Meeting Cost | ปรากฏเป็น feature คู่แข่ง | 2 | 5 | 4 | 5 | 3 | รวม meetings/week × weeks/year และแสดงรายเดือน/ปีใน Batch 41 |
+| 13 | Shorter Meeting Savings | ปรากฏใน pain point ลดเวลา | 2 | 5 | 4 | 4 | 4 | รวม scenario ลดนาที โดยลดเฉพาะ loaded labor ไม่เดาว่าค่าใช้จ่ายตรงลดตาม |
+| 14 | Live Meeting Cost Counter | long-tail ใต้ meeting cost/timer | 3 | 5 | 4 | 5 | 5 | รวมต้นทุนสดพร้อม planned-time progress และ fixed direct cost ที่อธิบายชัด |
+| 15 | Break-even Calculator | EN 10/10 แต่ปะปน mortgage/pension/social security | 3 | 4 | 5 | 5 | 2 | intent กว้างเกินไป ควรทำ Break-even Business ที่มี fixed/variable cost และ volume ชัดในรอบเฉพาะ |
+
+สูตร Batch 41 แปลงรายเดือนเป็น `(ค่าจ้างต่อเดือน × 12) ÷ (ชั่วโมงต่อสัปดาห์ × สัปดาห์ทำงานต่อปี)` และรายปีเป็น `ค่าจ้างต่อปี ÷ ชั่วโมงทำงานต่อปี` จากนั้นรวม `เรทรายชั่วโมง × จำนวนคน × ระยะเวลาประชุม` ของแต่ละกลุ่ม เพิ่ม overhead ที่ผู้ใช้กำหนดและค่าใช้จ่ายตรงต่อครั้ง ต้นทุนรายปีใช้ `ต้นทุนต่อครั้ง × ครั้งต่อสัปดาห์ × สัปดาห์ที่ประชุมต่อปี` โดยไม่ใช้ loaded-rate มาตรฐานตายตัว
+
+การประหยัดจากการลดเวลาคิดเฉพาะ `ต้นทุนทีมต่อชั่วโมงหลัง overhead × นาทีที่ลด ÷ 60` ไม่ลดค่าห้อง อาหาร เดินทาง หรือวิทยากรโดยอัตโนมัติ Live timer ใช้เรทผลล่าสุดและเพิ่มต้นทุนแรงงานตามเวลาจริง ขณะที่ direct cost เป็นยอดคงที่หนึ่งครั้ง จึงอาจเริ่มสูงกว่าศูนย์เมื่อกรอกค่าใช้จ่ายตรง
+
+UI ใช้กลุ่มบทบาทแทนชื่อบุคคล จำกัด 20 กลุ่ม ทุก label เว้นจาก input อย่างสม่ำเสมอ ตาราง breakdown เลื่อนภายในบนจอเล็กโดยไม่ทำให้ทั้งหน้า overflow รองรับ THB/USD/EUR/GBP/JPY เฉพาะหน่วยโดยไม่แปลง exchange rate และสร้าง CSV ใน Browser หน้า SEO รวม intent `meeting cost calculator`, `cost of meeting calculator`, `meeting timer` และคำอธิบายไทยไว้หน้าเดียว พร้อม FAQ แยก privacy, pay-period conversion, overhead, direct cost, recurrence, timer และข้อจำกัด Meeting ROI
+
+- [Google Autocomplete — meeting cost calculator](https://suggestqueries.google.com/complete/search?client=firefox&hl=th&gl=th&q=meeting%20cost%20calculator)
+- [Google Autocomplete — meeting timer](https://suggestqueries.google.com/complete/search?client=firefox&hl=th&gl=th&q=meeting%20timer)
+- [Google Autocomplete — billable hours calculator](https://suggestqueries.google.com/complete/search?client=firefox&hl=th&gl=th&q=billable%20hours%20calculator)
+- [Google Autocomplete — employee cost calculator](https://suggestqueries.google.com/complete/search?client=firefox&hl=th&gl=th&q=employee%20cost%20calculator)
+- [Google Autocomplete — labor cost calculator](https://suggestqueries.google.com/complete/search?client=firefox&hl=th&gl=th&q=labor%20cost%20calculator)
+- [Meeting Toll — Meeting Cost Calculator](https://www.meetingtoll.com/tools/meeting-cost-calculator)
+- [Calwise — Meeting Cost Calculator & Analytics](https://calwise.io/)
+- [U.S. DHS — Meeting Cost Estimator](https://www.dhs.gov/sites/default/files/publications/MeetingCostEstimatorForm508rb.pdf)
+- [Google Search Central — Creating helpful, reliable, people-first content](https://developers.google.com/search/docs/fundamentals/creating-helpful-content)
