@@ -525,6 +525,47 @@ SEO ใช้ primary intent เดียวพร้อม FAQ ตอบคำ�
 - [FuelCalc — Fuel Cost Formula](https://www.fuelcalc.com.au/)
 - [Google Search Central — Creating helpful, reliable, people-first content](https://developers.google.com/search/docs/fundamentals/creating-helpful-content)
 
+## รอบที่ 26 — Word Cloud ภาษาไทย และการจัดอันดับ Batch 36
+
+สำรวจเมื่อ 8 สิงหาคม 2569 ด้วย Google Autocomplete locale ไทย (`hl=th`, `gl=th`) และตรวจเครื่องมือที่เปิดใช้งานจริง คำว่า `word cloud generator`, `word cloud maker` และ `word cloud online` ได้คำแนะนำ 10/10 ส่วน `word cloud ภาษาไทย` ได้ 5/10 และ `สร้าง word cloud` ได้ 3/10 โดยแตกเป็น intent ฟรี, online, students, phrases และ shapes จำนวนคำแนะนำเป็น demand proxy ที่บอกความกว้างของ intent ไม่ใช่ search volume และไม่รับประกันอันดับ Google
+
+คะแนน 5 คือสูงที่สุด โดย “ยาก” หมายถึงความซับซ้อนในการส่งมอบให้ครบ ปลอดภัย และไม่สร้างหน้าบาง:
+
+| อันดับ | แนวคิด | TH/EN | ยาก | คุณค่าธุรกิจ | รายได้ | ขยายต่อ | นวัตกรรม | ข้อสรุป |
+|---:|---|---:|---:|---:|---:|---:|---:|---|
+| 1 | Word Cloud ภาษาไทย | 5/10 | 4 | 4 | 4 | 4 | 4 | ส่งมอบ Batch 36: ตัดคำไทย, stopwords, weighted phrases, deterministic layout และ PNG/SVG/CSV |
+| 2 | Business Days Calculator | 4/10 | 3 | 4 | 4 | 4 | 3 | อังกฤษ 10/10; ต้อง version วันหยุดไทยและแยกวันหยุดองค์กรจากวันหยุดราชการ |
+| 3 | Working Hours Calculator | 2/10 | 3 | 4 | 4 | 4 | 3 | อังกฤษ 10/10; ต้องรองรับพัก กะข้ามวัน และแยกการนับเวลาจากคำแนะนำสิทธิแรงงาน |
+| 4 | Expense Splitter | 2/10 | 3 | 4 | 4 | 4 | 3 | อังกฤษ 10/10; ควรรองรับใครจ่ายแทนใคร เศษ และสัดส่วนไม่เท่ากัน |
+| 5 | Subtitle Converter SRT/VTT | —/10 | 3 | 4 | 4 | 4 | 3 | อังกฤษ 10/10; ต้องรักษาเวลา numbering line break และ encoding โดยไม่อ้างว่าแปลภาษา |
+| 6 | PDF Text Extractor | —/10 | 4 | 4 | 4 | 4 | 3 | อังกฤษ 10/10; ต้องบอกชัดว่า text layer ต่างจาก OCR และตรวจลำดับข้อความหลายคอลัมน์ |
+| 7 | Image Metadata Remover | 1/10 | 4 | 4 | 4 | 4 | 4 | อังกฤษ 10/10; privacy value สูงแต่ต้องพิสูจน์ว่า EXIF/XMP/IPTC ถูกลบจริงหลัง encode |
+| 8 | CSV to JSON Converter | —/10 | 3 | 4 | 4 | 5 | 2 | อังกฤษ 10/10; ต้องควบคุมชนิดข้อมูล nested paths และไม่ทับ CSV tools เดิมแบบ thin page |
+| 9 | Shift Schedule Maker | —/10 | 5 | 5 | 5 | 5 | 4 | อังกฤษ 10/10; scope ใหญ่เพราะต้องจัดคน กะ วันลา ชั่วโมงสูงสุด และ fairness |
+| 10 | Color Palette Generator | 0/10 | 3 | 4 | 4 | 4 | 3 | อังกฤษ 10/10; ต้องมี lock color, contrast และ export tokens เพื่อแตกต่างจาก Color Picker |
+| 11 | Timeline Maker | —/10 | 4 | 4 | 4 | 4 | 4 | อังกฤษ 10/10; ต้องมี editor, keyboard order, responsive layout และ export ที่อ่านได้ |
+| 12 | Lorem Ipsum ภาษาไทย | —/10 | 2 | 3 | 3 | 4 | 2 | ทำฟรีได้ แต่ต้องสร้างข้อความตัวอย่างที่ไม่ทำให้เข้าใจว่าเป็นเนื้อหาจริงและคุณค่าต่ำกว่า |
+| 13 | Countdown Timer | 0/10 | 2 | 3 | 3 | 4 | 2 | อังกฤษ 10/10; intent ไทยที่ทดสอบยังไม่ขึ้นและถูกแทนด้วยนาฬิการะบบได้ง่าย |
+| 14 | Freelance Rate Calculator | 0/10 | 4 | 4 | 4 | 4 | 3 | อังกฤษ 10/10; ต้องเปิดสมมติฐานวันทำงาน ค่าใช้จ่าย ภาษี และเวลาที่ขายไม่ได้อย่างโปร่งใส |
+| 15 | Invoice Generator | —/10 | 4 | 5 | 5 | 5 | 3 | อังกฤษ 10/10 แต่ทับ Quotation และต้องป้องกันการเข้าใจผิดว่าเป็นใบกำกับภาษีหรือหลักฐานรับเงิน |
+
+เครื่องมือที่ส่งมอบมีสอง workflow: ตัดคำจากข้อความด้วย `Intl.Segmenter` เมื่อ Browser รองรับ พร้อมกรองคำทั่วไปไทย/อังกฤษ ตัวเลข คำสั้น ความถี่ และ custom stopwords; หรือรับหนึ่งคำ/วลีต่อบรรทัดพร้อมน้ำหนักเพื่อรักษาชื่อเฉพาะและคำประสม ผู้ใช้ตรวจตารางความถี่ก่อนส่งออกได้ การจัดวางใช้ seed เดิมให้ผลซ้ำได้ สลับตำแหน่งได้ และ escape user text ก่อนสร้าง SVG เพื่อไม่ให้ข้อความกลายเป็น markup
+
+คู่แข่งปัจจุบันใช้ palette, shape, rotation, manual weights และ PNG/SVG เป็น baseline รุ่นนี้เลือกส่งมอบสิ่งที่จบงานหลักก่อน ได้แก่ สี พื้นหลังโปร่งใส การหมุน weighted phrases, PNG 2×, SVG และ CSV พร้อมข้อจำกัด 100,000 ตัวอักษร การตัดคำและสร้างไฟล์ทำใน Browser ทั้งหมด Word Cloud เป็นภาพความถี่ ไม่ใช่ sentiment, topic model หรือข้อสรุปวิจัย จึงมีคำเตือนให้กลับไปอ่านบริบทต้นฉบับ
+
+SEO รวม intent ภาษาไทยและอังกฤษไว้หน้าเดียว ไม่สร้าง thin page แยกสำหรับ tag cloud, students, phrases หรือ transparent PNG FAQ ตอบการตัดคำไทย รูปแบบไฟล์ ความเป็นส่วนตัว และข้อจำกัดจริงตามแนวทาง people-first content โดยไม่อ้างรับประกันหน้าแรก
+
+- [Google Autocomplete — Word Cloud Generator](https://suggestqueries.google.com/complete/search?client=firefox&hl=th&gl=th&q=word%20cloud%20generator)
+- [Google Autocomplete — Word Cloud Maker](https://suggestqueries.google.com/complete/search?client=firefox&hl=th&gl=th&q=word%20cloud%20maker)
+- [Google Autocomplete — Word Cloud ภาษาไทย](https://suggestqueries.google.com/complete/search?client=firefox&hl=th&gl=th&q=word%20cloud%20%E0%B8%A0%E0%B8%B2%E0%B8%A9%E0%B8%B2%E0%B9%84%E0%B8%97%E0%B8%A2)
+- [Google Autocomplete — สร้าง Word Cloud](https://suggestqueries.google.com/complete/search?client=firefox&hl=th&gl=th&q=%E0%B8%AA%E0%B8%A3%E0%B9%89%E0%B8%B2%E0%B8%87%20word%20cloud)
+- [Jason Davies — Word Cloud Generator](https://www.jasondavies.com/wordcloud/)
+- [WordClouds.com — Word Cloud Generator](https://www.wordclouds.com/)
+- [MDN — Intl.Segmenter](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/Segmenter)
+- [MDN — SVG text](https://developer.mozilla.org/en-US/docs/Web/SVG/Reference/Element/text)
+- [MDN — HTMLCanvasElement.toBlob()](https://developer.mozilla.org/en-US/docs/Web/API/HTMLCanvasElement/toBlob)
+- [Google Search Central — Creating helpful, reliable, people-first content](https://developers.google.com/search/docs/fundamentals/creating-helpful-content)
+
 ## รอบที่ 23 — Resume Builder ไทย/English และการจัดอันดับ Batch 33
 
 สำรวจเมื่อ 8 สิงหาคม 2569 ด้วย Google Autocomplete locale ไทย (`hl=th`, `gl=th`) ทั้งคำไทยและอังกฤษ พร้อมตรวจคู่แข่งและคำแนะนำรูปแบบ Resume จากสถาบันการศึกษา จำนวนคำแนะนำสูงสุด 10 รายการเป็นเพียงสัญญาณความกว้างของ intent ไม่ใช่ search volume และไม่รับประกันอันดับ Google หรือผล ATS

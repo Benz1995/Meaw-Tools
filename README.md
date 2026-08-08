@@ -6,8 +6,9 @@
 
 - Next.js 16 App Router, React 19, TypeScript strict และ Tailwind CSS 4
 - shadcn/ui + Radix, Noto Sans Thai, JetBrains Mono และ dark mode
-- เครื่องมือ 62 รายการ พร้อม validation, empty/error state, clear และ action ที่เหมาะกับแต่ละงาน
+- เครื่องมือ 63 รายการ พร้อม validation, empty/error state, clear และ action ที่เหมาะกับแต่ละงาน
 - กลุ่มงานทั่วไป: นับคำ จัดระเบียบข้อความ คำนวณเปอร์เซ็นต์ แปลงหน่วย และคำนวณวัน
+- Word Cloud Generator ตัดคำไทย/อังกฤษ กรอง stopwords รองรับวลีพร้อมน้ำหนัก ปรับสี/พื้นหลัง และส่งออก PNG 2×, SVG หรือ CSV ภายใน Browser
 - JPG to PDF, QR Code Generator, QR Code Scanner และ Age Calculator ประมวลผลภายใน Browser
 - Loan Calculator, BMI Calculator และ Profit & Margin Calculator พร้อมสูตรและข้อจำกัดที่ตรวจสอบได้
 - VAT Calculator Thailand บวกหรือถอด VAT ด้วยสูตรที่อธิบายได้ รองรับ Service Charge และแยกภาษีหัก ณ ที่จ่าย พร้อมอัตรา versioned จากกรมสรรพากร
@@ -101,6 +102,7 @@ flowchart LR
 - Favicon Generator จำกัดต้นฉบับ 10 MB / 40 ล้านพิกเซล รับเฉพาะ PNG/JPG/WebP และคืน ImageBitmap กับ Blob URL เมื่อเปลี่ยนงานหรือออกจากหน้า
 - Resume Builder จำกัดข้อความรวม 20,000 ตัวอักษร, Job Description 12,000 ตัวอักษร, ประสบการณ์ 8 และการศึกษา 6 รายการ ไม่บันทึกลง LocalStorage และไม่อ้างรับประกันผล ATS
 - Fuel Cost Calculator ไม่ดึงพิกัดหรือราคาน้ำมันอัตโนมัติ ระยะทาง ราคา และค่าใช้จ่ายอยู่ใน state ของหน้าปัจจุบันและไม่ถูกส่งไป Server
+- Word Cloud Generator จำกัดข้อความ 100,000 ตัวอักษรและรายการถ่วงน้ำหนัก 20,000 ตัวอักษร escape ข้อความก่อนสร้าง SVG และไม่ส่งข้อความหรือภาพขึ้น Server
 - Regex ทำงานใน Web Worker และถูก terminate เมื่อเกิน 750 ms
 - JWT เป็นการ Decode เท่านั้น ไม่ verify signature
 - SQL ถูกจัดรูปเท่านั้น ไม่ execute

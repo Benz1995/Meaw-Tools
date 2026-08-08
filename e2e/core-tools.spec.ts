@@ -22,6 +22,7 @@ const toolRoutes = [
   ["html-table-generator", "HTML Table Generator"],
   ["hash-generator", "Hash Generator"],
   ["word-counter", "Word Counter"],
+  ["word-cloud-generator", "Word Cloud Generator"],
   ["text-cleaner", "Text Cleaner"],
   ["csv-to-excel", "CSV to Excel Converter"],
   ["excel-to-csv", "Excel to CSV Converter"],
@@ -139,6 +140,93 @@ test("word counter and percentage calculator produce useful results", async ({ p
   await page.getByLabel("จำนวนทั้งหมด").fill("200");
   await page.getByRole("button", { name: "คำนวณเปอร์เซ็นต์" }).click();
   await expect(page.getByTestId("percentage-result")).toHaveText("30");
+});
+
+test("word cloud generator segments Thai, preserves weighted phrases, and exports PNG/SVG locally", async ({ page }) => {
+  const consoleErrors: string[] = [];
+  page.on("console", (message) => {
+    if (message.type() === "error") consoleErrors.push(message.text());
+  });
+  page.on("pageerror", (error) => consoleErrors.push(error.message));
+
+  await page.goto("/word-cloud-generator");
+  await expect(page.getByRole("heading", { level: 1, name: "Word Cloud Generator" })).toBeVisible();
+  await expect(page.locator("main header").getByText("สร้าง Word Cloud ภาษาไทย", { exact: true })).toBeVisible();
+  await expect(page.locator("#word-cloud-text")).toBeVisible();
+  await page.evaluate(() => document.fonts.ready);
+
+  const labelGap = await page.evaluate(() => {
+    const label = document.querySelector<HTMLLabelElement>('label[for="word-cloud-text"]');
+    const input = document.querySelector<HTMLTextAreaElement>("#word-cloud-text");
+    const labelBox = label?.getBoundingClientRect();
+    const inputBox = input?.getBoundingClientRect();
+    return labelBox && inputBox ? Math.round(inputBox.top - labelBox.bottom) : 0;
+  });
+  expect(labelGap).toBeGreaterThanOrEqual(10);
+
+  await page.getByRole("button", { name: "โหลดตัวอย่าง" }).click();
+  await page.getByRole("button", { name: "สร้าง Word Cloud" }).click();
+  const preview = page.getByTestId("word-cloud-preview");
+  await expect(preview).toBeVisible();
+  await expect(preview).toContainText("แมว");
+  await expect(page.getByTestId("word-cloud-visible-count")).not.toHaveText("0");
+  expect(await preview.locator("text").count()).toBeGreaterThan(10);
+
+  const overlaps = await preview.locator("text").evaluateAll((elements) => {
+    const boxes = elements.map((element) => ({ text: element.textContent ?? "", box: element.getBoundingClientRect() }));
+    const collisions: string[] = [];
+    for (let leftIndex = 0; leftIndex < boxes.length; leftIndex += 1) {
+      for (let rightIndex = leftIndex + 1; rightIndex < boxes.length; rightIndex += 1) {
+        const left = boxes[leftIndex]!;
+        const right = boxes[rightIndex]!;
+        const overlapWidth = Math.min(left.box.right, right.box.right) - Math.max(left.box.left, right.box.left);
+        const overlapHeight = Math.min(left.box.bottom, right.box.bottom) - Math.max(left.box.top, right.box.top);
+        if (overlapWidth > 1 && overlapHeight > 1) collisions.push(`${left.text}/${right.text}`);
+      }
+    }
+    return collisions;
+  });
+  expect(overlaps).toEqual([]);
+
+  const beforeShuffle = await preview.locator("text").evaluateAll((elements) => elements.map((element) => `${element.getAttribute("x")}:${element.getAttribute("y")}`).join("|"));
+  await page.getByRole("button", { name: "สลับตำแหน่ง" }).click();
+  const afterShuffle = await preview.locator("text").evaluateAll((elements) => elements.map((element) => `${element.getAttribute("x")}:${element.getAttribute("y")}`).join("|"));
+  expect(afterShuffle).not.toBe(beforeShuffle);
+
+  const svgDownloadPromise = page.waitForEvent("download");
+  await page.getByRole("button", { name: "ดาวน์โหลด SVG" }).click();
+  const svgDownload = await svgDownloadPromise;
+  expect(svgDownload.suggestedFilename()).toBe("meaw-word-cloud.svg");
+  const svgPath = await svgDownload.path();
+  expect(svgPath).toBeTruthy();
+  const svg = await readFile(svgPath!, "utf8");
+  expect(svg).toContain("<svg");
+  expect(svg).toContain("word-cloud-title");
+  expect(svg).toContain("แมว");
+
+  const pngDownloadPromise = page.waitForEvent("download");
+  await page.getByRole("button", { name: "ดาวน์โหลด PNG 2×" }).click();
+  const pngDownload = await pngDownloadPromise;
+  expect(pngDownload.suggestedFilename()).toBe("meaw-word-cloud-2x.png");
+  const pngPath = await pngDownload.path();
+  expect(pngPath).toBeTruthy();
+  const png = await readFile(pngPath!);
+  expect(Array.from(png.subarray(0, 8))).toEqual([137, 80, 78, 71, 13, 10, 26, 10]);
+  expect(png.byteLength).toBeGreaterThan(10_000);
+
+  await page.getByRole("tab", { name: "คำ / วลี + น้ำหนัก" }).click();
+  await page.locator("#word-cloud-list").fill("Meaw Tools,12\nภาษาไทย,8\nคนรักแมว,6\nคาเฟ่ญี่ปุ่น,4");
+  await page.getByRole("button", { name: "สร้าง Word Cloud" }).click();
+  await expect(preview).toContainText("Meaw Tools");
+  const meawRow = page.getByRole("row").filter({ hasText: "Meaw Tools" });
+  await expect(meawRow).toContainText("12");
+
+  const layout = await page.evaluate(() => ({
+    width: document.documentElement.clientWidth,
+    scrollWidth: document.documentElement.scrollWidth,
+  }));
+  expect(layout.scrollWidth).toBe(layout.width);
+  expect(consoleErrors).toEqual([]);
 });
 
 test("CSV to Excel previews columns and downloads a safe XLSX locally", async ({ page }) => {
