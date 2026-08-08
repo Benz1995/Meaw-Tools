@@ -52,6 +52,7 @@
 | 44 | Meeting Cost Calculator | ทีมงาน, ผู้จัดการ, HR, เจ้าของกิจการ | รวมต้นทุนผู้เข้าร่วมแบบกลุ่ม ค่าใช้จ่าย ต้นทุนซ้ำ ทางเลือกที่สั้นลง และจับต้นทุนสดโดยไม่เก็บชื่อบุคคล | พร้อมใช้ |
 | 45 | Billable Hours Calculator | ฟรีแลนซ์, เอเจนซี, ที่ปรึกษา, นักกฎหมาย | รวม time log แยก Billable/Non-billable ปัดต่อรายการ วัด utilization เป้าหมาย รายรับ และส่งออก CSV | พร้อมใช้ |
 | 46 | Project Cost & Profit Calculator | ฟรีแลนซ์, เอเจนซี, ที่ปรึกษา, PM, SME | เทียบ Budget กับ Actual + Remaining แยกแรงงาน ต้นทุนตรง และ Overhead พร้อม Forecast กำไร Margin เป้าหมาย และ CSV | พร้อมใช้ |
+| 47 | Team Capacity & Workload Calculator | Project Manager, Scrum Master, เอเจนซี, ทีมบริการ | เทียบ Planned capacity กับ Demand รายบทบาท หักวันลา Focus factor และ Buffer พร้อม Workload, Gap, FTE และ CSV | พร้อมใช้ |
 
 ## หลักฐาน Google Trends ประเทศไทย
 

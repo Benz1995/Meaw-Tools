@@ -1011,3 +1011,47 @@ UI ใช้การ์ด responsive สำหรับข้อมูลห�
 - [Oracle — Project Planning and Control User Guide](https://docs.oracle.com/cd/E26401_01/doc.122/e49016/T185673T185678.htm)
 - [OpenStax — Job Order Costing](https://openstax.org/books/principles-managerial-accounting/pages/4-1-distinguish-between-job-order-costing-and-process-costing)
 - [Google Search Central — Creating helpful, reliable, people-first content](https://developers.google.com/search/docs/fundamentals/creating-helpful-content)
+
+## รอบที่ 34 — Team Capacity & Workload Calculator และการจัดอันดับ Batch 44
+
+สำรวจเมื่อ 8 สิงหาคม 2569 ด้วย Google Autocomplete locale ไทย (`hl=th`, `gl=th`) หลังส่งมอบ Project Cost & Profit Calculator โดยเทียบ 34 คำตั้งต้นด้าน capacity, workload, FTE, labor cost, break-even, cash flow, ROI, commission, unit economics และ inventory จำนวนคำแนะนำสูงสุด 10 รายการใช้เป็น demand proxy เพื่อดูความกว้างของ intent เท่านั้น ไม่ใช่ search volume และไม่รับประกันอันดับหน้าแรก Google
+
+สัญญาณของหน้าที่เลือกประกอบด้วย `capacity planning calculator` 8/10, `team capacity calculator` 6/10 และ `sprint capacity calculator` 6/10 พร้อม long-tail Excel, Agile, Scrum และ sprint team ส่วน `resource capacity calculator` มีเพียง 2/10 และปะปน YARN จึงใช้ Team เป็นชื่อหลัก `FTE calculator` ได้ 10/10 แต่ปะปนกฎประเทศ เงินเดือน การศึกษา และพยาบาล จึงตอบเฉพาะ FTE ด้านกำลังทีมภายในหน้าเดียว ไม่สร้างหน้า FTE กว้างที่สูตรไม่ครบทุก intent คำไทย `คำนวณกำลังคน` และ `คำนวณ capacity ทีม` ยังได้ 0/10, `คำนวณ fte` 4/10 และ `คำนวณภาระงาน` 1/10 ในรอบนี้
+
+คะแนน 5 คือสูงที่สุด การจัดอันดับพิจารณา demand, ประโยชน์ต่อผู้ใช้จริง, ความต่างจาก 70 tools เดิม, ความโปร่งใสของสูตร, โอกาสรายได้จาก B2B intent, scalability และความเสี่ยงจากสูตรที่ขึ้นกับประเทศหรืออุตสาหกรรม:
+
+| อันดับ | แนวคิด | Demand ที่พบ | ยาก | คุณค่าธุรกิจ | รายได้ | ขยายต่อ | นวัตกรรม | ข้อสรุป |
+|---:|---|---|---:|---:|---:|---:|---:|---|
+| 1 | Team Capacity & Workload Calculator | Capacity planning 8/10; Team 6/10; Sprint 6/10 | 4 | 5 | 5 | 5 | 4 | ส่งมอบ Batch 44; role capacity, FTE, leave, focus, buffer, demand, gap และ CSV ในหน้าเดียว |
+| 2 | Loaded Labor Cost Calculator | Labor cost 10/10; Employee cost 10/10 | 4 | 5 | 5 | 5 | 4 | demand สูงแต่ภาระนายจ้างและกฎหมายต่างประเทศ ต้องเลือก generic loaded-cost หรือทำเวอร์ชันไทยจากแหล่งทางการ |
+| 3 | Sales Commission Calculator | EN 10/10 พร้อม Excel/template/free | 4 | 5 | 5 | 5 | 4 | เหมาะ next batch หากรองรับ tier, accelerator, quota, cap และ clawback โดยไม่ตีความสัญญาแทนผู้ใช้ |
+| 4 | Safety Stock Calculator | EN 10/10 พร้อม Excel/service level/inventory | 4 | 5 | 5 | 5 | 4 | สูตรต้องแยก demand/lead-time variability และอธิบาย service level กับ distribution assumption |
+| 5 | Unit Economics Calculator | EN 8/10 พร้อม Excel/online | 4 | 5 | 5 | 5 | 4 | รวม CAC, contribution margin, LTV:CAC และ payback ได้ แต่ต้องหลีกเลี่ยงการผสม revenue กับ gross profit |
+| 6 | Business ROI Calculator | EN 10/10 พร้อม business case/investment | 4 | 5 | 5 | 5 | 3 | intent กว้างและมูลค่าสูง แต่ต้องระบุ cash flow, time horizon และ discounting ไม่ใช้ ROI เดียวตัดสินทุกโครงการ |
+| 7 | Customer Lifetime Value Calculator | EN 7/10 พร้อม Excel/online และคำไทย | 4 | 5 | 5 | 5 | 4 | ต้องแยก simple CLV จาก cohort/retention model และอธิบาย gross margin ชัดเจน |
+| 8 | FTE Hours Calculator | EN 10/10 พร้อม country/salary/hours/Excel | 3 | 4 | 4 | 5 | 3 | intent กว้างแต่ fragmented; Batch 44 ตอบ FTE ด้าน capacity แล้ว รอ Search Console ก่อนสร้าง standalone |
+| 9 | Business Cash Flow Calculator | EN 10/10 แต่ผลส่วนใหญ่เป็น rental/real estate | 4 | 5 | 5 | 5 | 3 | ต้องเลือก persona และแยก operating cash flow จาก property cash flow ก่อนสร้าง |
+| 10 | Business Break-even Calculator | EN 3/10 ตรง business/small business/service | 3 | 5 | 5 | 5 | 3 | intent สะอาดกว่าคำกว้าง เหมาะ fixed/variable cost, unit และ revenue break-even |
+| 11 | Economic Order Quantity Calculator | EN 4/10 พร้อม formula และคำไทย | 3 | 4 | 4 | 4 | 3 | สูตรตรวจสอบง่าย แต่ assumption demand คงที่และไม่มี stockout ต้องแสดงชัด |
+| 12 | Churn Rate Calculator | EN 4/10 พร้อม SaaS/customer | 3 | 5 | 5 | 5 | 3 | ควรรวม logo churn, revenue churn และ expansion เพื่อไม่ให้ metric เดียวหลอกผู้ใช้ |
+| 13 | Project ROI Calculator | EN 5/10 พร้อม Excel/management | 4 | 5 | 5 | 5 | 3 | เชื่อม Project Cost ได้ แต่ควรมี cash benefits และ time horizon ที่ตรวจสอบได้ก่อน |
+| 14 | Cash Runway Calculator | EN 2/10 พร้อมคำไทย | 3 | 5 | 5 | 5 | 3 | ต้องแยก burn เฉลี่ยย้อนหลังจาก forecast และเตือนรายรับ/รายจ่ายไม่สม่ำเสมอ |
+| 15 | Inventory Reorder Point Calculator | EN 1/10 | 3 | 4 | 4 | 4 | 3 | ใช้งานจริงแต่ demand proxy ต่ำ ควรจับคู่ Safety Stock/EOQ ใน inventory hub ภายหลัง |
+
+Batch 44 ใช้ `Scheduled FTE × วันทำงาน × ชั่วโมงต่อวัน` เป็น Gross hours แล้วหัก `Scheduled FTE × วันลาเฉลี่ย × ชั่วโมงต่อวัน` เป็น Net scheduled hours จากนั้นคูณ Focus factor เพื่อหา Delivery capacity และหัก Buffer เป็น Planned capacity สูตรแสดงทุกชั้นแทนการใช้ headcount ดิบหรือ utilization benchmark ที่เดาแทนทีม
+
+Workload เป็น `Demand ÷ Planned capacity × 100` และ Capacity gap เป็น `Planned capacity - Demand` ค่าบวกหมายถึงยังเหลือ ค่าลบหมายถึงขาด Scheduled FTE ที่ต้องเพิ่มคำนวณแยกแต่ละบทบาทจากชั่วโมงที่ขาดหาร Planned capacity ต่อ FTE ภายใต้สมมติฐานของบทบาทนั้น แล้วรวมส่วนขาดโดยไม่เอาชั่วโมงว่างข้ามทักษะมาหักล้าง หากทั้งรอบไม่มี capacity ต่อ FTE ระบบคืนสถานะคำนวณไม่ได้แทน Infinity หรือการเดาตัวเลข
+
+UI รองรับ 30 กลุ่มด้วยการ์ด responsive, label เว้นจาก input อย่างสม่ำเสมอ, summary cards, capacity waterfall, utilization bar, คอขวดรายกลุ่ม และตารางรายละเอียดที่เลื่อนภายในจอเล็ก CSV มี UTF-8 BOM และ Formula Injection protection ข้อมูลไม่ออกจาก Browser หน้า SEO รวม Team Capacity, Capacity Planning, Sprint Capacity, Workload และ FTE intent ที่ใช้สูตรเดียวกันอย่างมีความหมาย แทนการสร้าง doorway pages หลายชื่อ
+
+Microsoft อธิบาย Capacity Planning ว่าเป็นการเปรียบเทียบชั่วโมงที่ resource ทำได้กับชั่วโมงที่โครงการต้องการ Oracle แสดง requested hours, capacity hours, assigned hours และ surplus/shortfall แยกตาม role รวมทั้งนับ training, paid time off และ nonproject events ใน resource schedule ส่วน Atlassian แยก time-based capacity ออกจาก story points จึงทำให้หน้านี้ใช้ชั่วโมงเท่านั้นและเตือนไม่แปลง Story point โดยไม่มีข้อมูลย้อนหลัง
+
+- [Google Autocomplete — team capacity calculator](https://suggestqueries.google.com/complete/search?client=firefox&hl=th&gl=th&q=team%20capacity%20calculator)
+- [Google Autocomplete — capacity planning calculator](https://suggestqueries.google.com/complete/search?client=firefox&hl=th&gl=th&q=capacity%20planning%20calculator)
+- [Google Autocomplete — sprint capacity calculator](https://suggestqueries.google.com/complete/search?client=firefox&hl=th&gl=th&q=sprint%20capacity%20calculator)
+- [Google Autocomplete — FTE calculator](https://suggestqueries.google.com/complete/search?client=firefox&hl=th&gl=th&q=fte%20calculator)
+- [Microsoft Support — Evaluate resource capacity in Project Online](https://support.microsoft.com/en-gb/office/evaluate-resource-capacity-in-project-online-9da06433-281c-49d3-bcf9-e1dc5d67ead4)
+- [Oracle — Resource Capacity Planning by Project Role Dashboard](https://docs.oracle.com/en/cloud/saas/project-management/25b/fapca/resource-capacity-planning-by-project-role-dashboard.html)
+- [Oracle — Resource Schedule](https://docs.oracle.com/en/cloud/saas/project-management/26b/oapem/resource-schedule.html)
+- [Atlassian Support — Capacity in Scrum vs. Kanban teams](https://support.atlassian.com/jira-software-cloud/docs/capacity-in-scrum-vs-kanban-teams-in-advanced-roadmaps/)
+- [Google Search Central — Creating helpful, reliable, people-first content](https://developers.google.com/search/docs/fundamentals/creating-helpful-content)

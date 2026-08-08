@@ -4,6 +4,20 @@ import { strFromU8, unzipSync } from "fflate";
 import { PDFDocument } from "pdf-lib";
 import { HEIC_SAMPLE_BASE64 } from "@/lib/tools/heic-sample";
 
+const testOrigin = `http://127.0.0.1:${process.env.PLAYWRIGHT_PORT ?? "3100"}`;
+
+function hasExternalRequest(requests: string[], pageUrl: string, allowedSchemes: readonly string[] = ["blob:"]) {
+  const pageOrigin = new URL(pageUrl).origin;
+  return requests.some((requestUrl) => {
+    if (allowedSchemes.some((scheme) => requestUrl.startsWith(scheme))) return false;
+    try {
+      return new URL(requestUrl).origin !== pageOrigin;
+    } catch {
+      return true;
+    }
+  });
+}
+
 const toolRoutes = [
   ["json-formatter", "JSON Formatter"],
   ["json-validator", "JSON Validator"],
@@ -44,6 +58,7 @@ const toolRoutes = [
   ["meeting-cost-calculator", "Meeting Cost Calculator"],
   ["billable-hours-calculator", "Billable Hours Calculator"],
   ["project-cost-calculator", "Project Cost & Profit Calculator"],
+  ["team-capacity-calculator", "Team Capacity & Workload Calculator"],
   ["jpg-to-pdf", "JPG to PDF Converter"],
   ["qr-code-generator", "QR Code Generator"],
   ["barcode-generator", "Barcode Generator"],
@@ -293,7 +308,7 @@ test("CSV to Excel previews columns and downloads a safe XLSX locally", async ({
     scrollWidth: document.documentElement.scrollWidth,
   }));
   expect(layout.scrollWidth).toBe(layout.width);
-  expect(requests.some((url) => !url.startsWith("http://127.0.0.1:3100") && !url.startsWith("blob:") && !url.startsWith("data:"))).toBe(false);
+  expect(hasExternalRequest(requests, page.url(), ["blob:", "data:"])).toBe(false);
   expect(consoleErrors).toEqual([]);
 });
 
@@ -343,7 +358,7 @@ test("Excel to CSV previews a workbook and downloads UTF-8 CSV locally", async (
     scrollWidth: document.documentElement.scrollWidth,
   }));
   expect(layout.scrollWidth).toBe(layout.width);
-  expect(requests.some((url) => !url.startsWith("http://127.0.0.1:3100") && !url.startsWith("blob:") && !url.startsWith("data:"))).toBe(false);
+  expect(hasExternalRequest(requests, page.url(), ["blob:", "data:"])).toBe(false);
   expect(consoleErrors).toEqual([]);
 });
 
@@ -406,7 +421,7 @@ test("CSV cleaner removes selected duplicates and protects spreadsheet formulas 
     scrollWidth: document.documentElement.scrollWidth,
   }));
   expect(layout.scrollWidth).toBe(layout.width);
-  expect(requests.some((url) => !url.startsWith("http://127.0.0.1:3100") && !url.startsWith("blob:") && !url.startsWith("data:"))).toBe(false);
+  expect(hasExternalRequest(requests, page.url(), ["blob:", "data:"])).toBe(false);
   expect(consoleErrors).toEqual([]);
 });
 
@@ -456,7 +471,7 @@ test("Markdown table generator imports spreadsheet data and produces safe GFM", 
     scrollWidth: document.documentElement.scrollWidth,
   }));
   expect(layout.scrollWidth).toBe(layout.width);
-  expect(requests.some((url) => !url.startsWith("http://127.0.0.1:3100") && !url.startsWith("blob:") && !url.startsWith("data:"))).toBe(false);
+  expect(hasExternalRequest(requests, page.url(), ["blob:", "data:"])).toBe(false);
   expect(consoleErrors).toEqual([]);
 });
 
@@ -514,7 +529,7 @@ test("HTML table generator imports data, merges headers, escapes HTML, and downl
     scrollWidth: document.documentElement.scrollWidth,
   }));
   expect(layout.scrollWidth).toBe(layout.width);
-  expect(requests.some((url) => !url.startsWith("http://127.0.0.1:3100") && !url.startsWith("blob:") && !url.startsWith("data:"))).toBe(false);
+  expect(hasExternalRequest(requests, page.url(), ["blob:", "data:"])).toBe(false);
   expect(consoleErrors).toEqual([]);
 });
 
@@ -559,7 +574,7 @@ test("UTM builder preserves existing URL data and produces a consistent GA4 camp
     scrollWidth: document.documentElement.scrollWidth,
   }));
   expect(layout.scrollWidth).toBe(layout.width);
-  expect(requests.some((urlValue) => !urlValue.startsWith("http://127.0.0.1:3100") && !urlValue.startsWith("blob:") && !urlValue.startsWith("data:"))).toBe(false);
+  expect(hasExternalRequest(requests, page.url(), ["blob:", "data:"])).toBe(false);
   expect(consoleErrors).toEqual([]);
 });
 
@@ -611,7 +626,7 @@ test("grade calculator weights course GPA and multi-term GPAX transparently", as
     hasHorizontalOverflow: document.documentElement.scrollWidth > document.documentElement.clientWidth,
   }));
   expect(finalLayout.hasHorizontalOverflow).toBe(false);
-  expect(requests.some((url) => !url.startsWith("http://127.0.0.1:3100") && !url.startsWith("blob:") && !url.startsWith("data:"))).toBe(false);
+  expect(hasExternalRequest(requests, page.url(), ["blob:", "data:"])).toBe(false);
   expect(consoleErrors).toEqual([]);
 });
 
@@ -649,7 +664,7 @@ test("typing test measures Thai graphemes and switches to English", async ({ pag
 });
 
 test("special characters styles text and finds symbols by Thai intent", async ({ page, context }) => {
-  await context.grantPermissions(["clipboard-read", "clipboard-write"], { origin: "http://127.0.0.1:3100" });
+  await context.grantPermissions(["clipboard-read", "clipboard-write"], { origin: testOrigin });
   await page.goto("/special-characters");
   await expect(page.getByRole("heading", { level: 1, name: "Special Characters & Fancy Text" })).toBeVisible();
   await expect(page.getByRole("textbox", { name: "ข้อความสำหรับแต่งชื่อ" })).toBeVisible();
@@ -788,7 +803,7 @@ test("text to speech reads Thai-English text with browser voices", async ({ page
   const spoken = await page.evaluate(() => (window as unknown as { __ttsSpoken: string[] }).__ttsSpoken.join(" "));
   expect(spoken).toContain("Meaw Tools");
   expect(spoken).toContain("Hello!");
-  expect(requests.some((url) => !url.startsWith("http://127.0.0.1:3100") && !url.startsWith("blob:"))).toBe(false);
+  expect(hasExternalRequest(requests, page.url())).toBe(false);
   expect(consoleErrors).toEqual([]);
 
   await page.getByRole("button", { name: "ล้างข้อมูล" }).click();
@@ -908,12 +923,12 @@ test("barcode generator validates, renders, and exports batch files locally", as
   }));
   expect(finalLayout.hasHorizontalOverflow).toBe(false);
 
-  expect(requests.some((url) => !url.startsWith("http://127.0.0.1:3100") && !url.startsWith("blob:") && !url.startsWith("data:"))).toBe(false);
+  expect(hasExternalRequest(requests, page.url(), ["blob:", "data:"])).toBe(false);
   expect(consoleErrors).toEqual([]);
 });
 
 test("QR scanner reads a local sample without opening the result automatically", async ({ page, context }) => {
-  await context.grantPermissions(["clipboard-read", "clipboard-write"], { origin: "http://127.0.0.1:3100" });
+  await context.grantPermissions(["clipboard-read", "clipboard-write"], { origin: testOrigin });
   await page.goto("/qr-code-scanner");
   await expect(page.getByRole("heading", { level: 1, name: "QR Code Scanner" })).toBeVisible();
   await expect(page.locator("#qr-image-file")).toBeVisible();
@@ -946,7 +961,7 @@ test("QR scanner reads a local sample without opening the result automatically",
 });
 
 test("image to text OCR reads and edits a local Thai-English sample", async ({ page, context }) => {
-  await context.grantPermissions(["clipboard-read", "clipboard-write"], { origin: "http://127.0.0.1:3100" });
+  await context.grantPermissions(["clipboard-read", "clipboard-write"], { origin: testOrigin });
   const requests: string[] = [];
   const consoleErrors: string[] = [];
   page.on("request", (request) => requests.push(request.url()));
@@ -1092,7 +1107,7 @@ test("image cropper creates an exact circular PNG locally", async ({ page }) => 
   const downloadPromise = page.waitForEvent("download");
   await page.getByRole("button", { name: "ดาวน์โหลด meaw-cafe-circle.png" }).click();
   expect((await downloadPromise).suggestedFilename()).toBe("meaw-cafe-circle.png");
-  expect(requests.some((url) => !url.startsWith("http://127.0.0.1:3100") && !url.startsWith("blob:"))).toBe(false);
+  expect(hasExternalRequest(requests, page.url())).toBe(false);
   expect(consoleErrors).toEqual([]);
 });
 
@@ -1164,7 +1179,7 @@ test("favicon generator creates a complete ICO and PWA package locally", async (
   expect(JSON.parse(strFromU8(entries["site.webmanifest"]!)).icons[2].purpose).toBe("maskable");
   expect(strFromU8(entries["favicon-head.html"]!)).toContain('rel="apple-touch-icon" sizes="180x180"');
   expect(strFromU8(entries["README.txt"]!)).toContain("ไม่คัดลอก EXIF, GPS");
-  expect(requests.some((url) => !url.startsWith("http://127.0.0.1:3100") && !url.startsWith("blob:"))).toBe(false);
+  expect(hasExternalRequest(requests, page.url())).toBe(false);
   expect(consoleErrors).toEqual([]);
 });
 
@@ -1215,7 +1230,7 @@ test("JPG to PNG batch converter creates real images and ZIP locally", async ({ 
   expect(Object.keys(entries).sort()).toEqual(["meaw-cafe-converted.png", "meaw-sticker-converted.png"]);
   for (const bytes of Object.values(entries)) expect([...bytes.subarray(0, 8)]).toEqual([0x89, 0x50, 0x4e, 0x47, 0x0d, 0x0a, 0x1a, 0x0a]);
 
-  expect(requests.some((url) => !url.startsWith("http://127.0.0.1:3100") && !url.startsWith("blob:"))).toBe(false);
+  expect(hasExternalRequest(requests, page.url())).toBe(false);
   expect(consoleErrors).toEqual([]);
   await page.getByRole("button", { name: "ล้างข้อมูล" }).click();
   await expect(page.getByTestId("batch-file-row")).toHaveCount(0);
@@ -1820,6 +1835,55 @@ test("project cost calculator compares budget with actual plus remaining on mobi
   expect(consoleErrors).toEqual([]);
 });
 
+test("team capacity calculator exposes role bottlenecks without mobile overflow", async ({ page }) => {
+  const consoleErrors: string[] = [];
+  page.on("console", (message) => {
+    if (message.type() === "error") consoleErrors.push(message.text());
+  });
+  page.on("pageerror", (error) => consoleErrors.push(error.message));
+  await page.setViewportSize({ width: 390, height: 844 });
+
+  await page.goto("/team-capacity-calculator");
+  await expect(page.getByRole("heading", { level: 1, name: "Team Capacity & Workload Calculator" })).toBeVisible();
+  await expect(page.locator("main header").getByText("คำนวณ Capacity ทีม ภาระงาน และ FTE", { exact: true })).toBeVisible();
+  await expect(page.locator("#team-working-days")).toBeVisible();
+  await page.evaluate(() => document.fonts.ready);
+
+  const labelGap = await page.evaluate(() => {
+    const label = document.querySelector<HTMLLabelElement>('label[for="team-working-days"]');
+    const input = document.querySelector<HTMLInputElement>("#team-working-days");
+    const labelBox = label?.getBoundingClientRect();
+    const inputBox = input?.getBoundingClientRect();
+    return labelBox && inputBox ? Math.round(inputBox.top - labelBox.bottom) : 0;
+  });
+  expect(labelGap).toBeGreaterThanOrEqual(10);
+
+  await page.getByRole("button", { name: "โหลดตัวอย่าง" }).click();
+  await expect(page.getByTestId("team-capacity-group")).toHaveCount(4);
+  await page.getByRole("button", { name: "คำนวณ Capacity และ Workload" }).click();
+  await expect(page.getByTestId("team-planned-capacity")).toHaveText("417.42 ชม.");
+  await expect(page.getByTestId("team-demand-hours")).toHaveText("450 ชม.");
+  await expect(page.getByTestId("team-capacity-gap")).toHaveText("−32.58 ชม.");
+  await expect(page.getByTestId("team-load-percent")).toHaveText("107.81%");
+  await expect(page.getByTestId("team-additional-fte")).toHaveText("0.94 FTE");
+  await expect(page.getByTestId("team-capacity-result")).toContainText("Development");
+  await expect(page.getByTestId("team-capacity-result")).toContainText("เกินกำลัง");
+
+  const csvPromise = page.waitForEvent("download");
+  await page.getByRole("button", { name: "ดาวน์โหลด CSV" }).click();
+  const csvDownload = await csvPromise;
+  expect(csvDownload.suggestedFilename()).toBe("meaw-team-capacity.csv");
+  const csvPath = await csvDownload.path();
+  expect(csvPath).toBeTruthy();
+  const csv = await readFile(csvPath!, "utf8");
+  expect(csv).toContain('"Planned capacity หลัง buffer","417.42","ชั่วโมง"');
+  expect(csv).toContain('"Development","4.00","1.00","75.00","320.00","32.00","72.00","216.00","21.60","194.40","240.00","-45.60","123.46","4.94","0.94"');
+
+  const layout = await page.evaluate(() => ({ width: document.documentElement.clientWidth, scrollWidth: document.documentElement.scrollWidth }));
+  expect(layout.scrollWidth).toBe(layout.width);
+  expect(consoleErrors).toEqual([]);
+});
+
 test("Thai income tax calculator explains progressive tax and withholding", async ({ page }) => {
   await page.goto("/thai-income-tax-calculator");
   await page.getByLabel("เงินเดือนต่อเดือน (บาท)").fill("50000");
@@ -1948,7 +2012,7 @@ test("resume builder exports local Thai PDF and ordered plain text", async ({ pa
   expect(extractedText.replace(/\s+/g, "")).toContain("FrontendDeveloper");
   expect(extractedText.replace(/\s+/g, "")).toContain("TypeScript");
   await loadingTask.destroy();
-  expect(requests.some((url) => !url.startsWith("http://127.0.0.1:3100") && !url.startsWith("blob:"))).toBe(false);
+  expect(hasExternalRequest(requests, page.url())).toBe(false);
   expect(consoleErrors).toEqual([]);
 });
 
