@@ -45,7 +45,7 @@ function normalizedDuplicateValue(value: string, caseSensitive: boolean): string
   return caseSensitive ? value : value.toLowerCase();
 }
 
-function protectSpreadsheetCell(value: string): { value: string; protected: boolean } {
+export function protectSpreadsheetCell(value: string): { value: string; protected: boolean } {
   const candidate = value.trimStart();
   if (!FORMULA_PREFIX.test(value) || NUMERIC_LITERAL.test(candidate)) return { value, protected: false };
   return { value: `\t${value}`, protected: true };

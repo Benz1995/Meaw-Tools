@@ -55,6 +55,8 @@ export function auditToolSeo(tools: ToolConfig[]): ToolSeoIssue[] {
 
     if (!/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(tool.slug)) issues.push({ slug: tool.slug, rule: "slug-format", message: "slug ต้องเป็น lowercase kebab-case" });
     if (!primaryKeyword) issues.push({ slug: tool.slug, rule: "primary-keyword", message: "keywords[0] ต้องเป็น primary keyword" });
+    const visibleIntent = normalizeKeyword([tool.name, tool.thaiName, tool.shortDescription, tool.description, title].join(" "));
+    if (primaryKeyword && !visibleIntent.includes(normalizeKeyword(primaryKeyword))) issues.push({ slug: tool.slug, rule: "primary-keyword-placement", message: `ไม่พบ primary keyword ในชื่อหรือเนื้อหาหลัก: ${primaryKeyword}` });
     if (tool.keywords.length < 5) issues.push({ slug: tool.slug, rule: "keyword-depth", message: "ควรมี keyword ที่เกี่ยวข้องอย่างน้อย 5 คำ" });
     if (new Set(tool.keywords.map(normalizeKeyword)).size !== tool.keywords.length) issues.push({ slug: tool.slug, rule: "duplicate-keywords", message: "มี keyword ซ้ำภายในหน้าเดียวกัน" });
     if (title.length < 12 || title.length > 76) issues.push({ slug: tool.slug, rule: "title-length", message: `title ยาว ${title.length} ตัวอักษร` });

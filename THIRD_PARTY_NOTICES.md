@@ -25,6 +25,15 @@ The full license texts and package notices remain available from their respectiv
 
 The QR Code Scanner loads this decoder only when the user starts scanning. Image and camera pixels remain in the browser and are not sent to the upstream project.
 
+## Excel workbook reader
+
+The Excel to CSV tool lazy-loads a workbook reader inside a dedicated browser Web Worker:
+
+- `read-excel-file` 9.3.7 — MIT
+  - Source: https://github.com/catamphetamine/read-excel-file
+
+Workbook bytes and parsed cell values remain in the browser and are not sent to the upstream project or Meaw Tools servers.
+
 ## OCR runtime and language data
 
 The Image to Text tool self-hosts a lazy-loaded WebAssembly OCR runtime and Thai/English language files:

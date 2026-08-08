@@ -23,6 +23,7 @@ const toolRoutes = [
   ["word-counter", "Word Counter"],
   ["text-cleaner", "Text Cleaner"],
   ["csv-to-excel", "CSV to Excel Converter"],
+  ["excel-to-csv", "Excel to CSV Converter"],
   ["csv-cleaner", "CSV Cleaner & Duplicate Finder"],
   ["typing-test", "Typing Test"],
   ["special-characters", "Special Characters & Fancy Text"],
@@ -185,6 +186,56 @@ test("CSV to Excel previews columns and downloads a safe XLSX locally", async ({
   expect(sheet).toContain('<c r="D2"><v>55</v></c>');
   expect(sheet).toContain("=SUM(1,1)");
   expect(sheet).not.toContain("<f>");
+
+  const layout = await page.evaluate(() => ({
+    width: document.documentElement.clientWidth,
+    scrollWidth: document.documentElement.scrollWidth,
+  }));
+  expect(layout.scrollWidth).toBe(layout.width);
+  expect(requests.some((url) => !url.startsWith("http://127.0.0.1:3100") && !url.startsWith("blob:") && !url.startsWith("data:"))).toBe(false);
+  expect(consoleErrors).toEqual([]);
+});
+
+test("Excel to CSV previews a workbook and downloads UTF-8 CSV locally", async ({ page }) => {
+  const requests: string[] = [];
+  const consoleErrors: string[] = [];
+  page.on("request", (request) => requests.push(request.url()));
+  page.on("console", (message) => {
+    if (message.type() === "error") consoleErrors.push(message.text());
+  });
+  page.on("pageerror", (error) => consoleErrors.push(error.message));
+
+  await page.goto("/excel-to-csv");
+  await expect(page.getByRole("heading", { level: 1, name: "Excel to CSV Converter" })).toBeVisible();
+  await expect(page.getByText("XLSX · Web Worker", { exact: true })).toBeVisible();
+
+  const fileInput = page.locator("#excel-to-csv-file");
+  const labelGap = await fileInput.evaluate((input) => {
+    const label = document.querySelector<HTMLLabelElement>('label[for="excel-to-csv-file"]');
+    const inputBox = input.getBoundingClientRect();
+    const labelBox = label?.getBoundingClientRect();
+    return labelBox ? Math.round(inputBox.top - labelBox.bottom) : 0;
+  });
+  expect(labelGap).toBeGreaterThanOrEqual(10);
+
+  await page.getByRole("button", { name: "โหลดตัวอย่าง" }).click();
+  await expect(page.getByRole("status").filter({ hasText: "อ่าน Workbook สำเร็จ" })).toBeVisible();
+  await expect(page.locator("#excel-csv-sheet")).toHaveValue("ยอดขาย สิงหาคม");
+  await expect(page.getByTestId("excel-csv-preview")).toContainText("00123");
+  await expect(page.getByTestId("excel-csv-preview")).toContainText("ครัวซองต์, เนยสด");
+  await page.locator("#excel-csv-delimiter").selectOption("semicolon");
+
+  const downloadPromise = page.waitForEvent("download");
+  await page.getByRole("button", { name: "ดาวน์โหลด CSV", exact: true }).click();
+  const download = await downloadPromise;
+  expect(download.suggestedFilename()).toBe("meaw-sales-sample.csv");
+  const path = await download.path();
+  expect(path).toBeTruthy();
+  const csv = await readFile(path!, "utf8");
+  expect(csv.charCodeAt(0)).toBe(0xfeff);
+  expect(csv).toContain("รหัส;สินค้า;ยอดขาย");
+  expect(csv).toContain("00123;ชาไทย;1250.5");
+  expect(csv).toContain("\t=HYPERLINK(");
 
   const layout = await page.evaluate(() => ({
     width: document.documentElement.clientWidth,

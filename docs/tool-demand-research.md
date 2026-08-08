@@ -415,3 +415,40 @@ Markdown Table Generator ถูกเลือกเพราะเพิ่ม�
 - [Google Autocomplete — HTML Table Generator](https://suggestqueries.google.com/complete/search?client=firefox&hl=th&gl=th&q=html%20table%20generator)
 - [GitHub Docs — Organizing information with tables](https://docs.github.com/en/get-started/writing-on-github/working-with-advanced-formatting/organizing-information-with-tables)
 - [GitHub Flavored Markdown Spec — Tables extension](https://github.github.com/gfm/#tables-extension-)
+
+## รอบที่ 19 — Excel to CSV Converter และการจัดอันดับ Batch 29
+
+สำรวจต่อเมื่อ 8 สิงหาคม 2569 ด้วย Google Autocomplete locale ไทยและตรวจหน้าคู่แข่งที่ติดผลค้นหาสำหรับ intent การแปลงตาราง จำนวนคำแนะนำสูงสุด 10 รายการเป็นเพียงสัญญาณว่ามี long-tail intent ไม่ใช่ search volume และไม่สามารถรับประกันอันดับหน้าแรก Google ได้ การเลือกจึงรวมประโยชน์จริง ความครบของหน้าที่ทำได้ฟรีใน Browser, catalog overlap, ความเสี่ยง ความเป็นส่วนตัว และโอกาสสร้างเนื้อหาที่ตอบโจทย์กว่าหน้าแปลงไฟล์แบบบาง
+
+คะแนน 5 คือสูงที่สุด คอลัมน์ TH/EN เป็นจำนวนคำแนะนำสูงสุดจาก endpoint ที่ตรวจในรอบนี้:
+
+| อันดับ | แนวคิด | TH/EN | ยาก | คุณค่าธุรกิจ | รายได้ | ขยายต่อ | นวัตกรรม | ข้อสรุป |
+|---:|---|---:|---:|---:|---:|---:|---:|---|
+| 1 | Excel to CSV Converter | 10/10 | 3 | 5 | 4 | 5 | 3 | ชนะ: intent ไทย/อังกฤษชัด ทำ multi-sheet, Preview, BOM และ privacy-first ได้จริงใน Browser |
+| 2 | HTML Table Generator | 8/10 | 3 | 4 | 4 | 4 | 3 | demand ดี แต่ควรทำ semantics, caption, scope, responsive preview และ CSS export ให้ครบ |
+| 3 | Resume Builder | 10/10 | 5 | 5 | 5 | 5 | 4 | มูลค่าสูง แต่ต้องพิสูจน์ ATS semantics, PDF ภาษาไทย, privacy และหลาย template |
+| 4 | Image Cropper | 1/10 | 3 | 5 | 5 | 5 | 3 | อังกฤษ 10/10; ควรรองรับ pixel, ratio, circle, rotate และ quality โดยไม่เสีย metadata policy |
+| 5 | Favicon / PWA Icon Generator | 2/10 | 3 | 4 | 4 | 4 | 3 | อังกฤษ 10/10; ต้องสร้าง ICO/PNG/manifest หลายขนาดและตรวจไฟล์ผลจริง |
+| 6 | Word Cloud Generator | 3/10 | 4 | 4 | 4 | 4 | 4 | อังกฤษ 10/10; ภาษาไทยต้องมี tokenization และฟอนต์ที่ export ได้ถูกต้อง |
+| 7 | Remove Image Metadata | 1/10 | 4 | 4 | 4 | 4 | 4 | อังกฤษ 10/10 และมี privacy value แต่ต้องตรวจ EXIF/XMP/IPTC หลัง re-encode ทุก format |
+| 8 | Business Days Calculator | 4/10 | 3 | 4 | 4 | 4 | 3 | อังกฤษ 10/10; วันหยุดไทย/ประเทศ/องค์กรต้องเป็นชุดข้อมูล versioned |
+| 9 | JSON to CSV Converter | 1/10 | 3 | 4 | 4 | 5 | 2 | อังกฤษ 10/10 แต่ทับกลุ่มเดิมและต้องให้ผู้ใช้ควบคุม flatten array/object |
+| 10 | Password Strength Checker | 0/10 | 2 | 4 | 4 | 4 | 3 | อังกฤษ 10/10; ต้อง client-only และไม่อ้างเวลาถอดรหัสจากสมมติฐานลวง |
+| 11 | Online Signature Maker | 2/10 | 3 | 4 | 4 | 4 | 3 | อังกฤษ 10/10 แต่ทับ Sign PDF และต้องสื่อว่าไม่ใช่ digital certificate |
+| 12 | Invoice Generator | 1/10 | 5 | 5 | 5 | 5 | 3 | อังกฤษ 10/10; กฎเอกสารภาษีและเลขที่เอกสารทำให้ความเสี่ยงสูงกว่า Quotation เดิม |
+| 13 | PDF Compressor | 6/10 | 5 | 5 | 5 | 5 | 4 | demand ดีแต่ชะลอ: การ rasterize ทั้งหน้าอาจทำลาย text/search/accessibility และไม่ได้เล็กลงเสมอ |
+| 14 | Character Counter | 8/10 | 1 | 3 | 3 | 3 | 1 | ทำง่ายแต่ intent และฟังก์ชันทับ Word Counter ที่มีอยู่แล้ว |
+| 15 | Thai Number to Words | 4/1 | 2 | 4 | 3 | 4 | 3 | ใช้จริงในบัญชี แต่ demand ต่ำกว่าและ logic บาทถ้วนมีใน Quotation แล้ว |
+
+Excel to CSV ถูกเลือกเพราะเพิ่มเส้นทางกลับของ CSV to Excel และตอบคำค้น `excel to csv`, `xlsx to csv` และ `แปลง excel เป็น csv` โดยมีความต่างเชิงคุณภาพ: เลือก Worksheet, ส่งออกทุกชีตเป็น ZIP, เลือก comma/semicolon/tab/pipe, CRLF/LF, UTF-8 BOM, Quote ทุกเซลล์, Preview และป้องกัน Formula Injection เป็นค่าเริ่มต้น ไฟล์จำกัด 10 MB, 50 Worksheet, 50,000 แถวต่อชีต, 200 คอลัมน์ และ 500,000 เซลล์รวม งานอ่าน/แปลงอยู่ใน Web Worker และไม่มี API รับ Workbook
+
+ขอบเขตตั้งใจรองรับเฉพาะ `.xlsx` ไม่อ้างรองรับ `.xls`, macro, สูตร,สี, ฟอนต์,รูปภาพ, Chart หรือ merged cell เพราะ CSV เก็บได้เฉพาะค่าตาราง Microsoft ระบุว่า Excel เปิด CSV UTF-8 ได้ตามปกติเมื่อมี BOM จึงเปิด BOM เป็นค่าเริ่มต้นสำหรับภาษาไทย ส่วน `read-excel-file` รองรับ File/Blob/ArrayBuffer และมี export สำหรับ Web Worker จึงเหมาะกับสถาปัตยกรรม client-only ของโครงการ
+
+- [Google Autocomplete — Excel to CSV Converter](https://suggestqueries.google.com/complete/search?client=firefox&hl=th&gl=th&q=excel%20to%20csv%20converter)
+- [Google Autocomplete — แปลง Excel เป็น CSV](https://suggestqueries.google.com/complete/search?client=firefox&hl=th&gl=th&q=%E0%B9%81%E0%B8%9B%E0%B8%A5%E0%B8%87%20excel%20%E0%B9%80%E0%B8%9B%E0%B9%87%E0%B8%99%20csv)
+- [Google Autocomplete — XLSX to CSV](https://suggestqueries.google.com/complete/search?client=firefox&hl=th&gl=th&q=xlsx%20to%20csv)
+- [Microsoft — Opening CSV UTF-8 files correctly in Excel](https://support.microsoft.com/en-US/Excel/opening-csv-utf-8-files-correctly-in-excel)
+- [Microsoft — Import or export text and CSV files](https://support.microsoft.com/en-us/excel/get-started/import-or-export-text-txt-or-csv-files)
+- [read-excel-file — Browser and Web Worker API](https://github.com/catamphetamine/read-excel-file)
+- [Google Search Central — SEO Starter Guide](https://developers.google.com/search/docs/fundamentals/seo-starter-guide)
+- [Google Search Central — Title links](https://developers.google.com/search/docs/appearance/title-link)

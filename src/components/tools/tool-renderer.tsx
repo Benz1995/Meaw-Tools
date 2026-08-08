@@ -22,6 +22,7 @@ const components = {
   "word-counter": dynamic(() => import("@/features/tools/work-tools").then((module) => module.WordCounterTool), { loading, ssr: false }),
   "text-cleaner": dynamic(() => import("@/features/tools/work-tools").then((module) => module.TextCleanerTool), { loading, ssr: false }),
   "csv-to-excel": dynamic(() => import("@/features/tools/csv-to-excel-tool").then((module) => module.CsvToExcelTool), { loading, ssr: false }),
+  "excel-to-csv": dynamic(() => import("@/features/tools/excel-to-csv-tool").then((module) => module.ExcelToCsvTool), { loading, ssr: false }),
   "csv-cleaner": dynamic(() => import("@/features/tools/csv-cleaner-tool").then((module) => module.CsvCleanerTool), { loading, ssr: false }),
   "typing-test": dynamic(() => import("@/features/tools/typing-test-tool").then((module) => module.TypingTestTool), { loading, ssr: false }),
   "special-characters": dynamic(() => import("@/features/tools/special-characters-tool").then((module) => module.SpecialCharactersTool), { loading, ssr: false }),
