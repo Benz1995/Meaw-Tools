@@ -452,3 +452,41 @@ Excel to CSV ถูกเลือกเพราะเพิ่มเส้น�
 - [read-excel-file — Browser and Web Worker API](https://github.com/catamphetamine/read-excel-file)
 - [Google Search Central — SEO Starter Guide](https://developers.google.com/search/docs/fundamentals/seo-starter-guide)
 - [Google Search Central — Title links](https://developers.google.com/search/docs/appearance/title-link)
+
+## รอบที่ 20 — HTML Table Generator และการจัดอันดับ Batch 30
+
+สำรวจต่อเมื่อ 8 สิงหาคม 2569 ด้วย Google Autocomplete locale ไทย โดยเทียบคำตั้งต้นภาษาไทยและอังกฤษ รวมทั้ง long-tail ของแต่ละงาน จำนวนคำแนะนำสูงสุด 10 รายการเป็นสัญญาณความกว้างของ intent เท่านั้น ไม่ใช่ search volume และไม่สามารถรับประกันอันดับหน้าแรก Google ได้ การจัดอันดับจึงรวมประโยชน์จริง ความครบที่ทำได้ฟรีใน Browser, ความเสี่ยง, catalog overlap และโอกาสสร้างเนื้อหาที่ช่วยผู้ใช้จริงโดยไม่ยัดคำค้น
+
+คะแนน 5 คือสูงที่สุด คอลัมน์ TH/EN เป็นจำนวนคำแนะนำสูงสุดจาก endpoint ที่ตรวจในรอบนี้:
+
+| อันดับ | แนวคิด | TH/EN | ยาก | คุณค่าธุรกิจ | รายได้ | ขยายต่อ | นวัตกรรม | ข้อสรุป |
+|---:|---|---:|---:|---:|---:|---:|---:|---|
+| 1 | HTML Table Generator | 8/10 | 3 | 4 | 4 | 4 | 3 | ชนะ: long-tail ขอ colspan/rowspan, merge cells, CSS, inline CSS และ import จาก Excel ชัดเจน; ทำ semantic editor ที่แตกต่างได้จริง |
+| 2 | Resume Builder | 8/10 | 5 | 5 | 5 | 5 | 4 | มูลค่าสูง แต่ต้องทำ ATS semantics, PDF ภาษาไทย, privacy, หลาย template และไม่ล็อก download หลัง login จึงไม่ควรปล่อยเวอร์ชันบาง |
+| 3 | Image Cropper | 4/10 | 3 | 5 | 5 | 5 | 3 | อังกฤษกว้างถึง ratio, circle และ pixel; เหมาะ Batch ถัดไปหากทำ rotate, exact size และ export quality ให้ครบ |
+| 4 | Favicon / PWA Icon Generator | 2/10 | 3 | 4 | 4 | 4 | 3 | อังกฤษ 10/10; ต้องสร้าง ICO, PNG หลายขนาด, manifest และตรวจไฟล์ผลจริง |
+| 5 | Word Cloud Generator | 3/10 | 4 | 4 | 4 | 4 | 4 | อังกฤษ 10/10; ไทยต้องพิสูจน์ tokenization, stop words, ฟอนต์ และ export PNG/SVG |
+| 6 | Business Days Calculator | 4/10 | 3 | 4 | 4 | 4 | 3 | อังกฤษ 10/10; วันหยุดไทย ประเทศ และองค์กรต้องใช้ชุดข้อมูล versioned แยกจากการนับเสาร์อาทิตย์ |
+| 7 | JSON to CSV Converter | 1/10 | 3 | 4 | 4 | 5 | 2 | อังกฤษ 10/10 แต่ทับกลุ่มข้อมูลเดิม; ต้องให้ผู้ใช้ควบคุม flatten object/array อย่างโปร่งใส |
+| 8 | Remove Image Metadata | 1/10 | 4 | 4 | 4 | 4 | 4 | อังกฤษ 10/10 และมี privacy value; ต้องตรวจ EXIF/XMP/IPTC หลัง re-encode ในแต่ละ format จริง |
+| 9 | Password Strength Checker | 0/10 | 2 | 4 | 4 | 4 | 3 | อังกฤษ 10/10; ต้อง client-only ใช้คำแนะนำที่อธิบายได้ และไม่อ้างเวลา crack จากสมมติฐานลวง |
+| 10 | PDF Compressor | 10/10 | 5 | 5 | 5 | 5 | 4 | demand สูงแต่ชะลอ: rasterize อาจทำลาย text/search/accessibility และไม่รับประกันว่าไฟล์เล็กลง |
+| 11 | Color Palette Generator | 0/10 | 3 | 4 | 4 | 4 | 3 | อังกฤษ 10/10 แต่ใกล้ Color Picker เดิม; ต้องมี contrast, lock color และ export tokens เพื่อแตกต่าง |
+| 12 | Aspect Ratio Calculator | 1/10 | 2 | 4 | 3 | 4 | 2 | อังกฤษ 10/10 ทำฟรีง่าย แต่ intent ไทยและความต่างเชิงผลิตภัณฑ์ยังต่ำ |
+| 13 | File Checksum Calculator | 0/10 | 2 | 4 | 3 | 4 | 3 | อังกฤษ 10/10 แต่ทับ Hash Generator เดิม ควรขยายหน้าปัจจุบันแทนสร้างหน้า keyword ซ้ำ |
+| 14 | Online Signature Maker | 2/10 | 3 | 4 | 4 | 4 | 3 | อังกฤษกว้างแต่ทับ Sign PDF และต้องสื่อชัดว่าไฟล์ภาพลายเซ็นไม่ใช่ digital certificate |
+| 15 | Character Counter | 8/10 | 1 | 3 | 3 | 3 | 1 | ไทยดีและทำง่าย แต่ฟังก์ชันทับ Word Counter เดิม จึงควรปรับหน้าเดิมแทนสร้าง thin page |
+
+HTML Table Generator ถูกเลือกเพราะตอบ intent สาย developer, content, data และ CMS โดยไม่เพิ่ม dependency หรือส่งข้อมูลขึ้น Server ขอบเขตไม่ใช่เพียง textarea สร้างแท็ก แต่มี visual cell editor, import Excel/Google Sheets/CSV/TSV, เพิ่ม/ลบแถวและคอลัมน์, merge/unmerge ด้วย colspan/rowspan, caption, thead/tbody, scope=col/row/colgroup/rowgroup, CSS + class, inline CSS, semantic HTML, responsive wrapper, Preview, copy และดาวน์โหลดเอกสาร HTML5
+
+การออกแบบยึด W3C Tables Tutorial: ใช้ `th` และ `scope` ระบุความสัมพันธ์, ใช้ `caption` บอกหัวข้อ, ไม่ใช้ table เพื่อจัด Layout และห่อด้วยกรอบเลื่อนแนวนอนเมื่อจอแคบ หัวตารางใน `thead` ไม่อนุญาต rowspan ข้ามเข้า `tbody` ข้อความในเซลล์และ caption ถูก escape ก่อน Preview/Export เพื่อไม่ execute HTML หรือ Script จำกัด 100 แถว, 20 คอลัมน์, 1,000 ตัวอักษรต่อเซลล์ และข้อความนำเข้า 100,000 ตัวอักษรเพื่อรักษาความลื่นของ Browser
+
+แนวทาง SEO ใช้ชื่อหน้าที่กระชับและตรง intent, primary keyword ที่มองเห็นได้, FAQ ที่ตอบข้อจำกัดจริง และเนื้อหา people-first ตาม Google Search Central ไม่สร้างหน้าซ้ำบาง ๆ เพื่อจับคำอย่าง checksum หรือ character counter ที่เครื่องมือเดิมตอบได้อยู่แล้ว และไม่อ้างรับประกันอันดับหน้าแรก
+
+- [Google Autocomplete — HTML Table Generator](https://suggestqueries.google.com/complete/search?client=firefox&hl=th&gl=th&q=html%20table%20generator)
+- [Google Autocomplete — สร้างตาราง HTML](https://suggestqueries.google.com/complete/search?client=firefox&hl=th&gl=th&q=%E0%B8%AA%E0%B8%A3%E0%B9%89%E0%B8%B2%E0%B8%87%E0%B8%95%E0%B8%B2%E0%B8%A3%E0%B8%B2%E0%B8%87%20html)
+- [W3C WAI — Tables Tutorial](https://www.w3.org/WAI/tutorials/tables/)
+- [W3C WAI — Tables with two headers](https://www.w3.org/WAI/tutorials/tables/two-headers/)
+- [W3C WAI — Table Tips](https://www.w3.org/WAI/tutorials/tables/tips/)
+- [Google Search Central — Creating helpful, reliable, people-first content](https://developers.google.com/search/docs/fundamentals/creating-helpful-content)
+- [Google Search Central — Title links](https://developers.google.com/search/docs/appearance/title-link)

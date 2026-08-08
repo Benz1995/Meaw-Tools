@@ -19,6 +19,7 @@ const toolRoutes = [
   ["diff-checker", "Text Diff Checker"],
   ["cron-generator", "Cron Generator"],
   ["markdown-table-generator", "Markdown Table Generator"],
+  ["html-table-generator", "HTML Table Generator"],
   ["hash-generator", "Hash Generator"],
   ["word-counter", "Word Counter"],
   ["text-cleaner", "Text Cleaner"],
@@ -349,6 +350,64 @@ test("Markdown table generator imports spreadsheet data and produces safe GFM", 
   const markdown = await readFile(path!, "utf8");
   expect(markdown).toContain("ครัวซองต์ \\| เนยสด");
   expect(markdown).toContain("---:");
+
+  const layout = await page.evaluate(() => ({
+    width: document.documentElement.clientWidth,
+    scrollWidth: document.documentElement.scrollWidth,
+  }));
+  expect(layout.scrollWidth).toBe(layout.width);
+  expect(requests.some((url) => !url.startsWith("http://127.0.0.1:3100") && !url.startsWith("blob:") && !url.startsWith("data:"))).toBe(false);
+  expect(consoleErrors).toEqual([]);
+});
+
+test("HTML table generator imports data, merges headers, escapes HTML, and downloads a page", async ({ page }) => {
+  const requests: string[] = [];
+  const consoleErrors: string[] = [];
+  page.on("request", (request) => requests.push(request.url()));
+  page.on("console", (message) => {
+    if (message.type() === "error") consoleErrors.push(message.text());
+  });
+  page.on("pageerror", (error) => consoleErrors.push(error.message));
+
+  await page.goto("/html-table-generator");
+  await expect(page.getByRole("heading", { level: 1, name: "HTML Table Generator" })).toBeVisible();
+  const importInput = page.getByLabel("ข้อมูลจาก Excel / Sheets / CSV / TSV");
+  await expect(importInput).toBeVisible();
+  const labelGap = await importInput.evaluate((input) => {
+    const label = document.querySelector<HTMLLabelElement>('label[for="html-table-import"]');
+    const inputBox = input.getBoundingClientRect();
+    const labelBox = label?.getBoundingClientRect();
+    return labelBox ? Math.round(inputBox.top - labelBox.bottom) : 0;
+  });
+  expect(labelGap).toBeGreaterThanOrEqual(10);
+
+  await importInput.fill("สินค้า\tราคา\tสถานะ\nชาไทย\t65\tพร้อมขาย\n<script>alert(1)</script>\t80\tหมด");
+  await page.getByRole("button", { name: "นำเข้า", exact: true }).click();
+  await expect(page.getByRole("status")).toContainText("3 แถว × 3 คอลัมน์");
+
+  await page.getByLabel("แถว 1 คอลัมน์ 1").click();
+  await page.locator("#html-colspan").fill("2");
+  await page.getByTestId("html-merge-cell").click();
+  await expect(page.getByTestId("html-preview-cell-0-0")).toHaveAttribute("colspan", "2");
+
+  const output = page.getByTestId("html-table-output");
+  await expect(output).toContainText('<th scope="colgroup" colspan="2">สินค้า</th>');
+  await expect(output).toContainText("&lt;script&gt;alert(1)&lt;/script&gt;");
+  await expect(output).not.toContainText("<script>alert(1)</script>");
+  await expect(page.getByRole("table", { name: "ตารางสินค้า Meaw Cafe" })).toContainText("ชาไทย");
+
+  const downloadPromise = page.waitForEvent("download");
+  await page.getByRole("button", { name: "ดาวน์โหลด meaw-html-table.html" }).click();
+  const download = await downloadPromise;
+  expect(download.suggestedFilename()).toBe("meaw-html-table.html");
+  const path = await download.path();
+  expect(path).toBeTruthy();
+  const html = await readFile(path!, "utf8");
+  expect(html).toContain("<!doctype html>");
+  expect(html).toContain('<meta charset="utf-8">');
+  expect(html).toContain('<th scope="colgroup" colspan="2">สินค้า</th>');
+  expect(html).toContain("&lt;script&gt;alert(1)&lt;/script&gt;");
+  expect(html).not.toContain("<script>alert(1)</script>");
 
   const layout = await page.evaluate(() => ({
     width: document.documentElement.clientWidth,
