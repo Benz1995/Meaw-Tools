@@ -46,6 +46,7 @@ const components = {
   "team-capacity-calculator": dynamic(() => import("@/features/tools/team-capacity-calculator-tool").then((module) => module.TeamCapacityCalculatorTool), { loading, ssr: false }),
   "labor-cost-calculator": dynamic(() => import("@/features/tools/labor-cost-calculator-tool").then((module) => module.LaborCostCalculatorTool), { loading, ssr: false }),
   "sales-commission-calculator": dynamic(() => import("@/features/tools/sales-commission-calculator-tool").then((module) => module.SalesCommissionCalculatorTool), { loading, ssr: false }),
+  "safety-stock-calculator": dynamic(() => import("@/features/tools/safety-stock-calculator-tool").then((module) => module.SafetyStockCalculatorTool), { loading, ssr: false }),
   "jpg-to-pdf": dynamic(() => import("@/features/tools/jpg-to-pdf-tool").then((module) => module.JpgToPdfTool), { loading, ssr: false }),
   "qr-code-generator": dynamic(() => import("@/features/tools/qr-code-tool").then((module) => module.QrCodeTool), { loading, ssr: false }),
   "barcode-generator": dynamic(() => import("@/features/tools/barcode-generator-tool").then((module) => module.BarcodeGeneratorTool), { loading, ssr: false }),

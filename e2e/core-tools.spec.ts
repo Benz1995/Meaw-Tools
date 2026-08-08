@@ -61,6 +61,7 @@ const toolRoutes = [
   ["team-capacity-calculator", "Team Capacity & Workload Calculator"],
   ["labor-cost-calculator", "Labor Cost & Employee Cost Calculator"],
   ["sales-commission-calculator", "Sales Commission Calculator"],
+  ["safety-stock-calculator", "Safety Stock & Reorder Point Calculator"],
   ["jpg-to-pdf", "JPG to PDF Converter"],
   ["qr-code-generator", "QR Code Generator"],
   ["barcode-generator", "Barcode Generator"],
@@ -1989,6 +1990,67 @@ test("sales commission calculator explains tier payouts without mobile overflow"
   const csv = await readFile(csvPath!, "utf8");
   expect(csv).toContain('"Commission payout สุทธิ","8000.00","THB"');
   expect(csv).toContain('"ขั้น 3","100000.00","ไม่จำกัด","15000.00","12.00","1800.00","THB"');
+
+  const layout = await page.evaluate(() => ({ width: document.documentElement.clientWidth, scrollWidth: document.documentElement.scrollWidth }));
+  expect(layout.scrollWidth).toBe(layout.width);
+  expect(hasExternalRequest(requestUrls, page.url())).toBe(false);
+  expect(consoleErrors).toEqual([]);
+});
+
+test("safety stock calculator separates inventory policies without mobile overflow", async ({ page }) => {
+  const consoleErrors: string[] = [];
+  const requestUrls: string[] = [];
+  page.on("console", (message) => {
+    if (message.type() === "error") consoleErrors.push(message.text());
+  });
+  page.on("pageerror", (error) => consoleErrors.push(error.message));
+  page.on("request", (request) => requestUrls.push(request.url()));
+  await page.setViewportSize({ width: 390, height: 844 });
+
+  await page.goto("/safety-stock-calculator");
+  await expect(page.getByRole("heading", { level: 1, name: "Safety Stock & Reorder Point Calculator" })).toBeVisible();
+  await expect(page.locator("main header").getByText("คำนวณ Safety Stock และจุดสั่งซื้อสินค้า", { exact: true })).toBeVisible();
+  await expect(page.locator("#safety-average-demand")).toBeVisible();
+  await page.evaluate(() => document.fonts.ready);
+
+  const labelGap = await page.evaluate(() => {
+    const label = document.querySelector<HTMLLabelElement>('label[for="safety-average-demand"]');
+    const input = document.querySelector<HTMLInputElement>("#safety-average-demand");
+    const labelBox = label?.getBoundingClientRect();
+    const inputBox = input?.getBoundingClientRect();
+    return labelBox && inputBox ? Math.round(inputBox.top - labelBox.bottom) : 0;
+  });
+  expect(labelGap).toBeGreaterThanOrEqual(10);
+
+  await page.locator("#safety-method").click();
+  await page.getByRole("option", { name: "Days of cover" }).click();
+  await expect(page.locator("#safety-cover-periods")).toBeVisible();
+  await expect(page.locator("#safety-demand-stddev")).toHaveCount(0);
+  await page.locator("#safety-method").click();
+  await page.getByRole("option", { name: "Service level + ความผันผวน" }).click();
+  await expect(page.locator("#safety-demand-stddev")).toBeVisible();
+
+  await page.getByRole("button", { name: "โหลดตัวอย่าง" }).click();
+  await page.getByRole("button", { name: "คำนวณ Safety Stock" }).click();
+  await expect(page.getByTestId("safety-stock-recommended")).toHaveText("187 หน่วย");
+  await expect(page.getByTestId("reorder-point-recommended")).toHaveText("887 หน่วย");
+  await expect(page.getByTestId("lead-time-demand")).toHaveText("700 หน่วย");
+  await expect(page.getByTestId("inventory-position")).toHaveText("725 หน่วย");
+  await expect(page.getByTestId("reorder-status")).toHaveText("ถึงจุดสั่งซื้อแล้ว");
+  await expect(page.getByTestId("safety-buffer")).toHaveText("1.86 วัน");
+  await expect(page.getByTestId("safety-stock-result")).toContainText("ต่ำกว่าหรือเท่าจุดสั่งซื้อ 162 หน่วย");
+  await expect(page.getByTestId("safety-stock-result")).toContainText("z-score");
+
+  const csvPromise = page.waitForEvent("download");
+  await page.getByRole("button", { name: "ดาวน์โหลด CSV" }).click();
+  const csvDownload = await csvPromise;
+  expect(csvDownload.suggestedFilename()).toBe("meaw-safety-stock.csv");
+  const csvPath = await csvDownload.path();
+  expect(csvPath).toBeTruthy();
+  const csv = await readFile(csvPath!, "utf8");
+  expect(csv).toContain('"Safety Stock แนะนำ","187.00","หน่วย"');
+  expect(csv).toContain('"Reorder Point แนะนำ","887.00","หน่วย"');
+  expect(csv).toContain('"สถานะสั่งซื้อ","ถึงจุดสั่งซื้อ",""');
 
   const layout = await page.evaluate(() => ({ width: document.documentElement.clientWidth, scrollWidth: document.documentElement.scrollWidth }));
   expect(layout.scrollWidth).toBe(layout.width);

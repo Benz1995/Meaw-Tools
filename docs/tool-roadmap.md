@@ -55,6 +55,7 @@
 | 47 | Team Capacity & Workload Calculator | Project Manager, Scrum Master, เอเจนซี, ทีมบริการ | เทียบ Planned capacity กับ Demand รายบทบาท หักวันลา Focus factor และ Buffer พร้อม Workload, Gap, FTE และ CSV | พร้อมใช้ |
 | 48 | Labor Cost & Employee Cost Calculator | เจ้าของธุรกิจ, HR, Finance, เอเจนซี, ผู้รับเหมา | รวมค่าจ้าง ภาระนายจ้าง สวัสดิการ ต้นทุนคงที่ Overhead และ Productive hours พร้อม Burden rate, Multiplier, งบทีม และ CSV | พร้อมใช้ |
 | 49 | Sales Commission Calculator | เซลส์, Sales Ops, Finance, เจ้าของธุรกิจ, เอเจนซี | คำนวณ Flat, Marginal/Retroactive tiers, Sales credit, Quota bonus, Accelerator, Cap และ Clawback จาก Revenue หรือ Gross profit พร้อม CSV | พร้อมใช้ |
+| 50 | Safety Stock & Reorder Point Calculator | คลังสินค้า, จัดซื้อ, Supply Chain, ร้านค้า, SME | คำนวณ Service-level variability, Days of cover หรือ Manual buffer พร้อม ROP, Inventory position, Pack rounding และ CSV | พร้อมใช้ |
 
 ## หลักฐาน Google Trends ประเทศไทย
 

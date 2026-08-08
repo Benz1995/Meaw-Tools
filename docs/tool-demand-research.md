@@ -1148,3 +1148,52 @@ UI แบ่งเป็นแผน/ฐานยอดขาย, Tier editor, Q
 - [Google Search Central — Creating helpful, reliable, people-first content](https://developers.google.com/search/docs/fundamentals/creating-helpful-content)
 - [Google Search Central — AI features and your website](https://developers.google.com/search/docs/fundamentals/ai-optimization-guide)
 - [Google Search Central Blog — Doorway pages](https://developers.google.com/search/blog/2015/03/an-update-on-doorway-pages)
+
+## รอบที่ 37 — Safety Stock & Reorder Point Calculator และการจัดอันดับ Batch 47
+
+สำรวจเมื่อ 9 สิงหาคม 2569 ด้วย Google Autocomplete locale ไทย (`hl=th`, `gl=th`) จำนวน 57 คำตั้งต้น ครอบคลุม Safety Stock, Reorder Point, Service level, Standard deviation, EOQ, Inventory turnover/days/cost, Warehouse space, ABC/FIFO, Demand forecast และคำไทย จำนวนคำแนะนำสูงสุด 10 รายการเป็น demand proxy สำหรับดู intent และ long-tail เท่านั้น ไม่ใช่ search volume และไม่รับประกันอันดับหน้าแรก Google
+
+`safety stock calculator` และ `safety stock formula` ได้ 10/10 พร้อม long-tail Excel, Standard deviation, Inventory, Online, Monthly, Service level และ z-score; `reorder point formula` ได้ 10/10 และ `reorder point calculator` 6/10 พร้อม Excel, Safety Stock และ Inventory variants ขณะที่ `safety stock calculator excel/standard deviation/online/for inventory/with service level` ได้ 1/10 เพราะเป็นคำขยายของ seed หลัก ไม่ใช่หลักฐานว่าไม่มี intent ส่วน `สูตร safety stock` ได้ 2/10, `คำนวณ safety stock` และ `คำนวณสต๊อกสินค้า` 1/10 แต่ `คำนวณจุดสั่งซื้อ` กับ `จุดสั่งซื้อสินค้า` ได้ 0/10 ในรอบนี้ จึงใช้ชื่ออังกฤษหลักและอธิบายภาษาไทยโดยไม่อ้าง demand ไทยเกินหลักฐาน
+
+หน้าเดียวรวม Safety Stock, Reorder Point, Reorder Level, Service-level/z-score, Standard deviation, Days of cover, Manual buffer และ Inventory position เพราะเป็นขั้นของการตัดสินใจเดียวกัน แต่ไม่รวม EOQ ซึ่งตอบ “สั่งครั้งละเท่าใด” ต่างจาก ROP ที่ตอบ “เริ่มสั่งเมื่อใด” การแยกตามสูตรและ intent จริงช่วยลด thin/doorway pages และ keyword cannibalization
+
+คะแนน 5 คือสูงที่สุด การจัดอันดับพิจารณา demand, คุณค่าผู้ใช้จริง, ความต่างจาก 73 tools เดิม, ความโปร่งใสของสูตร, โอกาสรายได้ B2B, scalability, innovation และความเสี่ยงจากข้อมูล/บัญชี/การปฏิบัติงาน:
+
+| อันดับ | แนวคิด | Demand ที่พบ | ยาก | คุณค่าธุรกิจ | รายได้ | ขยายต่อ | นวัตกรรม | ข้อสรุป |
+|---:|---|---|---:|---:|---:|---:|---:|---|
+| 1 | Safety Stock & Reorder Point Calculator | Safety Stock/Formula/ROP Formula 10/10; ROP Calculator 6/10 | 4 | 5 | 5 | 5 | 4 | ส่งมอบ Batch 47; 3 policy methods, combined variability, Inventory position, Pack rounding และ CSV |
+| 2 | Inventory Turnover & Days on Hand Calculator | Turnover 10/10; Inventory days 6/10 | 3 | 5 | 5 | 5 | 4 | เหมาะ Batch 48; ต้องแยก COGS/Average inventory จาก Sales/Ending inventory และรวม DIO/DOH intent |
+| 3 | EOQ & Order Quantity Calculator | Order quantity 7/10; EOQ 5/10; Economic order quantity 4/10 | 4 | 5 | 5 | 5 | 4 | คู่ถัดไปของ ROP แต่ต้องรวม ordering, holding, annual demand, MOQ และ price breaks อย่างโปร่งใส |
+| 4 | Warehouse Space & Pallet Calculator | 8/10 พร้อม Excel/pallet/rack/utilization/cost | 4 | 5 | 5 | 5 | 4 | intent ปฏิบัติการสูง ต้องแยก floor, clear height, aisle, rack และ pallet position |
+| 5 | Inventory Cost & Carrying Cost Calculator | Inventory cost 10/10 แต่มี gaming noise; Carrying/Holding 2/10 | 4 | 5 | 5 | 5 | 4 | ต้องแยก purchase, ordering, holding, shortage และ obsolescence ไม่ใช้เปอร์เซ็นต์ benchmark เดียว |
+| 6 | Weighted Average Inventory Cost Calculator | Average inventory 7/10 พร้อม weighted-average variants | 4 | 5 | 5 | 4 | 3 | ต้องรองรับ periodic/perpetual และ transaction ledger โดยไม่อ้างเป็นบัญชีที่รับรอง |
+| 7 | Lead Time Working Days Calculator | 10/10 แต่มี wheel/DHL/freight intent ปน | 3 | 4 | 4 | 5 | 3 | Meaw มี Business Days แล้ว ควรขยาย procurement milestone เมื่อ Search Console พิสูจน์ intent |
+| 8 | FIFO Inventory Calculator | 4/10 | 4 | 5 | 4 | 4 | 3 | ต้องคำนวณ Layers, COGS และ Ending inventory พร้อมแยก Periodic/Perpetual |
+| 9 | ABC Inventory Analysis | 3/10 | 4 | 5 | 4 | 5 | 4 | ใช้ Annual consumption value, CSV import และ Pareto threshold ที่แก้ได้ เหมาะข้อมูลหลาย SKU |
+| 10 | Inventory Valuation Comparator | 2/10 | 5 | 5 | 5 | 4 | 4 | เปรียบเทียบ FIFO/Weighted average อย่างมี audit trail แต่กฎภาษี/บัญชีต่างพื้นที่ |
+| 11 | Inventory Accuracy & Shrinkage Calculator | Accuracy 2/10; Shrinkage 2/10 | 3 | 4 | 4 | 4 | 3 | รวม Book vs Count, value variance, shrinkage rate และ cycle-count trend ในหน้าเดียว |
+| 12 | Stock Coverage & Minimum Stock Calculator | Coverage 2/10; Minimum stock 2/10 | 3 | 4 | 4 | 4 | 3 | บางส่วนซ้อน Batch 47; รอดู query จริงก่อนสร้างหน้าใหม่ |
+| 13 | Demand Forecast Accuracy Calculator | Demand forecast 2/10 | 5 | 5 | 5 | 5 | 5 | ควรรวม MAE, WAPE, Bias และ intermittent-demand caveat แทนสร้าง forecast จากข้อมูลน้อย |
+| 14 | Purchase Order Calculator | 4/10 แต่ informational/funding intent ปน | 4 | 4 | 4 | 4 | 3 | ต้องนิยาม tax, freight, discount, MOQ และ landed cost ก่อนเลือก scope |
+| 15 | Fill Rate & Inventory Service Level Calculator | 0/10 ใน seed เฉพาะ | 4 | 4 | 4 | 5 | 4 | มีประโยชน์แต่ต้องแยก Cycle service level จาก Fill rate และยังไม่มี demand proxy รองรับหน้าเดี่ยว |
+
+Batch 47 รองรับสามนโยบายโดยไม่ผสม claims: (1) Service-level model ใช้ `σ Lead-time demand = √(Average lead time × Demand SD² + Average demand² × Lead-time SD²)` และ `Safety Stock = z × σ`; (2) Days of cover ใช้ `Average demand × Cover periods`; (3) Manual ใช้ Safety Stock ที่องค์กรกำหนด จากนั้นทุกวิธีหา `Reorder Point = Average demand × Average lead time + Safety Stock`
+
+Oracle NetSuite ระบุ Inputs, z-score ตัวอย่าง, สูตร Combined variability, Normal distribution assumption และการปัดขึ้น พร้อมเตือนผลอาจคลาดเคลื่อนกับ Demand ขาดช่วง โปรโมชัน ฤดูกาล หรือข้อมูลเบ้ Oracle Replenishment Planning แยก Days of cover จาก Service-level based และใช้ Poisson กับ Intermittent demand ส่วน Oracle Inventory แยก Reorder Point ออกจาก EOQ จึงทำให้หน้าไม่เดา Order quantity และบอกข้อจำกัดของ Continuous-review ชัดเจน
+
+Inventory position ในหน้าเป็น `On hand + On order − Backorders` และ Trigger เมื่อถึงหรือต่ำกว่า ROP เพื่อเป็นสัญญาณทบทวน ไม่สร้าง Purchase order อัตโนมัติ UI แบ่ง Policy/time basis, Demand/Lead time, Inventory snapshot และ Results มี label gap, responsive cards, ROP composition bar, Formula/assumption panel, Pack rounding, status และ CSV ทุกข้อมูลอยู่ใน Browser ไม่มี API หรือ LocalStorage
+
+- [Google Autocomplete — safety stock calculator](https://suggestqueries.google.com/complete/search?client=firefox&hl=th&gl=th&q=safety%20stock%20calculator)
+- [Google Autocomplete — safety stock formula](https://suggestqueries.google.com/complete/search?client=firefox&hl=th&gl=th&q=safety%20stock%20formula)
+- [Google Autocomplete — reorder point formula](https://suggestqueries.google.com/complete/search?client=firefox&hl=th&gl=th&q=reorder%20point%20formula)
+- [Google Autocomplete — reorder point calculator](https://suggestqueries.google.com/complete/search?client=firefox&hl=th&gl=th&q=reorder%20point%20calculator)
+- [Google Autocomplete — inventory turnover calculator](https://suggestqueries.google.com/complete/search?client=firefox&hl=th&gl=th&q=inventory%20turnover%20calculator)
+- [Google Autocomplete — order quantity calculator](https://suggestqueries.google.com/complete/search?client=firefox&hl=th&gl=th&q=order%20quantity%20calculator)
+- [Google Autocomplete — warehouse space calculator](https://suggestqueries.google.com/complete/search?client=firefox&hl=th&gl=th&q=warehouse%20space%20calculator)
+- [Oracle NetSuite — Inventory Optimization Calculations](https://docs.oracle.com/en/cloud/saas/netsuite/ns-online-help/article_0702045810.html)
+- [Oracle Replenishment Planning — How Safety Stock Is Calculated](https://docs.oracle.com/en/cloud/saas/supply-chain-and-manufacturing/25c/faurp/how-safety-stock-is-calculated-in-oracle-replenishment-planning.html)
+- [Oracle Inventory — Reorder Point Planning](https://docs.oracle.com/cd/A60725_05/html/comnls/us/inv/roplan.htm)
+- [SAP — Calculating the Safety Stock and Reorder Level](https://help.sap.com/docs/SAP_ERP_SPV/42ad0c855a03441abde4d5db2fef5a65/a06db6531de6b64ce10000000a174cb4.html?version=6.17.28)
+- [Google Search Central — Creating helpful, reliable, people-first content](https://developers.google.com/search/docs/fundamentals/creating-helpful-content)
+- [Google Search Central — AI features and your website](https://developers.google.com/search/docs/fundamentals/ai-optimization-guide)
+- [Google Search Central Blog — Doorway pages](https://developers.google.com/search/blog/2015/03/an-update-on-doorway-pages)
