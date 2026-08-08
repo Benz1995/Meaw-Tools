@@ -14,6 +14,7 @@ const toolRoutes = [
   ["buddhist-year-converter", "Buddhist Year Converter"],
   ["base64", "Base64 Encoder / Decoder"],
   ["url-encoder", "URL Encoder / Decoder"],
+  ["utm-builder", "UTM Link Builder"],
   ["regex-tester", "Regex Tester"],
   ["diff-checker", "Text Diff Checker"],
   ["cron-generator", "Cron Generator"],
@@ -188,6 +189,51 @@ test("CSV to Excel previews columns and downloads a safe XLSX locally", async ({
   }));
   expect(layout.scrollWidth).toBe(layout.width);
   expect(requests.some((url) => !url.startsWith("http://127.0.0.1:3100") && !url.startsWith("blob:") && !url.startsWith("data:"))).toBe(false);
+  expect(consoleErrors).toEqual([]);
+});
+
+test("UTM builder preserves existing URL data and produces a consistent GA4 campaign link", async ({ page }) => {
+  const requests: string[] = [];
+  const consoleErrors: string[] = [];
+  page.on("request", (request) => requests.push(request.url()));
+  page.on("console", (message) => {
+    if (message.type() === "error") consoleErrors.push(message.text());
+  });
+  page.on("pageerror", (error) => consoleErrors.push(error.message));
+
+  await page.goto("/utm-builder");
+  await expect(page.getByRole("heading", { level: 1, name: "UTM Link Builder" })).toBeVisible();
+  await page.getByRole("textbox", { name: "Website URL", exact: true }).fill("https://example.com/shop?sku=123&utm_source=old#details");
+  await page.getByRole("button", { name: "Facebook Ads" }).click();
+  await page.getByRole("textbox", { name: "Campaign Name", exact: true }).fill("August Cat Sale");
+
+  const labelGap = await page.evaluate(() => {
+    const input = document.getElementById("utm-campaign");
+    const label = document.querySelector<HTMLLabelElement>('label[for="utm-campaign"]');
+    const inputBox = input?.getBoundingClientRect();
+    const labelBox = label?.getBoundingClientRect();
+    return labelBox && inputBox ? Math.round(inputBox.top - labelBox.bottom) : 0;
+  });
+  expect(labelGap).toBeGreaterThanOrEqual(10);
+
+  await page.getByRole("button", { name: "สร้างลิงก์ UTM" }).click();
+  const result = page.getByTestId("utm-result");
+  await expect(result).toBeVisible();
+  const output = await page.getByTestId("utm-result-url").inputValue();
+  const url = new URL(output);
+  expect(url.searchParams.get("sku")).toBe("123");
+  expect(url.searchParams.getAll("utm_source")).toEqual(["facebook"]);
+  expect(url.searchParams.get("utm_medium")).toBe("paid_social");
+  expect(url.searchParams.get("utm_campaign")).toBe("august_cat_sale");
+  expect(url.hash).toBe("#details");
+  await expect(page.getByText("แทนค่า UTM เดิมแล้ว")).toBeVisible();
+
+  const layout = await page.evaluate(() => ({
+    width: document.documentElement.clientWidth,
+    scrollWidth: document.documentElement.scrollWidth,
+  }));
+  expect(layout.scrollWidth).toBe(layout.width);
+  expect(requests.some((urlValue) => !urlValue.startsWith("http://127.0.0.1:3100") && !urlValue.startsWith("blob:") && !urlValue.startsWith("data:"))).toBe(false);
   expect(consoleErrors).toEqual([]);
 });
 
@@ -1032,6 +1078,8 @@ test("Sign PDF places a signature on normal and rotated pages and exports a vali
 });
 
 test("all tool routes render without browser errors", async ({ page }) => {
+  test.slow();
+
   const errors: string[] = [];
   page.on("console", (message) => {
     if (message.type() === "error") errors.push(message.text());

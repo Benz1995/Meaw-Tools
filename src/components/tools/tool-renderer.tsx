@@ -9,6 +9,7 @@ const components = {
   "sql-formatter": dynamic(() => import("@/features/tools/text-tools").then((module) => module.SqlFormatterTool), { loading, ssr: false }),
   "base64": dynamic(() => import("@/features/tools/text-tools").then((module) => module.Base64Tool), { loading, ssr: false }),
   "url-encoder": dynamic(() => import("@/features/tools/text-tools").then((module) => module.UrlEncoderTool), { loading, ssr: false }),
+  "utm-builder": dynamic(() => import("@/features/tools/utm-builder-tool").then((module) => module.UtmBuilderTool), { loading, ssr: false }),
   "jwt-decoder": dynamic(() => import("@/features/tools/utility-tools").then((module) => module.JwtDecoderTool), { loading, ssr: false }),
   "uuid-generator": dynamic(() => import("@/features/tools/utility-tools").then((module) => module.UuidGeneratorTool), { loading, ssr: false }),
   "timestamp-converter": dynamic(() => import("@/features/tools/utility-tools").then((module) => module.TimestampTool), { loading, ssr: false }),

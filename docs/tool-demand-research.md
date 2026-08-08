@@ -289,3 +289,37 @@ Microsoft ระบุว่าไฟล์ข้อความแบบ delimi
 - [Microsoft — Import or export text and CSV files](https://support.microsoft.com/en-us/excel/get-started/import-or-export-text-txt-or-csv-files)
 - [Microsoft — Excel specifications and limits](https://support.microsoft.com/en-us/excel/excel-specifications-and-limits)
 - [Google Trends Help — ข้อมูล Trends เป็นค่าความสนใจสัมพัทธ์](https://support.google.com/trends/answer/4365533?hl=en)
+
+## รอบที่ 15 — UTM Builder และเครื่องมือข้ามสายงาน
+
+สำรวจต่อเมื่อ 8 สิงหาคม 2026 โดยตรวจ Google Autocomplete ปัจจุบัน 16 คำตั้งต้น แล้วคัด 12 แนวคิดที่ไม่ซ้ำ catalog มากเกินไป Google Trends Explore ชุดประเทศไทย 12 เดือนตอบ HTTP 429 อีกครั้ง จึงไม่อ้างตัวเลข Trends ใหม่และไม่ตีความจำนวนคำแนะนำเป็น search volume; ใช้ Autocomplete เป็นหลักฐานว่ามี long-tail intent เท่านั้น แล้วจัดอันดับร่วมกับความกว้างของผู้ใช้ ความเสี่ยง ความสามารถในการทำงานฟรีใน Browser โอกาส SEO/AdSense และการขยายผลิตภัณฑ์
+
+คะแนน 5 คือสูงที่สุด ส่วน Demand แสดงจำนวนคำแนะนำสูงสุด 10 รายการจาก endpoint ที่ตรวจในรอบนี้:
+
+| อันดับ | แนวคิด | Autocomplete | ยาก | คุณค่าธุรกิจ | รายได้ | ขยายต่อ | นวัตกรรม | ข้อสรุป |
+|---:|---|---:|---:|---:|---:|---:|---:|---|
+| 1 | UTM Link Builder | 10 | 2 | 5 | 5 | 5 | 3 | ชนะ: เปิดกลุ่มนักการตลาด/เจ้าของร้าน มีข้อกำหนด GA4 ทางการ และ client-only ได้ครบ |
+| 2 | CSV Cleaner + Duplicate Finder | 8 | 3 | 5 | 4 | 5 | 3 | คุณค่าสูงและ reuse CSV parser ได้ แต่ต่อจาก Batch 24 จะกระจุกในกลุ่มข้อมูลเกินไป |
+| 3 | JSON to CSV Converter | 10 | 2 | 4 | 4 | 5 | 2 | intent กว้าง แต่ทับกับ JSON/CSV tools เดิมและต้องออกแบบ nested data ให้โปร่งใส |
+| 4 | Markdown Table Generator | 10 | 2 | 4 | 4 | 4 | 2 | feasible และเหมาะ developer/content แต่กลุ่มผู้ใช้แคบกว่า UTM |
+| 5 | Excel to CSV Converter | 10 | 3 | 4 | 4 | 5 | 2 | มี intent ชัด แต่ต้องเพิ่ม parser XLSX และนโยบายหลาย Worksheet |
+| 6 | Overtime Calculator | 10 | 4 | 5 | 5 | 4 | 3 | long-tail ไทยแข็งแรง แต่ต้อง version กฎหมายและแยกประเภทลูกจ้าง/วันทำงานก่อน |
+| 7 | Business Days Calculator | 10 | 3 | 4 | 4 | 4 | 3 | intent อังกฤษกว้างแต่คำแนะนำผูกประเทศ ต้องมีชุดวันหยุดไทยแบบ versioned |
+| 8 | Online Signature Maker | 10 | 3 | 4 | 4 | 4 | 3 | demand กว้าง แต่ทับกับ Sign PDF และต้องสื่อว่าไม่ใช่ digital certificate |
+| 9 | Invoice Number Generator | 10 | 2 | 3 | 4 | 3 | 2 | ทำง่ายแต่เลขที่เอกสารควรผูกระบบบัญชี/ลำดับจริง ไม่ควรสุ่มโดยไม่มีบริบท |
+| 10 | CSV Duplicate Remover | 7 | 2 | 4 | 4 | 4 | 2 | intent เฉพาะดี แต่ควรรวมใน CSV Cleaner แทนการแยกหน้าบางเกินไป |
+| 11 | Remove Duplicate Rows Online | 3 | 2 | 3 | 3 | 3 | 2 | intent แคบและซ้ำ Text Cleaner/CSV Cleaner |
+| 12 | Excel Duplicate Remover Online | 1 | 3 | 3 | 3 | 3 | 2 | สัญญาณอ่อนสุดในชุดและต้องเพิ่ม XLSX parser |
+
+UTM Link Builder จึงถูกเลือกเพื่อเพิ่มเครื่องมือสายการตลาดโดยไม่เพิ่ม backend หรือค่า API เครื่องมือบังคับ `utm_source`, `utm_medium`, `utm_campaign`, รองรับ `utm_id`, `utm_source_platform`, `utm_term`, `utm_content`, รักษา query/hash เดิม แทน UTM เดิมโดยไม่สร้างค่าซ้ำ นำ URL ที่ติด UTM กลับมาแก้ไขได้ และเปิด lowercase/underscore เป็นค่าเริ่มต้นเพื่อลดข้อมูลแตกแถว
+
+Google Analytics ระบุว่าค่า UTM แยกตัวพิมพ์เล็ก-ใหญ่ แนะนำ naming convention ที่สม่ำเสมอ และควรใช้ source/medium/campaign ให้ครบ ขณะเดียวกันการใส่ manual campaign values ร่วมกับ Google Click ID อาจทำให้ attribution ผิด จึงต้องแสดงคำเตือน Google Ads auto-tagging อย่างชัดเจนแทนการบอกให้ติด UTM ทุกลิงก์
+
+- [Google Autocomplete — utm builder](https://suggestqueries.google.com/complete/search?client=firefox&hl=th&q=utm%20builder)
+- [Google Autocomplete — utm link builder](https://suggestqueries.google.com/complete/search?client=firefox&hl=th&q=utm%20link%20builder)
+- [Google Autocomplete — csv cleaner](https://suggestqueries.google.com/complete/search?client=firefox&hl=th&q=csv%20cleaner)
+- [Google Autocomplete — json to csv converter](https://suggestqueries.google.com/complete/search?client=firefox&hl=th&q=json%20to%20csv%20converter)
+- [Google Autocomplete — markdown table generator](https://suggestqueries.google.com/complete/search?client=firefox&hl=th&q=markdown%20table%20generator)
+- [Google Analytics Help — Collect campaign data with custom URLs](https://support.google.com/analytics/answer/10917952?hl=en)
+- [Google Campaign URL Builder](https://ga-dev-tools.google/campaign-url-builder/)
+- [Google Analytics Help — Traffic-source dimension scopes and GCLID caution](https://support.google.com/analytics/answer/11080067?hl=en)
