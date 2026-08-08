@@ -6,7 +6,7 @@
 
 - Next.js 16 App Router, React 19, TypeScript strict และ Tailwind CSS 4
 - shadcn/ui + Radix, Noto Sans Thai, JetBrains Mono และ dark mode
-- เครื่องมือ 58 รายการ พร้อม validation, empty/error state, clear และ action ที่เหมาะกับแต่ละงาน
+- เครื่องมือ 59 รายการ พร้อม validation, empty/error state, clear และ action ที่เหมาะกับแต่ละงาน
 - กลุ่มงานทั่วไป: นับคำ จัดระเบียบข้อความ คำนวณเปอร์เซ็นต์ แปลงหน่วย และคำนวณวัน
 - JPG to PDF, QR Code Generator, QR Code Scanner และ Age Calculator ประมวลผลภายใน Browser
 - Loan Calculator, BMI Calculator และ Profit & Margin Calculator พร้อมสูตรและข้อจำกัดที่ตรวจสอบได้
@@ -29,6 +29,7 @@
 - Markdown Table Generator วางข้อมูลจาก Excel/Sheets/CSV/TSV แก้ไขตาราง จัดแนว Escape Pipe และสร้าง GitHub Flavored Markdown ใน Browser
 - HTML Table Generator วางข้อมูลจาก Excel/Sheets/CSV/TSV แก้ไขและรวมเซลล์ สร้าง caption, thead/tbody, scope, colspan/rowspan และ CSS แบบ responsive ใน Browser
 - Image Cropper ครอปกรอบอิสระ/วงกลม เลือกสัดส่วน หมุน พลิก กำหนดพิกเซล และส่งออก PNG/JPG/WebP โดยไม่อัปโหลดรูป
+- Favicon & PWA Icon Generator สร้าง ICO หลายขนาด, PNG, Apple touch, PWA any/maskable, Web Manifest, HTML และ ZIP ภายใน Browser
 - Color Picker/Contrast, Password Generator และ Random Number Generator ใช้สูตรที่ทดสอบได้และ Web Crypto
 - PDF to JPG, Merge PDF, Split PDF, PDF Organizer และ Sign PDF ใช้ PDF.js, pdf-lib และ ZIP ภายใน Browser โดยไม่อัปโหลดเอกสาร
 - หน้า `/categories` และหน้า Tag รายหมวด พร้อมจำนวนเครื่องมือ metadata และ sitemap
@@ -94,6 +95,7 @@ flowchart LR
 - Excel to CSV จำกัด 10 MB, 50 Worksheet, 50,000 แถวต่อชีต, 200 คอลัมน์ และ 500,000 เซลล์รวม พร้อมหยุด Worker เมื่อยกเลิกหรือหมดเวลา
 - HTML Table Generator escape ข้อความในเซลล์และ caption ก่อน Preview/Export จำกัด 100 แถว, 20 คอลัมน์ และ 1,000 ตัวอักษรต่อเซลล์
 - Image Cropper จำกัดไฟล์ 10 MB / 40 ล้านพิกเซล และผลลัพธ์ด้านยาว 8,000 px / 24 ล้านพิกเซล พร้อมปิด ImageBitmap และ Blob URL เมื่อเลิกใช้
+- Favicon Generator จำกัดต้นฉบับ 10 MB / 40 ล้านพิกเซล รับเฉพาะ PNG/JPG/WebP และคืน ImageBitmap กับ Blob URL เมื่อเปลี่ยนงานหรือออกจากหน้า
 - Regex ทำงานใน Web Worker และถูก terminate เมื่อเกิน 750 ms
 - JWT เป็นการ Decode เท่านั้น ไม่ verify signature
 - SQL ถูกจัดรูปเท่านั้น ไม่ execute

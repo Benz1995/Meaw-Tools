@@ -25,8 +25,29 @@ export function buildToolSeoDescription(tool: ToolConfig): string {
   return `${tool.description} ใช้งานฟรี ไม่ต้องสมัครสมาชิก และประมวลผลภายใน Browser`;
 }
 
-export function auditToolSeo(tools: ToolConfig[]): ToolSeoIssue[] {
+export function findPrimaryKeywordCannibalization(tools: ToolConfig[]): ToolSeoIssue[] {
   const issues: ToolSeoIssue[] = [];
+  const primaryOwners = new Map(tools.map((tool) => [normalizeKeyword(getToolPrimaryKeyword(tool)), tool.slug]));
+
+  for (const tool of tools) {
+    for (const keyword of tool.keywords.slice(1)) {
+      const normalized = normalizeKeyword(keyword);
+      const primaryOwner = primaryOwners.get(normalized);
+      if (primaryOwner && primaryOwner !== tool.slug) {
+        issues.push({
+          slug: tool.slug,
+          rule: "primary-keyword-cannibalization",
+          message: `keyword ซ้ำกับ primary intent ของ ${primaryOwner}: ${keyword}`,
+        });
+      }
+    }
+  }
+
+  return issues;
+}
+
+export function auditToolSeo(tools: ToolConfig[]): ToolSeoIssue[] {
+  const issues: ToolSeoIssue[] = [...findPrimaryKeywordCannibalization(tools)];
   const seen = {
     slug: new Map<string, string>(),
     name: new Map<string, string>(),

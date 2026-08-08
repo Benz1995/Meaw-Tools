@@ -53,6 +53,7 @@ const toolRoutes = [
   ["png-to-jpg", "PNG to JPG Converter"],
   ["image-compressor", "Image Compressor & Resizer"],
   ["image-cropper", "Image Cropper Online"],
+  ["favicon-generator", "Favicon & PWA Icon Generator"],
   ["background-remover", "AI Background Remover"],
   ["color-picker", "Color Picker & Contrast Checker"],
   ["password-generator", "Password Generator"],
@@ -993,6 +994,78 @@ test("image cropper creates an exact circular PNG locally", async ({ page }) => 
   const downloadPromise = page.waitForEvent("download");
   await page.getByRole("button", { name: "ดาวน์โหลด meaw-cafe-circle.png" }).click();
   expect((await downloadPromise).suggestedFilename()).toBe("meaw-cafe-circle.png");
+  expect(requests.some((url) => !url.startsWith("http://127.0.0.1:3100") && !url.startsWith("blob:"))).toBe(false);
+  expect(consoleErrors).toEqual([]);
+});
+
+test("favicon generator creates a complete ICO and PWA package locally", async ({ page }) => {
+  const requests: string[] = [];
+  const consoleErrors: string[] = [];
+  page.on("request", (request) => requests.push(request.url()));
+  page.on("console", (message) => {
+    if (message.type() === "error") consoleErrors.push(message.text());
+  });
+  page.on("pageerror", (error) => consoleErrors.push(error.message));
+
+  await page.goto("/favicon-generator");
+  await expect(page.getByRole("heading", { level: 1, name: "Favicon & PWA Icon Generator" })).toBeVisible();
+  await expect(page.getByText(/ไม่อัปโหลดโลโก้/)).toBeVisible();
+  await expect(page.locator("#favicon-source")).toBeVisible();
+
+  const layout = await page.evaluate(() => {
+    const label = document.querySelector<HTMLLabelElement>('label[for="favicon-source"]');
+    const input = document.querySelector<HTMLInputElement>("#favicon-source");
+    const labelBox = label?.getBoundingClientRect();
+    const inputBox = input?.getBoundingClientRect();
+    return {
+      labelGap: labelBox && inputBox ? Math.round(inputBox.top - labelBox.bottom) : 0,
+      hasHorizontalOverflow: document.documentElement.scrollWidth > document.documentElement.clientWidth,
+    };
+  });
+  expect(layout.labelGap).toBeGreaterThanOrEqual(10);
+  expect(layout.hasHorizontalOverflow).toBe(false);
+
+  await page.getByRole("button", { name: "โหลดตัวอย่าง" }).click();
+  await expect(page.getByText("meaw-cat.png", { exact: true })).toBeVisible();
+  await expect(page.getByRole("img", { name: "ตัวอย่างไอคอนและพื้นที่ปลอดภัย Maskable" })).toBeVisible();
+  await page.getByLabel("ชื่อ Web App").fill("Meaw Workspace");
+  await page.getByLabel("ชื่อย่อ").fill("Meaw");
+  await page.getByLabel("Start URL").fill("/tools/");
+  await page.getByRole("button", { name: "สร้างแพ็ก Favicon + PWA" }).click();
+
+  const output = page.getByTestId("favicon-output");
+  await expect(output).toContainText("พร้อมใช้งาน 11 ไฟล์");
+  await expect(page.getByRole("progressbar", { name: "ความคืบหน้าการสร้างไอคอน" })).toHaveAttribute("aria-valuenow", "100");
+  expect(await page.evaluate(() => document.documentElement.scrollWidth > document.documentElement.clientWidth)).toBe(false);
+  const manifestText = await page.getByLabel("site.webmanifest").inputValue();
+  const manifest = JSON.parse(manifestText);
+  expect(manifest).toMatchObject({ name: "Meaw Workspace", short_name: "Meaw", start_url: "/tools/", id: "/tools/", display: "standalone" });
+  expect(manifest.icons.map((icon: { purpose: string }) => icon.purpose)).toEqual(["any", "any", "maskable"]);
+
+  const downloadPromise = page.waitForEvent("download");
+  await page.getByRole("button", { name: /ดาวน์โหลด ZIP/ }).click();
+  const download = await downloadPromise;
+  expect(download.suggestedFilename()).toBe("meaw-favicon-pwa-package.zip");
+  const entries = unzipSync(new Uint8Array(await readFile((await download.path())!)));
+  expect(Object.keys(entries).sort()).toEqual([
+    "README.txt",
+    "apple-touch-icon.png",
+    "favicon-16x16.png",
+    "favicon-32x32.png",
+    "favicon-48x48.png",
+    "favicon-head.html",
+    "favicon.ico",
+    "pwa-192x192.png",
+    "pwa-512x512.png",
+    "pwa-maskable-512x512.png",
+    "site.webmanifest",
+  ].sort());
+  expect([...entries["favicon.ico"]!.slice(0, 6)]).toEqual([0, 0, 1, 0, 3, 0]);
+  expect([entries["favicon.ico"]![6], entries["favicon.ico"]![22], entries["favicon.ico"]![38]]).toEqual([16, 32, 48]);
+  expect([...entries["pwa-maskable-512x512.png"]!.slice(0, 8)]).toEqual([0x89, 0x50, 0x4e, 0x47, 0x0d, 0x0a, 0x1a, 0x0a]);
+  expect(JSON.parse(strFromU8(entries["site.webmanifest"]!)).icons[2].purpose).toBe("maskable");
+  expect(strFromU8(entries["favicon-head.html"]!)).toContain('rel="apple-touch-icon" sizes="180x180"');
+  expect(strFromU8(entries["README.txt"]!)).toContain("ไม่คัดลอก EXIF, GPS");
   expect(requests.some((url) => !url.startsWith("http://127.0.0.1:3100") && !url.startsWith("blob:"))).toBe(false);
   expect(consoleErrors).toEqual([]);
 });

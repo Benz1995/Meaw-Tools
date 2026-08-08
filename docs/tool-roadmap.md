@@ -112,7 +112,7 @@
 | 18 | Excel to CSV Converter | Autocomplete ไทยและอังกฤษ 10/10; xlsx to csv 10/10 | 3 | 5 | 4 | 5 | 3 | ส่งมอบ Batch 29; .xlsx, multi-sheet ZIP, BOM, Web Worker และ Formula Injection protection |
 | 19 | HTML Table Generator | Autocomplete อังกฤษ 10/10, ไทย 8/10; มี long-tail colspan/rowspan, CSS และ Excel | 3 | 4 | 4 | 4 | 3 | ส่งมอบ Batch 30; semantic editor, CSV/TSV import, merged cells, scope, CSS/inline และ responsive Preview |
 | 20 | Image Cropper Online | Autocomplete อังกฤษ 10/10 และไทย 10/10; มีวงกลม พิกเซล และสัดส่วน | 3 | 5 | 5 | 5 | 3 | ส่งมอบ Batch 31; crop/resize, circle, rotate/flip, exact pixels, PNG/JPG/WebP และ keyboard controls |
-| 21 | Workday Planner พร้อมวันหยุดไทย | Autocomplete อังกฤษ 10/10, ไทย 4/10; ต้องแยกประเทศ/องค์กร | 3 | 5 | 4 | 4 | 3 | ชุดข้อมูลวันหยุดแบบ versioned |
+| 21 | Favicon / PWA Icon Generator | Autocomplete `favicon generator` และ `pwa icon generator` 10/10; long-tail ระบุ ICO, Apple touch, maskable และ manifest | 3 | 4 | 4 | 4 | 3 | ส่งมอบ Batch 32; ICO 16/32/48, PNG, Apple 180, PWA any/maskable, manifest, HTML และ ZIP |
 | 22 | JSON / CSV Converter | Autocomplete `json to csv converter` 10/10 แต่ซ้ำกลุ่มข้อมูลเดิมบางส่วน | 2 | 4 | 4 | 5 | 2 | Client-only |
 | 23 | Thai ID Checksum Validator | สูงในชุดล่าสุด: เช็ค 25; intent กว้าง 44 | 2 | 4 | 4 | 3 | 2 | ส่งมอบ Batch 11; ตรวจ checksum เท่านั้น ไม่เชื่อมฐานรัฐ ไม่สร้างหรือบันทึกเลข |
 | 24 | Sign PDF | สูงใน intent เฉพาะ: เซ็น PDF 72 | 5 | 5 | 4 | 4 | 4 | ส่งมอบ Batch 14; วางรูปภาพลายเซ็นหลายหน้าแบบ client-only พร้อมคำเตือนเรื่อง certificate |
@@ -120,7 +120,7 @@
 | 26 | Thai Number to Words / Baht Text | ต่ำ: Trends 0–1 | 2 | 4 | 3 | 4 | 3 | Client-only; เน้น edge case ล้านซ้อนและสตางค์ |
 | 27 | Markdown Preview + Export | ต่อจาก Table Generator แต่ scope renderer กว้างกว่า | 3 | 4 | 4 | 4 | 3 | ต้อง sanitize HTML และ export อย่างปลอดภัย |
 | 28 | Quotation Generator | สูง: ใบเสนอราคา 81 | 4 | 5 | 5 | 5 | 3 | ส่งมอบ Batch 13; Template + PDF ภาษาไทย พร้อมระบุว่าไม่ใช่ใบกำกับภาษีหรือหลักฐานรับเงิน |
-| 29 | Favicon / PWA Icon Generator | Autocomplete อังกฤษ 10/10, ไทย 2/10 | 3 | 4 | 4 | 4 | 3 | Client-only |
+| 29 | Workday Planner พร้อมวันหยุดไทย | Autocomplete อังกฤษ 10/10, ไทย 4/10; ต้องแยกประเทศ/องค์กร | 3 | 5 | 4 | 4 | 3 | ชุดข้อมูลวันหยุดแบบ versioned |
 | 30 | EXIF Viewer / Remover | Autocomplete อังกฤษ 10/10, ไทย 1/10 | 3 | 4 | 4 | 4 | 4 | Client-only และเน้น Privacy |
 | 31 | Overtime Estimator | Trends เดิมต่ำ แต่ Autocomplete ปัจจุบันแตก 1.5/2/3 เท่าและวันหยุด | 4 | 4 | 4 | 4 | 3 | ต้องตรวจฐานกฎหมายล่าสุดและแยกพนักงานรายวัน/รายเดือนก่อนพัฒนา |
 
@@ -155,7 +155,8 @@
 27. Batch 29 — Excel to CSV Converter รองรับ .xlsx, เลือก Worksheet, comma/semicolon/tab/pipe, UTF-8 BOM, Preview, multi-sheet ZIP, Formula Injection protection และ Web Worker — ส่งมอบแล้ว
 28. Batch 30 — HTML Table Generator พร้อม visual editor, import Excel/Sheets/CSV/TSV, caption, thead/tbody, scope, colspan/rowspan, CSS/inline และ responsive Preview — ส่งมอบแล้ว
 29. Batch 31 — Image Cropper Online แบบ client-only รองรับกรอบอิสระ/สัดส่วน/วงกลม, drag + keyboard, exact pixels, rotate/flip และ PNG/JPG/WebP — ส่งมอบแล้ว
-30. Batch 32 — วิจัย Resume Builder, Favicon/PWA, Word Cloud, Workday Planner และเครื่องมือ Privacy ก่อนเลือกงานถัดไป
+30. Batch 32 — Favicon & PWA Icon Generator แบบ client-only สร้าง ICO หลายขนาด, PNG, Apple touch, PWA any/maskable, site.webmanifest, HTML และ ZIP — ส่งมอบแล้ว
+31. Batch 33 — วิจัยต่อระหว่าง Resume Builder, Word Cloud ภาษาไทย, Workday Planner และ Remove Image Metadata โดยยึดความครบและไม่สร้างหน้า keyword ซ้ำ
 
 ทุก Batch ควรมี unit test ของสูตรหรือ parser, E2E อย่างน้อยหนึ่งเส้นทาง, ตรวจ keyboard/mobile และวัด Core Web Vitals ก่อนเปิด AdSense ใน production
 

@@ -453,6 +453,53 @@ Excel to CSV ถูกเลือกเพราะเพิ่มเส้น�
 - [Google Search Central — SEO Starter Guide](https://developers.google.com/search/docs/fundamentals/seo-starter-guide)
 - [Google Search Central — Title links](https://developers.google.com/search/docs/appearance/title-link)
 
+## รอบที่ 22 — Favicon/PWA Icon Generator และการจัดอันดับ Batch 32
+
+สำรวจเมื่อ 8 สิงหาคม 2569 ด้วย Google Autocomplete locale ไทย (`hl=th`, `gl=th`) ทั้งคำไทยและอังกฤษ พร้อมตรวจคู่แข่งและมาตรฐานจาก W3C, Apple, MDN และ web.dev จำนวนคำแนะนำสูงสุด 10 รายการเป็นเพียงสัญญาณความกว้างของ search intent ไม่ใช่ search volume และไม่รับประกันอันดับ Google การเลือกงานยังพิจารณาความครบที่ทำได้ฟรี, ความเป็นส่วนตัว, catalog overlap, ความเสี่ยง และโอกาสสร้างเนื้อหาที่ช่วยผู้ใช้จริง
+
+คะแนน 5 คือสูงที่สุด:
+
+| อันดับ | แนวคิด | สัญญาณ Autocomplete | ยาก | คุณค่าธุรกิจ | รายได้ | ขยายต่อ | นวัตกรรม | ข้อสรุป |
+|---:|---|---:|---:|---:|---:|---:|---:|---|
+| 1 | Favicon / PWA Icon Generator | `favicon generator` 10/10, `pwa icon generator` 10/10, ไทย 2/10 | 3 | 4 | 4 | 4 | 3 | ชนะและส่งมอบ: intent แตก ICO, PNG, Apple touch, maskable, manifest และสร้างแพ็กครบใน Browser ได้ |
+| 2 | Resume Builder | EN 10/10, TH 8/10 | 5 | 5 | 5 | 5 | 4 | มูลค่าสูง แต่ต้องมี ATS semantics, PDF ภาษาไทย, privacy และหลาย template จึงไม่ควรปล่อยบาง |
+| 3 | Word Cloud ภาษาไทย | EN 10/10, TH 3/10 | 4 | 4 | 4 | 4 | 4 | ต้องพิสูจน์ tokenization ภาษาไทย, stop words, ฟอนต์ และ export PNG/SVG |
+| 4 | Business Days Calculator | EN 10/10, TH 4/10 | 3 | 4 | 4 | 4 | 3 | ต้อง version วันหยุดไทยและแยกวันหยุดราชการออกจากวันหยุดองค์กร |
+| 5 | Remove Image Metadata | EN 10/10, TH 1/10 | 4 | 4 | 4 | 4 | 4 | มี privacy value แต่ต้องตรวจ EXIF/XMP/IPTC ของไฟล์ผลจริงในแต่ละ format |
+| 6 | JSON to CSV Converter | EN 10/10, TH 1/10 | 3 | 4 | 4 | 5 | 2 | ต้องออกแบบ flatten object/array ชัดเจนและหลีกเลี่ยง keyword ชนกลุ่ม CSV เดิม |
+| 7 | Password Strength Checker | EN 10/10, TH 0/10 | 2 | 4 | 4 | 4 | 3 | ทำ client-only ได้ แต่ห้ามอ้างเวลาถอดรหัสจากสมมติฐานที่พิสูจน์ไม่ได้ |
+| 8 | Color Palette Generator | EN 10/10, TH 0/10 | 3 | 4 | 4 | 4 | 3 | ต้องมี contrast, lock color และ export design token จึงต่างจาก Color Picker เดิม |
+| 9 | File Checksum Calculator | EN 10/10, TH 0/10 | 2 | 4 | 3 | 4 | 3 | ควรขยาย Hash Generator เดิมแทนสร้างหน้าใหม่บาง ๆ |
+| 10 | Aspect Ratio Calculator | EN 10/10, TH 1/10 | 2 | 3 | 3 | 4 | 2 | ทับฟังก์ชัน Image Cropper บางส่วน; ต้องมีชุดงานวิดีโอ/จอภาพจึงคุ้มหน้าใหม่ |
+| 11 | PDF Compressor | EN/TH 10/10 | 5 | 5 | 5 | 5 | 4 | ชะลอ: การ rasterize ทำลาย text/search/accessibility และไม่รับประกันว่าไฟล์เล็กลง |
+| 12 | Online Signature Maker | EN กว้าง, TH 2/10 | 3 | 4 | 4 | 4 | 3 | ทับ Sign PDF และต้องสื่อว่าไฟล์ภาพลายเซ็นไม่ใช่ digital certificate |
+| 13 | Character Counter | EN/TH 8–10/10 | 1 | 3 | 3 | 3 | 1 | ขยาย Word Counter เดิมดีกว่าสร้างหน้า keyword ซ้ำ |
+| 14 | Overtime Estimator | long-tail 1.5/2/3 เท่า | 4 | 4 | 4 | 4 | 3 | ต้องตรวจฐานกฎหมายปัจจุบันและแยกรายวัน/รายเดือนก่อนพัฒนา |
+| 15 | QR Code Styling Studio | EN กว้าง, ไทยเฉพาะทางต่ำ | 3 | 3 | 4 | 4 | 3 | ควรขยาย QR Generator เดิมเมื่อมี logo/error-correction และ scan verification |
+
+`favicon generator` คืนคำแนะนำ 10 รายการ เช่น free, online, AI, from PNG/SVG/image/text/JPG และ `favicon ico generator` ระบุการสร้าง ICO โดยตรง ส่วน `pwa icon generator` คืน 10 รายการและแตกเป็น online, free, from SVG, maskable, Apple touch และ manifest ทำให้ scope ที่ตอบ intent จริงต้องมากกว่า resize รูปหนึ่งขนาด: รุ่นที่ส่งมอบจึงสร้าง PNG 16/32/48, Apple touch 180, PWA 192/512, Maskable 512, ICO ที่ฝัง PNG 16/32/48, `site.webmanifest`, HTML และ README รวม 11 ไฟล์ใน ZIP
+
+คู่แข่งที่ตรวจ เช่น PWA Icos, Favicon Builder, Snappicon, Icon Forge และ ConsoleLog Tools มีองค์ประกอบร่วมคือ ICO หลายขนาด, Apple touch, PWA/manifest, maskable หรือ ZIP การส่งมอบจึงสร้างไฟล์จริงแทนแสดงเพียง Preview และอ่าน/วาดรูปใน Browser โดยไม่ส่งโลโก้ไป API รับเฉพาะ PNG/JPG/WebP สูงสุด 10 MB / 40 ล้านพิกเซล พร้อมปิด `ImageBitmap` และคืน Blob URL เพื่อจำกัดหน่วยความจำ
+
+Maskable preview ใช้ safe zone ตาม W3C: วงกลมกึ่งกลางรัศมี 40% ของขนาดไอคอน และไม่สร้างพื้นโปร่งใสสำหรับ purpose `maskable` รุ่นนี้บังคับจัดวางแบบเห็นโลโก้ครบและเว้นขอบอย่างน้อย 10% สำหรับไฟล์ maskable แม้ไอคอนทั่วไปเลือก crop แบบเต็มพื้นที่ Apple touch icon ใช้ 180×180 ตามตัวอย่างของ Apple ส่วน `favicon.ico` มี 16/32/48 เพื่อรองรับบริบทขนาดเล็กหลายแบบ
+
+SEO audit เพิ่มกฎห้าม secondary keyword ของหน้าหนึ่งตรงกับ primary keyword ของอีกหน้าแบบ exact match และแก้ `url-encoder` ที่เคยมีคำรอง `เปอร์เซ็นต์` ชน primary ของ Percentage Calculator เป็นคำเฉพาะ `url percent encoding` / `เข้ารหัสเปอร์เซ็นต์ url` เพื่อไม่ให้หน้าแข่งกันเอง ทั้งนี้ metadata, FAQ, sitemap และ internal links ช่วยความเข้าใจหน้าแต่ไม่สามารถรับประกันอันดับแรก Google ได้
+
+- [Google Autocomplete — favicon generator](https://suggestqueries.google.com/complete/search?client=firefox&hl=th&gl=th&q=favicon%20generator)
+- [Google Autocomplete — favicon ico generator](https://suggestqueries.google.com/complete/search?client=firefox&hl=th&gl=th&q=favicon%20ico%20generator)
+- [Google Autocomplete — pwa icon generator](https://suggestqueries.google.com/complete/search?client=firefox&hl=th&gl=th&q=pwa%20icon%20generator)
+- [Google Autocomplete — สร้าง favicon](https://suggestqueries.google.com/complete/search?client=firefox&hl=th&gl=th&q=%E0%B8%AA%E0%B8%A3%E0%B9%89%E0%B8%B2%E0%B8%87%20favicon)
+- [W3C — Web App Manifest](https://www.w3.org/TR/appmanifest/)
+- [web.dev — Maskable icon](https://web.dev/articles/maskable-icon)
+- [Apple — Configuring Web Applications](https://developer.apple.com/library/archive/documentation/AppleApplications/Reference/SafariWebContent/ConfiguringWebApplications/ConfiguringWebApplications.html)
+- [MDN — Favicon](https://developer.mozilla.org/en-US/docs/Glossary/Favicon)
+- [PWA Icos](https://pwaicos.com/)
+- [Favicon Builder](https://faviconbuilder.com/)
+- [Snappicon](https://www.snappicon.com/)
+- [Icon Forge](https://astryke.com/icon-forge/)
+- [ConsoleLog Tools — Favicon Generator](https://www.consolelog.tools/tools/favicon-generator)
+- [Google Search Central — Creating helpful, reliable, people-first content](https://developers.google.com/search/docs/fundamentals/creating-helpful-content)
+
 ## รอบที่ 21 — Image Cropper และการจัดอันดับ Batch 31
 
 สำรวจต่อเมื่อ 8 สิงหาคม 2569 ด้วย Google Autocomplete locale ไทย (`hl=th`, `gl=th`) และตรวจคู่แข่งที่เปิดใช้งานจริง จำนวนคำแนะนำสูงสุด 10 รายการเป็นเพียงสัญญาณความกว้างของ intent ไม่ใช่ search volume และไม่รับประกันอันดับหน้าแรก Google การเลือกงานจึงพิจารณาความครบที่ทำได้ฟรีใน Browser, ความเป็นส่วนตัว, ความเสี่ยง, catalog overlap และโอกาสสร้างหน้าที่ช่วยผู้ใช้จริงร่วมกัน

@@ -1,10 +1,14 @@
 import { describe, expect, it } from "vitest";
 import { tools } from "@/config/tools";
-import { auditToolSeo, buildToolSeoDescription, buildToolSeoTitle, getToolPrimaryKeyword } from "./tool-seo";
+import { auditToolSeo, buildToolSeoDescription, buildToolSeoTitle, findPrimaryKeywordCannibalization, getToolPrimaryKeyword } from "./tool-seo";
 
 describe("tool page SEO governance", () => {
   it("keeps every tool intent, title, canonical source, and internal link valid", () => {
     expect(auditToolSeo(tools)).toEqual([]);
+  });
+
+  it("prevents a page from targeting another page's primary keyword", () => {
+    expect(findPrimaryKeywordCannibalization(tools)).toEqual([]);
   });
 
   it("builds a bilingual title when it remains concise", () => {

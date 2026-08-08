@@ -53,6 +53,7 @@ const components = {
   "background-remover": dynamic(() => import("@/features/tools/background-remover-tool").then((module) => module.BackgroundRemoverTool), { loading, ssr: false }),
   "image-compressor": dynamic(() => import("@/features/tools/image-processing-tools").then((module) => module.ImageCompressorTool), { loading, ssr: false }),
   "image-cropper": dynamic(() => import("@/features/tools/image-cropper-tool").then((module) => module.ImageCropperTool), { loading, ssr: false }),
+  "favicon-generator": dynamic(() => import("@/features/tools/favicon-generator-tool").then((module) => module.FaviconGeneratorTool), { loading, ssr: false }),
   "color-picker": dynamic(() => import("@/features/tools/color-picker-tool").then((module) => module.ColorPickerTool), { loading, ssr: false }),
   "password-generator": dynamic(() => import("@/features/tools/popular-generator-tools").then((module) => module.PasswordGeneratorTool), { loading, ssr: false }),
   "random-number-generator": dynamic(() => import("@/features/tools/popular-generator-tools").then((module) => module.RandomNumberGeneratorTool), { loading, ssr: false }),
