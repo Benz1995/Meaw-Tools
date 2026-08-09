@@ -73,6 +73,7 @@ const toolRoutes = [
   ["irr-calculator", "IRR & MIRR Calculator"],
   ["xirr-calculator", "XIRR & XNPV Calculator"],
   ["compound-interest-calculator", "Compound Interest & Savings Goal Calculator"],
+  ["debt-payoff-calculator", "Debt Snowball & Avalanche Calculator"],
   ["jpg-to-pdf", "JPG to PDF Converter"],
   ["qr-code-generator", "QR Code Generator"],
   ["barcode-generator", "Barcode Generator"],
@@ -2917,6 +2918,71 @@ test("compound savings calculator matches FV, solves a savings goal, and exports
   await page.getByRole("button", { name: "คำนวณดอกเบี้ยทบต้นและเงินออม" }).click();
   await expect(page.getByTestId("savings-primary")).toContainText("฿1,000.00");
   await expect(page.getByText("แผนฝากเงินเพื่อไปถึงเป้าหมาย", { exact: true })).toBeVisible();
+
+  const finalLayout = await page.evaluate(() => ({
+    width: document.documentElement.clientWidth,
+    scrollWidth: document.documentElement.scrollWidth,
+  }));
+  expect(finalLayout.scrollWidth).toBe(finalLayout.width);
+  expect(hasExternalRequest(requestUrls, page.url())).toBe(false);
+  expect(consoleErrors).toEqual([]);
+});
+
+test("debt payoff calculator compares avalanche and snowball, rolls payments, and exports local CSV without mobile overflow", async ({ page }) => {
+  const consoleErrors: string[] = [];
+  const requestUrls: string[] = [];
+  page.on("console", (message) => {
+    if (message.type() === "error") consoleErrors.push(message.text());
+  });
+  page.on("pageerror", (error) => consoleErrors.push(error.message));
+  page.on("request", (request) => requestUrls.push(request.url()));
+  await page.setViewportSize({ width: 390, height: 844 });
+
+  await page.goto("/debt-payoff-calculator");
+  await expect(page.getByRole("heading", { level: 1, name: "Debt Snowball & Avalanche Calculator" })).toBeVisible();
+  await expect(page.getByText("วางแผนปลดหนี้ให้เห็นเส้นชัย", { exact: false })).toBeVisible();
+  await expect(page.locator("#debt-plan-name")).toBeVisible();
+  await page.evaluate(() => document.fonts.ready);
+
+  const initialLayout = await page.evaluate(() => {
+    const label = document.querySelector<HTMLLabelElement>('label[for="debt-plan-name"]');
+    const input = document.querySelector<HTMLInputElement>("#debt-plan-name");
+    const labelBox = label?.getBoundingClientRect();
+    const inputBox = input?.getBoundingClientRect();
+    const ids = Array.from(document.querySelectorAll<HTMLElement>("[id]")).map((element) => element.id);
+    return {
+      labelGap: labelBox && inputBox ? Math.round(inputBox.top - labelBox.bottom) : 0,
+      duplicateIds: ids.filter((id, index) => ids.indexOf(id) !== index),
+      overflow: document.documentElement.scrollWidth > document.documentElement.clientWidth,
+    };
+  });
+  expect(initialLayout.labelGap).toBeGreaterThanOrEqual(10);
+  expect(initialLayout.duplicateIds).toEqual([]);
+  expect(initialLayout.overflow).toBe(false);
+
+  await page.getByRole("button", { name: "โหลดตัวอย่าง" }).click();
+  await expect(page.locator("#debt-plan-name")).toHaveValue("ตัวอย่างแผนปลดหนี้ 3 ก้อน");
+  await page.getByRole("button", { name: "คำนวณ Snowball และ Avalanche" }).click();
+  await expect(page.getByTestId("debt-primary")).toContainText("เดือน");
+  await expect(page.getByTestId("debt-interest")).toContainText("฿");
+  await expect(page.getByTestId("debt-budget")).toContainText("฿10,000.00");
+  await expect(page.getByTestId("debt-comparison")).toContainText("Avalanche");
+  await expect(page.getByTestId("debt-timeline")).toContainText("ปี 1");
+
+  await page.getByRole("tab", { name: "Snowball" }).click();
+  await expect(page.getByRole("heading", { name: "ผลลัพธ์ Snowball · ยอดเล็กก่อน" })).toBeVisible();
+
+  const csvPromise = page.waitForEvent("download");
+  await page.getByTestId("debt-csv").click();
+  const csvDownload = await csvPromise;
+  expect(csvDownload.suggestedFilename()).toBe("meaw-debt-snowball.csv");
+  const csvPath = await csvDownload.path();
+  expect(csvPath).toBeTruthy();
+  const csv = await readFile(csvPath!, "utf8");
+  expect(csv.startsWith("\uFEFF")).toBe(true);
+  expect(csv).toContain('"Plan","ตัวอย่างแผนปลดหนี้ 3 ก้อน"');
+  expect(csv).toContain('"Strategy","snowball"');
+  expect(csv).toContain('"Month number","Month","Opening balance"');
 
   const finalLayout = await page.evaluate(() => ({
     width: document.documentElement.clientWidth,

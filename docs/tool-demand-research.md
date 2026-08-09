@@ -1693,6 +1693,49 @@ Batch 58 ใช้ `APY = (1 + Nominal rate ÷ Compounds per year)^(Compounds pe
 
 Microsoft FV ระบุองค์ประกอบ Rate, Nper, Pmt, Pv และ Type ซึ่งแยกต้นงวด/ปลายงวด ตัวอย่างอัตรา 6%/12 ฝากต้นเดือน 100 มีเงินตั้งต้น 1,000 และ 12 งวดให้ 2,301.40 ชุดทดสอบของ Batch 58 ยืนยันค่านี้ รวม Zero rate, Goal solve, Inflation-adjusted goal, Negative rate, Starting balance reaches goal และ Formula-safe CSV ส่วน Investor.gov ใช้ Goal, Initial amount, Years, Estimated interest และ Compound frequency เป็นแกน Savings goal และธนาคารแห่งประเทศไทยอธิบาย Time value กับดอกเบี้ยทบต้น จึงแสดงสูตร สมมติฐาน และคำเตือนแทนการรับรองผล
 
+## รอบที่ 49 — Debt Payoff, Snowball และ Avalanche (9 สิงหาคม 2569)
+
+รอบนี้ส่งคำตั้งต้น 60 รูปแบบใน 3 กลุ่มไปยัง Google Autocomplete ภาษาไทย/ประเทศไทย โดยกลุ่ม Debt 25 คำได้คำแนะนำ 149 รายการไม่ซ้ำและคำตั้งต้นที่ได้ครบ 10/10 จำนวน 13 คำ กลุ่ม Unit price 20 คำได้ 90 รายการและเต็ม 10/10 จำนวน 6 คำ ส่วน Date duration 15 คำได้ 87 รายการและเต็ม 10/10 จำนวน 8 คำ ไม่มี Request error ทั้งสามกลุ่ม จำนวนคำแนะนำเป็น Demand proxy ของความกว้าง Intent เท่านั้น ไม่ใช่ Search volume, Traffic forecast, Conversion หรือหลักฐานว่าจะติดหน้าแรก Google
+
+สัญญาณตรงของกลุ่ม Debt ได้แก่ `debt payoff calculator`, `debt snowball calculator`, `debt avalanche calculator`, `debt reduction calculator`, `debt repayment calculator`, `debt payoff planner`, `credit card debt payoff calculator` และ `debt snowball vs avalanche` ที่ได้ 10/10 พร้อมคำไทย `คำนวณหนี้` 10/10; Excel 9/10, Extra payment 5/10, Multiple debt 4/10 และ `วางแผนปลดหนี้` 1/10 กลุ่ม Unit price มีแกน English หลายคำ 10/10 แต่คำไทย `คำนวณราคาต่อหน่วย` ได้ 1/10 ส่วน Date duration มี Demand สูงแต่ซ้ำ Workflow ของ `date-calculator` และ `business-days-calculator` จึงไม่สร้าง URL ใหม่ให้เกิด Keyword cannibalization
+
+ใช้ URL เดียว `debt-payoff-calculator` รวม Debt payoff, Snowball, Avalanche, Extra payment, Multiple debts, Credit card, Excel intent และ Debt-free date เพราะใช้ Input และแบบจำลองเดียวกัน ไม่สร้างหน้า Free, Online, Excel, Snowball หรือ Avalanche แยกซ้ำเพื่อไล่ Keyword ส่วน Credit-card statement simulator, Balance transfer, Debt consolidation, DTI และ Mortgage extra payment แยกไว้ เพราะมี Minimum formula, Fee, New APR, Income basis หรือ Secured-loan rules คนละ Workflow
+
+คะแนน 5 คือสูงที่สุด การจัดอันดับพิจารณา Demand ที่พบ, คุณค่าผู้ใช้จริง, ความต่างจาก 85 tools เดิม, Revenue opportunity, Technical complexity, Scalability, Innovation และความเสี่ยงจากการใช้ผลทางการเงินผิดบริบท:
+
+| อันดับ | แนวคิด | Demand ที่พบ | ยาก | คุณค่าธุรกิจ | รายได้ | ขยายต่อ | นวัตกรรม | ข้อสรุป |
+|---:|---|---|---:|---:|---:|---:|---:|---|
+| 1 | Debt Snowball & Avalanche Calculator | Debt core EN/TH 10/10 หลายแกน | 5 | 5 | 5 | 5 | 5 | ส่งมอบ Batch 59; Multi-debt, Fixed budget rollover, Compare, Timeline และ CSV |
+| 2 | Credit Card Payoff Planner | Credit card 10/10 | 5 | 5 | 5 | 5 | 4 | ต้องเพิ่ม Minimum แบบเปอร์เซ็นต์/ขั้นต่ำคงที่, Statement cycle, Fee และ Promo APR |
+| 3 | Debt Consolidation Comparison | Consolidation related intent | 5 | 5 | 5 | 5 | 5 | ต้องเทียบ Origination fee, New APR/term, Old payoff, Cash-flow relief และ Total cost |
+| 4 | Extra Payment Loan Planner | Extra payment 5/10 | 4 | 5 | 5 | 5 | 4 | ใช้ Loan amortization รายสัญญาและ Prepayment rule ต่างจาก Multi-debt priority |
+| 5 | Emergency Fund vs Debt Scenario | Related planning intent | 5 | 5 | 4 | 5 | 5 | ต้องแยก Liquidity floor, Risk scenario และห้ามสรุปทางเลือกแทนผู้ใช้ |
+| 6 | Debt-to-Income Calculator | DTI related intent | 4 | 5 | 5 | 5 | 4 | ต้องระบุ Gross/Net income และไม่อ้างเกณฑ์ผู้ให้กู้แบบคงที่โดยไม่ version |
+| 7 | Balance Transfer Calculator | Credit card transfer intent | 5 | 5 | 5 | 4 | 5 | ต้องมี Transfer fee, Intro period, Revert APR และ New purchase allocation |
+| 8 | Student Loan Repayment Planner | Country-specific intent | 5 | 5 | 4 | 3 | 4 | กฎตามประเทศและแผนชำระเปลี่ยนได้ ต้องใช้แหล่งทางการและ version rules |
+| 9 | Mortgage Extra Payment Calculator | Mortgage intent สูง | 5 | 5 | 5 | 5 | 4 | ต้องรองรับ Amortization, Lump sum, Recast, Prepayment penalty และ Escrow boundary |
+| 10 | Debt-free Date Tracker | Debt-free date 1/10 | 3 | 4 | 4 | 5 | 4 | วันที่ประมาณรวม Batch 59 แล้ว งาน Tracker แยกต้องมี Persistence และ Actual-payment reconciliation |
+| 11 | Debt Settlement Offer Comparison | Settlement intent | 5 | 4 | 5 | 4 | 3 | ความเสี่ยงสูง ต้องรวม Tax/legal/credit impact และไม่ส่งเสริมบริการเรียกค่าล่วงหน้า |
+| 12 | Credit Utilization Planner | Credit utilization intent | 4 | 4 | 5 | 5 | 4 | ต้องมี Statement balance, Reporting date, Limit และไม่รับรองผล Credit score |
+| 13 | Budget-to-Debt Payment Capacity | Budget/debt related | 5 | 5 | 4 | 5 | 5 | ต้องแยก Essential expense, Irregular cost, Buffer และ Negative-cash-flow state |
+| 14 | Medical Debt Payment Plan | Medical debt related | 5 | 4 | 4 | 3 | 4 | ต้องระวังประเทศ/สิทธิ/กฎหมายและแยก Interest-free provider plan จาก credit debt |
+| 15 | BNPL Installment Tracker | BNPL related intent | 4 | 4 | 4 | 5 | 4 | ต้องมี Due date, Late fee, Multiple provider และ Privacy-safe local persistence |
+
+Batch 59 คงงบรายเดือนไว้ที่ `Σ ยอดขั้นต่ำเดิม + เงินโปะ` ทุกเดือน คิดดอกเบี้ยแต่ละก้อนเป็น `ยอดต้นเดือน × APR ÷ 12` แล้วจ่ายขั้นต่ำทุกก้อนก่อน ส่วนที่เหลือไปตามลำดับ Avalanche คือ APR สูงสุดก่อนโดยใช้ยอดคงเหลือน้อยกว่าเป็นตัวตัดสินเมื่อดอกเท่ากัน; Snowball คือยอดคงเหลือน้อยสุดก่อนโดยใช้ APR สูงกว่าเป็นตัวตัดสินเมื่อยอดเท่ากัน เงินที่เกินยอดปิดก้อนจะไหลไปก้อนถัดไปในเดือนเดียวกันและแบบจำลองหยุดอย่างโปร่งใสที่ 600 เดือนหากยังไม่หมด
+
+CFPB อธิบายสองวิธีและระบุว่าวิธีอัตราสูงก่อนอาจประหยัดเงินระยะยาว ขณะที่ Snowball เริ่มจากยอดเล็กและโยกเงินไปก้อนถัดไปแต่อาจมีต้นทุนรวมสูงกว่า Debt action plan ของ CFPB ย้ำให้จ่ายขั้นต่ำทุกก้อนก่อนโยกเงินส่วนเพิ่ม Consumer.gov แนะนำให้เริ่มจากงบประมาณและติดต่อบริษัทเมื่อชำระลำบาก ส่วน FTC เตือนบริการที่เก็บค่าธรรมเนียมล่วงหน้าหรือรับประกันผล เครื่องมือจึงไม่ทำหน้าที่ Debt settlement, Credit counseling หรือเจรจาเจ้าหนี้ และแสดงข้อจำกัดของ APR คงที่ ดอกเบี้ยรายเดือน ค่าธรรมเนียม อัตราผันแปร โปรโมชั่น การผิดนัด และกฎปัดเศษอย่างชัดเจน
+
+- [Google Autocomplete — debt payoff calculator](https://suggestqueries.google.com/complete/search?client=firefox&hl=th&gl=th&q=debt%20payoff%20calculator)
+- [Google Autocomplete — debt snowball calculator](https://suggestqueries.google.com/complete/search?client=firefox&hl=th&gl=th&q=debt%20snowball%20calculator)
+- [Google Autocomplete — debt avalanche calculator](https://suggestqueries.google.com/complete/search?client=firefox&hl=th&gl=th&q=debt%20avalanche%20calculator)
+- [Google Autocomplete — คำนวณหนี้](https://suggestqueries.google.com/complete/search?client=firefox&hl=th&gl=th&q=%E0%B8%84%E0%B8%B3%E0%B8%99%E0%B8%A7%E0%B8%93%E0%B8%AB%E0%B8%99%E0%B8%B5%E0%B9%89)
+- [CFPB — How to reduce your debt](https://www.consumerfinance.gov/archive/blog/how-reduce-your-debt/)
+- [CFPB — Your Money, Your Goals: Debt action plan](https://files.consumerfinance.gov/f/documents/cfpb_your-money-your-goals_debt-action-plan_tool_2018-11.pdf)
+- [Consumer.gov — Debt Explained](https://consumer.gov/debt/debt-explained)
+- [FTC — Looking for debt relief? Avoid a scam](https://consumer.ftc.gov/consumer-alerts/2026/03/looking-debt-relief-heres-how-avoid-scam)
+- [Google Search Central — Creating helpful, reliable, people-first content](https://developers.google.com/search/docs/fundamentals/creating-helpful-content)
+- [Google Search Central Blog — Doorway pages](https://developers.google.com/search/blog/2015/03/an-update-on-doorway-pages)
+
 - [Google Autocomplete — compound interest calculator](https://suggestqueries.google.com/complete/search?client=firefox&hl=th&gl=th&q=compound%20interest%20calculator)
 - [Google Autocomplete — savings goal calculator](https://suggestqueries.google.com/complete/search?client=firefox&hl=th&gl=th&q=savings%20goal%20calculator)
 - [Google Autocomplete — คำนวณเงินออม](https://suggestqueries.google.com/complete/search?client=firefox&hl=th&gl=th&q=%E0%B8%84%E0%B8%B3%E0%B8%99%E0%B8%A7%E0%B8%93%E0%B9%80%E0%B8%87%E0%B8%B4%E0%B8%99%E0%B8%AD%E0%B8%AD%E0%B8%A1)

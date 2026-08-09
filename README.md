@@ -6,7 +6,7 @@
 
 - Next.js 16 App Router, React 19, TypeScript strict และ Tailwind CSS 4
 - shadcn/ui + Radix, Noto Sans Thai, JetBrains Mono และ Meaw Glass Design System ที่มี dark mode พื้นดำจริง
-- เครื่องมือ 85 รายการ พร้อม validation, empty/error state, clear และ action ที่เหมาะกับแต่ละงาน
+- เครื่องมือ 86 รายการ พร้อม validation, empty/error state, clear และ action ที่เหมาะกับแต่ละงาน
 - กลุ่มงานทั่วไป: นับคำ จัดระเบียบข้อความ คำนวณเปอร์เซ็นต์ แปลงหน่วย และคำนวณวัน
 - Word Cloud Generator ตัดคำไทย/อังกฤษ กรอง stopwords รองรับวลีพร้อมน้ำหนัก ปรับสี/พื้นหลัง และส่งออก PNG 2×, SVG หรือ CSV ภายใน Browser
 - Business Days Calculator นับช่วงวันหรือเพิ่ม/ลบวันทำการ ปรับสัปดาห์ทำงาน ตัดวันหยุดกำหนดเอง และใช้ preset วันหยุดสถาบันการเงิน ธปท. ปี 2569 แบบระบุขอบเขต
@@ -30,6 +30,7 @@
 - IRR & MIRR Calculator ตรวจหลายราก รากซ้ำ ไม่มีราก และรากนอกช่วง พร้อม NPV profile, Timeline และ CSV
 - XIRR & XNPV Calculator ใช้วันที่จริงบนฐาน 365 วัน ตรวจหลายราก แสดง XNPV profile/Timeline และ CSV โดยไม่พึ่ง Guess เดียว
 - Compound Interest & Savings Goal Calculator คำนวณยอดเงินปลายทางหรือย้อนหาเงินฝากต่องวด รองรับ Nominal rate, APY, ความถี่ทบต้น, ฝากต้น/ปลายงวด, เงินเฟ้อ, Timeline และ CSV
+- Debt Snowball & Avalanche Calculator เทียบแผนปลดหนี้หลายก้อนด้วยงบคงที่ รองรับเงินโปะ ลำดับปิดหนี้ วันปลดหนี้ ดอกเบี้ย ตารางรายปี และ formula-safe CSV รายเดือน
 - JPG to PDF, QR Code Generator, QR Code Scanner และ Age Calculator ประมวลผลภายใน Browser
 - Loan Calculator, BMI Calculator และ Profit & Margin Calculator พร้อมสูตรและข้อจำกัดที่ตรวจสอบได้
 - VAT Calculator Thailand บวกหรือถอด VAT ด้วยสูตรที่อธิบายได้ รองรับ Service Charge และแยกภาษีหัก ณ ที่จ่าย พร้อมอัตรา versioned จากกรมสรรพากร
