@@ -842,14 +842,23 @@ test("category tags navigate to a category page", async ({ page }) => {
 
 test("cat walker can be disabled and remembers the preference", async ({ page }) => {
   await page.goto("/tools");
+  const catCharacter = page.locator(".cat-walker-character");
   const walkingCat = page.locator(".cat-walker-sprite");
-  await expect(walkingCat).toBeVisible();
+  await expect(catCharacter).toBeVisible();
   const walkingStyles = await walkingCat.evaluate((element) => {
     const styles = getComputedStyle(element);
-    return { animationName: styles.animationName, backgroundImage: styles.backgroundImage };
+    return {
+      animationName: styles.animationName,
+      animationTimingFunction: styles.animationTimingFunction,
+      backgroundImage: styles.backgroundImage,
+    };
   });
   expect(walkingStyles.animationName).toContain("meaw-walk-sprite");
+  expect(walkingStyles.animationTimingFunction).toContain("steps(1)");
   expect(walkingStyles.backgroundImage).toContain("meaw-cat-walk-sprite.png");
+  const trackTiming = await page.locator(".cat-walker-track").evaluate((element) => getComputedStyle(element).animationTimingFunction);
+  expect(trackTiming).toBe("linear");
+  await expect(page.locator(".cat-walker-rest")).toHaveCount(1);
   const layerOrder = await page.evaluate(() => ({
     content: Number.parseInt(getComputedStyle(document.querySelector(".meaw-app-content")!).zIndex, 10),
     cat: Number.parseInt(getComputedStyle(document.querySelector(".meaw-playground")!).zIndex, 10),
@@ -1392,6 +1401,30 @@ test("random wheel has visible spin, pointer, and easing animation", async ({ pa
   expect(motionStyles.duration).toBe("4.6s");
   expect(motionStyles.timing).toContain("cubic-bezier");
   expect(pointerAnimation).toContain("wheel-pointer-tick");
+  await expect(page.getByTestId("wheel-result")).toContainText(/มะลิ|สมชาย|น้ำฝน|ต้นกล้า/, { timeout: 6_000 });
+});
+
+test("random wheel offers an explicit animation override for reduced-motion users", async ({ page }) => {
+  await page.emulateMedia({ reducedMotion: "reduce" });
+  await page.goto("/random-wheel");
+  await page.getByLabel("ชื่อ ตัวเลือก หรือของรางวัล").fill("มะลิ\nสมชาย\nน้ำฝน\nต้นกล้า");
+
+  const wheel = page.getByTestId("wheel-disc");
+  const stage = page.locator(".wheel-stage");
+  await expect(stage).toHaveClass(/motion-reduced/);
+  await expect(page.getByTestId("wheel-motion-control")).toContainText("ระบบกำลังลดการเคลื่อนไหว");
+  expect(await wheel.evaluate((element) => getComputedStyle(element).transitionDuration)).toBe("0s");
+
+  await page.getByRole("button", { name: "เปิดแอนิเมชัน" }).click();
+  await expect(stage).toHaveClass(/motion-allowed/);
+  await expect(page.locator(".meaw-playground")).toHaveClass(/motion-enabled/);
+
+  await page.getByRole("button", { name: "หมุนวงล้อสุ่ม" }).click();
+  const firstTransform = await wheel.evaluate((element) => getComputedStyle(element).transform);
+  await page.waitForTimeout(240);
+  const secondTransform = await wheel.evaluate((element) => getComputedStyle(element).transform);
+  expect(secondTransform).not.toBe(firstTransform);
+  expect(await wheel.evaluate((element) => getComputedStyle(element).transitionDuration)).toBe("4.6s");
   await expect(page.getByTestId("wheel-result")).toContainText(/มะลิ|สมชาย|น้ำฝน|ต้นกล้า/, { timeout: 6_000 });
 });
 

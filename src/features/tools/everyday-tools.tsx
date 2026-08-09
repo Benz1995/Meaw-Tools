@@ -5,6 +5,8 @@ import {
   CalendarDays,
   Copy,
   History,
+  Pause,
+  Play,
   RefreshCw,
   Sparkles,
   Trash2,
@@ -23,6 +25,7 @@ import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Switch } from "@/components/ui/switch";
 import { Textarea } from "@/components/ui/textarea";
+import { setMotionOverride, useMotionPreference } from "@/hooks/use-motion-preference";
 import {
   convertEraYears,
   getNextWheelRotation,
@@ -68,26 +71,28 @@ function WheelGraphic({
   entries,
   rotation,
   isSpinning,
+  motionEnabled,
 }: {
   entries: string[];
   rotation: number;
   isSpinning: boolean;
+  motionEnabled: boolean;
 }) {
   const showLabels = entries.length <= 20;
 
   return (
     <div
-      className={`wheel-stage relative mx-auto aspect-square w-full max-w-[31rem] p-5 sm:p-7 ${isSpinning ? "is-spinning" : ""}`}
+      className={`wheel-stage relative mx-auto aspect-square w-full max-w-[31rem] p-5 sm:p-7 ${isSpinning ? "is-spinning" : ""} ${motionEnabled ? "motion-allowed" : "motion-reduced"}`}
       data-spinning={isSpinning}
     >
       <div className="wheel-glow absolute inset-5 rounded-full sm:inset-7" aria-hidden="true" />
       <div className="wheel-pointer absolute left-1/2 top-0 z-20 -translate-x-1/2 text-3xl leading-none text-primary drop-shadow" aria-hidden="true">▼</div>
       <div
         data-testid="wheel-disc"
-        className="wheel-disc relative z-10 size-full rounded-full motion-reduce:transition-none"
+        className="wheel-disc relative z-10 size-full rounded-full"
         style={{
           transform: `rotate(${rotation}deg)`,
-          transitionDuration: `${WHEEL_SPIN_DURATION_MS}ms`,
+          transitionDuration: motionEnabled ? `${WHEEL_SPIN_DURATION_MS}ms` : "0ms",
         }}
       >
         <svg viewBox="0 0 100 100" className="size-full overflow-visible drop-shadow-lg" role="img" aria-label={`วงล้อสุ่ม ${entries.length} รายการ`}>
@@ -128,6 +133,7 @@ function WheelGraphic({
 }
 
 export function RandomWheelTool() {
+  const { motionEnabled, motionOverride, prefersReducedMotion } = useMotionPreference();
   const [input, setInput] = useState("");
   const [deduplicate, setDeduplicate] = useState(true);
   const [removeWinner, setRemoveWinner] = useState(false);
@@ -137,6 +143,7 @@ export function RandomWheelTool() {
   const [error, setError] = useState("");
   const [isSpinning, setIsSpinning] = useState(false);
   const winnerTimer = useRef<number | null>(null);
+  const spinFrame = useRef<number | null>(null);
 
   const entries = useMemo(() => {
     try {
@@ -148,7 +155,15 @@ export function RandomWheelTool() {
 
   useEffect(() => () => {
     if (winnerTimer.current !== null) window.clearTimeout(winnerTimer.current);
+    if (spinFrame.current !== null) window.cancelAnimationFrame(spinFrame.current);
   }, []);
+
+  const cancelPendingSpin = () => {
+    if (winnerTimer.current !== null) window.clearTimeout(winnerTimer.current);
+    if (spinFrame.current !== null) window.cancelAnimationFrame(spinFrame.current);
+    winnerTimer.current = null;
+    spinFrame.current = null;
+  };
 
   const resetResult = () => {
     setWinner("");
@@ -170,15 +185,12 @@ export function RandomWheelTool() {
         activeEntries.length,
         WHEEL_MINIMUM_TURNS,
       );
-      const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-
-      if (winnerTimer.current !== null) window.clearTimeout(winnerTimer.current);
+      cancelPendingSpin();
       setWinner("");
       setError("");
       setIsSpinning(true);
-      setRotation(nextRotation);
 
-      winnerTimer.current = window.setTimeout(() => {
+      const finishSpin = () => {
         setWinner(selected.value);
         setHistory((current) => [selected.value, ...current].slice(0, 10));
         if (removeWinner) {
@@ -188,7 +200,23 @@ export function RandomWheelTool() {
         setIsSpinning(false);
         winnerTimer.current = null;
         toast.success(`ผลการสุ่ม: ${selected.value}`);
-      }, reducedMotion ? 80 : WHEEL_SPIN_DURATION_MS + 120);
+      };
+
+      if (!motionEnabled) {
+        setRotation(nextRotation);
+        winnerTimer.current = window.setTimeout(finishSpin, 80);
+        return;
+      }
+
+      // Wait for the spinning state to paint before changing the transform.
+      // This guarantees a transition even after the wheel has just mounted.
+      spinFrame.current = window.requestAnimationFrame(() => {
+        spinFrame.current = window.requestAnimationFrame(() => {
+          setRotation(nextRotation);
+          spinFrame.current = null;
+          winnerTimer.current = window.setTimeout(finishSpin, WHEEL_SPIN_DURATION_MS + 120);
+        });
+      });
     } catch (caught) {
       setWinner("");
       setError(caught instanceof Error ? caught.message : "หมุนวงล้อไม่สำเร็จ");
@@ -196,8 +224,7 @@ export function RandomWheelTool() {
   };
 
   const clear = () => {
-    if (winnerTimer.current !== null) window.clearTimeout(winnerTimer.current);
-    winnerTimer.current = null;
+    cancelPendingSpin();
     setInput("");
     setWinner("");
     setHistory([]);
@@ -266,13 +293,29 @@ export function RandomWheelTool() {
         </section>
 
         <section className="min-w-0 rounded-2xl border bg-primary/[0.03] p-3 sm:p-5" aria-labelledby="wheel-result-heading">
-          {entries.length >= 2 ? <WheelGraphic entries={entries} rotation={rotation} isSpinning={isSpinning} /> : (
+          {entries.length >= 2 ? <WheelGraphic entries={entries} rotation={rotation} isSpinning={isSpinning} motionEnabled={motionEnabled} /> : (
             <div className="mx-auto grid aspect-square w-full max-w-[31rem] place-items-center rounded-full border-2 border-dashed bg-muted/10 p-8 text-center">
               <div><Sparkles className="mx-auto size-9 text-primary/60" /><p className="mt-3 text-sm font-medium">เพิ่มอย่างน้อย 2 รายการเพื่อสร้างวงล้อ</p><p className="mt-1 text-xs text-muted-foreground">วงล้อจะอัปเดตตามรายชื่อโดยอัตโนมัติ</p></div>
             </div>
           )}
 
-          <div data-testid="wheel-result" className={`mt-3 min-h-28 rounded-2xl border bg-card/90 p-5 text-center shadow-sm ${winner ? "wheel-result-reveal" : ""}`} aria-live="polite" aria-atomic="true">
+          {prefersReducedMotion ? (
+            <div className="mx-auto mt-3 flex max-w-[31rem] flex-col gap-3 rounded-xl border border-primary/15 bg-card/80 px-4 py-3 text-sm sm:flex-row sm:items-center sm:justify-between" data-testid="wheel-motion-control">
+              <div className="flex min-w-0 items-start gap-2">
+                {motionOverride ? <Play className="mt-0.5 size-4 shrink-0 text-primary" /> : <Pause className="mt-0.5 size-4 shrink-0 text-muted-foreground" />}
+                <div>
+                  <p className="font-medium">{motionOverride ? "เปิดแอนิเมชันสำหรับ Meaw Tools แล้ว" : "ระบบกำลังลดการเคลื่อนไหว"}</p>
+                  <p className="mt-0.5 text-xs leading-5 text-muted-foreground">{motionOverride ? "วงล้อและ Meaw จะเคลื่อนไหว แม้ระบบตั้งค่า Reduce motion" : "กดเปิดได้หากต้องการเห็นวงล้อหมุนและ Meaw เดิน"}</p>
+                </div>
+              </div>
+              <Button type="button" size="sm" variant="outline" className="shrink-0" onClick={() => setMotionOverride(!motionOverride)} disabled={isSpinning}>
+                {motionOverride ? <Pause className="size-4" /> : <Play className="size-4" />}
+                {motionOverride ? "ลดการเคลื่อนไหว" : "เปิดแอนิเมชัน"}
+              </Button>
+            </div>
+          ) : null}
+
+          <div data-testid="wheel-result" className={`mt-3 min-h-28 rounded-2xl border bg-card/90 p-5 text-center shadow-sm ${winner ? `wheel-result-reveal ${motionEnabled ? "motion-allowed" : "motion-reduced"}` : ""}`} aria-live="polite" aria-atomic="true">
             <p id="wheel-result-heading" className="text-xs font-semibold tracking-[0.16em] text-muted-foreground uppercase">ผลการสุ่ม</p>
             {winner ? <p className="mt-2 break-words text-2xl font-black text-primary sm:text-3xl">🎉 {winner}</p> : <p className="mt-3 text-sm text-muted-foreground">{isSpinning ? "วงล้อกำลังเร่งและค่อย ๆ ชะลอ…" : "กดหมุนแล้วผลจะปรากฏตรงนี้"}</p>}
           </div>

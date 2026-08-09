@@ -4,22 +4,18 @@ import Image from "next/image";
 import { Cat } from "lucide-react";
 import { useSyncExternalStore } from "react";
 import { Button } from "@/components/ui/button";
+import { setMotionOverride, useMotionPreference } from "@/hooks/use-motion-preference";
 
 // Keep the legacy storage key so returning visitors do not lose their preference.
 const CAT_PREFERENCE_KEY = "devthai-cat-enabled";
 const CAT_PREFERENCE_EVENT = "meaw-cat-preference";
-const CAT_MOTION_OVERRIDE_KEY = "meaw-cat-motion-override";
-const REDUCED_MOTION_QUERY = "(prefers-reduced-motion: reduce)";
 
 function subscribe(callback: () => void) {
-  const motionQuery = window.matchMedia(REDUCED_MOTION_QUERY);
   window.addEventListener("storage", callback);
   window.addEventListener(CAT_PREFERENCE_EVENT, callback);
-  motionQuery.addEventListener("change", callback);
   return () => {
     window.removeEventListener("storage", callback);
     window.removeEventListener(CAT_PREFERENCE_EVENT, callback);
-    motionQuery.removeEventListener("change", callback);
   };
 }
 
@@ -27,27 +23,17 @@ function getCatPreference() {
   return window.localStorage.getItem(CAT_PREFERENCE_KEY) !== "false";
 }
 
-function getMotionOverride() {
-  return window.localStorage.getItem(CAT_MOTION_OVERRIDE_KEY) === "true";
-}
-
-function getReducedMotionPreference() {
-  return window.matchMedia(REDUCED_MOTION_QUERY).matches;
-}
-
 export function CatWalker() {
   const enabled = useSyncExternalStore(subscribe, getCatPreference, () => true);
-  const motionOverride = useSyncExternalStore(subscribe, getMotionOverride, () => false);
-  const reducedMotion = useSyncExternalStore(subscribe, getReducedMotionPreference, () => false);
-  const invitesMotion = enabled && reducedMotion && !motionOverride;
-  const motionEnabled = enabled && (!reducedMotion || motionOverride);
+  const { motionEnabled, motionOverride, prefersReducedMotion } = useMotionPreference();
+  const invitesMotion = enabled && prefersReducedMotion && !motionOverride;
 
   const toggleCat = () => {
     if (!enabled) {
       window.localStorage.setItem(CAT_PREFERENCE_KEY, "true");
-      if (reducedMotion) window.localStorage.setItem(CAT_MOTION_OVERRIDE_KEY, "true");
+      if (prefersReducedMotion) setMotionOverride(true);
     } else if (invitesMotion) {
-      window.localStorage.setItem(CAT_MOTION_OVERRIDE_KEY, "true");
+      setMotionOverride(true);
     } else {
       window.localStorage.setItem(CAT_PREFERENCE_KEY, "false");
     }
@@ -64,7 +50,10 @@ export function CatWalker() {
               <span className="cat-walker-shadow" />
               <span className="cat-walker-paws" />
               {motionEnabled ? (
-                <span className="cat-walker-image cat-walker-sprite" />
+                <span className="cat-walker-character">
+                  <span className="cat-walker-image cat-walker-sprite" />
+                  <span className="cat-walker-image cat-walker-rest" />
+                </span>
               ) : (
                 <Image
                   src="/brand/devthai-cat.png"
