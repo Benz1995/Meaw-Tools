@@ -61,6 +61,7 @@
 | 53 | Food Cost & Recipe Cost Calculator | ร้านอาหาร, คาเฟ่, เบเกอรี่, Catering, ผู้ขายอาหาร | คำนวณต้นทุนวัตถุดิบจากราคาซื้อ ปริมาณใช้ หน่วยและ Yield พร้อม Cost per serving, Direct cost, Food cost %, Contribution, ราคาเป้าหมาย และ CSV | พร้อมใช้ |
 | 54 | Drink, Cocktail & Liquor Cost Calculator | บาร์, ร้านอาหาร, คาเฟ่, เจ้าของแบรนด์เครื่องดื่ม | คำนวณต้นทุนต่อแก้วจากราคาขวด ปริมาณริน Yield, Garnish, Direct cost, Pour cost %, ราคาเป้าหมาย, ABV และ U.S. standard drink โดยประมาณ พร้อม CSV | พร้อมใช้ |
 | 55 | Coffee Cost Calculator | ร้านกาแฟ, คาเฟ่, Barista, Roaster, เจ้าของแบรนด์ | คำนวณต้นทุนต่อแก้วจาก Bag price/Dose, นม, ส่วนผสม, Packaging, Labor, Channel fee, ราคาเป้าหมาย และแผนวัตถุดิบรายเดือน พร้อม CSV | พร้อมใช้ |
+| 56 | Coffee Roasting Calculator | โรงคั่ว, Roaster, เจ้าของแบรนด์, Wholesale coffee | คำนวณ Roast loss/Yield จากน้ำหนักจริง ต้นทุน Green bean, Energy, Labor ต่อ Batch, Cost per roasted kg/ถุงขาย, ราคาเป้าหมาย และแผนรายเดือน พร้อม CSV | พร้อมใช้ |
 
 ## หลักฐาน Google Trends ประเทศไทย
 

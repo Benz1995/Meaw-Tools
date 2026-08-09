@@ -1149,7 +1149,6 @@ UI แบ่งเป็นแผน/ฐานยอดขาย, Tier editor, Q
 - [Google Search Central — AI features and your website](https://developers.google.com/search/docs/fundamentals/ai-optimization-guide)
 - [Google Search Central Blog — Doorway pages](https://developers.google.com/search/blog/2015/03/an-update-on-doorway-pages)
 
-
 ## รอบที่ 37 — Safety Stock & Reorder Point Calculator และการจัดอันดับ Batch 47
 
 สำรวจเมื่อ 9 สิงหาคม 2569 ด้วย Google Autocomplete locale ไทย (`hl=th`, `gl=th`) จำนวน 57 คำตั้งต้น ครอบคลุม Safety Stock, Reorder Point, Service level, Standard deviation, EOQ, Inventory turnover/days/cost, Warehouse space, ABC/FIFO, Demand forecast และคำไทย จำนวนคำแนะนำสูงสุด 10 รายการเป็น demand proxy สำหรับดู intent และ long-tail เท่านั้น ไม่ใช่ search volume และไม่รับประกันอันดับหน้าแรก Google
@@ -1431,6 +1430,50 @@ UI แบ่ง Menu/Price/Volume plan, Beans/Dose, Optional milk, Extra ingredi
 - [Cost Control for the Hospitality Industry — Standardized Recipe and Yield](https://resources.escoffier.edu/ge130/dopson/dopson_c05.pdf)
 - [Specialty Coffee Association — Brewing Ratio vs Beverage Ratio](https://sca.coffee/sca-news/25/issue-9/english/water-and-coffee-acidity-how-to-adapt-your-water-for-different-extraction-methods-25-magazine-issue-9-pxjby)
 - [NIST — SI Units Volume](https://www.nist.gov/pml/owm/si-units-volume)
+- [NIST — SI Units Mass](https://www.nist.gov/pml/owm/si-units-mass)
+- [Google Search Central — Creating helpful, reliable, people-first content](https://developers.google.com/search/docs/fundamentals/creating-helpful-content)
+- [Google Search Central Blog — Doorway pages](https://developers.google.com/search/blog/2015/03/an-update-on-doorway-pages)
+
+## รอบที่ 43 — Coffee Roasting Cost, Weight Loss และ Roastery Planning (9 สิงหาคม 2569)
+
+รอบนี้ส่งคำตั้งต้น 60 รูปแบบไปยัง Google Autocomplete ภาษาไทย/ประเทศไทย ครอบคลุม `coffee roasting calculator`, Cost, Weight loss, Yield, Batch, Profit, Pricing, Capacity, Inventory, Wholesale, Energy, Break-even, Blend และคำไทย ได้คำแนะนำรวม 13 รายการหรือ 9 รายการไม่ซ้ำ สัญญาณตรงที่พบคือ `coffee roasting calculator`, `coffee roasting cost calculator` และ `coffee roasting weight loss calculator` อย่างละ 1/9 คำแนะนำไม่ซ้ำ จึงเป็น Long-tail เชิงวิชาชีพที่ Intent ชัด แต่ไม่ควรอ้างว่าเป็นคำปริมาณสูง คะแนนนี้เป็น Autocomplete demand proxy ไม่ใช่ Search Volume และไม่รับประกันอันดับ Google
+
+หน้าเดียวรวม Roast loss, Yield, Green coffee cost, Energy, Direct labor, Other batch cost, Cost per roasted kg, Retail bag cost, Channel fee, Target contribution price และ Monthly roastery scenario เพราะใช้ Input/Output mass และต้นทุน Batch ชุดเดียวกัน ไม่สร้างหน้าบางแยกคำ Cost, Weight loss, Yield, Free หรือ Online เพื่อลด Keyword cannibalization และความเสี่ยง Doorway page ส่วน Coffee shop break-even, Extraction yield/TDS, Multi-menu inventory และ Wholesale tier pricing แยกไว้ เพราะต้องใช้ Fixed cost/Product mix, Beverage mass/TDS, Recipe หลายเมนู หรือ Channel/MOQ workflow คนละชุด
+
+คะแนน 5 คือสูงที่สุด การจัดอันดับพิจารณา Demand ที่พบ, คุณค่าผู้ใช้จริง, ความต่างจาก 79 tools เดิม, ความโปร่งใสของสูตร, Revenue opportunity, Scalability, Innovation และความเสี่ยงจากการตีความข้อมูลผิด:
+
+| อันดับ | แนวคิด | Demand ที่พบ | ยาก | คุณค่าธุรกิจ | รายได้ | ขยายต่อ | นวัตกรรม | ข้อสรุป |
+|---:|---|---|---:|---:|---:|---:|---:|---|
+| 1 | Coffee Roasting Cost & Weight Loss Calculator | Exact 3 intents; อย่างละ 1/9 unique suggestions | 5 | 5 | 4 | 5 | 5 | ส่งมอบ Batch 53; Loss/Yield, Batch cost, Cost/kg/bag, Pricing, Monthly scenario และ CSV |
+| 2 | Coffee Shop Profit & Break-even Calculator | Profit intent 3/10 จากรอบ 42 | 5 | 5 | 5 | 5 | 4 | รวม Product mix, Fixed/Variable cost, Rent/Labor, Capacity และ Break-even cups โดยไม่ใช้ Contribution แทน Net profit |
+| 3 | Multi-size Coffee Menu Pricing | Pricing intent 2/10 จากรอบ 42 | 4 | 5 | 5 | 5 | 4 | เทียบ S/M/L Dose, Milk, Packaging, Price ladder และ Margin โดยไม่ใช้ Recipe เดียวทุก Size |
+| 4 | Coffee Extraction Yield & Dose Calculator | Dose/Yield 2/10 จากรอบ 42 | 5 | 5 | 4 | 5 | 5 | แยก Ground dose, Beverage mass, TDS, Extraction yield และ Brew ratio พร้อมข้อจำกัดเครื่องมือวัด |
+| 5 | Cold Brew Batch Cost Calculator | Exact seed 0/10 | 4 | 5 | 4 | 5 | 4 | ใช้ Coffee/water ratio, Steeping loss, Concentrate yield, Dilution, Bottle และ Servings |
+| 6 | Coffee Inventory Usage & Reorder Planner | Direct seed 0/10 | 5 | 5 | 5 | 5 | 4 | ใช้ Sales mix หลายเมนู, On-hand, Lead time, Pack size และ Waste ไม่ใช้เมนูเดียวแทนทั้งร้าน |
+| 7 | Coffee Ingredient Price Impact & Supplier Comparison | Related cost intent | 4 | 5 | 4 | 5 | 4 | เปรียบเทียบราคา MOQ, Freight, Yield และผลต่อหลายเมนูพร้อม Scenario audit trail |
+| 8 | Coffee Wholesale & Channel Pricing | Wholesale/price seed ต่ำ | 5 | 5 | 5 | 5 | 4 | ใช้ Roast cost เดิมต่อยอด Retail/Wholesale tiers, MOQ, Fulfillment และ Distributor margin |
+| 9 | Coffee Menu Engineering | Related profit intent | 5 | 5 | 5 | 5 | 5 | ใช้ Sales mix + Contribution หลายเมนูแบ่ง Popularity/Profitability และวัดผลราคา |
+| 10 | Barista Labor & Capacity Planner | Labor/capacity seed ต่ำ | 4 | 5 | 4 | 5 | 4 | รวม Orders by interval, Prep/service time, Stations, Breaks และ Loaded labor cost |
+| 11 | Coffee Equipment ROI Calculator | ROI seed ต่ำ | 4 | 4 | 5 | 4 | 4 | เทียบ Buy/Lease, Throughput, Downtime, Maintenance, Energy และ Useful life โดยไม่รับรอง Payback |
+| 12 | Coffee Subscription Unit Economics | Related recurring model | 5 | 4 | 5 | 5 | 5 | รวม Roast/pack/ship, Discount, Churn, Failed payment และ CAC เป็น Cohort contribution |
+| 13 | Coffee Waste & Actual-vs-Theoretical Variance | Waste seed ต่ำ | 5 | 5 | 4 | 5 | 5 | เทียบ Standard usage กับ Purchase/Count/Sales, Dial-in, Comp และ Spill โดยนิยาม Period/Cutoff |
+| 14 | Green Coffee Blend Cost Calculator | Blend seed ต่ำ | 4 | 4 | 4 | 4 | 4 | รวม Origin lots, Blend ratio, Moisture/Yield scenario และ Weighted green/roasted cost โดยไม่ทำนาย Flavor |
+| 15 | Coffee Packaging MOQ & Reorder Calculator | Packaging seed ต่ำ | 4 | 4 | 4 | 5 | 3 | ใช้ Bag/Valve/Label MOQ, Lead time, Safety stock และ Working capital แยกจาก Roast economics |
+
+Batch 53 ใช้ `Roast loss % = (Green input − Roasted output) ÷ Green input × 100`, `Roast yield % = Roasted output ÷ Green input × 100`, `Green cost per batch = Purchase cost ÷ Purchase weight × Green input`, `Process cost = Green + Energy + Labor + Other`, `Roasted cost/kg = Process cost ÷ Roasted output kg` และ `Target bag price = Cost before fee ÷ (1 − Channel fee rate − Target contribution margin rate)`
+
+จำนวนถุงเต็มใช้ Floor ของ `Roasted output g ÷ Bag size g` และแสดงน้ำหนักที่เหลือเป็น Inventory ไม่ตีความเป็นของเสีย รายได้และ Batch contribution จึงนับเฉพาะถุงเต็ม แต่หัก Process cost ทั้ง Batch เป็นมุมมองอนุรักษนิยม Monthly scenario เพียงคูณค่าต่อ Batch ด้วยจำนวน Batch ที่ผู้ใช้กรอก ไม่ใช่ Forecast, Capacity plan หรือ Purchase order
+
+งานทดลองด้าน Heat/Mass transfer วัดน้ำหนักก่อนและหลังคั่วเป็นตัวแปรกระบวนการ งานตัวอย่างอีกชุดรายงาน Light 12.7±0.7%, Medium 14.2±0.7% และ Dark 16.9±0.6% ภายใต้เมล็ดและเงื่อนไขเฉพาะ ขณะที่งานอีกชุดพบช่วงกว้าง 2.70–20.98% ตามอุณหภูมิและเวลา หน้าเครื่องมือจึงไม่กำหนด Roast level หรือคุณภาพจาก Loss อัตโนมัติ แต่เปรียบเทียบกับ Loss plan ของผู้ใช้เป็น percentage points เท่านั้น
+
+UI แบ่ง Green coffee/Batch, Post-roast measurement, Energy/Labor และ Packaging/Pricing ใช้ Label gap สม่ำเสมอ, g/kg conversion, Responsive cost table, Loss comparison, Monthly scenario, Formula panel, Error state และ CSV ทุกข้อมูลคำนวณใน Browser ไม่มี API หรือ LocalStorage ชื่อ Batch ใน CSV ถูกป้องกัน Spreadsheet Formula Injection และหน่วยเงินไม่มี FX conversion
+
+- [Google Autocomplete — coffee roasting calculator](https://suggestqueries.google.com/complete/search?client=firefox&hl=th&gl=th&q=coffee%20roasting%20calculator)
+- [Google Autocomplete — coffee roasting cost calculator](https://suggestqueries.google.com/complete/search?client=firefox&hl=th&gl=th&q=coffee%20roasting%20cost%20calculator)
+- [Google Autocomplete — coffee roasting weight loss calculator](https://suggestqueries.google.com/complete/search?client=firefox&hl=th&gl=th&q=coffee%20roasting%20weight%20loss%20calculator)
+- [Journal of Food Engineering — Analysis of heat and mass transfer during coffee batch roasting](https://www.sciencedirect.com/science/article/abs/pii/S0260877406000239)
+- [Journal of Food Composition and Analysis — Roast degree and measured weight loss in one experiment](https://www.sciencedirect.com/science/article/abs/pii/S0889157506001876)
+- [Food Chemistry — Weight loss across roasting conditions](https://www.sciencedirect.com/science/article/abs/pii/S0308814622000243)
 - [NIST — SI Units Mass](https://www.nist.gov/pml/owm/si-units-mass)
 - [Google Search Central — Creating helpful, reliable, people-first content](https://developers.google.com/search/docs/fundamentals/creating-helpful-content)
 - [Google Search Central Blog — Doorway pages](https://developers.google.com/search/blog/2015/03/an-update-on-doorway-pages)

@@ -67,6 +67,7 @@ const toolRoutes = [
   ["food-cost-calculator", "Food Cost & Recipe Cost Calculator"],
   ["drink-cost-calculator", "Drink, Cocktail & Liquor Cost Calculator"],
   ["coffee-cost-calculator", "Coffee Cost Calculator"],
+  ["coffee-roasting-calculator", "Coffee Roasting Calculator"],
   ["jpg-to-pdf", "JPG to PDF Converter"],
   ["qr-code-generator", "QR Code Generator"],
   ["barcode-generator", "Barcode Generator"],
@@ -2410,6 +2411,70 @@ test("coffee cost calculator handles dose, yield, fees, monthly purchasing, and 
   expect(csv).toContain('"ต้นทุนวัตถุดิบรวมต่อแก้ว","26.25","THB/แก้ว"');
   expect(csv).toContain('"จำนวนแก้วต่อเดือน","2400.0000","แก้ว"');
   expect(csv).toContain('"ถุงเมล็ดต่อเดือน","44.0816","ถุง"');
+
+  const finalLayout = await page.evaluate(() => ({ width: document.documentElement.clientWidth, scrollWidth: document.documentElement.scrollWidth }));
+  expect(finalLayout.scrollWidth).toBe(finalLayout.width);
+  expect(hasExternalRequest(requestUrls, page.url())).toBe(false);
+  expect(consoleErrors).toEqual([]);
+});
+
+test("coffee roasting calculator handles roast loss, batch cost, bag pricing, monthly planning, and local CSV without mobile overflow", async ({ page }) => {
+  const consoleErrors: string[] = [];
+  const requestUrls: string[] = [];
+  page.on("console", (message) => {
+    if (message.type() === "error") consoleErrors.push(message.text());
+  });
+  page.on("pageerror", (error) => consoleErrors.push(error.message));
+  page.on("request", (request) => requestUrls.push(request.url()));
+  await page.setViewportSize({ width: 390, height: 844 });
+
+  await page.goto("/coffee-roasting-calculator");
+  await expect(page.getByRole("heading", { level: 1, name: "Coffee Roasting Calculator" })).toBeVisible();
+  await expect(page.locator("main header").getByText("ต้นทุนคั่วกาแฟ", { exact: true })).toBeVisible();
+  await expect(page.locator("#coffee-roasting-name")).toBeVisible();
+  await page.evaluate(() => document.fonts.ready);
+
+  const initialLayout = await page.evaluate(() => {
+    const label = document.querySelector<HTMLLabelElement>('label[for="coffee-roasting-name"]');
+    const input = document.querySelector<HTMLInputElement>("#coffee-roasting-name");
+    const labelBox = label?.getBoundingClientRect();
+    const inputBox = input?.getBoundingClientRect();
+    const ids = Array.from(document.querySelectorAll<HTMLElement>("[id]")).map((element) => element.id);
+    return {
+      labelGap: labelBox && inputBox ? Math.round(inputBox.top - labelBox.bottom) : 0,
+      duplicateIds: ids.filter((id, index) => ids.indexOf(id) !== index),
+      overflow: document.documentElement.scrollWidth > document.documentElement.clientWidth,
+    };
+  });
+  expect(initialLayout.labelGap).toBeGreaterThanOrEqual(10);
+  expect(initialLayout.duplicateIds).toEqual([]);
+  expect(initialLayout.overflow).toBe(false);
+
+  await page.getByRole("button", { name: "โหลดตัวอย่าง" }).click();
+  await expect(page.locator("#coffee-roasting-name")).toHaveValue("House Blend · Medium Roast");
+  await page.getByRole("button", { name: "คำนวณ Coffee Roasting" }).click();
+  await expect(page.getByTestId("coffee-roasting-loss")).toHaveText("15%");
+  await expect(page.getByTestId("coffee-roasting-yield")).toHaveText("85%");
+  await expect(page.getByTestId("coffee-roasting-cost-kg")).toHaveText("฿155.29/kg");
+  await expect(page.getByTestId("coffee-roasting-cost-bag")).toHaveText("฿46.82");
+  await expect(page.getByTestId("coffee-roasting-target-price")).toHaveText("฿69.89");
+  await expect(page.getByTestId("coffee-roasting-loss-variance")).toHaveText("+0.5 pp");
+  await expect(page.getByTestId("coffee-roasting-bags")).toHaveText("17 ถุง");
+  await expect(page.getByTestId("coffee-roasting-monthly-bags")).toHaveText("340 ถุง");
+  await expect(page.getByTestId("coffee-roasting-monthly-contribution")).toHaveText("฿36,848.00");
+  await expect(page.getByTestId("coffee-roasting-result")).toContainText("ต้นทุนกระบวนการต่อ Batch");
+
+  const csvPromise = page.waitForEvent("download");
+  await page.getByRole("button", { name: "ดาวน์โหลด CSV" }).click();
+  const csvDownload = await csvPromise;
+  expect(csvDownload.suggestedFilename()).toBe("meaw-coffee-roasting-cost.csv");
+  const csvPath = await csvDownload.path();
+  expect(csvPath).toBeTruthy();
+  const csv = await readFile(csvPath!, "utf8");
+  expect(csv.startsWith("\uFEFF")).toBe(true);
+  expect(csv).toContain('"Roast loss","15.0000","%"');
+  expect(csv).toContain('"ต้นทุนกระบวนการรวม","660.00","THB"');
+  expect(csv).toContain('"จำนวนถุงเต็ม","340","ถุง"');
 
   const finalLayout = await page.evaluate(() => ({ width: document.documentElement.clientWidth, scrollWidth: document.documentElement.scrollWidth }));
   expect(finalLayout.scrollWidth).toBe(finalLayout.width);

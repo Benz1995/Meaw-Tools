@@ -52,6 +52,7 @@ const components = {
   "food-cost-calculator": dynamic(() => import("@/features/tools/food-cost-calculator-tool").then((module) => module.FoodCostCalculatorTool), { loading, ssr: false }),
   "drink-cost-calculator": dynamic(() => import("@/features/tools/drink-cost-calculator-tool").then((module) => module.DrinkCostCalculatorTool), { loading, ssr: false }),
   "coffee-cost-calculator": dynamic(() => import("@/features/tools/coffee-cost-calculator-tool").then((module) => module.CoffeeCostCalculatorTool), { loading, ssr: false }),
+  "coffee-roasting-calculator": dynamic(() => import("@/features/tools/coffee-roasting-calculator-tool").then((module) => module.CoffeeRoastingCalculatorTool), { loading, ssr: false }),
   "jpg-to-pdf": dynamic(() => import("@/features/tools/jpg-to-pdf-tool").then((module) => module.JpgToPdfTool), { loading, ssr: false }),
   "qr-code-generator": dynamic(() => import("@/features/tools/qr-code-tool").then((module) => module.QrCodeTool), { loading, ssr: false }),
   "barcode-generator": dynamic(() => import("@/features/tools/barcode-generator-tool").then((module) => module.BarcodeGeneratorTool), { loading, ssr: false }),
