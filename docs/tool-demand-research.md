@@ -1570,6 +1570,55 @@ UI แบ่ง Scenario/Investment, Net cash flow editor, Result cards, Accessi
 - [Google Search Central — Creating helpful, reliable, people-first content](https://developers.google.com/search/docs/fundamentals/creating-helpful-content)
 - [Google Search Central — How Search works and no indexing guarantee](https://developers.google.com/search/docs/fundamentals/how-search-works)
 
+## รอบที่ 50 — Unit Price, Price per Weight/Volume/Count และ Pack Comparison (9 สิงหาคม 2569)
+
+รอบนี้ส่งคำตั้งต้น 20 รูปแบบไปยัง Google Autocomplete ภาษาไทย/ประเทศไทย ครอบคลุม Unit price, Price per unit, kg, g, 100 g, oz, lb, mL, L/litre, fluid ounce, item, bulk, discount, grocery และคำไทย ได้คำแนะนำ 95 รายการไม่ซ้ำ ไม่มี Request error และมี 6 คำตั้งต้นที่คืนผลเต็ม 10/10 จำนวนคำแนะนำเป็น Demand proxy ของความกว้าง Intent เท่านั้น ไม่ใช่ Search volume, Traffic forecast หรือหลักฐานว่าจะติดหน้าแรก Google
+
+สัญญาณตรง `unit price calculator`, `price per unit calculator`, `price per kg calculator`, `price per pound calculator` และ `price per litre calculator` ได้ 10/10; `compare unit price` ได้ 10/10 แต่มี Intent ค่าไฟ/พื้นที่เก็บของปน; `price per ml calculator` 7/10; `price per liter calculator` 6/10; `price per oz calculator` และ `bulk price calculator` 5/10; `price per gram calculator` และ `price per item calculator` 3/10; `price per 100g calculator` 2/10; `price per fluid ounce calculator`, `discount unit price calculator`, `grocery unit price calculator` และ `คำนวณราคาต่อหน่วย` ได้ 1/10 ส่วน `compare package size calculator` และ `เปรียบเทียบราคาต่อหน่วย` ได้ 0/10 ในรอบนี้
+
+ใช้ URL เดียว `unit-price-comparison-calculator` รวม Price per unit, kg, 100 g, oz, lb, mL, L/litre, fl oz, item, Multipack, Bulk, Discount, Coupon และ Shipping ไม่สร้างหน้า Free, Online, App, UK, India หรือแต่ละหน่วยแยกซ้ำ เพราะทั้งหมดเป็น Workflow เดียวและเสี่ยงเป็น Doorway pages หน้าเดิม `unit-converter` คงหน้าที่แปลงค่าระหว่างหน่วย ส่วนหน้าใหม่นำราคา ปริมาณ และค่าใช้จ่ายมาจัดอันดับความคุ้มค่าจึงไม่แย่ง Primary intent กัน
+
+คะแนน 5 คือสูงที่สุด การจัดอันดับพิจารณา Demand ที่พบ, คุณค่าผู้ใช้จริง, ความต่างจาก 86 tools เดิม, Revenue opportunity, Technical complexity, Scalability, Innovation และความเสี่ยงจากการชี้นำให้ซื้อเกินความจำเป็น:
+
+| อันดับ | แนวคิด | Demand ที่พบ | ยาก | คุณค่าธุรกิจ | รายได้ | ขยายต่อ | นวัตกรรม | ข้อสรุป |
+|---:|---|---|---:|---:|---:|---:|---:|---|
+| 1 | Unit Price Comparison Calculator | Core 10/10 หลายแกน; 95 suggestions | 4 | 5 | 5 | 5 | 4 | Batch 60; 2–20 รายการ, Weight/Volume/Count, Multipack, Discount, Coupon, Shipping, Ranking และ CSV |
+| 2 | Grocery Price per Weight Comparator | kg 10/10; g 3/10; 100 g 2/10 | 3 | 5 | 5 | 5 | 3 | Intent และสูตรรวม Batch 60 แล้ว ไม่สร้างหน้าร้านของชำบางซ้ำ |
+| 3 | Price per Volume / Beverage Comparator | litre 10/10; mL 7/10; fl oz 1/10 | 4 | 5 | 5 | 5 | 4 | L/mL/fl oz/pint/quart/gallon รวม Batch 60; แยกจาก Drink Cost ที่คำนวณสูตรขายต่อแก้ว |
+| 4 | Multipack Price per Item Calculator | Item 3/10; Unit core 10/10 | 3 | 5 | 5 | 5 | 3 | Count และจำนวนแพ็กย่อยรวม Batch 60 แล้ว เหมาะกับทิชชู ผ้าอ้อม แคปซูล และของใช้ |
+| 5 | Bulk Buy Break-even & Storage Cost | Bulk 5/10 | 5 | 5 | 5 | 5 | 5 | งานแยกควรมีอัตราใช้ วันหมดอายุ พื้นที่เก็บ เงินจม และ Waste ไม่ใช้ Unit price ต่ำสุดตัดสินแทน |
+| 6 | Subscription vs One-time Purchase | Related recurring purchase intent | 5 | 5 | 5 | 5 | 5 | ต้องมีรอบส่ง Membership fee, Skip/cancel, Price changes, Shipping และ Planned usage |
+| 7 | Refill vs New Container Comparator | Related refill intent | 4 | 5 | 5 | 5 | 5 | ต้องแยก Container reuse, Refill volume, Deposit และจำนวนรอบ ไม่อ้าง Environment score โดยไร้ข้อมูล |
+| 8 | Concentrate Dilution Cost Calculator | Price per volume related | 4 | 5 | 5 | 5 | 5 | ใช้ Dilution ratio, Yield after mix และ Cost per ready-to-use volume คนละ Workflow จากราคาขวดตรง |
+| 9 | Marketplace Landed Unit Cost | Discount/Shipping 1–3/10 | 5 | 5 | 5 | 5 | 4 | Batch 60 รวม Shipping แบบยอดคงที่แล้ว งานแยกต้องมี Fee, Tax, Cross-border, Bundle allocation และ Returns |
+| 10 | Pet Food Daily Feeding Cost | kg intent สูงแต่ Domain-specific | 5 | 5 | 5 | 5 | 4 | ต้องมี Feeding guide จากฉลาก น้ำหนักสัตว์ Calories และห้ามให้คำแนะนำสุขภาพแทนสัตวแพทย์ |
+| 11 | Diaper Cost per Use | Item intent 3/10 | 4 | 4 | 5 | 5 | 4 | Unit price ต่อชิ้นรวม Batch 60 งานแยกควรมี Leakage/waste, Size transition และ Subscription |
+| 12 | Tissue Cost per Sheet / Area | Item intent 3/10 | 4 | 4 | 4 | 5 | 4 | ต้องเทียบ Sheet count, Ply และ Sheet dimensions หากต้องการความต่างจริง ไม่ควรใช้จำนวนแผ่นอย่างเดียว |
+| 13 | Meal Portion Cost Comparator | Food cost related intent | 5 | 5 | 5 | 5 | 4 | Food Cost Calculator มี Yield/Recipe/Serving แล้ว ไม่สร้างหน้าใหม่จนมี Ready-meal nutrition/portion workflow ที่ต่าง |
+| 14 | Store Brand vs Brand Scenario | Compare unit price 10/10 แต่ Brand-specific intent ไม่ชัด | 4 | 4 | 5 | 5 | 4 | Unit price เป็นเพียงหนึ่งแกน ต้องให้ผู้ใช้บันทึกคุณภาพ/ความชอบเองและไม่สรุปว่าแบรนด์ใดดีกว่า |
+| 15 | Waste-adjusted Planned-use Value | Related consumer planning intent | 5 | 5 | 4 | 5 | 5 | ผู้สมัครต่อยอดที่มี Planned usage, Spoilage, Shelf life และ Leftover value แต่ต้องหลีกเลี่ยง False precision |
+
+Batch 60 ใช้ `ยอดจ่ายจริง = ราคาหน้าป้าย × (1 − ส่วนลด %) − ส่วนลดคงที่ + ค่าใช้จ่ายเพิ่ม`, `ปริมาณรวมฐาน = จำนวนแพ็ก × ปริมาณต่อแพ็ก × ตัวคูณหน่วย` และ `ราคาต่อฐาน = ยอดจ่ายจริง ÷ (ปริมาณรวมฐาน ÷ ปริมาณฐานเปรียบเทียบ)` โดยหักส่วนลดเปอร์เซ็นต์ก่อนคูปองคงที่และบวกค่าส่งเป็นขั้นสุดท้าย ระบบห้ามคูปองเกินราคาหลังส่วนลดและห้ามยอดจ่ายจริงเป็นศูนย์หรือติดลบเพื่อให้การหารและเปอร์เซ็นต์เทียบมีความหมาย
+
+น้ำหนักใช้กรัมเป็นฐาน โดย 1 oz = 28.349523125 g และ 1 lb = 453.59237 g ปริมาตรใช้ mL เป็นฐาน โดย 1 U.S. fl oz = 29.57353 mL, pint = 473.1765 mL, quart = 946.3529 mL และ gallon = 3785.411784 mL ตามตาราง NIST SP 1020 ส่วน count ใช้ชิ้นเป็นฐาน ระบบปิดการเทียบ kg กับ L เพราะต้องรู้ความหนาแน่นเฉพาะสินค้า ไม่สมมติว่าน้ำหนักเท่าปริมาตร
+
+NIST Handbook 130 ระบุว่าราคาต่อหน่วยของสินค้าในหมวดเดียวกันควรแสดงด้วยหน่วยที่สม่ำเสมอ และยกฐาน kg/100 g, L/100 mL, lb/oz หรือหน่วยปริมาตรที่เหมาะสม NIST อธิบาย Unit pricing ว่าเป็นเครื่องมือช่วยเทียบมูลค่าและรับมือ Package downsizing แต่ไม่ใช่ตัวแทนคุณภาพหรือความเหมาะสม หน้าเครื่องมือจึงแสดงคำเตือนเรื่องคุณภาพ ส่วนผสม วันหมดอายุ พื้นที่เก็บ Membership และของเหลือ ไม่บอกให้ซื้อแพ็กใหญ่โดยอัตโนมัติ
+
+UI แบ่งประเภท Weight/Volume/Count, Settings, Product cards, Optional discount/coupon/shipping panel, Winner cards, Ranking bars, Formula และ Limitations ใช้ Label gap 12 px, Glass cards ที่อ่านได้ทั้ง Light/Dark, Responsive layout และ formula-safe UTF-8 CSV ทุกข้อมูลคำนวณใน Browser ไม่มี API, Cookie หรือ LocalStorage และรองรับ Tie แบบคงลำดับข้อมูลเดิม
+
+- [Google Autocomplete — unit price calculator](https://suggestqueries.google.com/complete/search?client=firefox&hl=th&gl=th&q=unit%20price%20calculator)
+- [Google Autocomplete — price per unit calculator](https://suggestqueries.google.com/complete/search?client=firefox&hl=th&gl=th&q=price%20per%20unit%20calculator)
+- [Google Autocomplete — price per kg calculator](https://suggestqueries.google.com/complete/search?client=firefox&hl=th&gl=th&q=price%20per%20kg%20calculator)
+- [Google Autocomplete — price per ml calculator](https://suggestqueries.google.com/complete/search?client=firefox&hl=th&gl=th&q=price%20per%20ml%20calculator)
+- [Google Autocomplete — compare unit price](https://suggestqueries.google.com/complete/search?client=firefox&hl=th&gl=th&q=compare%20unit%20price)
+- [Google Autocomplete — คำนวณราคาต่อหน่วย](https://suggestqueries.google.com/complete/search?client=firefox&hl=th&gl=th&q=%E0%B8%84%E0%B8%B3%E0%B8%99%E0%B8%A7%E0%B8%93%E0%B8%A3%E0%B8%B2%E0%B8%84%E0%B8%B2%E0%B8%95%E0%B9%88%E0%B8%AD%E0%B8%AB%E0%B8%99%E0%B9%88%E0%B8%A7%E0%B8%A2)
+- [NIST — Handbook 130 current edition](https://www.nist.gov/pml/owm/nist-handbook-130-current-edition)
+- [NIST — Uniform Unit Pricing tools for consumers](https://www.nist.gov/programs-projects/uniform-unit-pricing-tools-consumers-fight-shrinkflation)
+- [NIST SP 1020 — Weight and liquid-volume conversion factors](https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.1020.pdf)
+- [Google Search Central — Creating helpful, reliable, people-first content](https://developers.google.com/search/docs/fundamentals/creating-helpful-content)
+- [Google Search Central Blog — Doorway pages](https://developers.google.com/search/blog/2015/03/an-update-on-doorway-pages)
+- [Google Search Central — Crawling and indexing FAQ](https://developers.google.com/search/help/crawling-index-faq)
+
 ## รอบที่ 46 — IRR, Multiple IRR, MIRR และ NPV Profile (9 สิงหาคม 2569)
 
 รอบนี้ส่งคำตั้งต้น 60 รูปแบบไปยัง Google Autocomplete ภาษาไทย/ประเทศไทย ครอบคลุม IRR, Internal rate of return, MIRR, XIRR, NPV profile, Multiple IRR, Investment, Project, Real estate, Insurance และคำไทย ได้คำแนะนำ 207 รายการไม่ซ้ำ โดยไม่มี Request error จำนวนคำแนะนำเป็น Demand proxy ของความกว้าง Intent เท่านั้น ไม่ใช่ Search volume, Traffic forecast หรือหลักฐานว่าจะติดหน้าแรก Google

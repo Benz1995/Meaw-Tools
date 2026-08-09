@@ -50,6 +50,7 @@ const toolRoutes = [
   ["vat-calculator", "VAT Calculator Thailand"],
   ["fuel-cost-calculator", "Fuel Cost Calculator"],
   ["unit-converter", "Unit Converter"],
+  ["unit-price-comparison-calculator", "Unit Price Comparison Calculator"],
   ["date-calculator", "Date Calculator"],
   ["business-days-calculator", "Business Days Calculator"],
   ["working-hours-calculator", "Working Hours Calculator"],
@@ -2983,6 +2984,66 @@ test("debt payoff calculator compares avalanche and snowball, rolls payments, an
   expect(csv).toContain('"Plan","ตัวอย่างแผนปลดหนี้ 3 ก้อน"');
   expect(csv).toContain('"Strategy","snowball"');
   expect(csv).toContain('"Month number","Month","Opening balance"');
+
+  const finalLayout = await page.evaluate(() => ({
+    width: document.documentElement.clientWidth,
+    scrollWidth: document.documentElement.scrollWidth,
+  }));
+  expect(finalLayout.scrollWidth).toBe(finalLayout.width);
+  expect(hasExternalRequest(requestUrls, page.url())).toBe(false);
+  expect(consoleErrors).toEqual([]);
+});
+
+test("unit price comparison normalizes mixed package units, discounts, and shipping without mobile overflow", async ({ page }) => {
+  const consoleErrors: string[] = [];
+  const requestUrls: string[] = [];
+  page.on("console", (message) => {
+    if (message.type() === "error") consoleErrors.push(message.text());
+  });
+  page.on("pageerror", (error) => consoleErrors.push(error.message));
+  page.on("request", (request) => requestUrls.push(request.url()));
+  await page.setViewportSize({ width: 390, height: 844 });
+
+  await page.goto("/unit-price-comparison-calculator");
+  await expect(page.getByRole("heading", { level: 1, name: "Unit Price Comparison Calculator" })).toBeVisible();
+  await expect(page.getByText("แพ็กใหญ่ไม่ได้คุ้มกว่าเสมอ", { exact: false })).toBeVisible();
+  await page.evaluate(() => document.fonts.ready);
+
+  const initialLayout = await page.evaluate(() => {
+    const label = document.querySelector<HTMLLabelElement>('label[for="unit-price-comparison-name"]');
+    const input = document.querySelector<HTMLInputElement>("#unit-price-comparison-name");
+    const labelBox = label?.getBoundingClientRect();
+    const inputBox = input?.getBoundingClientRect();
+    const ids = Array.from(document.querySelectorAll<HTMLElement>("[id]")).map((element) => element.id);
+    return {
+      labelGap: labelBox && inputBox ? Math.round(inputBox.top - labelBox.bottom) : 0,
+      duplicateIds: ids.filter((id, index) => ids.indexOf(id) !== index),
+      overflow: document.documentElement.scrollWidth > document.documentElement.clientWidth,
+    };
+  });
+  expect(initialLayout.labelGap).toBeGreaterThanOrEqual(10);
+  expect(initialLayout.duplicateIds).toEqual([]);
+  expect(initialLayout.overflow).toBe(false);
+
+  await page.getByRole("button", { name: "โหลดตัวอย่าง" }).click();
+  await expect(page.locator("#unit-price-comparison-name")).toHaveValue("เปรียบเทียบกาแฟ 3 แพ็ก");
+  await page.getByRole("button", { name: "เปรียบเทียบราคาต่อหน่วย" }).click();
+  await expect(page.getByTestId("unit-price-best")).toContainText("แพ็ก 3 ถุง 400 กรัม");
+  await expect(page.getByTestId("unit-price-best")).toContainText("10.5417");
+  await expect(page.getByTestId("unit-price-ranking")).toContainText("฿135.00 → ฿126.50");
+  await expect(page.getByTestId("unit-price-ranking")).toContainText("แพงกว่าคุ้มสุด 23.32%");
+
+  const csvPromise = page.waitForEvent("download");
+  await page.getByTestId("unit-price-csv").click();
+  const csvDownload = await csvPromise;
+  expect(csvDownload.suggestedFilename()).toBe("meaw-unit-price-comparison.csv");
+  const csvPath = await csvDownload.path();
+  expect(csvPath).toBeTruthy();
+  const csv = await readFile(csvPath!, "utf8");
+  expect(csv.startsWith("\uFEFF")).toBe(true);
+  expect(csv).toContain('"Comparison","เปรียบเทียบกาแฟ 3 แพ็ก"');
+  expect(csv).toContain('"Comparison basis","100 g"');
+  expect(csv).toContain('"1","แพ็ก 3 ถุง 400 กรัม"');
 
   const finalLayout = await page.evaluate(() => ({
     width: document.documentElement.clientWidth,

@@ -35,6 +35,7 @@ const components = {
   "vat-calculator": dynamic(() => import("@/features/tools/vat-calculator-tool").then((module) => module.VatCalculatorTool), { loading, ssr: false }),
   "fuel-cost-calculator": dynamic(() => import("@/features/tools/fuel-cost-calculator-tool").then((module) => module.FuelCostCalculatorTool), { loading, ssr: false }),
   "unit-converter": dynamic(() => import("@/features/tools/work-tools").then((module) => module.UnitConverterTool), { loading, ssr: false }),
+  "unit-price-comparison-calculator": dynamic(() => import("@/features/tools/unit-price-comparison-calculator-tool").then((module) => module.UnitPriceComparisonCalculatorTool), { loading, ssr: false }),
   "date-calculator": dynamic(() => import("@/features/tools/work-tools").then((module) => module.DateCalculatorTool), { loading, ssr: false }),
   "business-days-calculator": dynamic(() => import("@/features/tools/business-days-calculator-tool").then((module) => module.BusinessDaysCalculatorTool), { loading, ssr: false }),
   "working-hours-calculator": dynamic(() => import("@/features/tools/working-hours-calculator-tool").then((module) => module.WorkingHoursCalculatorTool), { loading, ssr: false }),
