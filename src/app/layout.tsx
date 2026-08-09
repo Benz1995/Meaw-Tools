@@ -30,7 +30,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
     <html lang="th" suppressHydrationWarning data-scroll-behavior="smooth" className={`${notoSansThai.variable} ${jetBrainsMono.variable}`}>
       <body className={`${notoSansThai.className} min-h-dvh bg-background antialiased`}>
         <Providers>
-          <div className="flex min-h-dvh flex-col">
+          <div className="meaw-app-content relative z-20 flex min-h-dvh flex-col">
             <AppHeader />
             <main id="main-content" className="flex-1">{children}</main>
             <AppFooter />

@@ -848,6 +848,11 @@ test("cat walker can be disabled and remembers the preference", async ({ page })
   });
   expect(walkingStyles.animationName).toContain("meaw-walk-sprite");
   expect(walkingStyles.backgroundImage).toContain("meaw-cat-walk-sprite.png");
+  const layerOrder = await page.evaluate(() => ({
+    content: Number.parseInt(getComputedStyle(document.querySelector(".meaw-app-content")!).zIndex, 10),
+    cat: Number.parseInt(getComputedStyle(document.querySelector(".meaw-playground")!).zIndex, 10),
+  }));
+  expect(layerOrder.content).toBeGreaterThan(layerOrder.cat);
   await page.getByRole("button", { name: "พัก Meaw" }).click();
   await expect(page.locator(".cat-walker-image")).toHaveCount(0);
   await page.reload();
