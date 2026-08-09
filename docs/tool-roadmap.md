@@ -58,6 +58,7 @@
 | 50 | Safety Stock & Reorder Point Calculator | คลังสินค้า, จัดซื้อ, Supply Chain, ร้านค้า, SME | คำนวณ Service-level variability, Days of cover หรือ Manual buffer พร้อม ROP, Inventory position, Pack rounding และ CSV | พร้อมใช้ |
 | 51 | Inventory Turnover & Inventory Days Calculator | ร้านค้า, คลังสินค้า, บัญชี, Supply Chain, SME | คำนวณ COGS/Average inventory, Turnover, DIO/DOH, Annualized rate, หลาย Snapshot, Target inventory และ CSV | พร้อมใช้ |
 | 52 | Cost of Goods Sold (COGS) Calculator | ร้านค้า, ผู้ผลิต, ร้านอาหาร, E-commerce, บัญชี, SME | คำนวณสูตรพื้นฐาน/ละเอียด, Net purchases, Direct production costs, Goods available, COGS, Gross margin, Cost per unit และ CSV | พร้อมใช้ |
+| 53 | Food Cost & Recipe Cost Calculator | ร้านอาหาร, คาเฟ่, เบเกอรี่, Catering, ผู้ขายอาหาร | คำนวณต้นทุนวัตถุดิบจากราคาซื้อ ปริมาณใช้ หน่วยและ Yield พร้อม Cost per serving, Direct cost, Food cost %, Contribution, ราคาเป้าหมาย และ CSV | พร้อมใช้ |
 
 ## หลักฐาน Google Trends ประเทศไทย
 

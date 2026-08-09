@@ -1292,3 +1292,49 @@ UI แบ่ง Mode/Currency, Inventory/Purchases, Detailed adjustments/Product
 - [IRS Publication 334 — How To Figure Cost of Goods Sold](https://www.irs.gov/publications/p334)
 - [Google Search Central — Creating helpful, reliable, people-first content](https://developers.google.com/search/docs/fundamentals/creating-helpful-content)
 - [Google Search Central Blog — Doorway pages](https://developers.google.com/search/blog/2015/03/an-update-on-doorway-pages)
+
+## รอบที่ 40 — Food Cost & Recipe Cost Calculator และการจัดอันดับ Batch 50
+
+สำรวจเมื่อ 9 สิงหาคม 2569 ด้วย Google Autocomplete locale ไทย (`hl=th`, `gl=th`) จำนวน 60 คำตั้งต้น ครอบคลุม Food/Recipe/Ingredient/Portion/Menu price, Bakery/Cake/Drink/Coffee/Cocktail/Catering/Meal cost, Yield/Waste, Margin/Variance และคำไทย จำนวนคำแนะนำสูงสุด 10 รายการเป็น Demand proxy สำหรับดู Intent และ Long-tail เท่านั้น ไม่ใช่ Search volume และไม่รับประกันอันดับหน้าแรก Google
+
+`food cost calculator`, `food cost formula`, `food cost percentage formula`, `recipe cost calculator`, `recipe costing calculator`, `free recipe cost calculator`, `recipe cost spreadsheet`, `food cost calculator excel`, `baking cost calculator`, `cake cost calculator`, `drink cost calculator`, `meal cost calculator` และ `menu price calculator` ได้ 10/10; `ingredient cost calculator` 9/10; `coffee cost calculator` 8/10; `bakery cost calculator` และ `catering cost calculator` 7/10; `cocktail cost calculator` กับ `menu pricing formula` 6/10 ส่วนคำไทย `คำนวณต้นทุนอาหาร` ได้ 4/10 พร้อมคำต่อท้าย Excel/อาหารตามสั่ง และ `คำนวณต้นทุนเบเกอรี่` ได้ 2/10
+
+หน้าเดียวรวม Food Cost Calculator, Recipe/Ingredient/Portion Cost, Baking/Cake Cost, Cost per serving, Menu price และ Food cost percentage เพราะใช้รายการวัตถุดิบ หน่วย Yield จำนวนเสิร์ฟ และราคาขายชุดเดียวกัน ไม่สร้างหน้า Excel/Free/Online หรือ Bakery/Cake แยกซึ่งจะซ้ำ Intent และเสี่ยง Doorway/Cannibalization ส่วน Drink/Cocktail pour cost, Catering per person, Recipe scaling, Actual-vs-theoretical variance และ Menu engineering แยกไว้ใน Backlog เพราะต้องมี Pour size, Guest count, Scaling rule, Inventory variance หรือ Sales volume คนละ Workflow
+
+คะแนน 5 คือสูงที่สุด การจัดอันดับพิจารณา Demand, คุณค่าผู้ใช้จริง, ความต่างจาก 76 tools เดิม, ความโปร่งใสของสูตร, โอกาสรายได้จาก AdSense, Scalability, Innovation และความเสี่ยงด้านบัญชี/ข้อมูล:
+
+| อันดับ | แนวคิด | Demand ที่พบ | ยาก | คุณค่าธุรกิจ | รายได้ | ขยายต่อ | นวัตกรรม | ข้อสรุป |
+|---:|---|---|---:|---:|---:|---:|---:|---|
+| 1 | Food Cost & Recipe Cost Calculator | Food/Recipe/Baking/Cake/Menu 10/10 | 4 | 5 | 5 | 5 | 4 | ส่งมอบ Batch 50; Ingredient lines, Unit conversion, Yield, Portion, Direct cost, Menu price, Contribution และ CSV |
+| 2 | Baking & Cake Cost Calculator | Baking/Cake 10/10; Bakery 7/10 | 3 | 5 | 5 | 5 | 3 | Intent หลักรวม Batch 50 แล้ว ไม่สร้างหน้าบางแยก; ค่อยแยกเมื่อมี Batch size/Decoration/Labor workflow ที่ต่างจริง |
+| 3 | Drink & Cocktail Pour Cost Calculator | Drink 10/10; Cocktail 6/10 | 4 | 5 | 5 | 5 | 4 | แยก Bottle volume, Pour size, Garnish, Ice, Spillage, ABV และราคาต่อแก้ว |
+| 4 | Catering Cost per Person Calculator | Catering 7/10 | 4 | 5 | 5 | 5 | 4 | รวม Guest count, Portions, Buffer, Staffing, Equipment, Travel และ Quote margin |
+| 5 | Coffee Cost per Cup Calculator | 8/10 | 3 | 5 | 5 | 5 | 3 | แยก Beans dose, Milk, Syrup, Cup/lid, Waste และ Channel fee; ไม่ทำหน้าบางซ้ำ Batch 50 |
+| 6 | Food Cost Variance Calculator | Variance 5/10 | 5 | 5 | 5 | 5 | 5 | เทียบ Theoretical recipe cost กับ Actual COGS/Waste/Comp/Staff meal โดยต้องนิยาม Period และ Inventory cutoff |
+| 7 | Recipe Yield & Scaling Calculator | Yield 4/10 | 4 | 5 | 4 | 5 | 4 | Scale portion พร้อม Non-linear warning, Baker's percentage, Rounding และ Production batch |
+| 8 | Meal Prep Cost Calculator | Meal 10/10 แต่ Intent กว้าง | 3 | 4 | 4 | 5 | 3 | Batch 50 รองรับสูตรหนึ่งชุดแล้ว; งานใหม่ควรรวม Weekly plan, Containers, Shopping list และหลายสูตร |
+| 9 | Edible Portion & Yield Cost Calculator | Target/Yield 4–5/10 | 4 | 5 | 4 | 5 | 4 | เก็บ AP/EP test หลายครั้ง, Weighted yield, Trim/by-product credit และ Supplier comparison |
+| 10 | Menu Engineering Calculator | Menu price 10/10 | 5 | 5 | 5 | 5 | 5 | ใช้ Sales volume + Contribution แบ่ง Star/Plowhorse/Puzzle/Dog ต้องมีช่วงเวลาและ Product mix |
+| 11 | Bakery Production Batch Planner | Related intent จาก Baking/Recipe | 4 | 5 | 4 | 5 | 4 | รวม Orders, Pan/Tray capacity, Proof/Bake schedule, Batch rounding และ Shopping list |
+| 12 | Packaging & Fulfillment Cost Calculator | Packaging เป็น Long-tail ของ Food cost | 3 | 5 | 4 | 5 | 3 | แยก Inner/Outer pack, Inserts, Labor, Shipping material และ Order-size tiers |
+| 13 | Restaurant Prime Cost Calculator | Food/Labor cost intent เกี่ยวข้อง | 4 | 5 | 5 | 5 | 4 | รวม COGS + Labor ตามงวด พร้อม Sales ratio แต่ต้องไม่ปน Recipe cost ต่อเมนู |
+| 14 | Restaurant COGS Calculator | Restaurant food cost 3/10 | 4 | 4 | 4 | 4 | 3 | Workflow งวดบัญชีมี COGS Calculator แล้ว ควรเพิ่มคำอธิบาย/ลิงก์แทน Duplicate page |
+| 15 | Ingredient Price Change Impact | Ingredient cost 9/10 | 4 | 5 | 4 | 5 | 4 | เปรียบเทียบ Supplier/Scenario และผลต่อทุกเมนู ต้องมี Recipe catalog หลายสูตรจึงคุ้มสร้าง |
+
+Batch 50 ใช้ `Usable purchase quantity = Purchase quantity × Yield %`, `Ingredient line cost = Purchase cost × Recipe quantity ÷ Usable purchase quantity`, `Ingredient cost per serving = Ingredient cost per batch ÷ Servings` และ `Food cost % = Ingredient cost per serving ÷ Selling price × 100` ส่วน `Target menu price = Ingredient cost per serving ÷ Target food cost %` เป็นจุดตรวจจากวัตถุดิบ ไม่ใช่ราคาที่รับรองกำไรหรือราคาที่ตลาดยอมรับ Packaging ต่อเสิร์ฟ ค่าแรงตรง และต้นทุนตรงอื่นถูกแยกจาก Ingredient food cost แล้วรวมเป็น Total direct cost เพื่อไม่ให้คำจำกัดความปนกัน
+
+Vancouver Community College แสดงการปรับ AP cost ด้วย Yield เพื่อหา EP unit cost, Portion cost และ Menu price factor ส่วน USDA Food Buying Guide อธิบาย Preparation yield, การเทียบหน่วย และ AP-to-ready-to-cook quantity และ Escoffier ยืนยันสูตร Per-item food cost = Item cost ÷ Menu price × 100 หน้าจึงตรวจว่า Purchase/Recipe unit เป็นประเภทเดียวกัน รองรับ g↔kg, ml↔L และชิ้น จำกัด Yield 0.1–100% และไม่เดา Density ของถ้วย/ช้อน
+
+UI แบ่ง Recipe target, Ingredients/Yield และ Direct costs ใช้ Label gap สม่ำเสมอ, Editor แบบ Responsive, ผลลัพธ์ต่อ Batch/Serving, Ingredient breakdown, Formula panel, Error state และ CSV ทุกข้อมูลคำนวณใน Browser ไม่มี API หรือ LocalStorage ชื่อวัตถุดิบใน CSV ถูกป้องกัน Spreadsheet Formula Injection และหน่วยเงินไม่มี FX conversion
+
+- [Google Autocomplete — food cost calculator](https://suggestqueries.google.com/complete/search?client=firefox&hl=th&gl=th&q=food%20cost%20calculator)
+- [Google Autocomplete — recipe cost calculator](https://suggestqueries.google.com/complete/search?client=firefox&hl=th&gl=th&q=recipe%20cost%20calculator)
+- [Google Autocomplete — ingredient cost calculator](https://suggestqueries.google.com/complete/search?client=firefox&hl=th&gl=th&q=ingredient%20cost%20calculator)
+- [Google Autocomplete — baking cost calculator](https://suggestqueries.google.com/complete/search?client=firefox&hl=th&gl=th&q=baking%20cost%20calculator)
+- [Google Autocomplete — menu price calculator](https://suggestqueries.google.com/complete/search?client=firefox&hl=th&gl=th&q=menu%20price%20calculator)
+- [Google Autocomplete — คำนวณต้นทุนอาหาร](https://suggestqueries.google.com/complete/search?client=firefox&hl=th&gl=th&q=%E0%B8%84%E0%B8%B3%E0%B8%99%E0%B8%A7%E0%B8%93%E0%B8%95%E0%B9%89%E0%B8%99%E0%B8%97%E0%B8%B8%E0%B8%99%E0%B8%AD%E0%B8%B2%E0%B8%AB%E0%B8%B2%E0%B8%A3)
+- [Vancouver Community College — Recipe Costing](https://library.vcc.ca/media/vcc-library/content-assets/learning-centre/worksheets/by-coursex2fprogram/business/CulinaryMath-RecipeCosting.pdf)
+- [USDA Food Buying Guide — Appendix A](https://foodbuyingguide.fns.usda.gov/Appendix/ResourceAppendixA)
+- [Escoffier — How to Calculate Food Cost Percentage](https://www.escoffier.edu/blog/culinary-pastry-careers/how-to-calculate-food-cost-percentage/)
+- [Google Search Central — Creating helpful, reliable, people-first content](https://developers.google.com/search/docs/fundamentals/creating-helpful-content)
+- [Google Search Central Blog — Doorway pages](https://developers.google.com/search/blog/2015/03/an-update-on-doorway-pages)

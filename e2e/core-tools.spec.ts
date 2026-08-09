@@ -64,6 +64,7 @@ const toolRoutes = [
   ["safety-stock-calculator", "Safety Stock & Reorder Point Calculator"],
   ["inventory-turnover-calculator", "Inventory Turnover & Inventory Days Calculator"],
   ["cost-of-goods-sold-calculator", "Cost of Goods Sold (COGS) Calculator"],
+  ["food-cost-calculator", "Food Cost & Recipe Cost Calculator"],
   ["jpg-to-pdf", "JPG to PDF Converter"],
   ["qr-code-generator", "QR Code Generator"],
   ["barcode-generator", "Barcode Generator"],
@@ -2213,6 +2214,70 @@ test("COGS calculator keeps the accounting waterfall auditable without mobile ov
 
   const layout = await page.evaluate(() => ({ width: document.documentElement.clientWidth, scrollWidth: document.documentElement.scrollWidth }));
   expect(layout.scrollWidth).toBe(layout.width);
+  expect(hasExternalRequest(requestUrls, page.url())).toBe(false);
+  expect(consoleErrors).toEqual([]);
+});
+
+test("food cost calculator handles yield, portions, pricing, and local CSV without mobile overflow", async ({ page }) => {
+  const consoleErrors: string[] = [];
+  const requestUrls: string[] = [];
+  page.on("console", (message) => {
+    if (message.type() === "error") consoleErrors.push(message.text());
+  });
+  page.on("pageerror", (error) => consoleErrors.push(error.message));
+  page.on("request", (request) => requestUrls.push(request.url()));
+  await page.setViewportSize({ width: 390, height: 844 });
+
+  await page.goto("/food-cost-calculator");
+  await expect(page.getByRole("heading", { level: 1, name: "Food Cost & Recipe Cost Calculator" })).toBeVisible();
+  await expect(page.locator("main header").getByText("คำนวณ Food Cost ต้นทุนสูตรอาหาร", { exact: true })).toBeVisible();
+  await expect(page.locator("#food-cost-servings")).toBeVisible();
+  await page.evaluate(() => document.fonts.ready);
+
+  const initialLayout = await page.evaluate(() => {
+    const label = document.querySelector<HTMLLabelElement>('label[for="food-cost-servings"]');
+    const input = document.querySelector<HTMLInputElement>("#food-cost-servings");
+    const labelBox = label?.getBoundingClientRect();
+    const inputBox = input?.getBoundingClientRect();
+    const ids = Array.from(document.querySelectorAll<HTMLElement>("[id]")).map((element) => element.id);
+    return {
+      labelGap: labelBox && inputBox ? Math.round(inputBox.top - labelBox.bottom) : 0,
+      duplicateIds: ids.filter((id, index) => ids.indexOf(id) !== index),
+      overflow: document.documentElement.scrollWidth > document.documentElement.clientWidth,
+    };
+  });
+  expect(initialLayout.labelGap).toBeGreaterThanOrEqual(10);
+  expect(initialLayout.duplicateIds).toEqual([]);
+  expect(initialLayout.overflow).toBe(false);
+
+  await page.getByRole("button", { name: "โหลดตัวอย่าง" }).click();
+  await expect(page.locator("#food-cost-ingredient-4-name")).toHaveValue("ซอส");
+  await page.getByRole("button", { name: "คำนวณ Food Cost" }).click();
+  await expect(page.getByTestId("food-cost-batch")).toHaveText("฿166.80");
+  await expect(page.getByTestId("food-cost-serving")).toHaveText("฿20.85");
+  await expect(page.getByTestId("food-cost-direct-serving")).toHaveText("฿45.85");
+  await expect(page.getByTestId("food-cost-target-price")).toHaveText("฿74.46");
+  await expect(page.getByTestId("food-cost-direct-batch")).toHaveText("฿366.80");
+  await expect(page.getByTestId("food-cost-percent")).toHaveText("23.43%");
+  await expect(page.getByTestId("food-cost-direct-percent")).toHaveText("51.52%");
+  await expect(page.getByTestId("food-cost-contribution")).toHaveText("฿43.15");
+  await expect(page.getByTestId("food-cost-status")).toContainText("อยู่ในหรือต่ำกว่าเป้า");
+  await expect(page.getByTestId("food-cost-result")).toContainText("ต้นทุนแยกตามวัตถุดิบ");
+
+  const csvPromise = page.waitForEvent("download");
+  await page.getByRole("button", { name: "ดาวน์โหลด CSV" }).click();
+  const csvDownload = await csvPromise;
+  expect(csvDownload.suggestedFilename()).toBe("meaw-food-recipe-cost.csv");
+  const csvPath = await csvDownload.path();
+  expect(csvPath).toBeTruthy();
+  const csv = await readFile(csvPath!, "utf8");
+  expect(csv.startsWith("\uFEFF")).toBe(true);
+  expect(csv).toContain('"ต้นทุนวัตถุดิบต่อสูตร","166.80","THB"');
+  expect(csv).toContain('"ต้นทุนตรงรวมต่อเสิร์ฟ","45.85","THB/เสิร์ฟ"');
+  expect(csv).toContain('"ราคาขายแนะนำจากเป้าหมาย Food cost","74.46","THB/เสิร์ฟ"');
+
+  const finalLayout = await page.evaluate(() => ({ width: document.documentElement.clientWidth, scrollWidth: document.documentElement.scrollWidth }));
+  expect(finalLayout.scrollWidth).toBe(finalLayout.width);
   expect(hasExternalRequest(requestUrls, page.url())).toBe(false);
   expect(consoleErrors).toEqual([]);
 });
