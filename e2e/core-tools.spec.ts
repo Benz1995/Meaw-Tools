@@ -69,6 +69,7 @@ const toolRoutes = [
   ["coffee-cost-calculator", "Coffee Cost Calculator"],
   ["coffee-roasting-calculator", "Coffee Roasting Calculator"],
   ["break-even-calculator", "Break-even Calculator"],
+  ["payback-period-calculator", "Payback Period Calculator"],
   ["jpg-to-pdf", "JPG to PDF Converter"],
   ["qr-code-generator", "QR Code Generator"],
   ["barcode-generator", "Barcode Generator"],
@@ -2547,6 +2548,70 @@ test("break-even calculator handles product mix, CVP graph, target profit, capac
   expect(csv).toContain('"Break-even revenue","171414.91","THB"');
   expect(csv).toContain('"Operating profit","46900.00","THB"');
   expect(csv).toContain('"Americano","70.00","20.00","40.0000"');
+
+  const finalLayout = await page.evaluate(() => ({
+    width: document.documentElement.clientWidth,
+    scrollWidth: document.documentElement.scrollWidth,
+  }));
+  expect(finalLayout.scrollWidth).toBe(finalLayout.width);
+  expect(hasExternalRequest(requestUrls, page.url())).toBe(false);
+  expect(consoleErrors).toEqual([]);
+});
+
+test("payback calculator compares simple and discounted recovery, NPV, timeline, and local CSV without mobile overflow", async ({ page }) => {
+  const consoleErrors: string[] = [];
+  const requestUrls: string[] = [];
+  page.on("console", (message) => {
+    if (message.type() === "error") consoleErrors.push(message.text());
+  });
+  page.on("pageerror", (error) => consoleErrors.push(error.message));
+  page.on("request", (request) => requestUrls.push(request.url()));
+  await page.setViewportSize({ width: 390, height: 844 });
+
+  await page.goto("/payback-period-calculator");
+  await expect(page.getByRole("heading", { level: 1, name: "Payback Period Calculator" })).toBeVisible();
+  await expect(page.locator("main header").getByText("คำนวณระยะเวลาคืนทุน", { exact: true })).toBeVisible();
+  await expect(page.locator("#payback-scenario-name")).toBeVisible();
+  await page.evaluate(() => document.fonts.ready);
+
+  const initialLayout = await page.evaluate(() => {
+    const label = document.querySelector<HTMLLabelElement>('label[for="payback-scenario-name"]');
+    const input = document.querySelector<HTMLInputElement>("#payback-scenario-name");
+    const labelBox = label?.getBoundingClientRect();
+    const inputBox = input?.getBoundingClientRect();
+    const ids = Array.from(document.querySelectorAll<HTMLElement>("[id]")).map((element) => element.id);
+    return {
+      labelGap: labelBox && inputBox ? Math.round(inputBox.top - labelBox.bottom) : 0,
+      duplicateIds: ids.filter((id, index) => ids.indexOf(id) !== index),
+      overflow: document.documentElement.scrollWidth > document.documentElement.clientWidth,
+    };
+  });
+  expect(initialLayout.labelGap).toBeGreaterThanOrEqual(10);
+  expect(initialLayout.duplicateIds).toEqual([]);
+  expect(initialLayout.overflow).toBe(false);
+
+  await page.getByRole("button", { name: "โหลดตัวอย่าง" }).click();
+  await expect(page.locator("#payback-scenario-name")).toHaveValue("เครื่องจักรใหม่ · 6 ปี");
+  await page.getByRole("button", { name: "คำนวณ Payback" }).click();
+
+  await expect(page.getByTestId("payback-simple")).toContainText("4.00 ปี");
+  await expect(page.getByTestId("payback-discounted")).toContainText("5.0489 ปี");
+  await expect(page.getByTestId("payback-npv")).toContainText("+฿28,356.19");
+  await expect(page.getByRole("img", { name: "กราฟ Simple และ Discounted cumulative cash flow" })).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Timeline กระแสเงินสด" })).toBeVisible();
+  await expect(page.getByTestId("payback-result")).toContainText("PV เงินสดอนาคต ฿188,356.19");
+
+  const csvPromise = page.waitForEvent("download");
+  await page.getByRole("button", { name: "ดาวน์โหลด CSV" }).click();
+  const csvDownload = await csvPromise;
+  expect(csvDownload.suggestedFilename()).toBe("meaw-payback-period.csv");
+  const csvPath = await csvDownload.path();
+  expect(csvPath).toBeTruthy();
+  const csv = await readFile(csvPath!, "utf8");
+  expect(csv.startsWith("\uFEFF")).toBe(true);
+  expect(csv).toContain('"Simple payback","4.000000","period"');
+  expect(csv).toContain('"Discounted payback","5.048876","period"');
+  expect(csv).toContain('"Net present value (NPV)","28356.19","THB"');
 
   const finalLayout = await page.evaluate(() => ({
     width: document.documentElement.clientWidth,

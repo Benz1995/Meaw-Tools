@@ -1523,3 +1523,49 @@ UI แบ่ง Scenario, Fixed costs, Product/service cards, Unit mix badge, Cu
 - [OpenStax — Multi-product Break-even and Sales Mix](https://openstax.org/books/principles-managerial-accounting/pages/3-4-perform-break-even-sensitivity-analysis-for-a-multi-product-environment-under-changing-business-situations)
 - [Google Search Central — Creating helpful, reliable, people-first content](https://developers.google.com/search/docs/fundamentals/creating-helpful-content)
 - [Google Search Central Blog — Doorway pages](https://developers.google.com/search/blog/2015/03/an-update-on-doorway-pages)
+
+## รอบที่ 45 — Payback Period, Discounted Payback และ NPV Timeline (9 สิงหาคม 2569)
+
+รอบนี้ส่งคำตั้งต้น 60 รูปแบบไปยัง Google Autocomplete ภาษาไทย/ประเทศไทย ครอบคลุม Payback period, Discounted payback, Cash flow, NPV, IRR, Capital budgeting, Investment appraisal, Equipment, Business และคำไทย ได้คำแนะนำ 222 รายการไม่ซ้ำ โดยไม่มี Request error จำนวนคำแนะนำเป็น Demand proxy ของความกว้าง Intent เท่านั้น ไม่ใช่ Search volume, Traffic forecast หรือหลักฐานว่าจะติดหน้าแรก Google
+
+สัญญาณตรง `payback period calculator` ได้ 10/10 พร้อม Excel, Formula, Irregular cash flows, Online, Months และ No discount rate; `discounted payback calculator` 8/10; `discounted payback period calculator` 6/10; `investment payback calculator` 4/10; `project payback calculator` 3/10 และคำไทย `ระยะเวลาคืนทุน สูตร` 6/10 ส่วน `คำนวณระยะเวลาคืนทุน` และ `คำนวณ payback period` ได้ 1/10 ขณะเดียวกัน NPV, IRR, Discounted cash flow และ Present value ได้ 10/10 แต่มี Intent ประเมินหุ้น ประกัน เงินกู้และ Pension ปน จึงไม่รวม IRR หรือ DCF valuation ที่ต้องมี Workflow และข้อจำกัดต่างกัน
+
+ใช้ URL เดียว `payback-period-calculator` รวม Simple payback, Discounted payback, Uneven periodic cash flow, Monthly/Quarterly/Yearly interval, Effective annual discount rate, Terminal value, NPV, Cumulative cash-flow chart, Timeline และ CSV ไม่สร้างหน้า Free, Online, Excel, Formula, Months, Project, Equipment หรือภาษาไทยแยกซ้ำ ส่วน IRR/MIRR, Stock DCF valuation, Profitability index, Buy-vs-lease และ Cash-flow forecast แยกไว้ เพราะมี Multiple-root, Terminal growth, Financing, Mutually-exclusive project หรือ Receivable/Payable timing คนละ Workflow
+
+คะแนน 5 คือสูงที่สุด การจัดอันดับพิจารณา Demand ที่พบ, คุณค่าผู้ใช้จริง, ความต่างจาก 81 tools เดิม, ความโปร่งใสของสูตร, Revenue opportunity, Scalability, Innovation และความเสี่ยงจากการใช้ผลตัดสินใจลงทุน:
+
+| อันดับ | แนวคิด | Demand ที่พบ | ยาก | คุณค่าธุรกิจ | รายได้ | ขยายต่อ | นวัตกรรม | ข้อสรุป |
+|---:|---|---|---:|---:|---:|---:|---:|---|
+| 1 | Payback Period & Discounted Payback Calculator | Payback 10/10; Discounted 6–8/10; ไทย 6/10 | 5 | 5 | 5 | 5 | 4 | ส่งมอบ Batch 55; Uneven CF, Effective rate, Terminal value, NPV, Graph, Timeline และ CSV |
+| 2 | NPV & Capital Budgeting Calculator | NPV 10/10; Capital budgeting 2/10 | 5 | 5 | 5 | 5 | 4 | NPV เบื้องต้นรวม Batch 55 แล้ว งานแยกควรมีหลายโครงการ, Mutually exclusive, Capital rationing และ Sensitivity |
+| 3 | IRR & MIRR Calculator | IRR 10/10 | 5 | 5 | 5 | 5 | 5 | ต้องตรวจ Multiple roots, No-root, Reinvestment rate และแสดง NPV profile ไม่ส่งเลขเดียวแบบไร้คำเตือน |
+| 4 | Equipment ROI & Replacement Analysis | Equipment ROI 6/10 | 5 | 5 | 5 | 5 | 5 | ใช้ Incremental cash flow, Downtime, Maintenance, Tax depreciation, Residual value และ Defender/Challenger |
+| 5 | Profitability Index & Capital Rationing | PI 9/10 | 5 | 5 | 4 | 5 | 4 | ใช้ PV benefits/PV costs พร้อม Budget constraint และ Ranking โดยไม่ใช้ PI แทน NPV ใน Mutually exclusive projects |
+| 6 | Cash-flow Forecast Calculator | Project cash flow 3/10 | 5 | 5 | 5 | 5 | 5 | ต้องมี Opening cash, AR/AP timing, Recurring items, Tax/VAT, Minimum cash และ Scenario ไม่ใช้ Profit แทน Cash |
+| 7 | Investment Appraisal Comparison | Exact 2/10 | 5 | 5 | 5 | 5 | 5 | เทียบ Payback, Discounted payback, NPV, IRR, PI และ ARR หลายโครงการบน Horizon/Discount basis เดียวกัน |
+| 8 | Discount Rate & WACC Worksheet | Discount rate 10/10 | 5 | 5 | 5 | 5 | 4 | ต้องแยก Cost of equity/debt, Tax shield, Capital weights และ Country/size risk โดยไม่สร้างอัตราแนะนำอัตโนมัติ |
+| 9 | Project Cash-flow Scenario Builder | Exact 3/10 | 5 | 5 | 4 | 5 | 5 | สร้าง Base/Upside/Downside, Probability, Working capital และ Terminal assumption พร้อม Audit trail |
+| 10 | Buy-vs-Lease Equipment Calculator | Buy vs lease 2/10 | 5 | 5 | 5 | 5 | 4 | ต้องเทียบ After-tax incremental cash flows, Financing, Maintenance, Residual value และ Ownership risk |
+| 11 | Solar/Energy Payback Calculator | Solar 10/10; Energy 3/10 | 5 | 4 | 5 | 5 | 4 | Demand สูงแต่ต้องมี Tariff, Degradation, Export credit, Maintenance และ Location rules ที่เปลี่ยนได้ ไม่ใช้ Generic payback แทน |
+| 12 | Initial Investment Outlay Calculator | 10/10 แต่ Compound/SIP intent ปน | 4 | 4 | 4 | 5 | 3 | รวม Purchase, Installation, Training, Working capital, Disposal/tax effect โดยต้องแยกจาก Investment growth intent |
+| 13 | Capital Recovery Factor Calculator | 5/10 | 4 | 4 | 4 | 4 | 3 | ใช้ Annualized capital cost/Equivalent annual cost เหมาะกับโครงการอายุไม่เท่ากัน แต่ต้องระบุ Nominal/Effective rate |
+| 14 | Business Investment Scenario | Business investment 8/10 | 5 | 4 | 5 | 5 | 4 | ต้องรวม Revenue/Cost drivers, Funding, Working capital และ Owner salary ไม่ทำ Generic ROI หน้าใหม่ซ้ำ |
+| 15 | Restaurant/Coffee Equipment Payback | Exact seed 0/10 | 4 | 4 | 4 | 4 | 4 | Generic Payback รองรับแล้ว งานแยกควรมี Throughput, Menu contribution, Labor saving, Downtime และ Capacity จริงก่อนสร้าง URL |
+
+Batch 55 เริ่มยอดสะสมที่ `−Initial investment`, Simple payback สะสม Net cash flow ตามลำดับ ส่วน Discounted payback ใช้ `Periodic rate = (1 + Effective annual rate)^(1 ÷ Periods per year) − 1` และ `Discounted CF_t = CF_t ÷ (1 + Periodic rate)^t` ก่อนสะสม Terminal value จะรวมเฉพาะงวดสุดท้ายและ NPV = PV ของกระแสเงินสดอนาคตทั้งหมด − เงินลงทุนเริ่มต้น
+
+เศษงวดใช้ `Completed periods + Unrecovered balance before recovery period ÷ Recovery-period cash flow` ตามวิธี Payback ทั่วไปและระบุสมมติฐานว่าเงินสดเกิดสม่ำเสมอภายในงวด รองรับ Cash flow ติดลบแต่เตือนเมื่อยอดสะสมกลับมาติดลบหลังการคืนทุนครั้งแรก ไม่ใช้ Payback แทน Profitability เพราะวิธีนี้ไม่ให้คุณค่ากับ Cash flow หลังคืนทุน และไม่เรียก NPV ว่า IRR หรืออัตราผลตอบแทน
+
+OpenStax Principles of Finance 2e อธิบาย Payback เป็นเวลาที่ Free cash flow คืน Initial cost และข้อจำกัดเรื่อง Time value of money; บท Alternative Methods อธิบายการ Discount กระแสเงินสดด้วย Cost of funds, สะสมจนคืนทุน และหาเศษงวด แต่ยังไม่มี Objective payback cutoff และยังละเลย Cash flow หลังคืนทุน หน้าเครื่องมือจึงแสดง Simple/Discounted/NPV ควบคู่กัน ไม่ให้คำแนะนำลงทุน และใช้เป้าคืนทุนของผู้ใช้เป็น Comparison เท่านั้น
+
+UI แบ่ง Scenario/Investment, Net cash flow editor, Result cards, Accessible SVG chart, Timeline แบบการ์ดบนมือถือ/ตารางบนจอใหญ่, Formula panel, Warning state และ CSV ใช้ Label gap สม่ำเสมอ ทุกข้อมูลคำนวณใน Browser ไม่มี API หรือ LocalStorage ชื่อ Scenario/งวดใน CSV ถูกป้องกัน Spreadsheet Formula Injection และหน่วยเงินไม่มี FX conversion
+
+- [Google Autocomplete — payback period calculator](https://suggestqueries.google.com/complete/search?client=firefox&hl=th&gl=th&q=payback%20period%20calculator)
+- [Google Autocomplete — discounted payback calculator](https://suggestqueries.google.com/complete/search?client=firefox&hl=th&gl=th&q=discounted%20payback%20calculator)
+- [Google Autocomplete — ระยะเวลาคืนทุน สูตร](https://suggestqueries.google.com/complete/search?client=firefox&hl=th&gl=th&q=%E0%B8%A3%E0%B8%B0%E0%B8%A2%E0%B8%B0%E0%B9%80%E0%B8%A7%E0%B8%A5%E0%B8%B2%E0%B8%84%E0%B8%B7%E0%B8%99%E0%B8%97%E0%B8%B8%E0%B8%99%20%E0%B8%AA%E0%B8%B9%E0%B8%95%E0%B8%A3)
+- [Google Autocomplete — NPV calculator](https://suggestqueries.google.com/complete/search?client=firefox&hl=th&gl=th&q=npv%20calculator)
+- [OpenStax Principles of Finance 2e — Payback Period Method](https://openstax.org/books/principles-of-finance-2e/pages/16-1-payback-period-method)
+- [OpenStax Principles of Finance 2e — Discounted Payback Period](https://openstax.org/books/principles-of-finance-2e/pages/16-4-alternative-methods)
+- [OpenStax — Net Present Value Method](https://openstax.org/books/principles-finance/pages/16-2-net-present-value-npv-method)
+- [Google Search Central — Creating helpful, reliable, people-first content](https://developers.google.com/search/docs/fundamentals/creating-helpful-content)
+- [Google Search Central — How Search works and no indexing guarantee](https://developers.google.com/search/docs/fundamentals/how-search-works)
