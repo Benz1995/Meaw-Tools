@@ -897,11 +897,27 @@ test("cat walker can be disabled and remembers the preference", async ({ page })
   const trackTiming = await page.locator(".cat-walker-track").evaluate((element) => getComputedStyle(element).animationTimingFunction);
   expect(trackTiming).toBe("linear");
   await expect(page.locator(".cat-walker-rest")).toHaveCount(1);
-  const layerOrder = await page.evaluate(() => ({
-    content: Number.parseInt(getComputedStyle(document.querySelector(".meaw-app-content")!).zIndex, 10),
-    cat: Number.parseInt(getComputedStyle(document.querySelector(".meaw-playground")!).zIndex, 10),
-  }));
-  expect(layerOrder.content).toBeGreaterThan(layerOrder.cat);
+  const catLayout = await page.evaluate(() => {
+    const content = document.querySelector(".meaw-app-content")!;
+    const playground = document.querySelector(".meaw-playground")!;
+    const track = document.querySelector(".cat-walker-track")!;
+    const toggle = document.querySelector('[aria-label="พัก Meaw"]')!;
+    const playgroundRect = playground.getBoundingClientRect();
+    const trackRect = track.getBoundingClientRect();
+    return {
+      contentLayer: Number.parseInt(getComputedStyle(content).zIndex, 10),
+      catLayer: Number.parseInt(getComputedStyle(playground).zIndex, 10),
+      toggleLayer: Number.parseInt(getComputedStyle(toggle).zIndex, 10),
+      playgroundTop: playgroundRect.top,
+      trackTop: trackRect.top,
+      trackBottom: trackRect.bottom,
+      viewportBottom: window.innerHeight,
+    };
+  });
+  expect(catLayout.catLayer).toBeGreaterThan(catLayout.contentLayer);
+  expect(catLayout.toggleLayer).toBeGreaterThan(catLayout.catLayer);
+  expect(catLayout.trackTop).toBeGreaterThanOrEqual(catLayout.playgroundTop);
+  expect(catLayout.trackBottom).toBeLessThanOrEqual(catLayout.viewportBottom);
   await page.getByRole("button", { name: "พัก Meaw" }).click();
   await expect(page.locator(".cat-walker-image")).toHaveCount(0);
   await page.reload();

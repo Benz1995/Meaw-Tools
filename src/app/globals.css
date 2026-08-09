@@ -435,6 +435,7 @@
 
 .cat-walker-track {
   --meaw-roam-duration: 24s;
+  bottom: max(0.25rem, env(safe-area-inset-bottom, 0px));
   width: 7rem;
   will-change: transform;
 }
