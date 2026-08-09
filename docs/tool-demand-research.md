@@ -1615,6 +1615,46 @@ Production verification ที่ `https://meaw-tools.vercel.app/wholesale-price
 - [OpenStax — Contribution Margin](https://openstax.org/books/principles-managerial-accounting/pages/3-1-explain-contribution-margin-and-calculate-contribution-margin-per-unit-contribution-margin-ratio-and-total-contribution-margin)
 - [U.S. SBA — Break-even point](https://www.sba.gov/business-guide/plan-your-business/calculate-your-startup-costs/break-even-point)
 
+## รอบที่ 53 — Bill Split, Shared Expense, Receipt Splitter และ Settlement (9 สิงหาคม 2569)
+
+รอบเปรียบเทียบข้ามสายงานส่งคำตั้งต้น 72 รูปแบบไปยัง Google Autocomplete ภาษาไทย/ประเทศไทยโดยไม่มี Request error กลุ่ม Promotion/Discount 28 คำตั้งต้นได้คำแนะนำไม่ซ้ำ 71 รายการและ 3 Seed เต็ม 10/10, กลุ่ม Bill split/Shared expense 22 คำตั้งต้นได้ 113 รายการและ 8 Seed เต็ม 10/10, กลุ่ม Date duration 22 คำตั้งต้นได้ 170 รายการและ 15 Seed เต็ม 10/10 จำนวนคำแนะนำเป็น Demand proxy ของความกว้าง Intent เท่านั้น ไม่ใช่ Search volume, Traffic forecast, Conversion หรือหลักฐานว่าจะติดหน้าแรก Google
+
+แม้ Date duration มีสัญญาณสูงที่สุด แต่ `date-calculator` มี Date difference กับ Add/subtract days และ `business-days-calculator` มี Workday/Holiday policy อยู่แล้ว การเปิด URL ใหม่จะซ้ำ Workflow และเสี่ยง Keyword cannibalization ส่วน Promotion/Discount มีสัญญาณตรงน้อยกว่าและ `percentage-calculator`, `profit-margin-calculator`, `wholesale-price-calculator` ครอบคลุมสูตรพื้นฐานบางส่วน จึงเลือก Bill Split ซึ่งไม่พบ Route/Logic เดิมและมีสัญญาณ `bill split calculator`, `split bill calculator`, `group expense calculator`, `shared expense calculator`, `expense splitter`, `rent split calculator`, `restaurant tip calculator` และ `tip calculator` 10/10 พร้อมคำไทย `หารค่าอาหาร` 6/10 และ `หารบิล` 4/10
+
+รอบเจาะ Bill split อีก 31 คำตั้งต้นได้คำแนะนำไม่ซ้ำ 38 รายการโดยไม่มี Request error สัญญาณ `splitwise calculator` กับ `receipt splitter` 10/10, `split rent based on income calculator` 3/10, `receipt split calculator`, `group bill splitter`, `travel expense splitter`, `split cost by percentage` และ `tip calculator split bill` 2/10, `itemized bill splitter`, `bill splitter with discount`, `หารบิลค่าอาหาร` และ `แอปหารบิล` 1/10 จึงใช้ URL เดียว `bill-split-calculator` รวม Itemized split, Unequal/weighted split, Receipt adjustments, Shared expense และ Settlement ซึ่งใช้ Participants/Items/Payments ชุดเดียวกัน ไม่สร้างหน้า Tip, Tax, Receipt, Splitwise, Travel, Rent, Online หรือ Free แยกซ้ำ
+
+คะแนน 5 คือสูงที่สุด การจัดอันดับพิจารณา Demand, คุณค่าผู้ใช้จริง, ความต่างจาก 89 Tools เดิม, Difficulty, Business value, Revenue opportunity, Technical complexity, Scalability และ Innovation:
+
+| อันดับ | แนวคิด | Demand ที่พบ | ยาก | คุณค่าธุรกิจ | รายได้ | เทคนิค | ขยายต่อ | นวัตกรรม | ข้อสรุป |
+|---:|---|---|---:|---:|---:|---:|---:|---:|---|
+| 1 | Bill Split & Shared Expense Calculator | Bill/Split/Group/Shared 10/10; หารบิล 4/10 | 4 | 5 | 4 | 4 | 5 | 5 | Batch 63; Items + weights + receipt adjustments + paid reconciliation + settlement + CSV |
+| 2 | Receipt Splitter by Item | Receipt splitter 10/10 | 4 | 5 | 4 | 4 | 5 | 4 | รวม Manual item assignment ในอันดับ 1; OCR receipt แยกไว้เพราะต้องมี privacy/accuracy gate |
+| 3 | Group Expense Settlement | Group/shared expense 10/10 | 4 | 5 | 4 | 4 | 5 | 5 | รวมยอดที่แต่ละคนออกจริงและ deterministic settlement ในอันดับ 1 |
+| 4 | Unequal / Weighted Split | Split by percentage 2/10 | 3 | 5 | 4 | 3 | 5 | 4 | รวม Weight ต่อคนและเลือกคนต่อ Item ในอันดับ 1 |
+| 5 | Tax, Service & Tip Splitter | Tip 10/10; Tax+tip 9/10 | 4 | 5 | 4 | 4 | 5 | 4 | ให้กรอกยอดจริงจาก Receipt แทนเดา Rate/ฐาน/ลำดับที่ต่างกัน |
+| 6 | Trip Expense Splitter | Travel expense 2/10; หารค่าใช้จ่าย 2/10 | 4 | 5 | 4 | 4 | 5 | 4 | ใช้ Generic items ได้แล้ว; Multi-day ledger/persistence เป็นอนาคต |
+| 7 | Rent Split by Income | Rent split 10/10; Income 3/10 | 3 | 5 | 4 | 3 | 5 | 3 | ใช้ Weight ได้ แต่ไม่ตัดสินว่าสัดส่วนใดยุติธรรมหรือเหมาะกับสัญญา |
+| 8 | Roommate Household Ledger | Roommate expense 1/10 | 5 | 5 | 5 | 5 | 5 | 5 | Recurring bills, carry-forward, approvals และ durable history ต่างจาก Calculator ครั้งเดียว |
+| 9 | Tip Calculator | Tip calculator 10/10 | 2 | 4 | 3 | 2 | 5 | 2 | รวม Actual tip line ในอันดับ 1; หน้า Tip เดี่ยวบางเกินและมีฐานก่อน/หลัง Tax ต่างกัน |
+| 10 | Subscription Group Splitter | Shared expense related | 4 | 4 | 4 | 4 | 5 | 4 | รอบบิล, Join/leave date, Proration และ Renewal reminder เป็น Workflow แยก |
+| 11 | Event Cost Share & Collection | Group expense 10/10 | 5 | 5 | 5 | 5 | 5 | 5 | Budget, Deposit, Attendance, Collection status และ Refund rules ต้องมี persistence |
+| 12 | Expense Reimbursement Report | Expense related | 5 | 5 | 5 | 5 | 5 | 4 | Receipt attachment, Policy, Approval, Accounting export และ Audit trail สำหรับองค์กร |
+| 13 | Shared Gift Collection | Group payment related | 4 | 4 | 4 | 4 | 5 | 4 | Target, Anonymous contribution, Refund และ Payment-link boundary ต่างจากหารบิลย้อนหลัง |
+| 14 | Promotion Margin Floor Calculator | Discount 10/10; Margin 3/10 | 4 | 5 | 5 | 4 | 5 | 5 | Candidate ถัดไป ต้องรวม Discount stack, Ads, Returns, Channel fee และ Minimum margin |
+| 15 | Receipt OCR Auto-split | Receipt splitter 10/10 | 5 | 5 | 5 | 5 | 5 | 5 | ต้องพิสูจน์ OCR, Table extraction, Local processing, Manual correction และไม่เก็บภาพก่อนเปิดใช้ |
+
+Batch 63 แปลงจำนวนเงินทุกบรรทัดเป็นหน่วยย่อยสองตำแหน่ง จากนั้นจัดสรร Item ตาม Weight ของ Participant ที่ถูกเลือก ค่าเพิ่ม/ส่วนลดเลือกได้ 3 แบบ: ตามยอด Item, เท่ากันทุกคน หรือตาม Weight ใช้ Largest-remainder distribution และ Tie-break ตามลำดับ Participant เพื่อให้ผล deterministic และยอด Share รวมกลับตรงจำนวนต้นฉบับทุกบรรทัด หาก `Σ Paid ≠ Grand total` ระบบแสดง Payment gap และไม่สร้าง Settlement; เมื่อยอดตรงจึงจับคู่ Debtor/Creditor ตาม Balance แบบ deterministic พร้อมระบุชัดว่าไม่รับประกันจำนวน Transfer ต่ำสุดทางคณิตศาสตร์ทุกกรณี
+
+ขอบเขตจำกัด 2–12 Participants, 1–30 Items และ 0–8 Adjustments ชื่อ Participant ต้องไม่ซ้ำ Item ต้องมีคนร่วมอย่างน้อยหนึ่งคน ส่วนลดที่ทำให้ Share ของคนใดติดลบถูกปฏิเสธ ข้อมูลทั้งหมดคำนวณใน Browser ไม่มี API/Storage และ CSV ใส่ UTF-8 BOM พร้อม Neutralize ข้อความที่ขึ้นต้นด้วย `=`, `+`, `-` หรือ `@` เพื่อลด Spreadsheet Formula Injection
+
+- [Google Autocomplete — bill split calculator](https://suggestqueries.google.com/complete/search?client=firefox&hl=th&gl=th&q=bill%20split%20calculator)
+- [Google Autocomplete — shared expense calculator](https://suggestqueries.google.com/complete/search?client=firefox&hl=th&gl=th&q=shared%20expense%20calculator)
+- [Google Autocomplete — receipt splitter](https://suggestqueries.google.com/complete/search?client=firefox&hl=th&gl=th&q=receipt%20splitter)
+- [Google Autocomplete — หารบิล](https://suggestqueries.google.com/complete/search?client=firefox&hl=th&gl=th&q=%E0%B8%AB%E0%B8%B2%E0%B8%A3%E0%B8%9A%E0%B8%B4%E0%B8%A5)
+- [Google Autocomplete — หารค่าอาหาร](https://suggestqueries.google.com/complete/search?client=firefox&hl=th&gl=th&q=%E0%B8%AB%E0%B8%B2%E0%B8%A3%E0%B8%84%E0%B9%88%E0%B8%B2%E0%B8%AD%E0%B8%B2%E0%B8%AB%E0%B8%B2%E0%B8%A3)
+- [Google Search Central — Creating helpful, reliable, people-first content](https://developers.google.com/search/docs/fundamentals/creating-helpful-content)
+- [Google Search Central — Spam policies and doorway abuse](https://developers.google.com/search/docs/essentials/spam-policies)
+
 ## รอบที่ 51 — EOQ, Order Quantity, Quantity Discount และ Inventory Holding Cost (9 สิงหาคม 2569)
 
 รอบแรกส่งคำตั้งต้น 20 รูปแบบครอบคลุม Bulk buy/purchase/discount/order, Quantity discount, Cost savings, Storage cost, Inventory holding/carrying cost, EOQ, Wholesale price และคำไทยไปยัง Google Autocomplete ภาษาไทย/ประเทศไทย ได้คำแนะนำ 63 รายการไม่ซ้ำ ไม่มี Request error และมี 3 คำตั้งต้นที่คืนผลเต็ม 10/10 แต่ `bulk buy break even calculator`, `bulk vs retail calculator`, `คำนวณซื้อยกลัง` และ `คำนวณราคาขายส่ง` ได้ 0/10 จึงไม่ใช้ชื่อ Bulk Buy Break-even เป็นหน้าหลัก
