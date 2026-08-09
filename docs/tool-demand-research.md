@@ -1647,6 +1647,8 @@ Batch 63 แปลงจำนวนเงินทุกบรรทัดเ�
 
 ขอบเขตจำกัด 2–12 Participants, 1–30 Items และ 0–8 Adjustments ชื่อ Participant ต้องไม่ซ้ำ Item ต้องมีคนร่วมอย่างน้อยหนึ่งคน ส่วนลดที่ทำให้ Share ของคนใดติดลบถูกปฏิเสธ ข้อมูลทั้งหมดคำนวณใน Browser ไม่มี API/Storage และ CSV ใส่ UTF-8 BOM พร้อม Neutralize ข้อความที่ขึ้นต้นด้วย `=`, `+`, `-` หรือ `@` เพื่อลด Spreadsheet Formula Injection
 
+หลักฐานส่งมอบ Batch 63: commit `0e1d9fc` ผ่าน ESLint และ TypeScript, Vitest 73 ไฟล์ 455 tests, Next.js production build 114 static pages และ Playwright 148 passed / 2 skipped ครบ Desktop กับ Mobile โดย E2E เฉพาะหน้าตรวจผลตัวอย่าง 1,883.20 บาท, Nana โอน Mew 425.46 บาท, CSV, ระยะ Label/Input, Duplicate ID, Horizontal overflow, Console error และไม่มี Request สำหรับการคำนวณ จากนั้น Vercel deployment `dpl_Bw2WZTmqS6Xt4hxFDXHfyXnSFsr8` ขึ้นสถานะ Ready และ URL จริง [Bill Split & Shared Expense Calculator](https://meaw-tools.vercel.app/bill-split-calculator) ตอบ 200 แบบ `PRERENDER` มี Canonical ตรง, `WebApplication`, `FAQPage`, Sitemap และผ่าน Mobile production smoke โดยไม่พบ Console error; หลักฐานนี้ยืนยันการทำงานและ Crawlability ณ วันที่ตรวจ ไม่ใช่การรับประกัน Index, Traffic หรืออันดับหน้าแรก Google
+
 - [Google Autocomplete — bill split calculator](https://suggestqueries.google.com/complete/search?client=firefox&hl=th&gl=th&q=bill%20split%20calculator)
 - [Google Autocomplete — shared expense calculator](https://suggestqueries.google.com/complete/search?client=firefox&hl=th&gl=th&q=shared%20expense%20calculator)
 - [Google Autocomplete — receipt splitter](https://suggestqueries.google.com/complete/search?client=firefox&hl=th&gl=th&q=receipt%20splitter)

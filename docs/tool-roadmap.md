@@ -71,6 +71,7 @@
 | 63 | Unit Price Comparison Calculator | ผู้ซื้อสินค้า, ครอบครัว, ร้านค้า, จัดซื้อ, SME | เทียบราคาต่อ Weight/Volume/Count จาก 2–20 ตัวเลือก รองรับ Multipack, Discount, Coupon, Shipping, Ranking และ CSV | พร้อมใช้ |
 | 64 | EOQ & Quantity Discount Calculator | จัดซื้อ, คลังสินค้า, Supply Chain, ร้านค้า, ผู้ผลิต, SME | คำนวณ Economic Order Quantity เทียบ Price tier, MOQ, Pack size, Storage capacity, Current policy, Annual cost และ CSV | พร้อมใช้ |
 | 65 | Wholesale & Retail Price Calculator | ร้านค้า, ผู้ผลิต, E-commerce, Wholesale, Distributor, SME | ย้อนหารราคาขายจากต้นทุนต่อหน่วย, Variable/Fixed channel fee, Order quantity, Seller margin และ Downstream margin พร้อม RRP, Order economics และ CSV | พร้อมใช้ |
+| 66 | Bill Split & Shared Expense Calculator | เพื่อน, ครอบครัว, ร้านอาหาร, นักเดินทาง, รูมเมต, ทีมงาน | แยกรายการตามคนและน้ำหนัก กระจาย Service/VAT/Tip/ส่วนลดจากยอดจริง ตรวจยอดที่ออก และสรุปว่าใครโอนให้ใครพร้อม CSV | พร้อมใช้ |
 
 ## หลักฐาน Google Trends ประเทศไทย
 
@@ -207,6 +208,7 @@
 
 ## การส่งมอบล่าสุด
 
+- Batch 63 — Bill Split & Shared Expense Calculator แบบ client-only รองรับผู้ร่วมจ่าย 2–12 คน, รายการ 1–30 รายการ, Weight และการเลือกคนต่อ Item, ค่าเพิ่ม/ส่วนลด 3 วิธี, Largest-remainder rounding, Paid reconciliation, deterministic settlement และ formula-safe CSV — ส่งมอบและตรวจ Production แล้ว
 - Batch 62 — Wholesale & Retail Price Calculator แบบ client-only รองรับ Cost build-up 7 หมวด, ช่องทางขาย 1–6 ช่องทาง, Variable fee, Fixed fee ต่อ Order/หน่วย, Target seller margin, Downstream retailer margin, Break-even, Order economics, Suggested retail price และ formula-safe CSV — ส่งมอบและตรวจ Production แล้ว
 - Batch 61 — EOQ & Quantity Discount Calculator แบบ client-only รองรับ Classical EOQ, Holding cost แบบยอด/เปอร์เซ็นต์, All-units Price tier, MOQ, Pack size, Storage capacity, Current policy, Reorder Point โดยประมาณ, Candidate ranking และ formula-safe CSV — ส่งมอบและตรวจ Production แล้ว
 - Batch 60 — Unit Price Comparison Calculator แบบ client-only รองรับสินค้า 2–20 ตัวเลือก, Weight/Volume/Count, หน่วย Metric/US, Multipack, ส่วนลด, คูปอง, ค่าส่ง, Tie-aware ranking และ formula-safe CSV — ส่งมอบและตรวจ Production แล้ว
