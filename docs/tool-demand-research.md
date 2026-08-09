@@ -1244,3 +1244,51 @@ UI แบ่ง Period/COGS, Average inventory method และ Target compariso
 - [Xero — Inventory management systems and KPIs](https://www.xero.com/us/guides/inventory-management-system/)
 - [Google Search Central — Creating helpful, reliable, people-first content](https://developers.google.com/search/docs/fundamentals/creating-helpful-content)
 - [Google Search Central Blog — Doorway pages](https://developers.google.com/search/blog/2015/03/an-update-on-doorway-pages)
+
+## รอบที่ 39 — Cost of Goods Sold (COGS) Calculator และการจัดอันดับ Batch 49
+
+สำรวจเมื่อ 9 สิงหาคม 2569 ด้วย Google Autocomplete locale ไทย (`hl=th`, `gl=th`) จำนวน 60 คำตั้งต้น ครอบคลุม Cost of goods sold/COGS/Cost of sales, Beginning/Ending inventory, Goods available, Net purchases, Freight-in, Food cost, Cost per unit, Landed cost, EOQ, Warehouse, Sell-through, FIFO, Weighted average และคำไทย จำนวนคำแนะนำสูงสุด 10 รายการเป็น Demand proxy สำหรับดู Intent และ Long-tail เท่านั้น ไม่ใช่ Search volume และไม่รับประกันอันดับหน้าแรก Google
+
+`cost of goods sold calculator`, `cost of goods sold formula`, `cogs calculator`, `cogs formula`, `cost of sales formula`, `calculate cost of goods sold`, `ending inventory formula`, `goods available for sale formula`, `net purchases formula`, `freight in cogs`, `food cost calculator`, `cost per unit calculator`, `inventory cost calculator` และ `landed cost calculator` ได้ 10/10; `cost of sales calculator` 6/10; `ending inventory calculator` 5/10; `food cost percentage calculator` 4/10 ส่วนคำไทย `คำนวณต้นทุนขาย` ได้ 5/10, `ต้นทุนขาย สูตร` 7/10, `ต้นทุนขาย คือ` 10/10, `คำนวณต้นทุนสินค้า` 4/10, `สินค้าคงเหลือต้นงวด` 5/10 และ `สินค้าคงเหลือปลายงวด` 6/10 จึงใช้ชื่ออังกฤษหลักคู่ชื่อไทยและอธิบายศัพท์บัญชีทั้งสองภาษา
+
+หน้าเดียวรวม Cost of Goods Sold Calculator, COGS Calculator, Cost of sales formula, Beginning/Ending inventory, Goods available for sale, Net purchases, Gross profit, COGS percentage และ Cost per unit เมื่อใช้ Input/สูตรเดียวกัน ไม่สร้างหน้า Excel/Online/Formula แยก ส่วน Recipe/Food cost, Landed cost, FIFO และ Weighted average แยกไว้ใน Backlog เพราะต้องใช้ Yield/Waste, Import charges หรือ Transaction cost layers คนละ Workflow ไม่ควรยัดรวมเพื่อไล่ Keyword
+
+คะแนน 5 คือสูงที่สุด การจัดอันดับพิจารณา Demand, คุณค่าผู้ใช้จริง, ความต่างจาก 75 tools เดิม, ความโปร่งใสของสูตร, โอกาสรายได้, Scalability, Innovation และความเสี่ยงด้านบัญชี/ข้อมูล:
+
+| อันดับ | แนวคิด | Demand ที่พบ | ยาก | คุณค่าธุรกิจ | รายได้ | ขยายต่อ | นวัตกรรม | ข้อสรุป |
+|---:|---|---|---:|---:|---:|---:|---:|---|
+| 1 | Cost of Goods Sold (COGS) Calculator | Calculator/Formula 10/10; Cost of sales 6–10/10; ไทย 5–10/10 | 4 | 5 | 5 | 5 | 4 | ส่งมอบ Batch 49; Basic/Detailed, Net purchases, Direct costs, Goods available, Gross margin, Cost per unit และ CSV |
+| 2 | Food Cost & Recipe Cost Calculator | Food cost 10/10; Percentage 4/10 | 4 | 5 | 5 | 5 | 4 | แยก Recipe quantity, Yield, Waste, Portion, Menu price และ Periodic restaurant COGS ไม่ใช้ยอดรวมแทนต้นทุนต่อเมนู |
+| 3 | Landed Cost Calculator | 10/10 แต่มี Country/Carrier intent ปน | 4 | 5 | 5 | 5 | 4 | รวม Item, Freight, Insurance, Duty, Tax, Brokerage และ Allocation โดยไม่เดาอัตรานำเข้าของประเทศ |
+| 4 | Warehouse Space & Pallet Calculator | 8/10 พร้อม Excel/Pallet/Rack/Utilization/Cost | 4 | 5 | 5 | 5 | 4 | แยก Floor/clear height, Aisle, Rack, Pallet position และ Utilization ให้ตรวจย้อนกลับได้ |
+| 5 | Sell-through Rate Calculator | 7/10 พร้อม Free/App/eBay | 3 | 5 | 4 | 5 | 3 | ใช้ Units sold/received/available และ Period cutoff ไม่ Scrape Marketplace |
+| 6 | EOQ & Order Quantity Calculator | EOQ 5/10 พร้อม Excel/Online/Formula | 4 | 5 | 5 | 5 | 4 | เชื่อม Safety Stock/ROP แต่ต้องรวม Ordering/Holding cost, Annual demand, MOQ, Price break และ Capacity |
+| 7 | Cost per Unit Calculator | 10/10 แต่ Moving average/Electricity/Freight intent ปน | 3 | 4 | 4 | 5 | 3 | ต้องเลือก Product/Batch workflow และแยก Fixed/Variable cost ก่อนสร้าง ไม่ใช้ค่าเฉลี่ย COGS รวมแทนทุก SKU |
+| 8 | Weighted Average Inventory Cost Calculator | 4/10 | 4 | 5 | 5 | 4 | 4 | รองรับ Periodic/Perpetual และ Transaction ledger พร้อม Audit trail |
+| 9 | FIFO Inventory Calculator | 4/10 | 5 | 5 | 4 | 4 | 4 | คำนวณ Cost layers, COGS และ Ending inventory แยก Periodic/Perpetual |
+| 10 | Ending Inventory Method Calculator | Calculator 5/10; Formula 10/10 | 4 | 4 | 4 | 4 | 3 | ไม่สร้างสูตรบางซ้ำ Batch 49; ควรรวมเฉพาะเมื่อเปรียบเทียบ FIFO/Weighted/Specific identification ได้จริง |
+| 11 | Purchase Order Calculator | 4/10 และ Funding intent ปน | 4 | 4 | 4 | 4 | 3 | ต้องนิยาม Quantity, Price break, Freight, Discount, Tax, MOQ และ Approval scope ก่อน |
+| 12 | Inventory Carrying Cost Calculator | 2/10 | 4 | 5 | 5 | 5 | 4 | แยก Capital, Storage, Service และ Risk cost โดยไม่ใช้ Benchmark เปอร์เซ็นต์เดียว |
+| 13 | Inventory Accuracy & Shrinkage Calculator | Shrinkage 2/10 | 3 | 4 | 4 | 4 | 3 | รวม Book vs Count, Unit/value variance, Shrinkage rate และ Cycle-count trend |
+| 14 | Fill Rate Calculator | 8/10 แต่ Plumbing/Tank noise สูง | 4 | 4 | 4 | 5 | 4 | ต้องแยก Order/Line/Unit fill rate กับ Backorder policy และยืนยัน Relevant query ก่อน |
+| 15 | GMROI Calculator | 1/10 | 3 | 4 | 4 | 4 | 3 | Gross margin ÷ Average inventory cost แต่ต้องนิยาม Period, Returns และ Markdown ให้ตรงกัน |
+
+Batch 49 ใช้สูตรพื้นฐาน `COGS = Beginning inventory + Purchases − Ending inventory` และสูตรละเอียด `Net purchases = Gross purchases − Purchase returns/allowances − Purchase discounts + Freight-in` แล้วบวก Direct labor, Materials และ Other direct production costs ที่ยังไม่รวมซ้ำเพื่อหา Goods available ก่อนหัก Ending inventory ยอดขายสุทธิเป็น Optional analysis เท่านั้น: `Gross profit = Net sales − COGS`, `Gross margin = Gross profit ÷ Net sales × 100` และ `COGS per unit = COGS ÷ Units sold`
+
+IRS Publication 334 แสดง Beginning inventory, Purchases, Cost of labor, Materials/supplies, Other costs, Goods available และ Ending inventory เป็นโครงสร้างตรวจสอบ โดยระบุ Freight-in กับ Manufacturing overhead ที่เกี่ยวข้อง ส่วน QuickBooks แสดงสูตรขยาย Returns/Allowances/Discounts/Freight-in และ Xero ยืนยันสูตรพื้นฐานกับความสัมพันธ์ Revenue − COGS = Gross profit หน้าเครื่องมือจึงหยุดเมื่อ Ending inventory สูงกว่า Goods available, ไม่สร้าง COGS ติดลบ, เตือน Double counting และไม่อ้างโครงสร้าง IRS เป็นกฎภาษีไทย
+
+UI แบ่ง Mode/Currency, Inventory/Purchases, Detailed adjustments/Production costs และ Optional sales มี Label gap สม่ำเสมอ, Responsive cards, COGS waterfall, Gross profit panel, Cost classification, Error state และ CSV ทุกข้อมูลคำนวณใน Browser ไม่มี API หรือ LocalStorage และหน่วยเงินไม่มี FX conversion
+
+- [Google Autocomplete — cost of goods sold calculator](https://suggestqueries.google.com/complete/search?client=firefox&hl=th&gl=th&q=cost%20of%20goods%20sold%20calculator)
+- [Google Autocomplete — cost of goods sold formula](https://suggestqueries.google.com/complete/search?client=firefox&hl=th&gl=th&q=cost%20of%20goods%20sold%20formula)
+- [Google Autocomplete — COGS calculator](https://suggestqueries.google.com/complete/search?client=firefox&hl=th&gl=th&q=cogs%20calculator)
+- [Google Autocomplete — คำนวณต้นทุนขาย](https://suggestqueries.google.com/complete/search?client=firefox&hl=th&gl=th&q=%E0%B8%84%E0%B8%B3%E0%B8%99%E0%B8%A7%E0%B8%93%E0%B8%95%E0%B9%89%E0%B8%99%E0%B8%97%E0%B8%B8%E0%B8%99%E0%B8%82%E0%B8%B2%E0%B8%A2)
+- [Google Autocomplete — food cost calculator](https://suggestqueries.google.com/complete/search?client=firefox&hl=th&gl=th&q=food%20cost%20calculator)
+- [Google Autocomplete — landed cost calculator](https://suggestqueries.google.com/complete/search?client=firefox&hl=th&gl=th&q=landed%20cost%20calculator)
+- [Google Autocomplete — warehouse space calculator](https://suggestqueries.google.com/complete/search?client=firefox&hl=th&gl=th&q=warehouse%20space%20calculator)
+- [QuickBooks — Cost of Goods Sold Formula](https://quickbooks.intuit.com/global/resources/expenses/cost-of-goods-sold-formula/)
+- [QuickBooks — Cost of Goods Sold](https://quickbooks.intuit.com/r/bookkeeping/cost-of-goods-sold/)
+- [Xero — Understanding and calculating COGS](https://www.xero.com/au/guides/cogs/)
+- [IRS Publication 334 — How To Figure Cost of Goods Sold](https://www.irs.gov/publications/p334)
+- [Google Search Central — Creating helpful, reliable, people-first content](https://developers.google.com/search/docs/fundamentals/creating-helpful-content)
+- [Google Search Central Blog — Doorway pages](https://developers.google.com/search/blog/2015/03/an-update-on-doorway-pages)

@@ -46,6 +46,9 @@ const WHEEL_COLORS = [
   "#26745f",
 ] as const;
 
+const WHEEL_SPIN_DURATION_MS = 4_600;
+const WHEEL_MINIMUM_TURNS = 7;
+
 const WHEEL_EXAMPLE = ["มะลิ", "สมชาย", "น้ำฝน", "ต้นกล้า", "พิมพ์", "น้อง Meaw"].join("\n");
 
 function pointOnCircle(angle: number, radius: number) {
@@ -61,15 +64,31 @@ function wheelSegmentPath(index: number, count: number) {
   return `M 50 50 L ${start.x} ${start.y} A 47 47 0 ${largeArc} 1 ${end.x} ${end.y} Z`;
 }
 
-function WheelGraphic({ entries, rotation }: { entries: string[]; rotation: number }) {
+function WheelGraphic({
+  entries,
+  rotation,
+  isSpinning,
+}: {
+  entries: string[];
+  rotation: number;
+  isSpinning: boolean;
+}) {
   const showLabels = entries.length <= 20;
 
   return (
-    <div className="relative mx-auto aspect-square w-full max-w-[31rem] p-5 sm:p-7">
-      <div className="absolute left-1/2 top-0 z-20 -translate-x-1/2 text-3xl leading-none text-primary drop-shadow" aria-hidden="true">▼</div>
+    <div
+      className={`wheel-stage relative mx-auto aspect-square w-full max-w-[31rem] p-5 sm:p-7 ${isSpinning ? "is-spinning" : ""}`}
+      data-spinning={isSpinning}
+    >
+      <div className="wheel-glow absolute inset-5 rounded-full sm:inset-7" aria-hidden="true" />
+      <div className="wheel-pointer absolute left-1/2 top-0 z-20 -translate-x-1/2 text-3xl leading-none text-primary drop-shadow" aria-hidden="true">▼</div>
       <div
-        className="size-full rounded-full transition-transform duration-[3000ms] ease-[cubic-bezier(0.12,0.68,0.16,1)] motion-reduce:transition-none"
-        style={{ transform: `rotate(${rotation}deg)` }}
+        data-testid="wheel-disc"
+        className="wheel-disc relative z-10 size-full rounded-full motion-reduce:transition-none"
+        style={{
+          transform: `rotate(${rotation}deg)`,
+          transitionDuration: `${WHEEL_SPIN_DURATION_MS}ms`,
+        }}
       >
         <svg viewBox="0 0 100 100" className="size-full overflow-visible drop-shadow-lg" role="img" aria-label={`วงล้อสุ่ม ${entries.length} รายการ`}>
           <circle cx="50" cy="50" r="49" className="fill-card stroke-border" strokeWidth="1.5" />
@@ -145,7 +164,12 @@ export function RandomWheelTool() {
     try {
       const activeEntries = parseWheelEntries(input, deduplicate);
       const selected = pickWheelWinner(activeEntries);
-      const nextRotation = getNextWheelRotation(rotation, selected.index, activeEntries.length);
+      const nextRotation = getNextWheelRotation(
+        rotation,
+        selected.index,
+        activeEntries.length,
+        WHEEL_MINIMUM_TURNS,
+      );
       const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
       if (winnerTimer.current !== null) window.clearTimeout(winnerTimer.current);
@@ -164,7 +188,7 @@ export function RandomWheelTool() {
         setIsSpinning(false);
         winnerTimer.current = null;
         toast.success(`ผลการสุ่ม: ${selected.value}`);
-      }, reducedMotion ? 80 : 3_150);
+      }, reducedMotion ? 80 : WHEEL_SPIN_DURATION_MS + 120);
     } catch (caught) {
       setWinner("");
       setError(caught instanceof Error ? caught.message : "หมุนวงล้อไม่สำเร็จ");
@@ -242,15 +266,15 @@ export function RandomWheelTool() {
         </section>
 
         <section className="min-w-0 rounded-2xl border bg-primary/[0.03] p-3 sm:p-5" aria-labelledby="wheel-result-heading">
-          {entries.length >= 2 ? <WheelGraphic entries={entries} rotation={rotation} /> : (
+          {entries.length >= 2 ? <WheelGraphic entries={entries} rotation={rotation} isSpinning={isSpinning} /> : (
             <div className="mx-auto grid aspect-square w-full max-w-[31rem] place-items-center rounded-full border-2 border-dashed bg-muted/10 p-8 text-center">
               <div><Sparkles className="mx-auto size-9 text-primary/60" /><p className="mt-3 text-sm font-medium">เพิ่มอย่างน้อย 2 รายการเพื่อสร้างวงล้อ</p><p className="mt-1 text-xs text-muted-foreground">วงล้อจะอัปเดตตามรายชื่อโดยอัตโนมัติ</p></div>
             </div>
           )}
 
-          <div data-testid="wheel-result" className="mt-3 min-h-28 rounded-2xl border bg-card/90 p-5 text-center shadow-sm" aria-live="polite" aria-atomic="true">
+          <div data-testid="wheel-result" className={`mt-3 min-h-28 rounded-2xl border bg-card/90 p-5 text-center shadow-sm ${winner ? "wheel-result-reveal" : ""}`} aria-live="polite" aria-atomic="true">
             <p id="wheel-result-heading" className="text-xs font-semibold tracking-[0.16em] text-muted-foreground uppercase">ผลการสุ่ม</p>
-            {winner ? <p className="mt-2 break-words text-2xl font-black text-primary sm:text-3xl">🎉 {winner}</p> : <p className="mt-3 text-sm text-muted-foreground">{isSpinning ? "Meaw กำลังเลือกให้…" : "กดหมุนแล้วผลจะปรากฏตรงนี้"}</p>}
+            {winner ? <p className="mt-2 break-words text-2xl font-black text-primary sm:text-3xl">🎉 {winner}</p> : <p className="mt-3 text-sm text-muted-foreground">{isSpinning ? "วงล้อกำลังเร่งและค่อย ๆ ชะลอ…" : "กดหมุนแล้วผลจะปรากฏตรงนี้"}</p>}
           </div>
         </section>
       </div>

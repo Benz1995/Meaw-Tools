@@ -61,16 +61,21 @@ export function CatWalker() {
           <div className="cat-walker-track absolute bottom-0 left-0 w-28">
             <span className="cat-walker-message">เมี้ยว~</span>
             <div className="cat-walker-direction relative">
+              <span className="cat-walker-shadow" />
               <span className="cat-walker-paws" />
-              <Image
-                src="/brand/devthai-cat.png"
-                alt=""
-                width={180}
-                height={120}
-                sizes="(max-width: 640px) 88px, 112px"
-                className="cat-walker-image h-auto w-28 select-none object-contain drop-shadow-[0_5px_5px_rgb(75_53_34_/_0.18)]"
-                draggable={false}
-              />
+              {motionEnabled ? (
+                <span className="cat-walker-image cat-walker-sprite" />
+              ) : (
+                <Image
+                  src="/brand/devthai-cat.png"
+                  alt=""
+                  width={180}
+                  height={120}
+                  sizes="(max-width: 640px) 88px, 112px"
+                  className="cat-walker-image cat-walker-static h-auto w-28 select-none object-contain drop-shadow-[0_5px_5px_rgb(75_53_34_/_0.18)]"
+                  draggable={false}
+                />
+              )}
             </div>
           </div>
         </div>

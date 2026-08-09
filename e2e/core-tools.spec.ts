@@ -63,6 +63,7 @@ const toolRoutes = [
   ["sales-commission-calculator", "Sales Commission Calculator"],
   ["safety-stock-calculator", "Safety Stock & Reorder Point Calculator"],
   ["inventory-turnover-calculator", "Inventory Turnover & Inventory Days Calculator"],
+  ["cost-of-goods-sold-calculator", "Cost of Goods Sold (COGS) Calculator"],
   ["jpg-to-pdf", "JPG to PDF Converter"],
   ["qr-code-generator", "QR Code Generator"],
   ["barcode-generator", "Barcode Generator"],
@@ -835,7 +836,14 @@ test("category tags navigate to a category page", async ({ page }) => {
 
 test("cat walker can be disabled and remembers the preference", async ({ page }) => {
   await page.goto("/tools");
-  await expect(page.locator(".cat-walker-image")).toBeVisible();
+  const walkingCat = page.locator(".cat-walker-sprite");
+  await expect(walkingCat).toBeVisible();
+  const walkingStyles = await walkingCat.evaluate((element) => {
+    const styles = getComputedStyle(element);
+    return { animationName: styles.animationName, backgroundImage: styles.backgroundImage };
+  });
+  expect(walkingStyles.animationName).toContain("meaw-walk-sprite");
+  expect(walkingStyles.backgroundImage).toContain("meaw-cat-walk-sprite.png");
   await page.getByRole("button", { name: "พัก Meaw" }).click();
   await expect(page.locator(".cat-walker-image")).toHaveCount(0);
   await page.reload();
@@ -1349,6 +1357,31 @@ test("random wheel and Buddhist year converter complete common Thai tasks", asyn
   await page.getByRole("button", { name: "แปลงปี" }).click();
   await expect(page.getByTestId("era-results")).toContainText("2026");
   await expect(page.getByTestId("era-results")).toContainText("2025");
+});
+
+test("random wheel has visible spin, pointer, and easing animation", async ({ page }) => {
+  await page.goto("/random-wheel");
+  await page.getByLabel("ชื่อ ตัวเลือก หรือของรางวัล").fill("มะลิ\nสมชาย\nน้ำฝน\nต้นกล้า");
+
+  const wheel = page.getByTestId("wheel-disc");
+  const stage = page.locator(".wheel-stage");
+  await page.getByRole("button", { name: "หมุนวงล้อสุ่ม" }).click();
+  await expect(stage).toHaveAttribute("data-spinning", "true");
+
+  const firstTransform = await wheel.evaluate((element) => getComputedStyle(element).transform);
+  await page.waitForTimeout(220);
+  const secondTransform = await wheel.evaluate((element) => getComputedStyle(element).transform);
+  const motionStyles = await wheel.evaluate((element) => {
+    const styles = getComputedStyle(element);
+    return { duration: styles.transitionDuration, timing: styles.transitionTimingFunction };
+  });
+  const pointerAnimation = await page.locator(".wheel-pointer").evaluate((element) => getComputedStyle(element).animationName);
+
+  expect(secondTransform).not.toBe(firstTransform);
+  expect(motionStyles.duration).toBe("4.6s");
+  expect(motionStyles.timing).toContain("cubic-bezier");
+  expect(pointerAnimation).toContain("wheel-pointer-tick");
+  await expect(page.getByTestId("wheel-result")).toContainText(/มะลิ|สมชาย|น้ำฝน|ต้นกล้า/, { timeout: 6_000 });
 });
 
 test("loan, BMI, and profit calculators produce transparent results", async ({ page }) => {
@@ -2114,6 +2147,69 @@ test("inventory turnover calculator separates COGS, average inventory, and days 
   expect(csv).toContain('"Average inventory","250000.00","THB"');
   expect(csv).toContain('"Inventory turnover ในรอบ","4.80","รอบ"');
   expect(csv).toContain('"Inventory days / DIO","76.04","วัน"');
+
+  const layout = await page.evaluate(() => ({ width: document.documentElement.clientWidth, scrollWidth: document.documentElement.scrollWidth }));
+  expect(layout.scrollWidth).toBe(layout.width);
+  expect(hasExternalRequest(requestUrls, page.url())).toBe(false);
+  expect(consoleErrors).toEqual([]);
+});
+
+test("COGS calculator keeps the accounting waterfall auditable without mobile overflow", async ({ page }) => {
+  const consoleErrors: string[] = [];
+  const requestUrls: string[] = [];
+  page.on("console", (message) => {
+    if (message.type() === "error") consoleErrors.push(message.text());
+  });
+  page.on("pageerror", (error) => consoleErrors.push(error.message));
+  page.on("request", (request) => requestUrls.push(request.url()));
+  await page.setViewportSize({ width: 390, height: 844 });
+
+  await page.goto("/cost-of-goods-sold-calculator");
+  await expect(page.getByRole("heading", { level: 1, name: "Cost of Goods Sold (COGS) Calculator" })).toBeVisible();
+  await expect(page.locator("main header").getByText("คำนวณต้นทุนขาย COGS", { exact: true })).toBeVisible();
+  await expect(page.locator("#cogs-beginning-inventory")).toBeVisible();
+  await page.evaluate(() => document.fonts.ready);
+
+  const labelGap = await page.evaluate(() => {
+    const label = document.querySelector<HTMLLabelElement>('label[for="cogs-beginning-inventory"]');
+    const input = document.querySelector<HTMLInputElement>("#cogs-beginning-inventory");
+    const labelBox = label?.getBoundingClientRect();
+    const inputBox = input?.getBoundingClientRect();
+    return labelBox && inputBox ? Math.round(inputBox.top - labelBox.bottom) : 0;
+  });
+  expect(labelGap).toBeGreaterThanOrEqual(10);
+
+  await expect(page.locator("#cogs-purchase-returns")).toHaveCount(0);
+  await page.locator("#cogs-mode").click();
+  await page.getByRole("option", { name: "สูตรละเอียด" }).click();
+  await expect(page.locator("#cogs-purchase-returns")).toBeVisible();
+  await page.locator("#cogs-mode").click();
+  await page.getByRole("option", { name: "สูตรพื้นฐาน" }).click();
+  await expect(page.locator("#cogs-purchase-returns")).toHaveCount(0);
+
+  await page.getByRole("button", { name: "โหลดตัวอย่าง" }).click();
+  await expect(page.locator("#cogs-purchase-returns")).toBeVisible();
+  await page.getByRole("button", { name: "คำนวณต้นทุนขาย COGS" }).click();
+  await expect(page.getByTestId("cogs-total")).toHaveText("฿750,000.00");
+  await expect(page.getByTestId("cogs-goods-available")).toHaveText("฿1,000,000.00");
+  await expect(page.getByTestId("cogs-net-purchases")).toHaveText("฿700,000.00");
+  await expect(page.getByTestId("cogs-production-costs")).toHaveText("฿100,000.00");
+  await expect(page.getByTestId("cogs-gross-profit")).toHaveText("฿450,000.00");
+  await expect(page.getByTestId("cogs-gross-margin")).toHaveText("37.5%");
+  await expect(page.getByTestId("cogs-per-unit")).toHaveText("฿150.00");
+  await expect(page.getByTestId("cogs-sales-status")).toHaveText("มีกำไรขั้นต้น");
+  await expect(page.getByTestId("cogs-result")).toContainText("ต้นทุนสินค้าที่มีไว้ขาย");
+
+  const csvPromise = page.waitForEvent("download");
+  await page.getByRole("button", { name: "ดาวน์โหลด CSV" }).click();
+  const csvDownload = await csvPromise;
+  expect(csvDownload.suggestedFilename()).toBe("meaw-cogs-calculator.csv");
+  const csvPath = await csvDownload.path();
+  expect(csvPath).toBeTruthy();
+  const csv = await readFile(csvPath!, "utf8");
+  expect(csv).toContain('"ยอดซื้อสุทธิ","700000.00","THB"');
+  expect(csv).toContain('"ต้นทุนสินค้าที่มีไว้ขาย","1000000.00","THB"');
+  expect(csv).toContain('"ต้นทุนขาย COGS","750000.00","THB"');
 
   const layout = await page.evaluate(() => ({ width: document.documentElement.clientWidth, scrollWidth: document.documentElement.scrollWidth }));
   expect(layout.scrollWidth).toBe(layout.width);

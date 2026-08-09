@@ -189,27 +189,90 @@
   50% { transform: translateY(-0.55rem) rotate(8deg); }
 }
 
+@keyframes wheel-glow-pulse {
+  0%, 100% { opacity: 0.18; transform: scale(0.96); }
+  45% { opacity: 0.62; transform: scale(1.035); }
+}
+
+@keyframes wheel-pointer-tick {
+  0%, 100% { transform: translateX(-50%) rotate(0deg); }
+  45% { transform: translateX(-50%) rotate(-11deg); }
+  70% { transform: translateX(-50%) rotate(7deg); }
+}
+
+@keyframes wheel-result-pop {
+  0% { opacity: 0.3; transform: translateY(0.35rem) scale(0.97); }
+  65% { transform: translateY(-0.08rem) scale(1.015); }
+  100% { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+.wheel-disc {
+  will-change: transform;
+  transition-property: transform;
+  transition-timing-function: cubic-bezier(0.08, 0.72, 0.12, 1);
+}
+
+.wheel-glow {
+  background: radial-gradient(circle, color-mix(in oklch, var(--primary) 24%, transparent) 45%, transparent 72%);
+  opacity: 0;
+  transform: scale(0.96);
+}
+
+.wheel-pointer {
+  transform-origin: 50% 10%;
+}
+
+.wheel-stage.is-spinning .wheel-glow {
+  animation: wheel-glow-pulse 1.15s ease-in-out infinite;
+}
+
+.wheel-stage.is-spinning .wheel-pointer {
+  animation: wheel-pointer-tick 0.16s ease-in-out infinite;
+}
+
+.wheel-result-reveal {
+  animation: wheel-result-pop 0.42s cubic-bezier(0.2, 0.9, 0.25, 1.25) both;
+}
+
 @keyframes meaw-roam {
-  0%, 4% { transform: translate3d(-8rem, 0, 0); }
-  43%, 52% { transform: translate3d(calc(100vw - 7.5rem), 0, 0); }
-  94%, 100% { transform: translate3d(-8rem, 0, 0); }
+  0%, 3% { transform: translate3d(-8rem, 0, 0); }
+  47%, 50% { transform: translate3d(calc(100vw + 0.5rem), 0, 0); }
+  97%, 100% { transform: translate3d(-8rem, 0, 0); }
 }
 
 @keyframes meaw-turn {
-  0%, 48% { transform: scaleX(1); }
-  49%, 98% { transform: scaleX(-1); }
-  99%, 100% { transform: scaleX(1); }
+  0%, 49% { transform: scaleX(1); }
+  50%, 99% { transform: scaleX(-1); }
+  100% { transform: scaleX(1); }
 }
 
-@keyframes cat-gentle-step {
+@keyframes meaw-walk-sprite {
+  0%, 24.99% { background-position: 0 0; }
+  25%, 49.99% { background-position: 100% 0; }
+  50%, 74.99% { background-position: 0 100%; }
+  75%, 100% { background-position: 100% 100%; }
+}
+
+@keyframes meaw-body-bob {
   0%, 100% { transform: translateY(0) rotate(0deg); }
-  45% { transform: translateY(-0.28rem) rotate(-1.2deg); }
-  55% { transform: translateY(-0.28rem) rotate(1deg); }
+  25% { transform: translateY(-0.12rem) rotate(-0.35deg); }
+  75% { transform: translateY(-0.08rem) rotate(0.3deg); }
+}
+
+@keyframes meaw-shadow-step {
+  0%, 100% { opacity: 0.2; transform: translateX(-50%) scaleX(0.9); }
+  50% { opacity: 0.13; transform: translateX(-50%) scaleX(0.76); }
+}
+
+@keyframes meaw-paw-trail {
+  0% { opacity: 0; transform: translateX(0.45rem); }
+  40% { opacity: 0.32; }
+  100% { opacity: 0; transform: translateX(-0.4rem); }
 }
 
 @keyframes meaw-message-pop {
-  0%, 40%, 54%, 91% { opacity: 0; transform: translateY(0.25rem) scale(0.85); }
-  44%, 51%, 96%, 100% { opacity: 1; transform: translateY(0) scale(1); }
+  0%, 20%, 29%, 70%, 79%, 100% { opacity: 0; transform: translateY(0.25rem) scale(0.85); }
+  23%, 27%, 73%, 77% { opacity: 1; transform: translateY(0) scale(1); }
 }
 
 .meaw-playground::after {
@@ -221,10 +284,45 @@
   content: "";
 }
 
-.cat-walker-track { will-change: transform; }
-.motion-enabled .cat-walker-track { animation: meaw-roam 15s linear infinite; }
-.motion-enabled .cat-walker-direction { animation: meaw-turn 15s step-end infinite; transform-origin: center; }
-.motion-enabled .cat-walker-image { animation: cat-gentle-step 0.55s ease-in-out infinite; }
+.cat-walker-track {
+  width: 7rem;
+  will-change: transform;
+}
+.cat-walker-direction {
+  height: 7rem;
+  transform-origin: center;
+}
+.motion-enabled .cat-walker-track { animation: meaw-roam 22s ease-in-out infinite; }
+.motion-enabled .cat-walker-direction { animation: meaw-turn 22s step-end infinite; }
+.cat-walker-sprite {
+  position: relative;
+  z-index: 1;
+  display: block;
+  width: 7rem;
+  height: 7rem;
+  background-image: url("/brand/meaw-cat-walk-sprite.png");
+  background-position: 0 0;
+  background-repeat: no-repeat;
+  background-size: 200% 200%;
+  filter: drop-shadow(0 5px 4px oklch(0.25 0.04 52 / 16%));
+  will-change: background-position, transform;
+}
+.motion-enabled .cat-walker-sprite {
+  animation: meaw-walk-sprite 0.62s linear infinite, meaw-body-bob 0.62s ease-in-out infinite;
+}
+.cat-walker-static { position: relative; z-index: 1; }
+.cat-walker-shadow {
+  position: absolute;
+  left: 50%;
+  bottom: 0.58rem;
+  width: 64%;
+  height: 0.42rem;
+  border-radius: 50%;
+  background: oklch(0.25 0.035 52 / 18%);
+  filter: blur(2px);
+  transform: translateX(-50%);
+}
+.motion-enabled .cat-walker-shadow { animation: meaw-shadow-step 0.62s ease-in-out infinite; }
 .cat-walker-message {
   position: absolute;
   left: 50%;
@@ -242,7 +340,7 @@
   box-shadow: 0 4px 14px oklch(0.25 0.04 52 / 12%);
 }
 .motion-enabled .cat-walker-message {
-  animation: meaw-message-pop 15s linear infinite;
+  animation: meaw-message-pop 22s linear infinite;
 }
 .cat-walker-paws {
   position: absolute;
@@ -256,16 +354,22 @@
   background-size: 0.8rem 0.8rem;
   color: var(--primary);
 }
+.motion-enabled .cat-walker-paws { animation: meaw-paw-trail 1.15s linear infinite; }
 
 @media (max-width: 640px) {
-  .cat-walker-track { width: 5.5rem; }
-  .motion-enabled .cat-walker-track, .motion-enabled .cat-walker-direction, .motion-enabled .cat-walker-message { animation-duration: 12s; }
-  .cat-walker-image { width: 5.5rem; }
+  .cat-walker-track { width: 5.75rem; }
+  .cat-walker-direction, .cat-walker-sprite { width: 5.75rem; height: 5.75rem; }
+  .motion-enabled .cat-walker-track, .motion-enabled .cat-walker-direction, .motion-enabled .cat-walker-message { animation-duration: 18s; }
+  .cat-walker-image { width: 5.75rem; }
   .cat-walker-message { top: -0.85rem; font-size: 0.65rem; }
 }
 
 @media (prefers-reduced-motion: reduce) {
   .anime-sparkle { animation: none; }
+  .wheel-stage.is-spinning .wheel-glow,
+  .wheel-stage.is-spinning .wheel-pointer,
+  .wheel-result-reveal { animation: none; }
+  .wheel-disc { transition: none; }
   .motion-reduced .cat-walker-track { transform: translateX(1rem); }
   .motion-reduced .cat-walker-message { display: none; }
 }
