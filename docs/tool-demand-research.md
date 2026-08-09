@@ -1386,3 +1386,51 @@ UI แบ่ง Price target, Liquid ingredients, Direct costs/Dilution ใช�
 - [Cost Control for the Hospitality Industry — Beverage Cost](https://resources.escoffier.edu/ge130/dopson/dopson_c05.pdf)
 - [Google Search Central — Creating helpful, reliable, people-first content](https://developers.google.com/search/docs/fundamentals/creating-helpful-content)
 - [Google Search Central Blog — Doorway pages](https://developers.google.com/search/blog/2015/03/an-update-on-doorway-pages)
+
+## รอบที่ 42 — Coffee Cost Calculator และการจัดอันดับ Batch 52
+
+สำรวจเมื่อ 9 สิงหาคม 2569 ด้วย Google Autocomplete locale ไทย (`hl=th`, `gl=th`) จำนวน 60 คำตั้งต้น ครอบคลุม Coffee cost/Cost per cup/Pricing/Profit/Margin, Coffee shop/Cafe, Espresso/Latte/Cappuccino/Iced/Cold brew, Beans/Dose/Yield/Waste, Milk/Syrup/Packaging, Roasting/Wholesale, Inventory/COGS/Forecast และคำไทย จำนวนคำแนะนำสูงสุด 10 รายการเป็น Demand proxy สำหรับดู Intent และ Long-tail เท่านั้น ไม่ใช่ Search volume และไม่รับประกันอันดับหน้าแรก Google
+
+`coffee cost calculator` ได้ 8/10 พร้อม Coffee shop, Drink, Roasting, Cup และ Cost per cup variants; `coffee roasting calculator` 5/10; `cafe cost calculator` กับ `coffee cup cost calculator` 4/10; `coffee cost per cup calculator`, `cost per cup coffee calculator`, `coffee profit calculator` และคำไทย `คำนวณต้นทุนกาแฟ` ได้ 3/10; `coffee dose calculator`, `coffee margin calculator`, `coffee pricing calculator` และ `coffee shop profit calculator` ได้ 2/10 ส่วน `espresso cost calculator`, `latte cost calculator`, `coffee beans cost per cup`, `coffee cogs calculator`, `coffee drink cost calculator`, `coffee shop cost calculator` และ `ต้นทุนกาแฟต่อแก้ว` ได้ 1/10
+
+หน้าเดียวรวม Coffee Cost Calculator, Cost per cup, Beans/Dose, Milk/Syrup/Ingredient cost, Espresso/Latte/Cappuccino/Iced coffee menu cost, Packaging/Labor/Channel fee, ราคาเป้าหมาย, Cups per bag และ Inventory usage รายเดือน เพราะใช้ Standard recipe และข้อมูลต่อแก้วชุดเดียวกัน ไม่สร้างหน้าแยกตามชื่อเมนูหรือคำ Free/Online/Excel ส่วน Roasting weight loss, Coffee shop break-even, Extraction yield, Cold brew batch และ Periodic COGS แยกไว้ เพราะต้องใช้ Green-to-roasted mass, Fixed overhead, Beverage output/TDS, Batch steeping หรือ Inventory cutoff คนละ Workflow
+
+คะแนน 5 คือสูงที่สุด การจัดอันดับพิจารณา Demand, คุณค่าผู้ใช้จริง, ความต่างจาก 78 tools เดิม, ความโปร่งใสของสูตร, โอกาสรายได้จาก AdSense, Scalability, Innovation และความเสี่ยงจากข้อมูล/บัญชี:
+
+| อันดับ | แนวคิด | Demand ที่พบ | ยาก | คุณค่าธุรกิจ | รายได้ | ขยายต่อ | นวัตกรรม | ข้อสรุป |
+|---:|---|---|---:|---:|---:|---:|---:|---|
+| 1 | Coffee Cost Calculator | Coffee cost 8/10; Cost per cup 3–4/10; ไทย 3/10 | 4 | 5 | 5 | 5 | 4 | ส่งมอบ Batch 52; Bean dose/yield, Milk, Extras, Packaging/Labor/Fee, Price, Monthly usage และ CSV |
+| 2 | Coffee Roasting Cost & Weight Loss Calculator | 5/10 | 5 | 5 | 5 | 5 | 5 | แยก Green cost, Roast loss, Energy, Labor, Packaging, Defect, Batch yield และ Roasted cost/kg |
+| 3 | Coffee Shop Profit & Break-even Calculator | Profit 3/10 | 5 | 5 | 5 | 5 | 4 | ต้องรวม Product mix, Fixed/Variable cost, Rent/Labor, Tax basis, Capacity และ Break-even cups โดยไม่ใช้ Contribution แทน Net profit |
+| 4 | Multi-size Coffee Menu Pricing | Pricing 2/10 | 4 | 5 | 5 | 5 | 4 | เทียบ S/M/L Dose, Milk, Packaging, Price ladder, Margin และ Cannibalization แทนใช้สูตรเดียวกับทุก Size |
+| 5 | Coffee Extraction Yield & Dose Calculator | Dose/Yield 2/10 | 5 | 5 | 4 | 5 | 5 | แยก Ground dose, Beverage mass, TDS, Extraction yield และ Brew ratio ต้องมีข้อจำกัดเครื่องมือวัดชัดเจน |
+| 6 | Coffee Inventory Usage & Reorder Planner | Direct seed 0/10 | 5 | 5 | 5 | 5 | 4 | ใช้ Sales mix + Recipe หลายเมนู, On-hand, Lead time, Pack size, Waste และ Purchase plan ไม่ใช้ยอดเมนูเดียวแทนทั้งร้าน |
+| 7 | Coffee Ingredient Price Impact & Supplier Comparison | Related cost intent | 4 | 5 | 4 | 5 | 4 | เปรียบเทียบ Bean/Milk/Syrup price, MOQ, Yield และผลต่อหลายเมนูพร้อม Scenario audit trail |
+| 8 | Cold Brew Batch Cost Calculator | Exact seed 0/10 | 4 | 5 | 4 | 5 | 4 | แยก Coffee/water ratio, Steeping loss, Concentrate yield, Dilution, Batch servings, Bottle และ Shelf-life warning |
+| 9 | Coffee Wholesale & Roaster Pricing Calculator | Exact seed 0–1/10 | 5 | 5 | 5 | 5 | 4 | รวม Green/roast loss, Bagging, Fulfillment, Wholesale/retail tiers, MOQ และ Distributor margin |
+| 10 | Coffee Menu Engineering | Related pricing/profit intent | 5 | 5 | 5 | 5 | 5 | ใช้ Sales mix + Contribution หลายเมนูแบ่ง Popularity/Profitability และวัด Price-change impact ตามช่วงเวลา |
+| 11 | Barista Labor & Capacity Planner | Labor seed 0/10 | 4 | 5 | 4 | 5 | 4 | รวม Orders by interval, Prep/service time, Stations, Breaks, Queue capacity และ Loaded labor cost |
+| 12 | Coffee Equipment ROI Calculator | ROI seed 0/10 | 4 | 4 | 5 | 4 | 4 | เทียบ Buy/Lease, Throughput, Downtime, Maintenance, Energy, Useful life และ Incremental contribution โดยไม่รับรอง Payback |
+| 13 | Coffee Subscription Unit Economics | Related recurring model | 5 | 4 | 5 | 5 | 5 | รวม Roast/pack/ship, Discount, Churn, Failed payment, CAC และ Contribution cohort ต้องมีข้อมูลหลายงวด |
+| 14 | Coffee Waste & Actual-vs-Theoretical Variance | Waste seed 0/10 | 5 | 5 | 4 | 5 | 5 | เทียบ Standard usage กับ Purchase/Count/Sales, Dial-in, Comp และ Spill โดยต้องนิยาม Period/Cutoff |
+| 15 | Coffee Shop COGS Calculator | COGS 1/10 | 4 | 4 | 4 | 4 | 3 | Workflow งวดบัญชีมี COGS Calculator แล้ว ควรเพิ่มลิงก์/คำอธิบายแทน Duplicate page |
+
+Batch 52 ใช้ `Usable quantity = Purchase quantity × Yield %`, `Ingredient line cost = Purchase cost × Usage per cup ÷ Usable quantity`, `Ingredient cost per cup = Bean + Milk + Extras`, `Ingredient cost % = Ingredient cost per cup ÷ Selling price × 100` และ `Target price = Ingredient cost per cup ÷ Target ingredient cost %` ส่วน Packaging, Direct labor, Payment/Channel fee และ Other direct cost แยกจาก Ingredient cost แล้วรวมเป็น Total direct cost เพื่อไม่ให้คำจำกัดความปนกัน
+
+แผนรายเดือนใช้ `Monthly cups = Average cups/day × Operating days`, `As-purchased usage per cup = Recipe usage ÷ Yield` และ `Monthly packs = As-purchased usage per cup × Monthly cups ÷ Pack quantity` แสดงจำนวนแพ็กแบบทศนิยมเพื่อวางแผน ผู้ใช้ยังต้องปัดตาม Pack size, หัก Stock on hand และตรวจ Lead time ก่อนสั่งซื้อจริง Monthly contribution = Revenue − Direct costs ที่กรอกเท่านั้น ไม่ใช่ Net profit หรือ Forecast
+
+Cost Control for the Hospitality Industry อธิบาย Standardized recipe, AP/EP, Yield และ Portion cost; Specialty Coffee Association แยก Ground coffee brewing ratio/Dose จาก Espresso beverage ratio; NIST ยืนยันรูปแบบ SI ของ g/kg และ mL/L หน้าเครื่องมือจึงให้ผู้ใช้กำหนด Dose/Yield จริง ไม่เดา Recipe benchmark รองรับเมนูไม่มีนม แยกหนึ่งเมนู/ขนาดต่อครั้ง และไม่ใช้ Espresso output แทน Dose เมล็ด
+
+UI แบ่ง Menu/Price/Volume plan, Beans/Dose, Optional milk, Extra ingredients และ Direct costs ใช้ Label gap สม่ำเสมอ, Responsive editor, Cost composition, Pricing status, Recipe table, Monthly purchase plan, Formula panel, Error state และ CSV ทุกข้อมูลคำนวณใน Browser ไม่มี API หรือ LocalStorage ชื่อเมนู/ส่วนผสมใน CSV ถูกป้องกัน Spreadsheet Formula Injection และหน่วยเงินไม่มี FX conversion
+
+- [Google Autocomplete — coffee cost calculator](https://suggestqueries.google.com/complete/search?client=firefox&hl=th&gl=th&q=coffee%20cost%20calculator)
+- [Google Autocomplete — coffee cost per cup calculator](https://suggestqueries.google.com/complete/search?client=firefox&hl=th&gl=th&q=coffee%20cost%20per%20cup%20calculator)
+- [Google Autocomplete — coffee roasting calculator](https://suggestqueries.google.com/complete/search?client=firefox&hl=th&gl=th&q=coffee%20roasting%20calculator)
+- [Google Autocomplete — coffee profit calculator](https://suggestqueries.google.com/complete/search?client=firefox&hl=th&gl=th&q=coffee%20profit%20calculator)
+- [Google Autocomplete — คำนวณต้นทุนกาแฟ](https://suggestqueries.google.com/complete/search?client=firefox&hl=th&gl=th&q=%E0%B8%84%E0%B8%B3%E0%B8%99%E0%B8%A7%E0%B8%93%E0%B8%95%E0%B9%89%E0%B8%99%E0%B8%97%E0%B8%B8%E0%B8%99%E0%B8%81%E0%B8%B2%E0%B9%81%E0%B8%9F)
+- [Cost Control for the Hospitality Industry — Standardized Recipe and Yield](https://resources.escoffier.edu/ge130/dopson/dopson_c05.pdf)
+- [Specialty Coffee Association — Brewing Ratio vs Beverage Ratio](https://sca.coffee/sca-news/25/issue-9/english/water-and-coffee-acidity-how-to-adapt-your-water-for-different-extraction-methods-25-magazine-issue-9-pxjby)
+- [NIST — SI Units Volume](https://www.nist.gov/pml/owm/si-units-volume)
+- [NIST — SI Units Mass](https://www.nist.gov/pml/owm/si-units-mass)
+- [Google Search Central — Creating helpful, reliable, people-first content](https://developers.google.com/search/docs/fundamentals/creating-helpful-content)
+- [Google Search Central Blog — Doorway pages](https://developers.google.com/search/blog/2015/03/an-update-on-doorway-pages)

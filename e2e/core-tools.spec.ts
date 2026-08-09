@@ -66,6 +66,7 @@ const toolRoutes = [
   ["cost-of-goods-sold-calculator", "Cost of Goods Sold (COGS) Calculator"],
   ["food-cost-calculator", "Food Cost & Recipe Cost Calculator"],
   ["drink-cost-calculator", "Drink, Cocktail & Liquor Cost Calculator"],
+  ["coffee-cost-calculator", "Coffee Cost Calculator"],
   ["jpg-to-pdf", "JPG to PDF Converter"],
   ["qr-code-generator", "QR Code Generator"],
   ["barcode-generator", "Barcode Generator"],
@@ -2341,6 +2342,74 @@ test("drink cost calculator handles pour yield, pricing, ABV, and local CSV with
   expect(csv).toContain('"ต้นทุนของเหลวต่อแก้ว","62.64","THB/แก้ว"');
   expect(csv).toContain('"ต้นทุนวัตถุดิบเครื่องดื่มต่อแก้ว","66.64","THB/แก้ว"');
   expect(csv).toContain('"ABV หลัง Dilution โดยประมาณ","16.9231","%"');
+
+  const finalLayout = await page.evaluate(() => ({ width: document.documentElement.clientWidth, scrollWidth: document.documentElement.scrollWidth }));
+  expect(finalLayout.scrollWidth).toBe(finalLayout.width);
+  expect(hasExternalRequest(requestUrls, page.url())).toBe(false);
+  expect(consoleErrors).toEqual([]);
+});
+
+test("coffee cost calculator handles dose, yield, fees, monthly purchasing, and local CSV without mobile overflow", async ({ page }) => {
+  const consoleErrors: string[] = [];
+  const requestUrls: string[] = [];
+  page.on("console", (message) => {
+    if (message.type() === "error") consoleErrors.push(message.text());
+  });
+  page.on("pageerror", (error) => consoleErrors.push(error.message));
+  page.on("request", (request) => requestUrls.push(request.url()));
+  await page.setViewportSize({ width: 390, height: 844 });
+
+  await page.goto("/coffee-cost-calculator");
+  await expect(page.getByRole("heading", { level: 1, name: "Coffee Cost Calculator" })).toBeVisible();
+  await expect(page.locator("main header").getByText("คำนวณต้นทุนกาแฟต่อแก้ว", { exact: true })).toBeVisible();
+  await expect(page.locator("#coffee-cost-name")).toBeVisible();
+  await page.evaluate(() => document.fonts.ready);
+
+  const initialLayout = await page.evaluate(() => {
+    const label = document.querySelector<HTMLLabelElement>('label[for="coffee-cost-name"]');
+    const input = document.querySelector<HTMLInputElement>("#coffee-cost-name");
+    const labelBox = label?.getBoundingClientRect();
+    const inputBox = input?.getBoundingClientRect();
+    const ids = Array.from(document.querySelectorAll<HTMLElement>("[id]")).map((element) => element.id);
+    return {
+      labelGap: labelBox && inputBox ? Math.round(inputBox.top - labelBox.bottom) : 0,
+      duplicateIds: ids.filter((id, index) => ids.indexOf(id) !== index),
+      overflow: document.documentElement.scrollWidth > document.documentElement.clientWidth,
+    };
+  });
+  expect(initialLayout.labelGap).toBeGreaterThanOrEqual(10);
+  expect(initialLayout.duplicateIds).toEqual([]);
+  expect(initialLayout.overflow).toBe(false);
+
+  await page.getByRole("button", { name: "โหลดตัวอย่าง" }).click();
+  await expect(page.locator("#coffee-cost-extra-1-name")).toHaveValue("ไซรัป");
+  await page.getByRole("button", { name: "คำนวณ Coffee Cost" }).click();
+  await expect(page.getByTestId("coffee-cost-bean")).toHaveText("฿14.33");
+  await expect(page.getByTestId("coffee-cost-milk")).toHaveText("฿8.25");
+  await expect(page.getByTestId("coffee-cost-ingredient")).toHaveText("฿26.25");
+  await expect(page.getByTestId("coffee-cost-direct")).toHaveText("฿50.10");
+  await expect(page.getByTestId("coffee-cost-target-price")).toHaveText("฿93.76");
+  await expect(page.getByTestId("coffee-cost-percent")).toHaveText("27.63%");
+  await expect(page.getByTestId("coffee-cost-direct-percent")).toHaveText("52.74%");
+  await expect(page.getByTestId("coffee-cost-contribution")).toHaveText("฿44.90");
+  await expect(page.getByTestId("coffee-cost-monthly-cups")).toHaveText("2,400 แก้ว");
+  await expect(page.getByTestId("coffee-cost-monthly-beans")).toHaveText("44.0816 ถุง");
+  await expect(page.getByTestId("coffee-cost-monthly-direct")).toHaveText("฿120,246.32");
+  await expect(page.getByTestId("coffee-cost-monthly-contribution")).toHaveText("฿107,753.68");
+  await expect(page.getByTestId("coffee-cost-status")).toContainText("อยู่ในหรือต่ำกว่าเป้า");
+  await expect(page.getByTestId("coffee-cost-result")).toContainText("Recipe cost และจำนวนแก้วต่อแพ็ก");
+
+  const csvPromise = page.waitForEvent("download");
+  await page.getByRole("button", { name: "ดาวน์โหลด CSV" }).click();
+  const csvDownload = await csvPromise;
+  expect(csvDownload.suggestedFilename()).toBe("meaw-coffee-cost-per-cup.csv");
+  const csvPath = await csvDownload.path();
+  expect(csvPath).toBeTruthy();
+  const csv = await readFile(csvPath!, "utf8");
+  expect(csv.startsWith("\uFEFF")).toBe(true);
+  expect(csv).toContain('"ต้นทุนวัตถุดิบรวมต่อแก้ว","26.25","THB/แก้ว"');
+  expect(csv).toContain('"จำนวนแก้วต่อเดือน","2400.0000","แก้ว"');
+  expect(csv).toContain('"ถุงเมล็ดต่อเดือน","44.0816","ถุง"');
 
   const finalLayout = await page.evaluate(() => ({ width: document.documentElement.clientWidth, scrollWidth: document.documentElement.scrollWidth }));
   expect(finalLayout.scrollWidth).toBe(finalLayout.width);
