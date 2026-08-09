@@ -49,6 +49,7 @@ const toolRoutes = [
   ["percentage-calculator", "Percentage Calculator"],
   ["vat-calculator", "VAT Calculator Thailand"],
   ["bill-split-calculator", "Bill Split & Shared Expense Calculator"],
+  ["budget-calculator", "Budget Calculator & 50/30/20 Planner"],
   ["fuel-cost-calculator", "Fuel Cost Calculator"],
   ["unit-converter", "Unit Converter"],
   ["unit-price-comparison-calculator", "Unit Price Comparison Calculator"],
@@ -1609,6 +1610,70 @@ test("bill split calculator reconciles weighted items, receipt adjustments, and 
   expect(csv).toContain('"Group","มื้อเย็นวันเกิด"');
   expect(csv).toContain('"Grand total","1883.20","THB"');
   expect(csv).toContain('"Nana","Mew","425.46"');
+
+  const finalLayout = await page.evaluate(() => ({
+    width: document.documentElement.clientWidth,
+    scrollWidth: document.documentElement.scrollWidth,
+  }));
+  expect(finalLayout.scrollWidth).toBe(finalLayout.width);
+  expect(hasExternalRequest(requestUrls, page.url())).toBe(false);
+  expect(consoleErrors).toEqual([]);
+});
+
+test("budget calculator normalizes mixed pay cycles and exports a private household plan without mobile overflow", async ({ page }) => {
+  const consoleErrors: string[] = [];
+  const requestUrls: string[] = [];
+  page.on("console", (message) => {
+    if (message.type() === "error") consoleErrors.push(message.text());
+  });
+  page.on("pageerror", (error) => consoleErrors.push(error.message));
+  page.on("request", (request) => requestUrls.push(request.url()));
+  await page.setViewportSize({ width: 390, height: 844 });
+
+  await page.goto("/budget-calculator");
+  await expect(page.getByRole("heading", { level: 1, name: "Budget Calculator & 50/30/20 Planner" })).toBeVisible();
+  await expect(page.getByText("เงินทุกก้อนมีที่ของมัน", { exact: true })).toBeVisible();
+  await page.evaluate(() => document.fonts.ready);
+
+  const initialLayout = await page.evaluate(() => {
+    const label = document.querySelector<HTMLLabelElement>('label[for="budget-household-name"]');
+    const input = document.querySelector<HTMLInputElement>("#budget-household-name");
+    const labelBox = label?.getBoundingClientRect();
+    const inputBox = input?.getBoundingClientRect();
+    const ids = Array.from(document.querySelectorAll<HTMLElement>("[id]")).map((element) => element.id);
+    return {
+      labelGap: labelBox && inputBox ? Math.round(inputBox.top - labelBox.bottom) : 0,
+      duplicateIds: ids.filter((id, index) => ids.indexOf(id) !== index),
+      overflow: document.documentElement.scrollWidth > document.documentElement.clientWidth,
+    };
+  });
+  expect(initialLayout.labelGap).toBeGreaterThanOrEqual(10);
+  expect(initialLayout.duplicateIds).toEqual([]);
+  expect(initialLayout.overflow).toBe(false);
+
+  await page.getByRole("button", { name: "โหลดตัวอย่าง" }).click();
+  await expect(page.locator("#budget-household-name")).toHaveValue("บ้านแมวมีสุข");
+  await expect(page.getByTestId("budget-income-item")).toHaveCount(2);
+  await expect(page.getByTestId("budget-expense-item")).toHaveCount(9);
+  await page.getByRole("button", { name: "คำนวณงบประมาณ" }).click();
+  await expect(page.getByTestId("budget-monthly-income")).toContainText("73,000.00");
+  await expect(page.getByTestId("budget-monthly-expenses")).toContainText("51,983.33");
+  await expect(page.getByTestId("budget-monthly-balance")).toContainText("21,016.67");
+  await expect(page.getByTestId("budget-bucket-needs")).toContainText("37,033.33");
+  await expect(page.getByTestId("budget-bucket-wants")).toContainText("5,700.00");
+  await expect(page.getByTestId("budget-bucket-savings-debt")).toContainText("9,250.00");
+
+  const csvPromise = page.waitForEvent("download");
+  await page.getByTestId("budget-csv").click();
+  const csvDownload = await csvPromise;
+  expect(csvDownload.suggestedFilename()).toBe("meaw-budget-plan.csv");
+  const csvPath = await csvDownload.path();
+  expect(csvPath).toBeTruthy();
+  const csv = await readFile(csvPath!, "utf8");
+  expect(csv.startsWith("\uFEFF")).toBe(true);
+  expect(csv).toContain('"Household","บ้านแมวมีสุข"');
+  expect(csv).toContain('"Monthly income","73000.00","THB"');
+  expect(csv).toContain('"ค่าใช้จ่ายจำเป็น","37033.33"');
 
   const finalLayout = await page.evaluate(() => ({
     width: document.documentElement.clientWidth,
