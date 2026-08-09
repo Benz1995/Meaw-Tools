@@ -65,6 +65,7 @@ const toolRoutes = [
   ["inventory-turnover-calculator", "Inventory Turnover & Inventory Days Calculator"],
   ["cost-of-goods-sold-calculator", "Cost of Goods Sold (COGS) Calculator"],
   ["food-cost-calculator", "Food Cost & Recipe Cost Calculator"],
+  ["drink-cost-calculator", "Drink, Cocktail & Liquor Cost Calculator"],
   ["jpg-to-pdf", "JPG to PDF Converter"],
   ["qr-code-generator", "QR Code Generator"],
   ["barcode-generator", "Barcode Generator"],
@@ -2275,6 +2276,71 @@ test("food cost calculator handles yield, portions, pricing, and local CSV witho
   expect(csv).toContain('"ต้นทุนวัตถุดิบต่อสูตร","166.80","THB"');
   expect(csv).toContain('"ต้นทุนตรงรวมต่อเสิร์ฟ","45.85","THB/เสิร์ฟ"');
   expect(csv).toContain('"ราคาขายแนะนำจากเป้าหมาย Food cost","74.46","THB/เสิร์ฟ"');
+
+  const finalLayout = await page.evaluate(() => ({ width: document.documentElement.clientWidth, scrollWidth: document.documentElement.scrollWidth }));
+  expect(finalLayout.scrollWidth).toBe(finalLayout.width);
+  expect(hasExternalRequest(requestUrls, page.url())).toBe(false);
+  expect(consoleErrors).toEqual([]);
+});
+
+test("drink cost calculator handles pour yield, pricing, ABV, and local CSV without mobile overflow", async ({ page }) => {
+  const consoleErrors: string[] = [];
+  const requestUrls: string[] = [];
+  page.on("console", (message) => {
+    if (message.type() === "error") consoleErrors.push(message.text());
+  });
+  page.on("pageerror", (error) => consoleErrors.push(error.message));
+  page.on("request", (request) => requestUrls.push(request.url()));
+  await page.setViewportSize({ width: 390, height: 844 });
+
+  await page.goto("/drink-cost-calculator");
+  await expect(page.getByRole("heading", { level: 1, name: "Drink, Cocktail & Liquor Cost Calculator" })).toBeVisible();
+  await expect(page.locator("main header").getByText("คำนวณต้นทุนเครื่องดื่มและ Pour Cost", { exact: true })).toBeVisible();
+  await expect(page.locator("#drink-cost-selling-price")).toBeVisible();
+  await page.evaluate(() => document.fonts.ready);
+
+  const initialLayout = await page.evaluate(() => {
+    const label = document.querySelector<HTMLLabelElement>('label[for="drink-cost-selling-price"]');
+    const input = document.querySelector<HTMLInputElement>("#drink-cost-selling-price");
+    const labelBox = label?.getBoundingClientRect();
+    const inputBox = input?.getBoundingClientRect();
+    const ids = Array.from(document.querySelectorAll<HTMLElement>("[id]")).map((element) => element.id);
+    return {
+      labelGap: labelBox && inputBox ? Math.round(inputBox.top - labelBox.bottom) : 0,
+      duplicateIds: ids.filter((id, index) => ids.indexOf(id) !== index),
+      overflow: document.documentElement.scrollWidth > document.documentElement.clientWidth,
+    };
+  });
+  expect(initialLayout.labelGap).toBeGreaterThanOrEqual(10);
+  expect(initialLayout.duplicateIds).toEqual([]);
+  expect(initialLayout.overflow).toBe(false);
+
+  await page.getByRole("button", { name: "โหลดตัวอย่าง" }).click();
+  await expect(page.locator("#drink-cost-ingredient-4-name")).toHaveValue("ไซรัป");
+  await page.getByRole("button", { name: "คำนวณ Drink Cost" }).click();
+  await expect(page.getByTestId("drink-cost-liquid")).toHaveText("฿62.64");
+  await expect(page.getByTestId("drink-cost-beverage")).toHaveText("฿66.64");
+  await expect(page.getByTestId("drink-cost-direct")).toHaveText("฿84.64");
+  await expect(page.getByTestId("drink-cost-target-price")).toHaveText("฿302.90");
+  await expect(page.getByTestId("drink-cost-percent")).toHaveText("20.82%");
+  await expect(page.getByTestId("drink-cost-direct-percent")).toHaveText("26.45%");
+  await expect(page.getByTestId("drink-cost-contribution")).toHaveText("฿235.36");
+  await expect(page.getByTestId("drink-cost-abv")).toHaveText("16.92%");
+  await expect(page.getByTestId("drink-cost-standard-drink")).toHaveText("1.24");
+  await expect(page.getByTestId("drink-cost-status")).toContainText("อยู่ในหรือต่ำกว่าเป้า");
+  await expect(page.getByTestId("drink-cost-result")).toContainText("ต้นทุนแยกตามของเหลว");
+
+  const csvPromise = page.waitForEvent("download");
+  await page.getByRole("button", { name: "ดาวน์โหลด CSV" }).click();
+  const csvDownload = await csvPromise;
+  expect(csvDownload.suggestedFilename()).toBe("meaw-drink-cocktail-cost.csv");
+  const csvPath = await csvDownload.path();
+  expect(csvPath).toBeTruthy();
+  const csv = await readFile(csvPath!, "utf8");
+  expect(csv.startsWith("\uFEFF")).toBe(true);
+  expect(csv).toContain('"ต้นทุนของเหลวต่อแก้ว","62.64","THB/แก้ว"');
+  expect(csv).toContain('"ต้นทุนวัตถุดิบเครื่องดื่มต่อแก้ว","66.64","THB/แก้ว"');
+  expect(csv).toContain('"ABV หลัง Dilution โดยประมาณ","16.9231","%"');
 
   const finalLayout = await page.evaluate(() => ({ width: document.documentElement.clientWidth, scrollWidth: document.documentElement.scrollWidth }));
   expect(finalLayout.scrollWidth).toBe(finalLayout.width);

@@ -1149,6 +1149,7 @@ UI แบ่งเป็นแผน/ฐานยอดขาย, Tier editor, Q
 - [Google Search Central — AI features and your website](https://developers.google.com/search/docs/fundamentals/ai-optimization-guide)
 - [Google Search Central Blog — Doorway pages](https://developers.google.com/search/blog/2015/03/an-update-on-doorway-pages)
 
+
 ## รอบที่ 37 — Safety Stock & Reorder Point Calculator และการจัดอันดับ Batch 47
 
 สำรวจเมื่อ 9 สิงหาคม 2569 ด้วย Google Autocomplete locale ไทย (`hl=th`, `gl=th`) จำนวน 57 คำตั้งต้น ครอบคลุม Safety Stock, Reorder Point, Service level, Standard deviation, EOQ, Inventory turnover/days/cost, Warehouse space, ABC/FIFO, Demand forecast และคำไทย จำนวนคำแนะนำสูงสุด 10 รายการเป็น demand proxy สำหรับดู intent และ long-tail เท่านั้น ไม่ใช่ search volume และไม่รับประกันอันดับหน้าแรก Google
@@ -1336,5 +1337,52 @@ UI แบ่ง Recipe target, Ingredients/Yield และ Direct costs ใช�
 - [Vancouver Community College — Recipe Costing](https://library.vcc.ca/media/vcc-library/content-assets/learning-centre/worksheets/by-coursex2fprogram/business/CulinaryMath-RecipeCosting.pdf)
 - [USDA Food Buying Guide — Appendix A](https://foodbuyingguide.fns.usda.gov/Appendix/ResourceAppendixA)
 - [Escoffier — How to Calculate Food Cost Percentage](https://www.escoffier.edu/blog/culinary-pastry-careers/how-to-calculate-food-cost-percentage/)
+- [Google Search Central — Creating helpful, reliable, people-first content](https://developers.google.com/search/docs/fundamentals/creating-helpful-content)
+- [Google Search Central Blog — Doorway pages](https://developers.google.com/search/blog/2015/03/an-update-on-doorway-pages)
+
+## รอบที่ 41 — Drink, Cocktail & Liquor Cost Calculator และการจัดอันดับ Batch 51
+
+สำรวจเมื่อ 9 สิงหาคม 2569 ด้วย Google Autocomplete locale ไทย (`hl=th`, `gl=th`) จำนวน 60 คำตั้งต้น ครอบคลุม Drink/Beverage/Liquor/Pour/Cocktail/Beer/Coffee cost, Cost per ounce/ml, Bottle yield, Batch/Dilution/ABV/Standard drink, Inventory/Variance/Menu engineering และคำไทย จำนวนคำแนะนำสูงสุด 10 รายการเป็น Demand proxy สำหรับดู Intent และ Long-tail เท่านั้น ไม่ใช่ Search volume และไม่รับประกันอันดับหน้าแรก Google
+
+`drink cost calculator`, `liquor cost calculator`, `liquor cost percentage`, `pour cost calculator`, `beverage cost formula`, `alcohol dilution calculator` และ `standard drink calculator` ได้ 10/10; `beer cost calculator` 9/10; `cocktail batch calculator` กับ `coffee cost calculator` 8/10; `beverage cost calculator` 7/10; `cocktail abv calculator` กับ `cocktail cost calculator` 6/10 ส่วนคำไทย `คำนวณต้นทุนเครื่องดื่ม` ได้ 2/10 พร้อมคำต่อท้าย Excel และคำไทยด้านร้านกาแฟ/ตาราง/สูตรได้ 1/10
+
+หน้าเดียวรวม Drink Cost Calculator, Liquor Cost Calculator, Pour Cost Calculator, Cocktail Cost Calculator, Beverage cost formula, Cost per ml/fl oz, Bottle yield และ Mocktail cost เพราะใช้ราคาขวด ปริมาตร ปริมาณริน Yield และราคาขายชุดเดียวกัน พร้อมวิเคราะห์ ABV/standard drink จาก Recipe เป็นส่วนเสริมที่ไม่สร้าง Thin page ส่วน Coffee per cup, Beer/Keg, Cocktail batch production, Alcohol dilution และ Periodic beverage COGS แยกไว้ เพราะต้องใช้ Beans dose, Keg loss, Batch scaling, Final-strength mixing หรือ Inventory cutoff คนละ Workflow
+
+คะแนน 5 คือสูงที่สุด การจัดอันดับพิจารณา Demand, คุณค่าผู้ใช้จริง, ความต่างจาก 77 tools เดิม, ความโปร่งใสของสูตร, โอกาสรายได้จาก AdSense, Scalability, Innovation และความเสี่ยงด้านบัญชี/ความปลอดภัย:
+
+| อันดับ | แนวคิด | Demand ที่พบ | ยาก | คุณค่าธุรกิจ | รายได้ | ขยายต่อ | นวัตกรรม | ข้อสรุป |
+|---:|---|---|---:|---:|---:|---:|---:|---|
+| 1 | Drink, Cocktail & Liquor Cost Calculator | Drink/Liquor/Pour 10/10; Cocktail 6/10 | 4 | 5 | 5 | 5 | 4 | ส่งมอบ Batch 51; Bottle/Pour/Yield, Garnish, Direct cost, Pricing, ABV, Standard drink และ CSV |
+| 2 | Coffee Cost per Cup Calculator | 8/10 | 4 | 5 | 5 | 5 | 4 | แยก Beans dose, Shot yield, Milk, Syrup, Cup/lid, Waste, Channel fee และหลาย Size |
+| 3 | Beer & Keg Pour Cost Calculator | 9/10 | 4 | 5 | 5 | 5 | 4 | แยก Keg volume, Foam/loss, Glass size, Draft yield, Line cleaning และ Deposit |
+| 4 | Cocktail Batch & Dilution Calculator | 8/10 | 5 | 5 | 5 | 5 | 5 | รวม Serving count, Batch target, Water addition, Chill dilution, Container headspace และ Production rounding |
+| 5 | Cocktail ABV & Standard Drink Calculator | ABV 6/10; Standard drink 10/10 | 4 | 5 | 4 | 5 | 5 | Recipe estimate รวมใน Batch 51 แล้ว ไม่สร้างหน้าบาง; ค่อยแยกเมื่อรองรับ Ingredient density และหลายมาตรฐานประเทศ |
+| 6 | Beverage Cost Variance Calculator | Related operational intent | 5 | 5 | 5 | 5 | 5 | เทียบ Theoretical pour กับ Actual usage/Sales/Comp/Spillage โดยต้องนิยาม Period และ Inventory cutoff |
+| 7 | Bar Inventory & Cycle Count | Inventory direct demand ต่ำ | 5 | 5 | 5 | 5 | 4 | รองรับ Partial bottle, Full-weight/tare, Count sheet, Variance และ Reorder โดยไม่เดา Density |
+| 8 | Wine Pour Cost Calculator | Related Pour intent | 3 | 5 | 4 | 4 | 3 | รวม Bottle size, Glass pour, Preservation loss และแก้วต่อขวด; สูตรพื้นฐานรวม Batch 51 แล้ว |
+| 9 | Mocktail Cost Calculator | Related Cocktail intent | 3 | 4 | 4 | 4 | 3 | ABV 0% ใช้ Batch 51 ได้แล้ว ไม่สร้าง Duplicate page เว้นแต่เพิ่ม Syrup batch/Carbonation workflow |
+| 10 | Cost per Ounce / ml Calculator | Cost per ounce 7/10 | 2 | 4 | 4 | 4 | 2 | รวม Batch 51 ผ่าน Unit conversion และ Line cost แล้ว ไม่สร้างหน้าบางซ้ำ |
+| 11 | Alcohol Dilution Calculator | 10/10 แต่ Home-distilling/Legal intent ปน | 5 | 4 | 4 | 4 | 5 | ต้องแยก Final ABV, Temperature/Volume contraction, Safety และข้อกฎหมาย ไม่ยัดรวม Pricing workflow |
+| 12 | Cocktail Recipe Scaling Calculator | Related Batch intent | 4 | 5 | 4 | 5 | 4 | แยก Per-drink/Batch units, Rounding, Bottle purchase list และ Non-linear garnish/dilution |
+| 13 | Bar Menu Engineering Calculator | Related pricing intent | 5 | 5 | 5 | 5 | 5 | ใช้ Sales mix + Contribution แบ่งเมนูและวัด Profit impact ต้องมีช่วงเวลาและข้อมูลหลายเมนู |
+| 14 | Liquor Bottle Yield & Shot Pricing | Liquor/Pour 10/10 | 3 | 4 | 4 | 4 | 3 | สูตรพื้นฐานรวม Batch 51 แล้ว; งานแยกควรมี Shot sizes, Bottle comparison และ Case discount จริง |
+| 15 | Beverage COGS Calculator | Beverage formula 7–10/10 | 4 | 4 | 4 | 4 | 3 | Workflow งวดบัญชีมี COGS Calculator แล้ว ควรเพิ่มลิงก์/คำอธิบายแทน Duplicate page |
+
+Batch 51 ใช้ `Usable bottle volume = Container volume × Yield %`, `Line cost = Bottle cost × Pour volume ÷ Usable bottle volume`, `Beverage ingredient cost = Liquid cost + Garnish/Ice/extra ingredients`, `Pour cost % = Beverage ingredient cost ÷ Selling price × 100` และ `Target price = Beverage ingredient cost ÷ Target pour cost %` ส่วน Packaging, Direct labor และ Other direct cost แยกจาก Pour cost แล้วรวมเป็น Total direct cost เพื่อไม่ให้คำจำกัดความปนกัน
+
+ค่าประมาณแอลกอฮอล์ใช้ `Pure alcohol = Σ(Pour volume × ABV)`, `Estimated ABV = Pure alcohol ÷ (Entered liquid + Added dilution) × 100` และ `U.S. standard drink equivalent = Pure alcohol ÷ (0.6 U.S. fl oz)` โดยใช้ 1 U.S. fl oz = 29.5735295625 ml หน้าระบุชัดว่าไม่ใช่ BAC ไม่ใช้ตัดสินการขับขี่ ความปลอดภัย หรือข้อกฎหมายไทย และรองรับ Mocktail ด้วย ABV 0%
+
+UI แบ่ง Price target, Liquid ingredients, Direct costs/Dilution ใช้ Label gap สม่ำเสมอ, Responsive editor, Cost composition, Pricing status, Alcohol analysis, Ingredient table, Formula panel, Error state และ CSV ทุกข้อมูลคำนวณใน Browser ไม่มี API หรือ LocalStorage ชื่อส่วนผสมใน CSV ถูกป้องกัน Spreadsheet Formula Injection และหน่วยเงินไม่มี FX conversion
+
+- [Google Autocomplete — drink cost calculator](https://suggestqueries.google.com/complete/search?client=firefox&hl=th&gl=th&q=drink%20cost%20calculator)
+- [Google Autocomplete — liquor cost calculator](https://suggestqueries.google.com/complete/search?client=firefox&hl=th&gl=th&q=liquor%20cost%20calculator)
+- [Google Autocomplete — pour cost calculator](https://suggestqueries.google.com/complete/search?client=firefox&hl=th&gl=th&q=pour%20cost%20calculator)
+- [Google Autocomplete — cocktail cost calculator](https://suggestqueries.google.com/complete/search?client=firefox&hl=th&gl=th&q=cocktail%20cost%20calculator)
+- [Google Autocomplete — คำนวณต้นทุนเครื่องดื่ม](https://suggestqueries.google.com/complete/search?client=firefox&hl=th&gl=th&q=%E0%B8%84%E0%B8%B3%E0%B8%99%E0%B8%A7%E0%B8%93%E0%B8%95%E0%B9%89%E0%B8%99%E0%B8%97%E0%B8%B8%E0%B8%99%E0%B9%80%E0%B8%84%E0%B8%A3%E0%B8%B7%E0%B9%88%E0%B8%AD%E0%B8%87%E0%B8%94%E0%B8%B7%E0%B9%88%E0%B8%A1)
+- [NIST — U.S. Customary to SI Conversion Factors](https://www.nist.gov/document/f-033pdf)
+- [NIAAA — What Is A Standard Drink?](https://www.niaaa.nih.gov/alcohols-effects-health/what-standard-drink)
+- [NIAAA — Mixed Drink and Cocktail Calculator](https://rethinkingdrinking.niaaa.nih.gov/tools/calculators/mixed-drink-and-cocktail-content-calculator)
+- [Johnson & Wales University — The Cost of a Martini](https://online.jwu.edu/blog/hospitality-the-cost-of-a-martini/)
+- [Cost Control for the Hospitality Industry — Beverage Cost](https://resources.escoffier.edu/ge130/dopson/dopson_c05.pdf)
 - [Google Search Central — Creating helpful, reliable, people-first content](https://developers.google.com/search/docs/fundamentals/creating-helpful-content)
 - [Google Search Central Blog — Doorway pages](https://developers.google.com/search/blog/2015/03/an-update-on-doorway-pages)

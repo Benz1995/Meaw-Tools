@@ -6,7 +6,7 @@
 
 - Next.js 16 App Router, React 19, TypeScript strict และ Tailwind CSS 4
 - shadcn/ui + Radix, Noto Sans Thai, JetBrains Mono และ dark mode
-- เครื่องมือ 77 รายการ พร้อม validation, empty/error state, clear และ action ที่เหมาะกับแต่ละงาน
+- เครื่องมือ 78 รายการ พร้อม validation, empty/error state, clear และ action ที่เหมาะกับแต่ละงาน
 - กลุ่มงานทั่วไป: นับคำ จัดระเบียบข้อความ คำนวณเปอร์เซ็นต์ แปลงหน่วย และคำนวณวัน
 - Word Cloud Generator ตัดคำไทย/อังกฤษ กรอง stopwords รองรับวลีพร้อมน้ำหนัก ปรับสี/พื้นหลัง และส่งออก PNG 2×, SVG หรือ CSV ภายใน Browser
 - Business Days Calculator นับช่วงวันหรือเพิ่ม/ลบวันทำการ ปรับสัปดาห์ทำงาน ตัดวันหยุดกำหนดเอง และใช้ preset วันหยุดสถาบันการเงิน ธปท. ปี 2569 แบบระบุขอบเขต
@@ -23,6 +23,7 @@
 - Inventory Turnover & Inventory Days Calculator ใช้ COGS กับ Average inventory จากต้น–ปลาย หลาย Snapshot หรือค่าจากระบบ พร้อม DIO/DOH, Annualized turnover, Target inventory และ CSV
 - Cost of Goods Sold (COGS) Calculator รองรับสูตรพื้นฐาน/ละเอียด, Net purchases, Returns, Discounts, Freight-in, Direct production costs, Goods available, Gross margin, Cost per unit และ CSV
 - Food Cost & Recipe Cost Calculator คำนวณต้นทุนวัตถุดิบต่อสูตร/เสิร์ฟจากราคาซื้อ ปริมาณใช้ หน่วยและ Yield พร้อม Direct cost, Food cost %, Contribution, ราคาเป้าหมาย และ CSV
+- Drink, Cocktail & Liquor Cost Calculator คำนวณต้นทุนต่อแก้วจากราคาขวด ปริมาณริน Yield, Garnish, Direct cost, Pour cost %, ราคาเป้าหมาย, ABV และ U.S. standard drink โดยประมาณ พร้อม CSV
 - JPG to PDF, QR Code Generator, QR Code Scanner และ Age Calculator ประมวลผลภายใน Browser
 - Loan Calculator, BMI Calculator และ Profit & Margin Calculator พร้อมสูตรและข้อจำกัดที่ตรวจสอบได้
 - VAT Calculator Thailand บวกหรือถอด VAT ด้วยสูตรที่อธิบายได้ รองรับ Service Charge และแยกภาษีหัก ณ ที่จ่าย พร้อมอัตรา versioned จากกรมสรรพากร
@@ -131,6 +132,7 @@ flowchart LR
 - Inventory Turnover & Inventory Days Calculator จำกัดยอดเงิน 1,000 ล้านล้าน จำนวนวันและ Snapshot 3,660 ค่า เป้าหมาย 100,000 รอบ/ปี ตรวจ COGS กับ Average inventory ที่มากกว่าศูนย์ และไม่บันทึกต้นทุนหรือยอด Inventory
 - Cost of Goods Sold (COGS) Calculator จำกัดยอดเงินต่อช่อง 1,000 ล้านล้าน จำนวนหน่วย 1 ล้านล้าน และผลลัพธ์ 1 ล้านล้านล้านล้าน ตรวจ Net purchases, Goods available และ Ending inventory แบบ Fail closed พร้อมไม่บันทึก Inventory, Purchases หรือ Sales
 - Food Cost & Recipe Cost Calculator จำกัดวัตถุดิบ 50 รายการ ยอดเงิน/ปริมาณต่อช่อง 1 ล้านล้าน จำนวนเสิร์ฟ 1 ล้าน ตรวจหน่วยน้ำหนัก/ปริมาตร/ชิ้นและ Yield 0.1–100% พร้อมป้องกัน CSV Formula Injection และไม่บันทึก Recipe, Supplier price หรือราคาขาย
+- Drink, Cocktail & Liquor Cost Calculator จำกัดของเหลว 30 รายการ ยอดเงิน/ปริมาตรต่อช่อง 1 ล้านล้าน ตรวจ ml/L/cl/US fl oz, Yield 0.1–100% และ ABV 0–100% พร้อมป้องกัน CSV Formula Injection ไม่บันทึกสูตร/ราคาขวด และไม่ใช้ค่าประมาณแอลกอฮอล์แทน BAC หรือข้อกฎหมาย
 - Regex ทำงานใน Web Worker และถูก terminate เมื่อเกิน 750 ms
 - JWT เป็นการ Decode เท่านั้น ไม่ verify signature
 - SQL ถูกจัดรูปเท่านั้น ไม่ execute

@@ -59,6 +59,7 @@
 | 51 | Inventory Turnover & Inventory Days Calculator | ร้านค้า, คลังสินค้า, บัญชี, Supply Chain, SME | คำนวณ COGS/Average inventory, Turnover, DIO/DOH, Annualized rate, หลาย Snapshot, Target inventory และ CSV | พร้อมใช้ |
 | 52 | Cost of Goods Sold (COGS) Calculator | ร้านค้า, ผู้ผลิต, ร้านอาหาร, E-commerce, บัญชี, SME | คำนวณสูตรพื้นฐาน/ละเอียด, Net purchases, Direct production costs, Goods available, COGS, Gross margin, Cost per unit และ CSV | พร้อมใช้ |
 | 53 | Food Cost & Recipe Cost Calculator | ร้านอาหาร, คาเฟ่, เบเกอรี่, Catering, ผู้ขายอาหาร | คำนวณต้นทุนวัตถุดิบจากราคาซื้อ ปริมาณใช้ หน่วยและ Yield พร้อม Cost per serving, Direct cost, Food cost %, Contribution, ราคาเป้าหมาย และ CSV | พร้อมใช้ |
+| 54 | Drink, Cocktail & Liquor Cost Calculator | บาร์, ร้านอาหาร, คาเฟ่, เจ้าของแบรนด์เครื่องดื่ม | คำนวณต้นทุนต่อแก้วจากราคาขวด ปริมาณริน Yield, Garnish, Direct cost, Pour cost %, ราคาเป้าหมาย, ABV และ U.S. standard drink โดยประมาณ พร้อม CSV | พร้อมใช้ |
 
 ## หลักฐาน Google Trends ประเทศไทย
 

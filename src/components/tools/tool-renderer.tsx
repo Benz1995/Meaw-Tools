@@ -50,6 +50,7 @@ const components = {
   "inventory-turnover-calculator": dynamic(() => import("@/features/tools/inventory-turnover-calculator-tool").then((module) => module.InventoryTurnoverCalculatorTool), { loading, ssr: false }),
   "cost-of-goods-sold-calculator": dynamic(() => import("@/features/tools/cost-of-goods-sold-calculator-tool").then((module) => module.CostOfGoodsSoldCalculatorTool), { loading, ssr: false }),
   "food-cost-calculator": dynamic(() => import("@/features/tools/food-cost-calculator-tool").then((module) => module.FoodCostCalculatorTool), { loading, ssr: false }),
+  "drink-cost-calculator": dynamic(() => import("@/features/tools/drink-cost-calculator-tool").then((module) => module.DrinkCostCalculatorTool), { loading, ssr: false }),
   "jpg-to-pdf": dynamic(() => import("@/features/tools/jpg-to-pdf-tool").then((module) => module.JpgToPdfTool), { loading, ssr: false }),
   "qr-code-generator": dynamic(() => import("@/features/tools/qr-code-tool").then((module) => module.QrCodeTool), { loading, ssr: false }),
   "barcode-generator": dynamic(() => import("@/features/tools/barcode-generator-tool").then((module) => module.BarcodeGeneratorTool), { loading, ssr: false }),
