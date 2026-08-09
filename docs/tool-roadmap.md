@@ -199,6 +199,7 @@
 
 ## การส่งมอบล่าสุด
 
+- Batch 57 — XIRR & XNPV Calculator แบบ client-only รองรับ Cash flow ตามวันที่จริง 61 รายการ, ฐาน 365 วัน, XIRR หลายราก/รากซ้ำ/ไม่มีราก/นอกช่วง, XNPV profile, Timeline และ formula-safe CSV พร้อมคำเตือนด้านการตัดสินใจลงทุน — พัฒนาและผ่าน Local quality gates แล้ว รอตรวจ Production
 - Batch 56 — IRR & MIRR Calculator แบบ client-only รองรับ Cash flow 61 งวดสม่ำเสมอ, IRR หลายราก/รากซ้ำ/ไม่มีราก/นอกช่วง, MIRR แยก Finance/Reinvestment rate, Effective annualization, NPV profile, Timeline และ formula-safe CSV พร้อมคำเตือนด้านการตัดสินใจลงทุน — ส่งมอบและตรวจ Production แล้ว
 
 ## งานที่ชะลอไว้หลังการวิจัย

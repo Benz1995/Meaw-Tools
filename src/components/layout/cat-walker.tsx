@@ -76,7 +76,7 @@ export function CatWalker() {
         onClick={toggleCat}
         aria-pressed={enabled}
         aria-label={invitesMotion ? "ให้ Meaw เดินเล่น" : enabled ? "พัก Meaw" : "เรียก Meaw มาเดินเล่น"}
-        className="fixed bottom-3 right-3 z-[45] rounded-full border-primary/20 bg-card/95 shadow-lg shadow-foreground/10 backdrop-blur hover:bg-accent"
+        className="meaw-shell-glass fixed bottom-3 right-3 z-[45] rounded-full border-primary/20 shadow-lg shadow-foreground/10 hover:bg-accent"
       >
         <Cat className="size-4" />
         <span className={invitesMotion ? undefined : "hidden sm:inline"}>{invitesMotion ? "ให้ Meaw เดิน" : enabled ? "พัก Meaw" : "เรียก Meaw"}</span>

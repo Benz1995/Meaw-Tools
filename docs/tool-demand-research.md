@@ -1614,3 +1614,47 @@ OpenStax อธิบาย IRR เป็นอัตราที่ทำให
 - [Microsoft Support — MIRR function](https://support.microsoft.com/en-us/excel/functions/mirr-function)
 - [Google Search Central — Creating helpful, reliable, people-first content](https://developers.google.com/search/docs/fundamentals/creating-helpful-content)
 - [Google Search Central — Spam policies and doorway abuse](https://developers.google.com/search/docs/essentials/spam-policies)
+
+## รอบที่ 47 — XIRR, XNPV และผลตอบแทนจาก Cash flow ตามวันที่จริง (9 สิงหาคม 2569)
+
+รอบนี้ส่งคำตั้งต้น 60 รูปแบบไปยัง Google Autocomplete ภาษาไทย/ประเทศไทย ครอบคลุม XIRR, XNPV, Actual dates, Irregular cash flow, Investment return, Money-weighted return, Portfolio, SIP, Mutual fund, Insurance, Real estate และคำไทย ได้คำแนะนำ 199 รายการไม่ซ้ำ สัญญาณตรงสูงสุดคือ `xirr calculator`, `xirr calculator excel`, `xirr example`, `xirr formula`, `xirr function`, `xirr online`, `xirr vs irr`, `xirr vs cagr`, `xnpv formula` และ `sip xirr calculator` ได้ 10/10; `xirr calculator online` 9/10; `mutual fund xirr calculator` และ `xirr calculator investment` 7/10; `money weighted return calculator` และ `xnpv vs npv` 6/10; `xnpv calculator` 1/10 ส่วน `xirr คือ` และ `สูตร xirr` 3/10 ตัวเลขทั้งหมดเป็น Autocomplete demand proxy ไม่ใช่ Search volume, Traffic forecast หรือหลักฐานว่าจะติดหน้าแรก Google
+
+สัญญาณ SIP/Mutual fund มีบริบทอินเดียปนสูง จึงไม่ยัดสมมติฐานประเทศ กองทุน ภาษี หรือผลิตภัณฑ์เฉพาะเข้า Generic calculator ใช้ URL เดียว `xirr-calculator` รวม XIRR, XNPV at hurdle rate, Multiple/repeated/no-root diagnostics, XNPV profile, Actual-date timeline, Formula และ CSV เพราะใช้วันที่และ Cash flow ชุดเดียวกัน ไม่สร้างหน้า Free, Online, Excel, Formula, With dates หรือ XNPV แยกซ้ำเพื่อไล่ Keyword ส่วน SIP/Mutual fund, Insurance, Real estate และ Private equity แยกไว้จนกว่าจะมี Workflow และข้อจำกัดเฉพาะจริง
+
+คะแนน 5 คือสูงที่สุด การจัดอันดับพิจารณา Demand ที่พบ, คุณค่าผู้ใช้จริง, ความต่างจาก 83 tools เดิม, ความโปร่งใสของสูตร, Revenue opportunity, Scalability, Innovation และความเสี่ยงจากการตีความข้อมูลผิด:
+
+| อันดับ | แนวคิด | Demand ที่พบ | ยาก | คุณค่าธุรกิจ | รายได้ | ขยายต่อ | นวัตกรรม | ข้อสรุป |
+|---:|---|---|---:|---:|---:|---:|---:|---|
+| 1 | XIRR & XNPV Date Calculator | XIRR 9–10/10; XNPV formula 10/10 | 5 | 5 | 5 | 5 | 5 | ส่งมอบ Batch 57; Actual dates, 365-day basis, All-root diagnostics, Profile, Timeline และ CSV |
+| 2 | Dated Cash-flow Scenario Builder | Cash-flow/date related 1–6/10 | 5 | 5 | 5 | 5 | 5 | Base/Downside/Upside, Event timing, Sensitivity และ Export เข้า XIRR โดยไม่เรียก Scenario ว่า Forecast รับรอง |
+| 3 | Investment Appraisal Comparison | XIRR/IRR/NPV related 6–10/10 | 5 | 5 | 5 | 5 | 5 | เทียบ NPV, XNPV, IRR, XIRR, MIRR, PI และ Payback บน Hurdle/Horizon ที่นิยามตรงกัน |
+| 4 | Money-weighted vs Time-weighted Return | Money-weighted 5–6/10 | 5 | 5 | 5 | 5 | 5 | แยกผลจาก Cash-flow timing กับ Portfolio performance และต้องรองรับ Valuation sub-period อย่างโปร่งใส |
+| 5 | Portfolio Cash-flow Return Import | XIRR investment 7/10 | 5 | 5 | 5 | 5 | 4 | Import Broker CSV ที่ Map schema เอง, แยก Deposit/Withdrawal/Trade/Fee และไม่อ้างผลก่อน Reconciliation |
+| 6 | SIP / Recurring Investment Return | SIP XIRR 10/10 | 5 | 5 | 5 | 5 | 4 | Demand สูงแต่ต้องแยก Contribution date, NAV/current value, Country/tax และไม่ใช้คำรับรองกองทุน |
+| 7 | Real-estate XIRR Underwriting | Real-estate seed 1/10 | 5 | 5 | 5 | 5 | 5 | Rent, Vacancy, Capex, Debt, Sale cost, Tax boundary และ Levered/Unlevered cash flow แยกชัด |
+| 8 | Insurance Policy Return Analyzer | Insurance seed 1/10 ในรอบนี้; สูงในรอบ 46 | 5 | 5 | 5 | 4 | 4 | Premium, Benefit, Dividend, Surrender และ Coverage value ต้องไม่ถูกลดเหลือ XIRR ค่าเดียว |
+| 9 | Project-finance Debt Waterfall | Related project intent | 5 | 5 | 5 | 5 | 5 | Sources/Uses, Drawdown, Interest, DSCR, Reserve, Sculpting และ Equity XIRR พร้อมข้อจำกัด Covenant |
+| 10 | Private-equity MOIC & XIRR | Related investment intent | 5 | 4 | 5 | 4 | 5 | Interim cash flow, Fees, Recallable distribution, MOIC, DPI/RVPI/TVPI และ Preference waterfall |
+| 11 | Irregular-loan APR / Effective Yield | XIRR formula related | 5 | 5 | 5 | 5 | 5 | ใช้ Dated disbursement/fee/payment และแยก Lender yield จาก Borrower APR ตามข้อกำกับประเทศ |
+| 12 | Buy-vs-Lease Dated Model | Related irregular cash flow | 5 | 5 | 5 | 5 | 4 | After-tax incremental dated cash flow, Residual, Maintenance และ Financing timing ไม่ใช้ Payment ต่างอย่างเดียว |
+| 13 | Irregular Bond Cash-flow Yield | Related XIRR formula | 5 | 4 | 4 | 4 | 5 | Coupon schedule, Accrued interest, Call/default scenario และ Day-count convention ต้องไม่บังคับ 365 ทุกกรณี |
+| 14 | Solar Dated Project Model | Solar XIRR seedต่ำ | 5 | 5 | 5 | 5 | 4 | Construction draws, Generation, Degradation, Tariff, Export credit, Maintenance และ Location assumption |
+| 15 | Donation / Endowment Cash-flow Analysis | Long-tail professional | 4 | 4 | 3 | 4 | 4 | Grant timing, Restricted funds, Spending rule และ Opportunity cost โดยไม่ตีความ XIRR เป็น Social impact |
+
+Batch 57 ใช้ `XNPV(r) = Σ CF_i ÷ (1 + r)^((d_i − d_0) ÷ 365)` และหา `r > -100%` ที่ทำให้ XNPV เท่ากับศูนย์ แปลงเป็น `y = ln(1 + r)` เพื่อได้ผลรวมเอ็กซ์โพเนนเชียล `Σ CF_i exp(−t_i y)` แล้วใช้รากของอนุพันธ์แบ่งช่วง Monotonic ก่อน Bisection พร้อมตรวจ Critical point เพื่อจับรากซ้ำ วิธีนี้แสดงทุกรากที่ตรวจพบในช่วง -99.99% ถึง 100,000% ต่อปีแทนการพึ่ง Guess เดียว แต่ยังระบุสถานะนอกช่วงและไม่อ้างว่าตัวเลขสุดโต่งเหมาะต่อการตัดสินใจ
+
+วันที่อ่านเป็น `YYYY-MM-DD` แบบ UTC เพื่อไม่ให้ Timezone ของอุปกรณ์เลื่อนวัน ต้องเรียงเก่าไปใหม่และไม่ซ้ำ นับวันปฏิทินจริงรวม Leap dayแต่หาร 365 ตาม XIRR/XNPV จำกัดช่วง 100 ปี, 61 Cash flows, Hurdle rate -99% ถึง 1,000% และจำนวนเงินต่อรายการ การคำนวณทั้งหมดทำใน Browser ไม่มี API หรือ LocalStorage ชื่อ Scenario/รายการใน CSV ถูกป้องกัน Spreadsheet Formula Injection และหน่วยเงินไม่มี FX conversion
+
+Microsoft ระบุว่า XIRR ใช้ Cash flow ที่ไม่จำเป็นต้องเป็นงวดสม่ำเสมอ, อัตราสัมพันธ์กับ XNPV = 0 และ Guess ต่างกันอาจได้คำตอบต่างกันเมื่อมีหลายราก ส่วน XNPV ใช้วันที่จริงบนฐาน 365 วัน ตัวอย่างทางการ `-10000, 2750, 4250, 3250, 2750` ณ วันที่ `2008-01-01, 2008-03-01, 2008-10-30, 2009-02-15, 2009-04-01` ให้ XIRR ประมาณ 37.3362535% และ XNPV 2,086.65 ที่ 9% ชุดทดสอบของหน้าคำนวณยืนยันสองค่านี้ รวมหลายราก 10%/20%, รากซ้ำ 0%, ไม่มีราก, รากลบ, รากนอกช่วง, Leap day และ Formula-safe CSV
+
+- [Google Autocomplete — xirr calculator](https://suggestqueries.google.com/complete/search?client=firefox&hl=th&gl=th&q=xirr%20calculator)
+- [Google Autocomplete — xirr formula](https://suggestqueries.google.com/complete/search?client=firefox&hl=th&gl=th&q=xirr%20formula)
+- [Google Autocomplete — xnpv formula](https://suggestqueries.google.com/complete/search?client=firefox&hl=th&gl=th&q=xnpv%20formula)
+- [Google Autocomplete — money weighted return calculator](https://suggestqueries.google.com/complete/search?client=firefox&hl=th&gl=th&q=money%20weighted%20return%20calculator)
+- [Google Autocomplete — สูตร xirr](https://suggestqueries.google.com/complete/search?client=firefox&hl=th&gl=th&q=%E0%B8%AA%E0%B8%B9%E0%B8%95%E0%B8%A3%20xirr)
+- [Microsoft Support — XIRR function](https://support.microsoft.com/en-us/excel/functions/xirr-function)
+- [Microsoft Support — XNPV function](https://support.microsoft.com/en-us/excel/functions/xnpv-function)
+- [Microsoft Support — Go with the cash flow](https://support.microsoft.com/en-us/office/go-with-the-cash-flow-calculate-npv-and-irr-in-excel-9e3d78bb-f1de-4f8e-a20e-b8955851690c)
+- [Google Sheets — XNPV](https://support.google.com/docs/answer/3093268?hl=en)
+- [Google Search Central — Creating helpful, reliable, people-first content](https://developers.google.com/search/docs/fundamentals/creating-helpful-content)
+- [Google Search Central — Spam policies and doorway abuse](https://developers.google.com/search/docs/essentials/spam-policies)

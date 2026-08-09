@@ -20,7 +20,7 @@ export function AppHeader() {
   const activeTool = tools.find((tool) => pathname === `/${tool.slug}`);
   const submit = (event: FormEvent) => { event.preventDefault(); router.push(`/tools${query.trim() ? `?q=${encodeURIComponent(query.trim())}` : ""}`); };
   return (
-    <header className="cafe-header sticky top-0 z-50 border-b bg-background/90 backdrop-blur-xl supports-[backdrop-filter]:bg-background/78">
+    <header className="cafe-header meaw-shell-glass sticky top-0 z-50 border-b">
       <a href="#main-content" className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-3 focus:z-[60] focus:rounded-md focus:bg-primary focus:px-4 focus:py-2 focus:text-primary-foreground">ข้ามไปเนื้อหาหลัก</a>
       <div className={`mx-auto flex h-16 items-center gap-3 px-4 sm:px-6 ${activeTool ? "max-w-[112rem]" : "max-w-7xl"}`}>
         <Link href="/" className="group flex shrink-0 items-center gap-2.5" aria-label="Meaw Tools หน้าแรก">

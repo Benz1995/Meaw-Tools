@@ -5,8 +5,8 @@
 ## สถานะ MVP
 
 - Next.js 16 App Router, React 19, TypeScript strict และ Tailwind CSS 4
-- shadcn/ui + Radix, Noto Sans Thai, JetBrains Mono และ dark mode
-- เครื่องมือ 81 รายการ พร้อม validation, empty/error state, clear และ action ที่เหมาะกับแต่ละงาน
+- shadcn/ui + Radix, Noto Sans Thai, JetBrains Mono และ Meaw Glass Design System ที่มี dark mode พื้นดำจริง
+- เครื่องมือ 84 รายการ พร้อม validation, empty/error state, clear และ action ที่เหมาะกับแต่ละงาน
 - กลุ่มงานทั่วไป: นับคำ จัดระเบียบข้อความ คำนวณเปอร์เซ็นต์ แปลงหน่วย และคำนวณวัน
 - Word Cloud Generator ตัดคำไทย/อังกฤษ กรอง stopwords รองรับวลีพร้อมน้ำหนัก ปรับสี/พื้นหลัง และส่งออก PNG 2×, SVG หรือ CSV ภายใน Browser
 - Business Days Calculator นับช่วงวันหรือเพิ่ม/ลบวันทำการ ปรับสัปดาห์ทำงาน ตัดวันหยุดกำหนดเอง และใช้ preset วันหยุดสถาบันการเงิน ธปท. ปี 2569 แบบระบุขอบเขต
@@ -27,6 +27,8 @@
 - Coffee Cost Calculator คำนวณต้นทุนต่อแก้วจาก Bag price/Dose, นม, ส่วนผสม, Packaging, Labor, Channel fee, ราคาเป้าหมาย และแผนวัตถุดิบรายเดือน พร้อม CSV
 - Coffee Roasting Calculator คำนวณ Roast loss/Yield จากน้ำหนักจริง ต้นทุน Green bean, Energy, Labor ต่อ Batch, Cost per roasted kg/ถุงขาย, ราคาเป้าหมาย และแผนโรงคั่วรายเดือน พร้อม CSV
 - Break-even Calculator คำนวณจุดคุ้มทุนเป็นหน่วย/ยอดขาย, Contribution margin, Product mix หลายรายการ, Target operating profit, Margin of safety, Capacity และกราฟ CVP พร้อม CSV
+- IRR & MIRR Calculator ตรวจหลายราก รากซ้ำ ไม่มีราก และรากนอกช่วง พร้อม NPV profile, Timeline และ CSV
+- XIRR & XNPV Calculator ใช้วันที่จริงบนฐาน 365 วัน ตรวจหลายราก แสดง XNPV profile/Timeline และ CSV โดยไม่พึ่ง Guess เดียว
 - JPG to PDF, QR Code Generator, QR Code Scanner และ Age Calculator ประมวลผลภายใน Browser
 - Loan Calculator, BMI Calculator และ Profit & Margin Calculator พร้อมสูตรและข้อจำกัดที่ตรวจสอบได้
 - VAT Calculator Thailand บวกหรือถอด VAT ด้วยสูตรที่อธิบายได้ รองรับ Service Charge และแยกภาษีหัก ณ ที่จ่าย พร้อมอัตรา versioned จากกรมสรรพากร
@@ -153,7 +155,7 @@ flowchart LR
 
 Route, metadata, sitemap, FAQ schema และ related tools จะใช้ registry กลางโดยอัตโนมัติ
 
-ดูลำดับการพัฒนาชุดถัดไปได้ที่ [docs/tool-roadmap.md](docs/tool-roadmap.md)
+ดู [Meaw Glass Design System](docs/meaw-glass-design-system.md) และลำดับการพัฒนาชุดถัดไปที่ [docs/tool-roadmap.md](docs/tool-roadmap.md)
 
 ## Deploy บน Vercel
 

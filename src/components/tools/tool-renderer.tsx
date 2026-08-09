@@ -56,6 +56,7 @@ const components = {
   "break-even-calculator": dynamic(() => import("@/features/tools/break-even-calculator-tool").then((module) => module.BreakEvenCalculatorTool), { loading, ssr: false }),
   "payback-period-calculator": dynamic(() => import("@/features/tools/payback-period-calculator-tool").then((module) => module.PaybackPeriodCalculatorTool), { loading, ssr: false }),
   "irr-calculator": dynamic(() => import("@/features/tools/irr-mirr-calculator-tool").then((module) => module.IrrMirrCalculatorTool), { loading, ssr: false }),
+  "xirr-calculator": dynamic(() => import("@/features/tools/xirr-xnpv-calculator-tool").then((module) => module.XirrXnpvCalculatorTool), { loading, ssr: false }),
   "jpg-to-pdf": dynamic(() => import("@/features/tools/jpg-to-pdf-tool").then((module) => module.JpgToPdfTool), { loading, ssr: false }),
   "qr-code-generator": dynamic(() => import("@/features/tools/qr-code-tool").then((module) => module.QrCodeTool), { loading, ssr: false }),
   "barcode-generator": dynamic(() => import("@/features/tools/barcode-generator-tool").then((module) => module.BarcodeGeneratorTool), { loading, ssr: false }),

@@ -192,12 +192,12 @@ export function ToolWorkspaceShell({ children }: { children: React.ReactNode }) 
     <div className="mx-auto flex w-full max-w-[112rem] items-start">
       <aside
         className={cn(
-          "sticky top-16 hidden h-[calc(100dvh-4rem)] shrink-0 flex-col border-r bg-card/65 shadow-[8px_0_32px_-28px_oklch(0.2_0.04_55/35%)] backdrop-blur transition-[width] duration-200 lg:flex",
+          "meaw-shell-glass sticky top-16 hidden h-[calc(100dvh-4rem)] shrink-0 flex-col border-r transition-[width] duration-200 lg:flex",
           collapsed ? "w-[4.75rem]" : "w-[17rem]",
         )}
         aria-label="เมนูเครื่องมือด้านข้าง"
       >
-        <div className={cn("flex h-16 shrink-0 items-center border-b bg-background/45", collapsed ? "justify-center px-2" : "gap-2 px-3")}>
+        <div className={cn("meaw-glass-subtle flex h-16 shrink-0 items-center border-b", collapsed ? "justify-center px-2" : "gap-2 px-3")}>
           {collapsed ? null : (
             <div className="flex min-w-0 flex-1 items-center gap-2.5">
               <span className="grid size-8 shrink-0 place-items-center rounded-xl bg-primary/10 text-primary ring-1 ring-primary/15"><PawPrint className="size-4" aria-hidden="true" /></span>
@@ -241,7 +241,7 @@ export function ToolWorkspaceShell({ children }: { children: React.ReactNode }) 
           setQuery={setQuery}
         />
 
-        <div className="shrink-0 border-t bg-background/45 p-2">
+        <div className="meaw-glass-subtle shrink-0 border-t p-2">
           <Button variant="ghost" asChild className={cn("w-full", collapsed ? "px-0" : "justify-start")}>
             <Link href="/categories" aria-label={collapsed ? "ดูหมวดหมู่" : undefined}>
               <Tags className="size-4" />
@@ -264,7 +264,7 @@ export function ToolWorkspaceShell({ children }: { children: React.ReactNode }) 
       </aside>
 
       <div className="min-w-0 flex-1">
-        <div className="sticky top-16 z-30 flex h-14 items-center gap-3 border-b bg-background/92 px-4 shadow-sm backdrop-blur lg:hidden">
+        <div className="meaw-shell-glass sticky top-16 z-30 flex h-14 items-center gap-3 border-b px-4 lg:hidden">
           <Sheet open={mobileOpen} onOpenChange={setMobileOpen}>
             <SheetTrigger asChild>
               <Button type="button" variant="outline" size="icon" aria-label="เปิดเมนูเครื่องมือ">

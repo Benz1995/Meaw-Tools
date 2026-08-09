@@ -75,7 +75,7 @@ export function ToolPageContent({ tool }: { tool: ToolConfig }) {
         <span aria-current="page">{tool.name}</span>
       </nav>
 
-      <header className="meaw-tool-heading relative mt-4 overflow-hidden rounded-2xl border bg-card/70 p-4 shadow-sm backdrop-blur sm:p-5">
+      <header className="meaw-glass meaw-glass-accent meaw-tool-heading relative mt-4 overflow-hidden rounded-2xl border p-4 sm:p-5">
         <div className="flex items-center gap-3">
           <span className="grid size-11 shrink-0 place-items-center rounded-2xl bg-primary/10 text-primary ring-1 ring-primary/15 shadow-sm">
             <ToolIcon name={tool.icon} className="size-5" />
@@ -123,7 +123,7 @@ export function ToolPageContent({ tool }: { tool: ToolConfig }) {
         <h2 className="text-2xl font-bold">คำถามที่พบบ่อย</h2>
         <div className="mt-5 grid gap-3">
           {tool.faq.map((item) => (
-            <details key={item.question} className="rounded-xl border bg-card p-5">
+            <details key={item.question} className="meaw-glass-card rounded-xl border p-5">
               <summary className="cursor-pointer font-medium">{item.question}</summary>
               <p className="mt-3 text-sm leading-6 text-muted-foreground">{item.answer}</p>
             </details>

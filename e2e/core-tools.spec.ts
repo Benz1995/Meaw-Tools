@@ -71,6 +71,7 @@ const toolRoutes = [
   ["break-even-calculator", "Break-even Calculator"],
   ["payback-period-calculator", "Payback Period Calculator"],
   ["irr-calculator", "IRR & MIRR Calculator"],
+  ["xirr-calculator", "XIRR & XNPV Calculator"],
   ["jpg-to-pdf", "JPG to PDF Converter"],
   ["qr-code-generator", "QR Code Generator"],
   ["barcode-generator", "Barcode Generator"],
@@ -170,6 +171,36 @@ test("restores dark theme without hydration errors", async ({ page }) => {
   await page.goto("/json-formatter");
   await expect(page.locator("html")).toHaveClass(/dark/);
   await expect(page.getByLabel("JSON input").getByRole("textbox")).toBeVisible();
+  const themeSurfaces = await page.evaluate(() => {
+    const bodyStyle = getComputedStyle(document.body);
+    const shell = document.querySelector<HTMLElement>(".meaw-shell-glass");
+    const workspace = document.querySelector<HTMLElement>(".meaw-workspace-panel");
+    const shellStyle = shell ? getComputedStyle(shell) : null;
+    const workspaceStyle = workspace ? getComputedStyle(workspace) : null;
+    const colorToRgb = (color: string) => {
+      const canvas = document.createElement("canvas");
+      canvas.width = 1;
+      canvas.height = 1;
+      const context = canvas.getContext("2d");
+      if (!context) return [];
+      context.fillStyle = color;
+      context.fillRect(0, 0, 1, 1);
+      return Array.from(context.getImageData(0, 0, 1, 1).data.slice(0, 3));
+    };
+    return {
+      bodyBackground: bodyStyle.backgroundColor,
+      bodyRgb: colorToRgb(bodyStyle.backgroundColor),
+      shellBackground: shellStyle?.backgroundColor ?? "",
+      shellBackdrop: shellStyle?.backdropFilter ?? "",
+      workspaceBackground: workspaceStyle?.backgroundColor ?? "",
+      workspaceBackdrop: workspaceStyle?.backdropFilter ?? "",
+    };
+  });
+  expect(Math.max(...themeSurfaces.bodyRgb)).toBeLessThanOrEqual(20);
+  expect(themeSurfaces.bodyBackground).not.toBe(themeSurfaces.shellBackground);
+  expect(themeSurfaces.workspaceBackground).not.toBe(themeSurfaces.bodyBackground);
+  expect(themeSurfaces.shellBackdrop).toContain("blur(18px)");
+  expect(themeSurfaces.workspaceBackdrop).toContain("blur(18px)");
   expect(errors).toEqual([]);
 });
 
@@ -2726,6 +2757,91 @@ test("IRR calculator explains its assumptions, renders the NPV profile, and expo
   await expect(page.getByTestId("irr-root")).toHaveCount(2);
   await expect(page.getByTestId("irr-root").nth(0)).toContainText("10.00%");
   await expect(page.getByTestId("irr-root").nth(1)).toContainText("20.00%");
+
+  const finalLayout = await page.evaluate(() => ({
+    width: document.documentElement.clientWidth,
+    scrollWidth: document.documentElement.scrollWidth,
+  }));
+  expect(finalLayout.scrollWidth).toBe(finalLayout.width);
+  expect(hasExternalRequest(requestUrls, page.url())).toBe(false);
+  expect(consoleErrors).toEqual([]);
+});
+
+test("XIRR calculator uses actual dates, exposes multiple roots, and exports a local CSV without mobile overflow", async ({ page }) => {
+  const consoleErrors: string[] = [];
+  const requestUrls: string[] = [];
+  page.on("console", (message) => {
+    if (message.type() === "error") consoleErrors.push(message.text());
+  });
+  page.on("pageerror", (error) => consoleErrors.push(error.message));
+  page.on("request", (request) => requestUrls.push(request.url()));
+  await page.setViewportSize({ width: 390, height: 844 });
+
+  await page.goto("/xirr-calculator");
+  await expect(page.getByRole("heading", { level: 1, name: "XIRR & XNPV Calculator" })).toBeVisible();
+  await expect(page.getByText("ใช้กับกระแสเงินสดที่เกิดคนละวันหรือช่วงเวลาไม่เท่ากัน", { exact: true })).toBeVisible();
+  await expect(page.locator("#xirr-scenario-name")).toBeVisible();
+  await page.evaluate(() => document.fonts.ready);
+
+  const initialLayout = await page.evaluate(() => {
+    const label = document.querySelector<HTMLLabelElement>('label[for="xirr-scenario-name"]');
+    const input = document.querySelector<HTMLInputElement>("#xirr-scenario-name");
+    const labelBox = label?.getBoundingClientRect();
+    const inputBox = input?.getBoundingClientRect();
+    const ids = Array.from(document.querySelectorAll<HTMLElement>("[id]")).map((element) => element.id);
+    return {
+      labelGap: labelBox && inputBox ? Math.round(inputBox.top - labelBox.bottom) : 0,
+      duplicateIds: ids.filter((id, index) => ids.indexOf(id) !== index),
+      overflow: document.documentElement.scrollWidth > document.documentElement.clientWidth,
+    };
+  });
+  expect(initialLayout.labelGap).toBeGreaterThanOrEqual(10);
+  expect(initialLayout.duplicateIds).toEqual([]);
+  expect(initialLayout.overflow).toBe(false);
+
+  await page.getByRole("button", { name: "โหลดตัวอย่าง" }).click();
+  await expect(page.locator("#xirr-scenario-name")).toHaveValue("Microsoft XIRR example");
+  await page.getByRole("button", { name: "คำนวณ XIRR และ XNPV" }).click();
+
+  await expect(page.getByTestId("xirr-primary")).toContainText("37.336253%");
+  await expect(page.getByTestId("xirr-xnpv")).toContainText("+฿2,086.65");
+  await expect(page.getByTestId("xirr-duration")).toContainText("456 วัน");
+  await expect(page.getByTestId("xirr-pattern")).toContainText("1 Sign change");
+  await expect(page.getByRole("img", { name: /กราฟ XNPV profile/ })).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Timeline ที่ Hurdle rate" })).toBeVisible();
+  await expect(page.getByTestId("xirr-result")).toContainText("Relative residual");
+
+  const csvPromise = page.waitForEvent("download");
+  await page.getByTestId("xirr-csv").click();
+  const csvDownload = await csvPromise;
+  expect(csvDownload.suggestedFilename()).toBe("meaw-xirr-xnpv.csv");
+  const csvPath = await csvDownload.path();
+  expect(csvPath).toBeTruthy();
+  const csv = await readFile(csvPath!, "utf8");
+  expect(csv.startsWith("\uFEFF")).toBe(true);
+  expect(csv).toContain('"XIRR & XNPV Date Calculator","Microsoft XIRR example"');
+  expect(csv).toContain('"XNPV at hurdle rate","2086.65","THB"');
+  expect(csv).toContain('"วันที่","ชื่อรายการ","Cash flow","จำนวนวันจากวันแรก"');
+
+  await page.getByRole("button", { name: "ล้างข้อมูล" }).click();
+  await page.locator("#xirr-scenario-name").fill("ตัวอย่างหลายราก");
+  await page.getByRole("button", { name: "ลบรายการที่ 4" }).click();
+  const dates = page.locator('input[id^="xirr-date-"]');
+  const labels = page.locator('input[id^="xirr-label-"]');
+  const amounts = page.locator('input[id^="xirr-amount-"]');
+  for (const [index, date] of ["2025-01-01", "2026-01-01", "2027-01-01"].entries()) {
+    await dates.nth(index).fill(date);
+    await labels.nth(index).fill(index ? `รับ/จ่าย ${index}` : "ลงทุน");
+  }
+  await amounts.nth(0).fill("-100");
+  await amounts.nth(1).fill("230");
+  await amounts.nth(2).fill("-132");
+  await page.getByRole("button", { name: "คำนวณ XIRR และ XNPV" }).click();
+  await expect(page.getByText(/พบ XIRR หลายค่า/)).toBeVisible();
+  await expect(page.getByTestId("xirr-primary")).toContainText("2 ค่า");
+  await expect(page.getByTestId("xirr-root")).toHaveCount(2);
+  await expect(page.getByTestId("xirr-root").nth(0)).toContainText("10.00%");
+  await expect(page.getByTestId("xirr-root").nth(1)).toContainText("20.00%");
 
   const finalLayout = await page.evaluate(() => ({
     width: document.documentElement.clientWidth,
