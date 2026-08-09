@@ -199,7 +199,7 @@
 
 ## การส่งมอบล่าสุด
 
-- Batch 56 — IRR & MIRR Calculator แบบ client-only รองรับ Cash flow 61 งวดสม่ำเสมอ, IRR หลายราก/รากซ้ำ/ไม่มีราก/นอกช่วง, MIRR แยก Finance/Reinvestment rate, Effective annualization, NPV profile, Timeline และ formula-safe CSV พร้อมคำเตือนด้านการตัดสินใจลงทุน — ส่งมอบแล้วในโค้ดและรอ Production verification
+- Batch 56 — IRR & MIRR Calculator แบบ client-only รองรับ Cash flow 61 งวดสม่ำเสมอ, IRR หลายราก/รากซ้ำ/ไม่มีราก/นอกช่วง, MIRR แยก Finance/Reinvestment rate, Effective annualization, NPV profile, Timeline และ formula-safe CSV พร้อมคำเตือนด้านการตัดสินใจลงทุน — ส่งมอบและตรวจ Production แล้ว
 
 ## งานที่ชะลอไว้หลังการวิจัย
 
