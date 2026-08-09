@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { ArrowRight, Tags } from "lucide-react";
+import { ArrowRight, BriefcaseBusiness, Tags } from "lucide-react";
 import { ToolIcon } from "@/components/tools/tool-icon";
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { categoryConfigs, getToolsByCategory } from "@/config/tools";
@@ -23,6 +23,11 @@ export default function CategoriesPage() {
           ค้นหาเครื่องมือที่เหมาะกับงานได้เร็วขึ้น แต่ละหมวดรวมเครื่องมือที่เกี่ยวข้องและบอกจำนวนที่พร้อมใช้งาน
         </p>
       </header>
+
+      <aside className="mt-8 flex flex-col gap-4 rounded-2xl border border-primary/15 bg-primary/5 p-5 sm:flex-row sm:items-center sm:justify-between">
+        <div><p className="font-semibold">อยากเลือกจากสายงานของคุณ?</p><p className="mt-1 text-sm leading-6 text-muted-foreground">ดูชุดเครื่องมือสำหรับ Developer, Marketing, SME, บัญชี, HR, Creator และสายงานอื่นได้ทันที</p></div>
+        <Link href="/professions" className="inline-flex shrink-0 items-center gap-2 text-sm font-medium text-primary hover:underline"><BriefcaseBusiness className="size-4" /> ดูตามสายอาชีพ</Link>
+      </aside>
 
       <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
         {categoryConfigs.map((category) => {

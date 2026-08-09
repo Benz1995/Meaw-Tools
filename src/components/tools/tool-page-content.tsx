@@ -7,6 +7,7 @@ import { ToolIcon } from "@/components/tools/tool-icon";
 import { ToolRenderer } from "@/components/tools/tool-renderer";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { getProfessionsForTool } from "@/config/professions";
 import { getCategory, getTool } from "@/config/tools";
 import { siteConfig } from "@/config/site";
 import { serializeJsonLd } from "@/lib/seo/json-ld";
@@ -20,6 +21,7 @@ function JsonLdScript({ value }: { value: unknown }) {
 export function ToolPageContent({ tool }: { tool: ToolConfig }) {
   const related = tool.relatedTools.map(getTool).filter((item): item is ToolConfig => Boolean(item));
   const category = getCategory(tool.category);
+  const professions = getProfessionsForTool(tool.slug);
   const applicationCategory = tool.slug === "bmi-calculator"
     ? "HealthApplication"
     : tool.category === "business"
@@ -84,6 +86,7 @@ export function ToolPageContent({ tool }: { tool: ToolConfig }) {
             <div className="flex flex-wrap items-center gap-2">
               <p className="text-xs font-medium text-primary">{tool.thaiName}</p>
               {category ? <Badge variant="outline" asChild><Link href={`/categories/${category.value}`}>{category.label}</Link></Badge> : null}
+              {professions.slice(0, 2).map((profession) => <Badge key={profession.value} variant="secondary" asChild><Link href={`/professions/${profession.value}`}>{profession.label}</Link></Badge>)}
             </div>
             <h1 className="text-2xl font-bold tracking-tight sm:text-3xl">{tool.name}</h1>
           </div>

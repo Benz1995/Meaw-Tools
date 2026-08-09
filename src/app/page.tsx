@@ -70,6 +70,9 @@ export default function HomePage() {
               <Button size="lg" variant="outline" asChild className="rounded-full border-primary/20 bg-card/70 px-6">
                 <Link href="/categories">เลือกตามหมวดหมู่</Link>
               </Button>
+              <Button size="lg" variant="ghost" asChild className="rounded-full px-5">
+                <Link href="/professions">เลือกตามสายอาชีพ</Link>
+              </Button>
             </div>
           </div>
 

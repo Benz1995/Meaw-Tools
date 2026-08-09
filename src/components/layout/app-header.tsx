@@ -11,7 +11,7 @@ import { Input } from "@/components/ui/input";
 import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 import { tools } from "@/config/tools";
 
-const navigation = [{ href: "/tools", label: "เครื่องมือ" }, { href: "/categories", label: "หมวดหมู่" }, { href: "/about", label: "เกี่ยวกับ" }, { href: "/blog", label: "บทความ" }];
+const navigation = [{ href: "/tools", label: "เครื่องมือ" }, { href: "/categories", label: "หมวดหมู่" }, { href: "/professions", label: "สายอาชีพ" }, { href: "/about", label: "เกี่ยวกับ" }, { href: "/blog", label: "บทความ" }];
 
 export function AppHeader() {
   const router = useRouter();

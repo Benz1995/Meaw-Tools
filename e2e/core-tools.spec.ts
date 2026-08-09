@@ -50,6 +50,7 @@ const toolRoutes = [
   ["vat-calculator", "VAT Calculator Thailand"],
   ["bill-split-calculator", "Bill Split & Shared Expense Calculator"],
   ["budget-calculator", "Budget Calculator & 50/30/20 Planner"],
+  ["roas-calculator", "ROAS & Break-even ROAS Calculator"],
   ["fuel-cost-calculator", "Fuel Cost Calculator"],
   ["unit-converter", "Unit Converter"],
   ["unit-price-comparison-calculator", "Unit Price Comparison Calculator"],
@@ -1679,6 +1680,93 @@ test("budget calculator normalizes mixed pay cycles and exports a private househ
     width: document.documentElement.clientWidth,
     scrollWidth: document.documentElement.scrollWidth,
   }));
+  expect(finalLayout.scrollWidth).toBe(finalLayout.width);
+  expect(hasExternalRequest(requestUrls, page.url())).toBe(false);
+  expect(consoleErrors).toEqual([]);
+});
+
+test("profession pages group existing tools by audience with unique SEO and responsive layouts", async ({ page }) => {
+  const consoleErrors: string[] = [];
+  page.on("console", (message) => {
+    if (message.type() === "error") consoleErrors.push(message.text());
+  });
+  page.on("pageerror", (error) => consoleErrors.push(error.message));
+
+  await page.setViewportSize({ width: 1280, height: 900 });
+  await page.goto("/professions");
+  await expect(page.getByRole("heading", { level: 1, name: "เครื่องมือแบ่งตามสายอาชีพ" })).toBeVisible();
+  await expect(page.getByTestId("profession-card")).toHaveCount(12);
+  await expect(page.locator('link[rel="canonical"]')).toHaveAttribute("href", "https://meaw-tools.vercel.app/professions");
+  await expect(page.getByRole("link", { name: "ดูตามหมวดหมู่" })).toBeVisible();
+
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.goto("/professions/digital-marketing");
+  await expect(page.getByRole("heading", { level: 1, name: "เครื่องมือสำหรับการตลาดดิจิทัล" })).toBeVisible();
+  await expect(page.getByText("ROAS & Break-even ROAS Calculator", { exact: true })).toBeVisible();
+  await expect(page.locator('link[rel="canonical"]')).toHaveAttribute("href", "https://meaw-tools.vercel.app/professions/digital-marketing");
+  const schema = await page.locator('script[type="application/ld+json"]').textContent();
+  expect(schema).toContain("CollectionPage");
+  expect(schema).toContain("ItemList");
+  expect(schema).toContain("https://meaw-tools.vercel.app/roas-calculator");
+
+  const layout = await page.evaluate(() => {
+    const ids = Array.from(document.querySelectorAll<HTMLElement>("[id]")).map((element) => element.id);
+    return { width: document.documentElement.clientWidth, scrollWidth: document.documentElement.scrollWidth, duplicateIds: ids.filter((id, index) => ids.indexOf(id) !== index) };
+  });
+  expect(layout.scrollWidth).toBe(layout.width);
+  expect(layout.duplicateIds).toEqual([]);
+  expect(consoleErrors).toEqual([]);
+});
+
+test("ROAS calculator separates revenue ROAS from profit and exports threshold analysis", async ({ page }) => {
+  const consoleErrors: string[] = [];
+  const requestUrls: string[] = [];
+  page.on("console", (message) => {
+    if (message.type() === "error") consoleErrors.push(message.text());
+  });
+  page.on("pageerror", (error) => consoleErrors.push(error.message));
+  page.on("request", (request) => requestUrls.push(request.url()));
+  await page.setViewportSize({ width: 390, height: 844 });
+
+  await page.goto("/roas-calculator");
+  await expect(page.getByRole("heading", { level: 1, name: "ROAS & Break-even ROAS Calculator" })).toBeVisible();
+  await expect(page.getByText("ยอดขายสูง ไม่ได้แปลว่ากำไรเสมอ", { exact: true })).toBeVisible();
+  await page.evaluate(() => document.fonts.ready);
+
+  const initialLayout = await page.evaluate(() => {
+    const label = document.querySelector<HTMLLabelElement>('label[for="roas-campaign"]');
+    const input = document.querySelector<HTMLInputElement>("#roas-campaign");
+    const labelBox = label?.getBoundingClientRect();
+    const inputBox = input?.getBoundingClientRect();
+    const ids = Array.from(document.querySelectorAll<HTMLElement>("[id]")).map((element) => element.id);
+    return { labelGap: labelBox && inputBox ? Math.round(inputBox.top - labelBox.bottom) : 0, duplicateIds: ids.filter((id, index) => ids.indexOf(id) !== index), overflow: document.documentElement.scrollWidth > document.documentElement.clientWidth };
+  });
+  expect(initialLayout.labelGap).toBeGreaterThanOrEqual(10);
+  expect(initialLayout.duplicateIds).toEqual([]);
+  expect(initialLayout.overflow).toBe(false);
+
+  await page.getByRole("button", { name: "โหลดตัวอย่าง" }).click();
+  await expect(page.locator("#roas-campaign")).toHaveValue("Summer Cat Campaign");
+  await page.getByRole("button", { name: "คำนวณ ROAS และกำไร" }).click();
+  await expect(page.getByTestId("roas-gross")).toContainText("4.00x");
+  await expect(page.getByTestId("roas-net")).toContainText("3.80x");
+  await expect(page.getByTestId("roas-net")).toContainText("380.00%");
+  await expect(page.getByTestId("roas-profit")).toContainText("44,300.00");
+  await expect(page.getByTestId("roas-break-even")).toContainText("2.01x");
+  await expect(page.getByTestId("roas-target")).toContainText("2.89x");
+
+  const csvPromise = page.waitForEvent("download");
+  await page.getByTestId("roas-csv").click();
+  const csvDownload = await csvPromise;
+  expect(csvDownload.suggestedFilename()).toBe("meaw-roas-analysis.csv");
+  const csvPath = await csvDownload.path();
+  expect(csvPath).toBeTruthy();
+  const csv = await readFile(csvPath!, "utf8");
+  expect(csv.startsWith("\uFEFF")).toBe(true);
+  expect(csv).toContain('"Net ROAS","3.8000","x"');
+  expect(csv).toContain('"Profit after ads","44300.00","THB"');
+
+  const finalLayout = await page.evaluate(() => ({ width: document.documentElement.clientWidth, scrollWidth: document.documentElement.scrollWidth }));
   expect(finalLayout.scrollWidth).toBe(finalLayout.width);
   expect(hasExternalRequest(requestUrls, page.url())).toBe(false);
   expect(consoleErrors).toEqual([]);
