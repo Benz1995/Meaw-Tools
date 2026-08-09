@@ -1569,3 +1569,48 @@ UI แบ่ง Scenario/Investment, Net cash flow editor, Result cards, Accessi
 - [OpenStax — Net Present Value Method](https://openstax.org/books/principles-finance/pages/16-2-net-present-value-npv-method)
 - [Google Search Central — Creating helpful, reliable, people-first content](https://developers.google.com/search/docs/fundamentals/creating-helpful-content)
 - [Google Search Central — How Search works and no indexing guarantee](https://developers.google.com/search/docs/fundamentals/how-search-works)
+
+## รอบที่ 46 — IRR, Multiple IRR, MIRR และ NPV Profile (9 สิงหาคม 2569)
+
+รอบนี้ส่งคำตั้งต้น 60 รูปแบบไปยัง Google Autocomplete ภาษาไทย/ประเทศไทย ครอบคลุม IRR, Internal rate of return, MIRR, XIRR, NPV profile, Multiple IRR, Investment, Project, Real estate, Insurance และคำไทย ได้คำแนะนำ 207 รายการไม่ซ้ำ โดยไม่มี Request error จำนวนคำแนะนำเป็น Demand proxy ของความกว้าง Intent เท่านั้น ไม่ใช่ Search volume, Traffic forecast หรือหลักฐานว่าจะติดหน้าแรก Google
+
+สัญญาณตรง `irr calculator`, `internal rate of return calculator`, `mirr calculator`, `rate of return calculator` และ `xirr calculator` ได้ 10/10; `npv and irr calculator` 8/10; `irr calculator investment` 7/10; `irr calculator cash flows` และ `คำนวณ irr` 6/10; `multiple irr calculator` 5/10 และ `modified internal rate of return calculator` 2/10 คำ `irr calculator insurance` ได้ 10/10 แต่มี Product/regulatory assumptions คนละชุด จึงไม่ใช้ Generic calculator แทน ส่วน XIRR/XNPV แยกไว้เพราะต้องใช้วันที่จริงและช่วงเวลาไม่สม่ำเสมอ
+
+ใช้ URL เดียว `irr-calculator` รวม IRR, Multiple/repeated/no-root detection, MIRR, NPV at hurdle rate, NPV profile, Monthly/Quarterly/Yearly interval, Effective annualization, Timeline และ CSV ไม่สร้างหน้า Free, Online, Excel, Formula, Investment หรือ Project แยกซ้ำเพื่อไล่ Keyword และไม่รวม XIRR, Insurance, Real-estate underwriting หรือ Solar model ที่ต้องมี Input และข้อจำกัดเฉพาะ
+
+คะแนน 5 คือสูงที่สุด การจัดอันดับพิจารณา Demand ที่พบ, คุณค่าผู้ใช้จริง, ความต่างจาก 82 tools เดิม, Revenue opportunity, Technical complexity, Scalability, Innovation และความเสี่ยงจากการใช้ผลตัดสินใจลงทุน:
+
+| อันดับ | แนวคิด | Demand ที่พบ | ยาก | คุณค่าธุรกิจ | รายได้ | ขยายต่อ | นวัตกรรม | ข้อสรุป |
+|---:|---|---|---:|---:|---:|---:|---:|---|
+| 1 | IRR & MIRR Calculator | IRR/MIRR 10/10 | 5 | 5 | 5 | 5 | 5 | ส่งมอบ Batch 56; ตรวจหลายราก รากซ้ำ ไม่มีราก MIRR, NPV profile, Timeline และ CSV |
+| 2 | XIRR & XNPV Date Calculator | XIRR 9–10/10 | 5 | 5 | 5 | 5 | 5 | ผู้สมัครถัดไป; ใช้ Actual dates, Day-count basis และ root diagnostics ไม่ซ่อน Guess failure |
+| 3 | NPV & Capital Budgeting Comparison | NPV/IRR 8–10/10 | 5 | 5 | 5 | 5 | 5 | เทียบหลายโครงการบน Hurdle/Horizon เดียว พร้อม Mutually-exclusive และ capital constraint |
+| 4 | Real-estate IRR Model | Real estate 3–4/10 | 5 | 5 | 5 | 5 | 4 | ต้องมี Rent, Vacancy, Capex, Debt, Sale cost, Tax boundary และ Levered/Unlevered แยกชัด |
+| 5 | Insurance Policy IRR Analyzer | Insurance 10/10 | 5 | 5 | 5 | 4 | 4 | Demand สูงแต่ต้องแยก Premium, Benefit, Surrender, Dividend และไม่ใช้ IRR แทนความเหมาะสมของกรมธรรม์ |
+| 6 | Profitability Index & Capital Rationing | Related capital budgeting | 5 | 5 | 5 | 5 | 5 | ใช้ NPV ต่อเงินลงทุนและ Optimizer ภายใต้งบจำกัด พร้อมข้อจำกัดโครงการที่เลือกพร้อมกันไม่ได้ |
+| 7 | Equipment Replacement Analysis | Project/equipment related | 5 | 5 | 5 | 5 | 4 | เทียบ Keep/Replace ด้วย Incremental cash flow, Tax, Salvage, Downtime และ Equivalent annual cost |
+| 8 | Solar Project IRR Calculator | Solar exact 1/10 | 5 | 5 | 5 | 5 | 4 | ต้องมี Generation, Degradation, Tariff, Export credit, Maintenance และ Location assumption |
+| 9 | Private-equity MOIC to IRR | Private equity 1/10 | 4 | 4 | 5 | 4 | 4 | เหมาะ intent เฉพาะ ต้องรองรับ Interim cash flow และเตือนว่า MOIC ไม่สะท้อนเวลา |
+| 10 | Investment Appraisal Comparison | Related 2–8/10 | 5 | 5 | 5 | 5 | 5 | รวม NPV, IRR, MIRR, PI, Payback และ Discounted payback โดยไม่สรุปผ่าน/ไม่ผ่านอัตโนมัติ |
+| 11 | WACC & Discount-rate Worksheet | Reinvestment/rate related 2–3/10 | 5 | 5 | 5 | 5 | 4 | ต้องแยก Cost of debt/equity, Tax shield, Capital structure และ Source-date ของ Market inputs |
+| 12 | Cash-flow Scenario Builder | Cash-flow related 4/10 | 5 | 5 | 4 | 5 | 5 | สร้าง Base/Downside/Upside, Sensitivity และ Export เพื่อนำเข้า IRR/XIRR โดยไม่เรียก Forecast ว่ารับรอง |
+| 13 | Buy-vs-Lease Calculator | Related finance intent | 5 | 5 | 5 | 5 | 4 | ใช้ After-tax incremental cash flow, Residual, Maintenance และ Financing timing คนละ Workflow กับ IRR ทั่วไป |
+| 14 | Capital Recovery Factor Calculator | Formula intent ต่ำ | 3 | 4 | 3 | 5 | 3 | มีประโยชน์งานวิศวกรรม แต่ควรรวมกับ Equivalent annual cost มากกว่าสร้างหน้าบาง |
+| 15 | Venture Project IRR & Dilution Model | Project IRR related | 5 | 4 | 5 | 4 | 5 | ต้องแยก Company cash flow กับ Investor cash flow, Round dilution, Exit และ Preference waterfall |
+
+Batch 56 แปลงสมการ NPV เป็นพหุนาม `P(q) = Σ CF_t q^t` โดย `q = 1 ÷ (1 + r)` และค้นหาเฉพาะ `q > 0` จึงเท่ากับอัตรา `r > -100%` ใช้รากของอนุพันธ์แบ่งช่วง Monotonic ก่อน Bisection และตรวจ Critical point เพื่อจับรากซ้ำที่เพียงสัมผัสแกน ไม่พึ่ง Guess เดียว ช่วงที่ประกาศคือมากกว่า -99.99% ถึง 100,000% ต่องวด และแยกสถานะรากอยู่นอกช่วงเมื่อ Cash flow แบบ Conventional มี Sign change หนึ่งครั้งแต่ไม่พบรากในช่วง
+
+MIRR ใช้ `PV` ของ Cash flow ติดลบที่ Finance rate, `FV` ของ Cash flow บวกที่ Reinvestment rate และ `MIRR = (FV positive ÷ −PV negative)^(1 ÷ Horizon) − 1` อัตรารายปีที่กรอกเป็น Effective annual rate และแปลงต่องวดด้วย `(1 + annual rate)^(1 ÷ periods per year) − 1` การคำนวณทั้งหมดทำใน Browser จำกัด 61 แถวและจำนวนเงินต่อแถว ป้องกัน Spreadsheet Formula Injection ใน CSV และระบุชัดว่าไม่รองรับวันที่ไม่สม่ำเสมอ
+
+OpenStax อธิบาย IRR เป็นอัตราที่ทำให้ NPV เท่ากับศูนย์, NPV profile, กรณีหลาย IRR และข้อจำกัดของ Reinvestment assumption ส่วน MIRR ใช้ Reinvestment rate ที่สมเหตุผลกว่าและให้คำตอบเดียวภายใต้สมมติฐานที่กำหนด Microsoft ระบุว่า IRR/MIRR ใช้ Cash flow ที่เกิดเป็นงวดสม่ำเสมอและต้องมีทั้งค่าบวกกับค่าลบ หน้าเครื่องมือจึงแสดงสมมติฐานและคำเตือน ไม่แสดง IRR เดียวแบบเงียบ ๆ และไม่รับรองผลตอบแทน
+
+- [Google Autocomplete — irr calculator](https://suggestqueries.google.com/complete/search?client=firefox&hl=th&gl=th&q=irr%20calculator)
+- [Google Autocomplete — mirr calculator](https://suggestqueries.google.com/complete/search?client=firefox&hl=th&gl=th&q=mirr%20calculator)
+- [Google Autocomplete — xirr calculator](https://suggestqueries.google.com/complete/search?client=firefox&hl=th&gl=th&q=xirr%20calculator)
+- [Google Autocomplete — คำนวณ irr](https://suggestqueries.google.com/complete/search?client=firefox&hl=th&gl=th&q=%E0%B8%84%E0%B8%B3%E0%B8%99%E0%B8%A7%E0%B8%93%20irr)
+- [OpenStax Principles of Finance 2e — Internal Rate of Return](https://openstax.org/books/principles-of-finance-2e/pages/16-3-internal-rate-of-return-irr-method)
+- [OpenStax Principles of Finance 2e — Modified Internal Rate of Return](https://openstax.org/books/principles-of-finance-2e/pages/16-4-alternative-methods)
+- [Microsoft Support — IRR function](https://support.microsoft.com/en-us/excel/functions/irr-function)
+- [Microsoft Support — MIRR function](https://support.microsoft.com/en-us/excel/functions/mirr-function)
+- [Google Search Central — Creating helpful, reliable, people-first content](https://developers.google.com/search/docs/fundamentals/creating-helpful-content)
+- [Google Search Central — Spam policies and doorway abuse](https://developers.google.com/search/docs/essentials/spam-policies)

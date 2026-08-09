@@ -70,6 +70,7 @@ const toolRoutes = [
   ["coffee-roasting-calculator", "Coffee Roasting Calculator"],
   ["break-even-calculator", "Break-even Calculator"],
   ["payback-period-calculator", "Payback Period Calculator"],
+  ["irr-calculator", "IRR & MIRR Calculator"],
   ["jpg-to-pdf", "JPG to PDF Converter"],
   ["qr-code-generator", "QR Code Generator"],
   ["barcode-generator", "Barcode Generator"],
@@ -2645,6 +2646,86 @@ test("payback calculator compares simple and discounted recovery, NPV, timeline,
   expect(csv).toContain('"Simple payback","4.000000","period"');
   expect(csv).toContain('"Discounted payback","5.048876","period"');
   expect(csv).toContain('"Net present value (NPV)","28356.19","THB"');
+
+  const finalLayout = await page.evaluate(() => ({
+    width: document.documentElement.clientWidth,
+    scrollWidth: document.documentElement.scrollWidth,
+  }));
+  expect(finalLayout.scrollWidth).toBe(finalLayout.width);
+  expect(hasExternalRequest(requestUrls, page.url())).toBe(false);
+  expect(consoleErrors).toEqual([]);
+});
+
+test("IRR calculator explains its assumptions, renders the NPV profile, and exports a local CSV without mobile overflow", async ({ page }) => {
+  const consoleErrors: string[] = [];
+  const requestUrls: string[] = [];
+  page.on("console", (message) => {
+    if (message.type() === "error") consoleErrors.push(message.text());
+  });
+  page.on("pageerror", (error) => consoleErrors.push(error.message));
+  page.on("request", (request) => requestUrls.push(request.url()));
+  await page.setViewportSize({ width: 390, height: 844 });
+
+  await page.goto("/irr-calculator");
+  await expect(page.getByRole("heading", { level: 1, name: "IRR & MIRR Calculator" })).toBeVisible();
+  await expect(page.getByText("ใช้กับกระแสเงินสดที่เกิดเป็นงวดสม่ำเสมอ", { exact: true })).toBeVisible();
+  await expect(page.locator("#irr-scenario-name")).toBeVisible();
+  await page.evaluate(() => document.fonts.ready);
+
+  const initialLayout = await page.evaluate(() => {
+    const label = document.querySelector<HTMLLabelElement>('label[for="irr-scenario-name"]');
+    const input = document.querySelector<HTMLInputElement>("#irr-scenario-name");
+    const labelBox = label?.getBoundingClientRect();
+    const inputBox = input?.getBoundingClientRect();
+    const ids = Array.from(document.querySelectorAll<HTMLElement>("[id]")).map((element) => element.id);
+    return {
+      labelGap: labelBox && inputBox ? Math.round(inputBox.top - labelBox.bottom) : 0,
+      duplicateIds: ids.filter((id, index) => ids.indexOf(id) !== index),
+      overflow: document.documentElement.scrollWidth > document.documentElement.clientWidth,
+    };
+  });
+  expect(initialLayout.labelGap).toBeGreaterThanOrEqual(10);
+  expect(initialLayout.duplicateIds).toEqual([]);
+  expect(initialLayout.overflow).toBe(false);
+
+  await page.getByRole("button", { name: "โหลดตัวอย่าง" }).click();
+  await expect(page.locator("#irr-scenario-name")).toHaveValue("เครื่องจักรใหม่ · แผน 5 ปี");
+  await page.getByRole("button", { name: "คำนวณ IRR และ MIRR" }).click();
+
+  await expect(page.getByTestId("irr-primary")).toContainText("13.073554%");
+  await expect(page.getByTestId("mirr-primary")).toContainText("12.609413%");
+  await expect(page.getByTestId("irr-npv")).toContainText("+฿9,859.42");
+  await expect(page.getByTestId("irr-pattern")).toContainText("1 Sign change");
+  await expect(page.getByRole("img", { name: /กราฟ NPV profile/ })).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Timeline ที่ Hurdle rate" })).toBeVisible();
+  await expect(page.getByTestId("irr-result")).toContainText("Finance rate");
+  await expect(page.getByTestId("irr-result")).toContainText("Reinvestment");
+
+  const csvPromise = page.waitForEvent("download");
+  await page.getByTestId("irr-csv").click();
+  const csvDownload = await csvPromise;
+  expect(csvDownload.suggestedFilename()).toBe("meaw-irr-mirr.csv");
+  const csvPath = await csvDownload.path();
+  expect(csvPath).toBeTruthy();
+  const csv = await readFile(csvPath!, "utf8");
+  expect(csv.startsWith("\uFEFF")).toBe(true);
+  expect(csv).toContain('"IRR & MIRR Calculator","เครื่องจักรใหม่ · แผน 5 ปี"');
+  expect(csv).toContain('"MIRR"');
+  expect(csv).toContain('"งวด","ชื่อ","Cash flow","Discount factor","Present value","Cumulative present value"');
+
+  await page.getByRole("button", { name: "ล้างข้อมูล" }).click();
+  await page.locator("#irr-scenario-name").fill("ตัวอย่างหลายราก");
+  for (const period of [5, 4, 3]) await page.getByRole("button", { name: `ลบงวด ${period}` }).click();
+  const cashFlowInputs = page.getByRole("spinbutton", { name: "Cash flow" });
+  await cashFlowInputs.nth(0).fill("-100");
+  await cashFlowInputs.nth(1).fill("230");
+  await cashFlowInputs.nth(2).fill("-132");
+  await page.getByRole("button", { name: "คำนวณ IRR และ MIRR" }).click();
+  await expect(page.getByText(/พบ IRR หลายค่า/)).toBeVisible();
+  await expect(page.getByTestId("irr-primary")).toContainText("2 ค่า");
+  await expect(page.getByTestId("irr-root")).toHaveCount(2);
+  await expect(page.getByTestId("irr-root").nth(0)).toContainText("10.00%");
+  await expect(page.getByTestId("irr-root").nth(1)).toContainText("20.00%");
 
   const finalLayout = await page.evaluate(() => ({
     width: document.documentElement.clientWidth,
