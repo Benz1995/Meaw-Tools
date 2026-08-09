@@ -68,6 +68,7 @@ const toolRoutes = [
   ["drink-cost-calculator", "Drink, Cocktail & Liquor Cost Calculator"],
   ["coffee-cost-calculator", "Coffee Cost Calculator"],
   ["coffee-roasting-calculator", "Coffee Roasting Calculator"],
+  ["break-even-calculator", "Break-even Calculator"],
   ["jpg-to-pdf", "JPG to PDF Converter"],
   ["qr-code-generator", "QR Code Generator"],
   ["barcode-generator", "Barcode Generator"],
@@ -2482,6 +2483,75 @@ test("coffee roasting calculator handles roast loss, batch cost, bag pricing, mo
   expect(csv).toContain('"จำนวนถุงเต็ม","340","ถุง"');
 
   const finalLayout = await page.evaluate(() => ({ width: document.documentElement.clientWidth, scrollWidth: document.documentElement.scrollWidth }));
+  expect(finalLayout.scrollWidth).toBe(finalLayout.width);
+  expect(hasExternalRequest(requestUrls, page.url())).toBe(false);
+  expect(consoleErrors).toEqual([]);
+});
+
+test("break-even calculator handles product mix, CVP graph, target profit, capacity, and local CSV without mobile overflow", async ({ page }) => {
+  const consoleErrors: string[] = [];
+  const requestUrls: string[] = [];
+  page.on("console", (message) => {
+    if (message.type() === "error") consoleErrors.push(message.text());
+  });
+  page.on("pageerror", (error) => consoleErrors.push(error.message));
+  page.on("request", (request) => requestUrls.push(request.url()));
+  await page.setViewportSize({ width: 390, height: 844 });
+
+  await page.goto("/break-even-calculator");
+  await expect(page.getByRole("heading", { level: 1, name: "Break-even Calculator" })).toBeVisible();
+  await expect(page.locator("main header").getByText("คำนวณจุดคุ้มทุน", { exact: true })).toBeVisible();
+  await expect(page.locator("#break-even-scenario-name")).toBeVisible();
+  await page.evaluate(() => document.fonts.ready);
+
+  const initialLayout = await page.evaluate(() => {
+    const label = document.querySelector<HTMLLabelElement>('label[for="break-even-scenario-name"]');
+    const input = document.querySelector<HTMLInputElement>("#break-even-scenario-name");
+    const labelBox = label?.getBoundingClientRect();
+    const inputBox = input?.getBoundingClientRect();
+    const ids = Array.from(document.querySelectorAll<HTMLElement>("[id]")).map((element) => element.id);
+    return {
+      labelGap: labelBox && inputBox ? Math.round(inputBox.top - labelBox.bottom) : 0,
+      duplicateIds: ids.filter((id, index) => ids.indexOf(id) !== index),
+      overflow: document.documentElement.scrollWidth > document.documentElement.clientWidth,
+    };
+  });
+  expect(initialLayout.labelGap).toBeGreaterThanOrEqual(10);
+  expect(initialLayout.duplicateIds).toEqual([]);
+  expect(initialLayout.overflow).toBe(false);
+
+  await page.getByRole("button", { name: "โหลดตัวอย่าง" }).click();
+  await expect(page.locator("#break-even-scenario-name")).toHaveValue("Coffee shop · แผนรายเดือน");
+  await expect(page.getByText("Mix 100%", { exact: true })).toBeVisible();
+  await page.getByRole("button", { name: "คำนวณจุดคุ้มทุน" }).click();
+
+  await expect(page.getByTestId("break-even-units")).toContainText("2,104");
+  await expect(page.getByTestId("break-even-units")).toContainText("2,103.2505");
+  await expect(page.getByTestId("break-even-revenue")).toContainText("฿171,414.91");
+  await expect(page.getByTestId("break-even-contribution")).toContainText("฿52.30");
+  await expect(page.getByTestId("break-even-target-units")).toContainText("2,869");
+  await expect(page.getByTestId("break-even-operating-profit")).toContainText("+฿46,900.00");
+  await expect(page.getByTestId("break-even-margin-safety")).toContainText("29.89%");
+  await expect(page.getByRole("img", { name: /กราฟรายได้ ต้นทุนรวม จุดคุ้มทุน/ })).toBeVisible();
+  await expect(page.getByText("Capacity รองรับเป้าหมายที่กรอก", { exact: true })).toBeVisible();
+  await expect(page.getByTestId("break-even-result")).toContainText("Product mix ที่ใช้คำนวณ");
+
+  const csvPromise = page.waitForEvent("download");
+  await page.getByRole("button", { name: "ดาวน์โหลด CSV" }).click();
+  const csvDownload = await csvPromise;
+  expect(csvDownload.suggestedFilename()).toBe("meaw-business-break-even.csv");
+  const csvPath = await csvDownload.path();
+  expect(csvPath).toBeTruthy();
+  const csv = await readFile(csvPath!, "utf8");
+  expect(csv.startsWith("\uFEFF")).toBe(true);
+  expect(csv).toContain('"Break-even revenue","171414.91","THB"');
+  expect(csv).toContain('"Operating profit","46900.00","THB"');
+  expect(csv).toContain('"Americano","70.00","20.00","40.0000"');
+
+  const finalLayout = await page.evaluate(() => ({
+    width: document.documentElement.clientWidth,
+    scrollWidth: document.documentElement.scrollWidth,
+  }));
   expect(finalLayout.scrollWidth).toBe(finalLayout.width);
   expect(hasExternalRequest(requestUrls, page.url())).toBe(false);
   expect(consoleErrors).toEqual([]);

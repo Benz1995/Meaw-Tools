@@ -1477,3 +1477,49 @@ UI แบ่ง Green coffee/Batch, Post-roast measurement, Energy/Labor แล�
 - [NIST — SI Units Mass](https://www.nist.gov/pml/owm/si-units-mass)
 - [Google Search Central — Creating helpful, reliable, people-first content](https://developers.google.com/search/docs/fundamentals/creating-helpful-content)
 - [Google Search Central Blog — Doorway pages](https://developers.google.com/search/blog/2015/03/an-update-on-doorway-pages)
+
+## รอบที่ 44 — Business Break-even, Contribution Margin และ Cost–Volume–Profit (9 สิงหาคม 2569)
+
+รอบนี้ส่งคำตั้งต้น 60 รูปแบบไปยัง Google Autocomplete ภาษาไทย/ประเทศไทย ครอบคลุม Break-even, Contribution margin, Fixed/Variable cost, Target profit, Margin of safety, Product mix, Profit, Cash flow, ROI และ Vertical ธุรกิจ ได้คำแนะนำรวม 212 รายการไม่ซ้ำ จำนวนคำแนะนำเป็น Demand proxy ของความกว้าง Intent เท่านั้น ไม่ใช่ Search volume, Traffic forecast หรือหลักฐานว่าจะติดหน้าแรก Google
+
+สัญญาณกว้างที่สุดคือ `break even calculator`, `break even point calculator`, `contribution margin calculator`, `variable cost calculator`, `business profit calculator`, `payback period calculator`, `ecommerce profit calculator`, `etsy profit calculator` และ `shopify profit calculator` ได้ 10/10 แต่คำ Break-even กว้างมี Social Security, Mortgage, Pension และ ROAS ปน ขณะที่ `break even analysis calculator` ได้ 9/10, `unit economics calculator` และ `restaurant profit calculator` 8/10, `break even sales calculator` 7/10, `equipment roi calculator` 6/10, `คำนวณจุดคุ้มทุน` 5/10 แต่มี Solar cell ปน, `business break even calculator` 3/10 และ `coffee shop profit calculator` 2/10 ส่วน `coffee shop break even calculator` ไม่เกิดคำแนะนำในรอบนี้
+
+จึงใช้ URL เดียว `break-even-calculator` รวม Break-even point, Contribution margin, Fixed/Variable cost, Break-even units/revenue, Target operating profit, Margin of safety, Multi-product mix, Capacity และกราฟ CVP เพราะใช้แกน Input/สูตรเดียวกัน ไม่สร้างหน้า Coffee shop, Restaurant, Service, Free, Online, Excel หรือ Graph แยกซ้ำเพื่อไล่ Keyword ส่วน Payback period, Unit economics และ Cash-flow forecast แยกไว้ เพราะต้องใช้ Investment/cash-flow timing, CAC/LTV หรือ Opening balance/credit terms คนละ Workflow
+
+คะแนน 5 คือสูงที่สุด การจัดอันดับพิจารณา Demand ที่พบ, คุณค่าผู้ใช้จริง, ความต่างจาก 80 tools เดิม, ความโปร่งใสของสูตร, Revenue opportunity, Scalability, Innovation และความเสี่ยงจากการตีความข้อมูลผิด:
+
+| อันดับ | แนวคิด | Demand ที่พบ | ยาก | คุณค่าธุรกิจ | รายได้ | ขยายต่อ | นวัตกรรม | ข้อสรุป |
+|---:|---|---|---:|---:|---:|---:|---:|---|
+| 1 | Business Break-even & CVP Calculator | Break-even/Point 10/10; Analysis 9/10; ไทย 5/10 | 5 | 5 | 5 | 5 | 5 | ส่งมอบ Batch 54; Single/Multi-product, Unit mix, Fixed/Variable, Target, Safety, Capacity, Graph และ CSV |
+| 2 | Contribution Margin Calculator | 10/10 | 3 | 5 | 5 | 5 | 3 | Formula/Ratio/Unit/Weighted intent รวมใน Batch 54 แล้ว ไม่สร้างหน้าบางซ้ำ |
+| 3 | Payback Period & Discounted Payback Calculator | 10/10 | 5 | 5 | 5 | 5 | 4 | ผู้สมัคร Batch ถัดไป; ต้องรองรับ Irregular cash flow, Timing, Discount rate และเปรียบเทียบกับ NPV โดยไม่รับรองการลงทุน |
+| 4 | Unit Economics Calculator | 8/10 | 5 | 5 | 5 | 5 | 5 | รวม Revenue/Order, Variable fulfillment, Contribution, CAC, LTV:CAC และ Payback โดยแยก Cohort assumption |
+| 5 | Restaurant Profit & Prime Cost Calculator | 8/10 | 5 | 5 | 5 | 5 | 4 | ใช้ Period sales, COGS, Labor, Occupancy และ Other Opex ไม่ใช้ Food cost ต่อเมนูแทน P&L |
+| 6 | Equipment ROI & Buy-vs-Lease Calculator | 6/10 | 5 | 5 | 5 | 5 | 4 | รวม Incremental cash flow, Maintenance, Downtime, Useful life และ Residual value พร้อม Sensitivity |
+| 7 | Cash-flow Forecast Calculator | 3/10 | 5 | 5 | 5 | 5 | 5 | ต้องมี Opening cash, Receivable/Payable timing, Recurring items, Minimum cash และไม่ใช้ Profit แทน Cash |
+| 8 | Small-business Profit Scenario | Business profit 10/10; Small business 4/10 | 4 | 5 | 5 | 5 | 4 | ต้องรวม Revenue streams, COGS/Opex และ Scenario โดยไม่ซ้ำ Profit Margin ต่อหน่วยหรือ Project Profit |
+| 9 | E-commerce Order Profit Calculator | 10/10 แต่ India/App/Extension intent ปน | 4 | 5 | 5 | 5 | 4 | รวม Product cost, Payment fee, Shipping, Returns, Ad spend และ Tax basis โดยไม่ผูก Platform เดียว |
+| 10 | Restaurant Break-even & Capacity Planner | Break-even 1/10; Profit 8/10 | 4 | 5 | 5 | 5 | 4 | Generic workflow รวม Batch 54 แล้ว ค่อยแยกเมื่อมี Seats/Turnover/Daypart/Product mix ที่ต่างจริง |
+| 11 | Margin of Safety & Operating Leverage | Related CVP intent | 4 | 5 | 4 | 5 | 4 | Margin of safety รวม Batch 54; Operating leverage ต้องมี Actual volume และ warning เมื่อ Profit ใกล้ศูนย์ |
+| 12 | Fixed/Variable/Mixed Cost Splitter | Variable cost 10/10 | 5 | 4 | 4 | 5 | 5 | ต้องใช้หลายงวดและวิธี High-low/Regression พร้อม Outlier/causality warning ไม่ควรเดาจากงวดเดียว |
+| 13 | Multi-product Sales Mix Optimizer | Weighted CM 0–3/10 | 5 | 5 | 4 | 5 | 5 | Batch 54 วิเคราะห์ Mix ที่กำหนด แต่ Optimizer ต้องเพิ่ม Demand/Capacity/Constraint และ Linear programming |
+| 14 | Marketplace Profit Calculator | Etsy/Shopify 10/10 | 5 | 4 | 5 | 4 | 4 | Fee/Tax/Country/Plan เปลี่ยนเร็ว ต้อง Version rules หรือให้ผู้ใช้กรอกอัตราเอง ไม่อ้างค่าปัจจุบันโดยไม่ตรวจ |
+| 15 | Service-business Capacity Break-even | Exact 1–3/10 | 4 | 5 | 4 | 5 | 4 | Batch 54 ใช้หน่วยบริการได้แล้ว งานแยกต้องมี Billable utilization, Staffing tiers และ Queue/appointment constraint |
+
+Batch 54 ใช้ `Contribution per unit = Selling price − Variable cost per unit`, `Weighted contribution = Σ(Unit mix × Contribution per unit)`, `Break-even units = Fixed costs ÷ Weighted contribution`, `Break-even revenue = Fixed costs ÷ Weighted contribution margin ratio` และ `Target units = (Fixed costs + Target operating profit) ÷ Weighted contribution` Product mix เป็นสัดส่วนจำนวนหน่วยและต้องรวม 100% ไม่ใช่ Revenue share
+
+Current scenario ใช้ `Revenue = Current total units × Weighted price`, `Operating profit = Contribution − Fixed costs` และ `Margin of safety % = (Current revenue − Break-even revenue) ÷ Current revenue × 100` ส่วน Capacity scenario เทียบ Break-even/Target units กับจำนวนหน่วยสูงสุดที่ผู้ใช้กรอก ไม่จำลอง Step cost, Queue, Demand หรือ Production bottleneck อัตโนมัติ
+
+U.S. Small Business Administration อธิบายสูตร Break-even units/sales dollars และการแยก Fixed, Variable และ Semi-variable cost ส่วน OpenStax อธิบาย Contribution margin, Target operating profit, Composite unit และข้อสมมติว่า Sales mix คงที่สำหรับ Multi-product CVP หน้าเครื่องมือจึงแสดง Exact/rounded units แยกกัน, ยอมให้เห็น Loss-leader รายการเดี่ยวแต่หยุดเมื่อ Weighted contribution ไม่เป็นบวก และเรียกผลหลังหัก Fixed cost ที่กรอกว่า Operating profit ไม่ใช่ Net profit
+
+UI แบ่ง Scenario, Fixed costs, Product/service cards, Unit mix badge, Current/Target/Capacity ใช้ Label gap สม่ำเสมอ, Responsive cards, ตารางเลื่อนภายใน, กราฟ SVG ที่มี title/description, Formula panel, Error state และ CSV ทุกข้อมูลคำนวณใน Browser ไม่มี API หรือ LocalStorage ชื่อ Scenario/สินค้าใน CSV ถูกป้องกัน Spreadsheet Formula Injection และหน่วยเงินไม่มี FX conversion
+
+- [Google Autocomplete — break even point calculator](https://suggestqueries.google.com/complete/search?client=firefox&hl=th&gl=th&q=break%20even%20point%20calculator)
+- [Google Autocomplete — contribution margin calculator](https://suggestqueries.google.com/complete/search?client=firefox&hl=th&gl=th&q=contribution%20margin%20calculator)
+- [Google Autocomplete — variable cost calculator](https://suggestqueries.google.com/complete/search?client=firefox&hl=th&gl=th&q=variable%20cost%20calculator)
+- [Google Autocomplete — คำนวณจุดคุ้มทุน](https://suggestqueries.google.com/complete/search?client=firefox&hl=th&gl=th&q=%E0%B8%84%E0%B8%B3%E0%B8%99%E0%B8%A7%E0%B8%93%E0%B8%88%E0%B8%B8%E0%B8%94%E0%B8%84%E0%B8%B8%E0%B9%89%E0%B8%A1%E0%B8%97%E0%B8%B8%E0%B8%99)
+- [U.S. Small Business Administration — Break-even point](https://www.sba.gov/business-guide/plan-your-business/calculate-your-startup-costs/break-even-point)
+- [OpenStax — Calculate a Break-even Point in Units and Dollars](https://openstax.org/books/principles-managerial-accounting/pages/3-2-calculate-a-break-even-point-in-units-and-dollars)
+- [OpenStax — Multi-product Break-even and Sales Mix](https://openstax.org/books/principles-managerial-accounting/pages/3-4-perform-break-even-sensitivity-analysis-for-a-multi-product-environment-under-changing-business-situations)
+- [Google Search Central — Creating helpful, reliable, people-first content](https://developers.google.com/search/docs/fundamentals/creating-helpful-content)
+- [Google Search Central Blog — Doorway pages](https://developers.google.com/search/blog/2015/03/an-update-on-doorway-pages)
