@@ -1601,6 +1601,8 @@ Batch 62 ใช้ `Required price = (Unit cost + Fixed fee/unit + Fixed fee/ord
 
 Shopify ระบุ Margin เป็น `(Price − Cost) ÷ Price × 100` และแนะนำให้เริ่มจากต้นทุนรวมก่อนตรวจตลาด Value proposition กับวิธีตั้งราคา ขณะที่ Stripe อธิบาย Pricing scheme แบบ Variable, Fixed และ Blended จึงให้ผู้ใช้กรอก Rate ปัจจุบันเองแทนการฝัง Preset ของแพลตฟอร์ม OpenStax แยก Markup ซึ่งหารด้วย Purchase price ออกจาก Gross margin ที่สัมพันธ์กับ Sales และ COGS หน้าเครื่องมือจึงแสดงทั้งสองค่าและไม่ใช้แทนกัน
 
+Production verification ที่ `https://meaw-tools.vercel.app/wholesale-price-calculator` ผ่านตัวอย่างกระเป๋าผ้าแมว โดยต้นทุนรวม 180 บาท/หน่วย ช่องทางขายส่งต้องตั้ง 249.32 บาท, ร้านออนไลน์ 333.33 บาท, Marketplace 363.64 บาท และราคาปลีกแนะนำ 415.53 บาท หน้า Mobile 390 px ทั้ง Light/Dark ไม่มี Horizontal overflow, Dark mode ใช้พื้นดำจริง, Label/Input ห่าง 22 px, ไม่มี ID ซ้ำ และ Console ไม่มี Error/Warning Canonical, FAQPage, WebApplication, Prerender และ Sitemap มี URL ใหม่ครบ ส่วน Vercel production log หลัง Deploy ไม่พบ Error หรือ HTTP 500
+
 - [Google Autocomplete — wholesale price calculator](https://suggestqueries.google.com/complete/search?client=firefox&hl=th&gl=th&q=wholesale%20price%20calculator)
 - [Google Autocomplete — retail price calculator](https://suggestqueries.google.com/complete/search?client=firefox&hl=th&gl=th&q=retail%20price%20calculator)
 - [Google Autocomplete — calculate price from margin](https://suggestqueries.google.com/complete/search?client=firefox&hl=th&gl=th&q=calculate%20price%20from%20margin)
