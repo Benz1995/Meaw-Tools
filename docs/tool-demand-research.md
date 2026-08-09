@@ -1570,6 +1570,43 @@ UI แบ่ง Scenario/Investment, Net cash flow editor, Result cards, Accessi
 - [Google Search Central — Creating helpful, reliable, people-first content](https://developers.google.com/search/docs/fundamentals/creating-helpful-content)
 - [Google Search Central — How Search works and no indexing guarantee](https://developers.google.com/search/docs/fundamentals/how-search-works)
 
+## รอบที่ 51 — EOQ, Order Quantity, Quantity Discount และ Inventory Holding Cost (9 สิงหาคม 2569)
+
+รอบแรกส่งคำตั้งต้น 20 รูปแบบครอบคลุม Bulk buy/purchase/discount/order, Quantity discount, Cost savings, Storage cost, Inventory holding/carrying cost, EOQ, Wholesale price และคำไทยไปยัง Google Autocomplete ภาษาไทย/ประเทศไทย ได้คำแนะนำ 63 รายการไม่ซ้ำ ไม่มี Request error และมี 3 คำตั้งต้นที่คืนผลเต็ม 10/10 แต่ `bulk buy break even calculator`, `bulk vs retail calculator`, `คำนวณซื้อยกลัง` และ `คำนวณราคาขายส่ง` ได้ 0/10 จึงไม่ใช้ชื่อ Bulk Buy Break-even เป็นหน้าหลัก
+
+รอบเจาะ EOQ อีก 20 คำตั้งต้นได้ 33 คำแนะนำไม่ซ้ำ ไม่มี Request error สัญญาณตรง `สูตร eoq` 8/10, `order quantity calculator` 7/10, `eoq calculator` 5/10, `economic order quantity calculator` 4/10, `optimal order quantity calculator`, `quantity discount calculator`, `inventory holding cost calculator`, `inventory carrying cost calculator`, `annual ordering cost calculator` และ `reorder quantity calculator` อย่างละ 2/10 ส่วน `คำนวณ eoq` ได้ 0/10 จำนวนคำแนะนำใช้เป็น Demand proxy ของความกว้าง Intent เท่านั้น ไม่ใช่ Search volume, Traffic forecast หรือหลักฐานว่าจะติดหน้าแรก Google
+
+ใช้ URL เดียว `eoq-calculator` รวม EOQ, Economic Order Quantity, Order quantity, Quantity discount, Ordering cost, Holding/Carrying cost, MOQ, Pack size และ Capacity เพราะเป็น Workflow เดียว ไม่สร้างหน้า Formula, Online, Free หรือแต่ละตัวแปรแยกซ้ำ หน้า `safety-stock-calculator` ตอบว่า Inventory position ระดับใดควรเริ่มสั่งและจัดการความผันผวน ส่วนหน้า EOQ ตอบว่าควรสั่งครั้งละเท่าไรเพื่อลด Ordering + Holding + Purchase cost จึงเชื่อมกันแต่ไม่ใช้ Primary intent เดียวกัน
+
+คะแนน 5 คือสูงที่สุด การจัดอันดับพิจารณา Demand ที่พบ, คุณค่าผู้ใช้จริง, ความต่างจาก 87 tools เดิม, Revenue opportunity, Technical complexity, Scalability, Innovation และความเสี่ยงจากสมมติฐาน Inventory:
+
+| อันดับ | แนวคิด | Demand ที่พบ | ยาก | คุณค่าธุรกิจ | รายได้ | ขยายต่อ | นวัตกรรม | ข้อสรุป |
+|---:|---|---|---:|---:|---:|---:|---:|---|
+| 1 | EOQ & Quantity Discount Calculator | สูตร EOQ 8/10; Order quantity 7/10; EOQ 5/10 | 5 | 5 | 5 | 5 | 5 | Batch 61; Classical EOQ + All-units discount + MOQ/Pack/Capacity + Current policy + CSV |
+| 2 | Order Quantity Calculator | 7/10 | 4 | 5 | 5 | 5 | 4 | Primary intent รวม Batch 61 ไม่สร้างหน้าซ้ำ |
+| 3 | Quantity Discount Calculator | 2/10; Bulk discount 3/10 รอบแรก | 4 | 5 | 5 | 5 | 4 | รวม Price tier และ Total annual cost ใน Batch 61 |
+| 4 | Inventory Holding/Carrying Cost Calculator | อย่างละ 2/10 | 4 | 5 | 5 | 5 | 4 | รวมยอดต่อหน่วยหรือเปอร์เซ็นต์ใน Batch 61 งานแยกควรมี Cost category audit จริง |
+| 5 | Wholesale Price Calculator | 10/10 รอบแรก | 4 | 5 | 5 | 5 | 3 | Demand สูงแต่ Intent เป็น Seller pricing มากกว่า Inventory; วิจัย Margin, Retail markup และ Channel fee รอบถัดไป |
+| 6 | Storage Cost Calculator | 10/10 แต่ Cloud intent ปนมาก | 5 | 4 | 5 | 5 | 4 | ยังไม่เลือกเพราะ AWS/Azure/S3 intent กลบ Warehouse/Pallet ต้องแยก Query ใหม่ |
+| 7 | Cost Savings Calculator | 10/10 แต่ EV/LED/Fuel intent ปน | 5 | 4 | 5 | 5 | 4 | Generic เกินไปและเสี่ยงหน้าไม่ตอบงานใดลึกพอ ควรสร้างตาม Domain |
+| 8 | Economic Production Quantity Calculator | 1/10 | 5 | 5 | 4 | 5 | 5 | งานผลิตต่างจากการรับของทันที ต้องมี Production rate, Setup และ finite replenishment แยก |
+| 9 | MOQ Cash & Waste Scenario | Related MOQ intent | 5 | 5 | 5 | 5 | 5 | ควรมี Shelf life, Sell-through, Leftover/Salvage และ Cash tied up ไม่รวมใน EOQ พื้นฐาน |
+| 10 | Pallet/Warehouse Storage Cost | Storage 10/10 แต่ Pallet เป็นหนึ่งคำย่อย | 5 | 5 | 5 | 5 | 5 | ต้องมี Pallet position, In/Out handling, Receiving, Pick, Minimum billing และ Peak occupancy |
+| 11 | Multi-SKU Shared Order Planner | MIT EOQ related; Search intent ยังไม่ชัด | 5 | 5 | 5 | 5 | 5 | รวม Fixed order cost หลาย SKU และ Space constraint ซับซ้อนกว่าหน้า SKU เดียว |
+| 12 | Supplier Price Break Analyzer | Quantity price break 1/10 | 5 | 5 | 4 | 5 | 5 | งานต่อยอดสำหรับหลาย Supplier, Freight, Lead time, Defect, Payment terms และ Risk ไม่ใช้ราคาต่ำสุดตัดสิน |
+
+Batch 61 ใช้ `Raw EOQ = √(2DS ÷ H)` โดย D คือ Demand ต่อปี, S คือต้นทุนคงที่ต่อ Order และ H คือต้นทุนถือครองต่อหน่วยต่อปี จากนั้นสร้าง Candidate จาก EOQ ปัดลง/ขึ้นตาม Pack size, MOQ, จุดเริ่ม Price tier, Storage capacity และ Current policy แล้วคำนวณ `Annual total = Demand × Unit price + Demand ÷ Q × Ordering cost + (Q ÷ 2 + Safety stock) × Holding cost` เลือกต้นทุนรวมต่ำสุด เงื่อนไขส่วนลดเป็น All-units discount และบังคับราคาแต่ละ Tier ลดลงตามจำนวน
+
+MIT OpenCourseWare อธิบาย EOQ ว่าแลกเปลี่ยน Fixed ordering cost กับ Inventory storage cost ภายใต้สมมติฐานไม่มีความสุ่ม ไม่มี Backlog และรับของทันที พร้อมสูตร Annual ordering cost = S×D/Q, Average cycle inventory = Q/2 และ EOQ = √(2DS/H) ส่วนหลักสูตร Logistics and Supply Chain Management แยก EOQ, EPQ, Planned backorders และ Quantity discounts เป็นโมเดลคนละขอบเขต หน้าเครื่องมือจึงไม่อ้างว่า EOQ เป็นคำสั่งซื้อจริงและส่งผู้ใช้ไป Safety Stock Calculator เมื่อ Demand/Lead time ผันผวน
+
+- [Google Autocomplete — eoq calculator](https://suggestqueries.google.com/complete/search?client=firefox&hl=th&gl=th&q=eoq%20calculator)
+- [Google Autocomplete — order quantity calculator](https://suggestqueries.google.com/complete/search?client=firefox&hl=th&gl=th&q=order%20quantity%20calculator)
+- [Google Autocomplete — สูตร eoq](https://suggestqueries.google.com/complete/search?client=firefox&hl=th&gl=th&q=%E0%B8%AA%E0%B8%B9%E0%B8%95%E0%B8%A3%20eoq)
+- [Google Autocomplete — quantity discount calculator](https://suggestqueries.google.com/complete/search?client=firefox&hl=th&gl=th&q=quantity%20discount%20calculator)
+- [Google Autocomplete — inventory holding cost calculator](https://suggestqueries.google.com/complete/search?client=firefox&hl=th&gl=th&q=inventory%20holding%20cost%20calculator)
+- [MIT OpenCourseWare — Introduction to Manufacturing Systems: Inventory](https://ocw.mit.edu/courses/2-854-introduction-to-manufacturing-systems-fall-2016/6c8fec8f99bcf7059b73b82e96d43901_MIT2_854F16_Inventory.pdf)
+- [MIT OpenCourseWare — Inventory and EOQ Models](https://ocw.mit.edu/courses/esd-273j-logistics-and-supply-chain-management-fall-2009/resources/mitesd_273jf09_lec02/)
+
 ## รอบที่ 50 — Unit Price, Price per Weight/Volume/Count และ Pack Comparison (9 สิงหาคม 2569)
 
 รอบนี้ส่งคำตั้งต้น 20 รูปแบบไปยัง Google Autocomplete ภาษาไทย/ประเทศไทย ครอบคลุม Unit price, Price per unit, kg, g, 100 g, oz, lb, mL, L/litre, fluid ounce, item, bulk, discount, grocery และคำไทย ได้คำแนะนำ 95 รายการไม่ซ้ำ ไม่มี Request error และมี 6 คำตั้งต้นที่คืนผลเต็ม 10/10 จำนวนคำแนะนำเป็น Demand proxy ของความกว้าง Intent เท่านั้น ไม่ใช่ Search volume, Traffic forecast หรือหลักฐานว่าจะติดหน้าแรก Google

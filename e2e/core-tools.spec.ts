@@ -63,6 +63,7 @@ const toolRoutes = [
   ["labor-cost-calculator", "Labor Cost & Employee Cost Calculator"],
   ["sales-commission-calculator", "Sales Commission Calculator"],
   ["safety-stock-calculator", "Safety Stock & Reorder Point Calculator"],
+  ["eoq-calculator", "EOQ & Quantity Discount Calculator"],
   ["inventory-turnover-calculator", "Inventory Turnover & Inventory Days Calculator"],
   ["cost-of-goods-sold-calculator", "Cost of Goods Sold (COGS) Calculator"],
   ["food-cost-calculator", "Food Cost & Recipe Cost Calculator"],
@@ -3044,6 +3045,66 @@ test("unit price comparison normalizes mixed package units, discounts, and shipp
   expect(csv).toContain('"Comparison","เปรียบเทียบกาแฟ 3 แพ็ก"');
   expect(csv).toContain('"Comparison basis","100 g"');
   expect(csv).toContain('"1","แพ็ก 3 ถุง 400 กรัม"');
+
+  const finalLayout = await page.evaluate(() => ({
+    width: document.documentElement.clientWidth,
+    scrollWidth: document.documentElement.scrollWidth,
+  }));
+  expect(finalLayout.scrollWidth).toBe(finalLayout.width);
+  expect(hasExternalRequest(requestUrls, page.url())).toBe(false);
+  expect(consoleErrors).toEqual([]);
+});
+
+test("EOQ calculator compares price breaks and operational constraints without mobile overflow", async ({ page }) => {
+  const consoleErrors: string[] = [];
+  const requestUrls: string[] = [];
+  page.on("console", (message) => {
+    if (message.type() === "error") consoleErrors.push(message.text());
+  });
+  page.on("pageerror", (error) => consoleErrors.push(error.message));
+  page.on("request", (request) => requestUrls.push(request.url()));
+  await page.setViewportSize({ width: 390, height: 844 });
+
+  await page.goto("/eoq-calculator");
+  await expect(page.getByRole("heading", { level: 1, name: "EOQ & Quantity Discount Calculator" })).toBeVisible();
+  await expect(page.getByText("สั่งให้พอดี", { exact: false })).toBeVisible();
+  await page.evaluate(() => document.fonts.ready);
+
+  const initialLayout = await page.evaluate(() => {
+    const label = document.querySelector<HTMLLabelElement>('label[for="eoq-annual-demand"]');
+    const input = document.querySelector<HTMLInputElement>("#eoq-annual-demand");
+    const labelBox = label?.getBoundingClientRect();
+    const inputBox = input?.getBoundingClientRect();
+    const ids = Array.from(document.querySelectorAll<HTMLElement>("[id]")).map((element) => element.id);
+    return {
+      labelGap: labelBox && inputBox ? Math.round(inputBox.top - labelBox.bottom) : 0,
+      duplicateIds: ids.filter((id, index) => ids.indexOf(id) !== index),
+      overflow: document.documentElement.scrollWidth > document.documentElement.clientWidth,
+    };
+  });
+  expect(initialLayout.labelGap).toBeGreaterThanOrEqual(10);
+  expect(initialLayout.duplicateIds).toEqual([]);
+  expect(initialLayout.overflow).toBe(false);
+
+  await page.getByRole("button", { name: "โหลดตัวอย่าง" }).click();
+  await expect(page.locator("#eoq-annual-demand")).toHaveValue("10000");
+  await page.getByRole("button", { name: "คำนวณ EOQ และต้นทุน" }).click();
+  await expect(page.getByTestId("eoq-recommended")).toContainText("1,000");
+  await expect(page.getByTestId("eoq-total-cost")).toContainText("915,800.00");
+  await expect(page.getByTestId("eoq-unit-price")).toContainText("90.00");
+  await expect(page.getByTestId("eoq-savings")).toContainText("101,200.00");
+  await expect(page.getByTestId("eoq-candidates")).not.toContainText("2,500 หน่วย/ครั้ง");
+
+  const csvPromise = page.waitForEvent("download");
+  await page.getByTestId("eoq-csv").click();
+  const csvDownload = await csvPromise;
+  expect(csvDownload.suggestedFilename()).toBe("meaw-eoq-calculator.csv");
+  const csvPath = await csvDownload.path();
+  expect(csvPath).toBeTruthy();
+  const csv = await readFile(csvPath!, "utf8");
+  expect(csv.startsWith("\uFEFF")).toBe(true);
+  expect(csv).toContain('"Order quantity","1000","units/order"');
+  expect(csv).toContain('"Annual total cost","915800.0000","THB"');
 
   const finalLayout = await page.evaluate(() => ({
     width: document.documentElement.clientWidth,
