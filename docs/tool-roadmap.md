@@ -199,7 +199,7 @@
 
 ## การส่งมอบล่าสุด
 
-- Batch 59 — Debt Snowball & Avalanche Calculator แบบ client-only รองรับหนี้ 1–20 ก้อน, APR/ขั้นต่ำ, เงินโปะ, งบรายเดือนคงที่และโยกค่างวดในเดือนเดียวกัน เทียบวันปลดหนี้/ดอกเบี้ย/ลำดับปิดหนี้ พร้อม Timeline 600 เดือนและ formula-safe CSV — พัฒนาเสร็จ รอตรวจ Production
+- Batch 59 — Debt Snowball & Avalanche Calculator แบบ client-only รองรับหนี้ 1–20 ก้อน, APR/ขั้นต่ำ, เงินโปะ, งบรายเดือนคงที่และโยกค่างวดในเดือนเดียวกัน เทียบวันปลดหนี้/ดอกเบี้ย/ลำดับปิดหนี้ พร้อม Timeline 600 เดือนและ formula-safe CSV — ส่งมอบและตรวจ Production แล้ว
 - Batch 58 — Compound Interest & Savings Goal Calculator แบบ client-only แยกโหมดดูเงินปลายทางและย้อนหาเงินฝากต่องวด รองรับ Nominal rate, APY, ความถี่ทบต้น/ฝาก, Annuity due/ordinary annuity, เป้าหมายตามกำลังซื้อ, Timeline และ formula-safe CSV — ส่งมอบและตรวจ Production แล้ว
 - Batch 57 — XIRR & XNPV Calculator แบบ client-only รองรับ Cash flow ตามวันที่จริง 61 รายการ, ฐาน 365 วัน, XIRR หลายราก/รากซ้ำ/ไม่มีราก/นอกช่วง, XNPV profile, Timeline และ formula-safe CSV พร้อมคำเตือนด้านการตัดสินใจลงทุน — ส่งมอบและตรวจ Production แล้ว
 - Batch 56 — IRR & MIRR Calculator แบบ client-only รองรับ Cash flow 61 งวดสม่ำเสมอ, IRR หลายราก/รากซ้ำ/ไม่มีราก/นอกช่วง, MIRR แยก Finance/Reinvestment rate, Effective annualization, NPV profile, Timeline และ formula-safe CSV พร้อมคำเตือนด้านการตัดสินใจลงทุน — ส่งมอบและตรวจ Production แล้ว
