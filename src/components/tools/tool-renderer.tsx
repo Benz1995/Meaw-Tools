@@ -49,6 +49,7 @@ const components = {
   "sales-commission-calculator": dynamic(() => import("@/features/tools/sales-commission-calculator-tool").then((module) => module.SalesCommissionCalculatorTool), { loading, ssr: false }),
   "safety-stock-calculator": dynamic(() => import("@/features/tools/safety-stock-calculator-tool").then((module) => module.SafetyStockCalculatorTool), { loading, ssr: false }),
   "eoq-calculator": dynamic(() => import("@/features/tools/eoq-calculator-tool").then((module) => module.EoqCalculatorTool), { loading, ssr: false }),
+  "wholesale-price-calculator": dynamic(() => import("@/features/tools/wholesale-price-calculator-tool").then((module) => module.WholesalePriceCalculatorTool), { loading, ssr: false }),
   "inventory-turnover-calculator": dynamic(() => import("@/features/tools/inventory-turnover-calculator-tool").then((module) => module.InventoryTurnoverCalculatorTool), { loading, ssr: false }),
   "cost-of-goods-sold-calculator": dynamic(() => import("@/features/tools/cost-of-goods-sold-calculator-tool").then((module) => module.CostOfGoodsSoldCalculatorTool), { loading, ssr: false }),
   "food-cost-calculator": dynamic(() => import("@/features/tools/food-cost-calculator-tool").then((module) => module.FoodCostCalculatorTool), { loading, ssr: false }),

@@ -1570,6 +1570,49 @@ UI แบ่ง Scenario/Investment, Net cash flow editor, Result cards, Accessi
 - [Google Search Central — Creating helpful, reliable, people-first content](https://developers.google.com/search/docs/fundamentals/creating-helpful-content)
 - [Google Search Central — How Search works and no indexing guarantee](https://developers.google.com/search/docs/fundamentals/how-search-works)
 
+## รอบที่ 52 — Wholesale Price, Retail Price, Product Pricing และ Channel Fee (9 สิงหาคม 2569)
+
+รอบแรกส่งคำตั้งต้น 25 รูปแบบไปยัง Google Autocomplete ภาษาไทย/ประเทศไทย ครอบคลุม Wholesale price/pricing/margin/markup, Retail price/margin/markup, Selling price, Product pricing, Marketplace/Platform fee และคำไทย ได้คำแนะนำไม่ซ้ำ 117 รายการ ไม่มี Request error และ 7 คำตั้งต้นคืนผลเต็ม 10/10 ได้แก่ `wholesale price calculator`, `wholesale price formula`, `calculate wholesale price`, `retail price calculator`, `retail margin calculator`, `selling price calculator` และ `product pricing calculator` ส่วน `คำนวณราคาขายส่ง` กับ `สูตรราคาขายส่ง` ได้ 0/10
+
+รอบเจาะอีก 27 คำตั้งต้นได้คำแนะนำรวม 82 รายการ โดย `calculate price from margin` และ `ecommerce profit calculator` ได้ 10/10, `price markup calculator` 9/10, `rrp calculator` 8/10, `price margin calculator` 6/10, `wholesale profit calculator` 5/10, `wholesale vs retail calculator` 4/10 และคำไทย `คำนวณราคาขายสินค้า` 1/10, `สูตรคำนวณราคาขาย` 2/10 จำนวนคำแนะนำใช้เป็น Demand proxy ของความกว้าง Intent เท่านั้น ไม่ใช่ Search volume, Traffic forecast, Revenue forecast หรือหลักฐานว่าจะติดหน้าแรก Google
+
+ใช้ URL เดียว `wholesale-price-calculator` รวม Wholesale price, Retail price, Product pricing, Selling price from margin, RRP, Channel fee และ E-commerce profit เพราะเป็น Workflow เดียวกันที่เริ่มจาก Unit cost แล้วแก้สมการย้อนหารราคาที่เหลือ Margin หลัง Fee ไม่สร้างหน้า Free, Online, Formula, Margin, Markup, Retail หรือ Marketplace แยกซ้ำเพื่อไล่ Keyword หน้าเดิม `profit-margin-calculator` ตรวจผลจาก Cost/Price ที่ผู้ใช้มีอยู่ ส่วนหน้าใหม่หา Price หลายช่องทางจากต้นทุนแบบแยกองค์ประกอบ, Fee ต่อ Order/หน่วย, Seller margin และ Downstream retailer margin จึงไม่ใช้ Primary intent เดียวกัน
+
+คะแนน 5 คือสูงที่สุด การจัดอันดับพิจารณา Demand, คุณค่าผู้ใช้จริง, ความต่างจากเครื่องมือเดิม, Difficulty, Business value, Revenue opportunity, Technical complexity, Scalability และ Innovation:
+
+| อันดับ | แนวคิด | Demand ที่พบ | ยาก | คุณค่าธุรกิจ | รายได้ | เทคนิค | ขยายต่อ | นวัตกรรม | ข้อสรุป |
+|---:|---|---|---:|---:|---:|---:|---:|---:|---|
+| 1 | Wholesale & Retail Price Calculator | Wholesale/Retail/Selling/Product pricing 10/10 | 4 | 5 | 5 | 4 | 5 | 5 | Batch 62; Unit-cost build-up + 1–6 channels + blended fee + target margin + downstream RRP + CSV |
+| 2 | Product Pricing Calculator | Product pricing 10/10; Cost 3/10 | 3 | 5 | 5 | 3 | 5 | 4 | รวมในอันดับ 1 เพราะใช้ Input/สูตรเดียวกัน ไม่เปิด URL ซ้ำ |
+| 3 | Selling Price from Target Margin | Calculate price from margin 10/10 | 3 | 5 | 4 | 3 | 5 | 3 | รวมในอันดับ 1 และแยก Margin จาก Markup ชัดเจน |
+| 4 | Retail Margin & RRP Calculator | Retail margin 10/10; RRP 8/10 | 3 | 5 | 4 | 3 | 5 | 3 | รวม Downstream margin และ Suggested retail price ในช่องทางขายส่ง |
+| 5 | Wholesale Margin & Markup Calculator | Wholesale margin 4/10; Markup 2/10 | 3 | 5 | 4 | 3 | 5 | 3 | รวม Seller margin/markup ในผล ไม่สร้างหน้า Formula บาง |
+| 6 | Marketplace Fee & Profit Calculator | Marketplace profit 3/10; Payment fee 4/10 | 4 | 5 | 5 | 4 | 5 | 4 | รวมเป็น Generic channel โดยไม่ฝัง Rate แพลตฟอร์มที่เปลี่ยนได้ |
+| 7 | Distributor & Retailer Margin Split | Distributor margin 5/10; Channel margin 1/10 | 4 | 5 | 5 | 4 | 5 | 5 | รวม Downstream margin ขั้นเดียวแล้ว; Multi-tier waterfall แยกเป็นอนาคต |
+| 8 | Cost-plus Pricing Scenario | Cost-plus 3/10; Cost-based 2/10 | 3 | 5 | 4 | 3 | 5 | 3 | แกน Cost-plus อยู่ในอันดับ 1 แต่เตือนให้ตรวจตลาดและ Value proposition |
+| 9 | Promotion & Discount Margin Floor | Discount related | 4 | 5 | 5 | 4 | 5 | 4 | ควรแยก Workflow เมื่อรองรับ Coupon stack, Ads, Returns และ Minimum margin |
+| 10 | Tiered Wholesale Price List Generator | Wholesale related | 5 | 5 | 5 | 5 | 5 | 5 | MOQ/Volume tier, Price book, PDF/CSV, Customer group และ Approval คนละขอบเขตกับ Scenario ปัจจุบัน |
+| 11 | Multi-SKU Price Book Import | Product cost/Excel related 3/10 | 5 | 5 | 5 | 5 | 5 | 5 | Map CSV, Validation, Batch calculation, Rounding policy และ Audit trail สำหรับ Catalog จริง |
+| 12 | Subscription Pricing Model | Pricing-model related | 5 | 5 | 5 | 5 | 5 | 5 | Churn, CAC, Support, Usage, Plan mix และ Gross margin ต่างจากราคาสินค้าครั้งเดียว |
+| 13 | Landed Price & FX Planner | Product cost related | 5 | 5 | 5 | 5 | 5 | 5 | Incoterms, Duty, Freight allocation, FX scenario และ Tax basis ต้องอ้างกฎประเทศ/วันที่ |
+| 14 | MSRP/MAP/RRP Policy Planner | RRP 8/10 | 5 | 4 | 5 | 5 | 4 | 5 | มีความเสี่ยงกฎหมายแข่งขันและข้อกำกับตามประเทศ จึงไม่ควรรวมเป็นคำแนะนำราคาอัตโนมัติ |
+
+Batch 62 ใช้ `Required price = (Unit cost + Fixed fee/unit + Fixed fee/order ÷ Order quantity) ÷ (1 − Variable fee rate − Target seller margin rate)` โดย Unit cost รวมราคาซื้อ/วัตถุดิบ บรรจุภัณฑ์ แรงงาน Fulfillment ขนส่งเข้า/อากร ค่าใช้จ่ายจัดสรร และต้นทุนอื่น หากร้านคู่ค้าต้องการ Gross margin ใช้ `Suggested retail price = Wholesale price ÷ (1 − Downstream margin rate)` พร้อมแสดง Break-even, Fee/profit ต่อหน่วย, Revenue/Cost/Fee/Profit ต่อ Order, Margin, Markup และ Price spread ทุกช่องทาง
+
+Shopify ระบุ Margin เป็น `(Price − Cost) ÷ Price × 100` และแนะนำให้เริ่มจากต้นทุนรวมก่อนตรวจตลาด Value proposition กับวิธีตั้งราคา ขณะที่ Stripe อธิบาย Pricing scheme แบบ Variable, Fixed และ Blended จึงให้ผู้ใช้กรอก Rate ปัจจุบันเองแทนการฝัง Preset ของแพลตฟอร์ม OpenStax แยก Markup ซึ่งหารด้วย Purchase price ออกจาก Gross margin ที่สัมพันธ์กับ Sales และ COGS หน้าเครื่องมือจึงแสดงทั้งสองค่าและไม่ใช้แทนกัน
+
+- [Google Autocomplete — wholesale price calculator](https://suggestqueries.google.com/complete/search?client=firefox&hl=th&gl=th&q=wholesale%20price%20calculator)
+- [Google Autocomplete — retail price calculator](https://suggestqueries.google.com/complete/search?client=firefox&hl=th&gl=th&q=retail%20price%20calculator)
+- [Google Autocomplete — calculate price from margin](https://suggestqueries.google.com/complete/search?client=firefox&hl=th&gl=th&q=calculate%20price%20from%20margin)
+- [Google Autocomplete — ecommerce profit calculator](https://suggestqueries.google.com/complete/search?client=firefox&hl=th&gl=th&q=ecommerce%20profit%20calculator)
+- [Google Autocomplete — สูตรคำนวณราคาขาย](https://suggestqueries.google.com/complete/search?client=firefox&hl=th&gl=th&q=%E0%B8%AA%E0%B8%B9%E0%B8%95%E0%B8%A3%E0%B8%84%E0%B8%B3%E0%B8%99%E0%B8%A7%E0%B8%93%E0%B8%A3%E0%B8%B2%E0%B8%84%E0%B8%B2%E0%B8%82%E0%B8%B2%E0%B8%A2)
+- [Shopify Help Center — Product details and margin formula](https://help.shopify.com/en/manual/products/details/product-details-page)
+- [Shopify Help Center — Pricing your products](https://help.shopify.com/en/manual/products/details/product-pricing/determine-pricing)
+- [Stripe Docs — Define a custom pricing strategy](https://docs.stripe.com/connect/platform-pricing-tools/pricing-schemes)
+- [OpenStax — Retailing Strategy Decisions](https://openstax.org/books/principles-marketing/pages/18-3-retailing-strategy-decisions)
+- [OpenStax — Contribution Margin](https://openstax.org/books/principles-managerial-accounting/pages/3-1-explain-contribution-margin-and-calculate-contribution-margin-per-unit-contribution-margin-ratio-and-total-contribution-margin)
+- [U.S. SBA — Break-even point](https://www.sba.gov/business-guide/plan-your-business/calculate-your-startup-costs/break-even-point)
+
 ## รอบที่ 51 — EOQ, Order Quantity, Quantity Discount และ Inventory Holding Cost (9 สิงหาคม 2569)
 
 รอบแรกส่งคำตั้งต้น 20 รูปแบบครอบคลุม Bulk buy/purchase/discount/order, Quantity discount, Cost savings, Storage cost, Inventory holding/carrying cost, EOQ, Wholesale price และคำไทยไปยัง Google Autocomplete ภาษาไทย/ประเทศไทย ได้คำแนะนำ 63 รายการไม่ซ้ำ ไม่มี Request error และมี 3 คำตั้งต้นที่คืนผลเต็ม 10/10 แต่ `bulk buy break even calculator`, `bulk vs retail calculator`, `คำนวณซื้อยกลัง` และ `คำนวณราคาขายส่ง` ได้ 0/10 จึงไม่ใช้ชื่อ Bulk Buy Break-even เป็นหน้าหลัก

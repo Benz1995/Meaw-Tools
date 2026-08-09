@@ -64,6 +64,7 @@ const toolRoutes = [
   ["sales-commission-calculator", "Sales Commission Calculator"],
   ["safety-stock-calculator", "Safety Stock & Reorder Point Calculator"],
   ["eoq-calculator", "EOQ & Quantity Discount Calculator"],
+  ["wholesale-price-calculator", "Wholesale & Retail Price Calculator"],
   ["inventory-turnover-calculator", "Inventory Turnover & Inventory Days Calculator"],
   ["cost-of-goods-sold-calculator", "Cost of Goods Sold (COGS) Calculator"],
   ["food-cost-calculator", "Food Cost & Recipe Cost Calculator"],
@@ -3105,6 +3106,68 @@ test("EOQ calculator compares price breaks and operational constraints without m
   expect(csv.startsWith("\uFEFF")).toBe(true);
   expect(csv).toContain('"Order quantity","1000","units/order"');
   expect(csv).toContain('"Annual total cost","915800.0000","THB"');
+
+  const finalLayout = await page.evaluate(() => ({
+    width: document.documentElement.clientWidth,
+    scrollWidth: document.documentElement.scrollWidth,
+  }));
+  expect(finalLayout.scrollWidth).toBe(finalLayout.width);
+  expect(hasExternalRequest(requestUrls, page.url())).toBe(false);
+  expect(consoleErrors).toEqual([]);
+});
+
+test("wholesale price calculator solves multi-channel fees and downstream retail margin without mobile overflow", async ({ page }) => {
+  const consoleErrors: string[] = [];
+  const requestUrls: string[] = [];
+  page.on("console", (message) => {
+    if (message.type() === "error") consoleErrors.push(message.text());
+  });
+  page.on("pageerror", (error) => consoleErrors.push(error.message));
+  page.on("request", (request) => requestUrls.push(request.url()));
+  await page.setViewportSize({ width: 390, height: 844 });
+
+  await page.goto("/wholesale-price-calculator");
+  await expect(page.getByRole("heading", { level: 1, name: "Wholesale & Retail Price Calculator" })).toBeVisible();
+  await expect(page.getByText("ตั้งราคาแบบร้านเล็กที่คิดครบ", { exact: false })).toBeVisible();
+  await page.evaluate(() => document.fonts.ready);
+
+  const initialLayout = await page.evaluate(() => {
+    const label = document.querySelector<HTMLLabelElement>('label[for="wholesale-product-name"]');
+    const input = document.querySelector<HTMLInputElement>("#wholesale-product-name");
+    const labelBox = label?.getBoundingClientRect();
+    const inputBox = input?.getBoundingClientRect();
+    const ids = Array.from(document.querySelectorAll<HTMLElement>("[id]")).map((element) => element.id);
+    return {
+      labelGap: labelBox && inputBox ? Math.round(inputBox.top - labelBox.bottom) : 0,
+      duplicateIds: ids.filter((id, index) => ids.indexOf(id) !== index),
+      overflow: document.documentElement.scrollWidth > document.documentElement.clientWidth,
+    };
+  });
+  expect(initialLayout.labelGap).toBeGreaterThanOrEqual(10);
+  expect(initialLayout.duplicateIds).toEqual([]);
+  expect(initialLayout.overflow).toBe(false);
+
+  await page.getByRole("button", { name: "โหลดตัวอย่าง" }).click();
+  await expect(page.locator("#wholesale-product-name")).toHaveValue("กระเป๋าผ้าแมว");
+  await page.getByRole("button", { name: "คำนวณราคาทุกช่องทาง" }).click();
+  await expect(page.getByTestId("wholesale-unit-cost")).toContainText("180.00");
+  await expect(page.getByTestId("wholesale-price-1")).toContainText("249.32");
+  await expect(page.getByTestId("wholesale-price-2")).toContainText("333.33");
+  await expect(page.getByTestId("wholesale-price-3")).toContainText("363.64");
+  await expect(page.getByTestId("wholesale-suggested-retail")).toContainText("415.53");
+  await expect(page.getByTestId("wholesale-channel-results")).toContainText("12,465.75");
+
+  const csvPromise = page.waitForEvent("download");
+  await page.getByTestId("wholesale-pricing-csv").click();
+  const csvDownload = await csvPromise;
+  expect(csvDownload.suggestedFilename()).toBe("meaw-wholesale-retail-pricing.csv");
+  const csvPath = await csvDownload.path();
+  expect(csvPath).toBeTruthy();
+  const csv = await readFile(csvPath!, "utf8");
+  expect(csv.startsWith("\uFEFF")).toBe(true);
+  expect(csv).toContain('"Product","กระเป๋าผ้าแมว"');
+  expect(csv).toContain('"Total unit cost","180.0000","THB/unit"');
+  expect(csv).toContain('"ขายส่งร้านคู่ค้า","50","2.0000","100.0000"');
 
   const finalLayout = await page.evaluate(() => ({
     width: document.documentElement.clientWidth,
