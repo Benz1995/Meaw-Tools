@@ -69,6 +69,7 @@
 | 61 | Compound Interest & Savings Goal Calculator | ผู้ออม, บุคคลทั่วไป, ผู้วางแผนการเงิน | คำนวณเงินปลายทางหรือย้อนหาเงินฝาก รองรับ Nominal/APY, ความถี่ทบต้น/ฝาก และเป้าหมายตามกำลังซื้อ | พร้อมใช้ |
 | 62 | Debt Snowball & Avalanche Calculator | ผู้มีหนี้, บุคคลทั่วไป, ผู้วางแผนการเงิน | เทียบแผน Snowball/Avalanche จากหนี้ 1–20 ก้อน งบคงที่ เงินโปะ วันปลดหนี้ ดอกเบี้ย และ Timeline | พร้อมใช้ |
 | 63 | Unit Price Comparison Calculator | ผู้ซื้อสินค้า, ครอบครัว, ร้านค้า, จัดซื้อ, SME | เทียบราคาต่อ Weight/Volume/Count จาก 2–20 ตัวเลือก รองรับ Multipack, Discount, Coupon, Shipping, Ranking และ CSV | พร้อมใช้ |
+| 64 | EOQ & Quantity Discount Calculator | จัดซื้อ, คลังสินค้า, Supply Chain, ร้านค้า, ผู้ผลิต, SME | คำนวณ Economic Order Quantity เทียบ Price tier, MOQ, Pack size, Storage capacity, Current policy, Annual cost และ CSV | พร้อมใช้ |
 
 ## หลักฐาน Google Trends ประเทศไทย
 
@@ -205,6 +206,7 @@
 
 ## การส่งมอบล่าสุด
 
+- Batch 61 — EOQ & Quantity Discount Calculator แบบ client-only รองรับ Classical EOQ, Holding cost แบบยอด/เปอร์เซ็นต์, All-units Price tier, MOQ, Pack size, Storage capacity, Current policy, Reorder Point โดยประมาณ, Candidate ranking และ formula-safe CSV — ส่งมอบและตรวจ Production แล้ว
 - Batch 60 — Unit Price Comparison Calculator แบบ client-only รองรับสินค้า 2–20 ตัวเลือก, Weight/Volume/Count, หน่วย Metric/US, Multipack, ส่วนลด, คูปอง, ค่าส่ง, Tie-aware ranking และ formula-safe CSV — ส่งมอบและตรวจ Production แล้ว
 - Batch 59 — Debt Snowball & Avalanche Calculator แบบ client-only รองรับหนี้ 1–20 ก้อน, APR/ขั้นต่ำ, เงินโปะ, งบรายเดือนคงที่และโยกค่างวดในเดือนเดียวกัน เทียบวันปลดหนี้/ดอกเบี้ย/ลำดับปิดหนี้ พร้อม Timeline 600 เดือนและ formula-safe CSV — ส่งมอบและตรวจ Production แล้ว
 - Batch 58 — Compound Interest & Savings Goal Calculator แบบ client-only แยกโหมดดูเงินปลายทางและย้อนหาเงินฝากต่องวด รองรับ Nominal rate, APY, ความถี่ทบต้น/ฝาก, Annuity due/ordinary annuity, เป้าหมายตามกำลังซื้อ, Timeline และ formula-safe CSV — ส่งมอบและตรวจ Production แล้ว

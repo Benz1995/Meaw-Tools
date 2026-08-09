@@ -1599,6 +1599,8 @@ Batch 61 ใช้ `Raw EOQ = √(2DS ÷ H)` โดย D คือ Demand ต่
 
 MIT OpenCourseWare อธิบาย EOQ ว่าแลกเปลี่ยน Fixed ordering cost กับ Inventory storage cost ภายใต้สมมติฐานไม่มีความสุ่ม ไม่มี Backlog และรับของทันที พร้อมสูตร Annual ordering cost = S×D/Q, Average cycle inventory = Q/2 และ EOQ = √(2DS/H) ส่วนหลักสูตร Logistics and Supply Chain Management แยก EOQ, EPQ, Planned backorders และ Quantity discounts เป็นโมเดลคนละขอบเขต หน้าเครื่องมือจึงไม่อ้างว่า EOQ เป็นคำสั่งซื้อจริงและส่งผู้ใช้ไป Safety Stock Calculator เมื่อ Demand/Lead time ผันผวน
 
+Production verification ที่ `https://meaw-tools.vercel.app/eoq-calculator` ผ่านตัวอย่าง Price tier + Capacity โดยแนะนำ 1,000 หน่วย/ครั้ง ต้นทุนรวม 915,800 บาท/ปีและประหยัดจาก Current policy 101,200 บาท/ปี หน้า Mobile 390 px ไม่มี Horizontal overflow, Console ไม่มี Error/Warning, Canonical/FAQPage/WebApplication และ Sitemap มี URL ใหม่ครบ ส่วน Vercel production log ช่วงหลัง Deploy ไม่พบ Error หรือ HTTP 500
+
 - [Google Autocomplete — eoq calculator](https://suggestqueries.google.com/complete/search?client=firefox&hl=th&gl=th&q=eoq%20calculator)
 - [Google Autocomplete — order quantity calculator](https://suggestqueries.google.com/complete/search?client=firefox&hl=th&gl=th&q=order%20quantity%20calculator)
 - [Google Autocomplete — สูตร eoq](https://suggestqueries.google.com/complete/search?client=firefox&hl=th&gl=th&q=%E0%B8%AA%E0%B8%B9%E0%B8%95%E0%B8%A3%20eoq)
