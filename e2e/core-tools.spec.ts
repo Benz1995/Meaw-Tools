@@ -72,6 +72,7 @@ const toolRoutes = [
   ["payback-period-calculator", "Payback Period Calculator"],
   ["irr-calculator", "IRR & MIRR Calculator"],
   ["xirr-calculator", "XIRR & XNPV Calculator"],
+  ["compound-interest-calculator", "Compound Interest & Savings Goal Calculator"],
   ["jpg-to-pdf", "JPG to PDF Converter"],
   ["qr-code-generator", "QR Code Generator"],
   ["barcode-generator", "Barcode Generator"],
@@ -1421,15 +1422,16 @@ test("random wheel has visible spin, pointer, and easing animation", async ({ pa
   await expect(stage).toHaveAttribute("data-spinning", "true");
 
   const firstTransform = await wheel.evaluate((element) => getComputedStyle(element).transform);
-  await page.waitForTimeout(220);
-  const secondTransform = await wheel.evaluate((element) => getComputedStyle(element).transform);
+  await expect.poll(
+    () => wheel.evaluate((element) => getComputedStyle(element).transform),
+    { timeout: 1_500 },
+  ).not.toBe(firstTransform);
   const motionStyles = await wheel.evaluate((element) => {
     const styles = getComputedStyle(element);
     return { duration: styles.transitionDuration, timing: styles.transitionTimingFunction };
   });
   const pointerAnimation = await page.locator(".wheel-pointer").evaluate((element) => getComputedStyle(element).animationName);
 
-  expect(secondTransform).not.toBe(firstTransform);
   expect(motionStyles.duration).toBe("4.6s");
   expect(motionStyles.timing).toContain("cubic-bezier");
   expect(pointerAnimation).toContain("wheel-pointer-tick");
@@ -1453,9 +1455,10 @@ test("random wheel offers an explicit animation override for reduced-motion user
 
   await page.getByRole("button", { name: "หมุนวงล้อสุ่ม" }).click();
   const firstTransform = await wheel.evaluate((element) => getComputedStyle(element).transform);
-  await page.waitForTimeout(240);
-  const secondTransform = await wheel.evaluate((element) => getComputedStyle(element).transform);
-  expect(secondTransform).not.toBe(firstTransform);
+  await expect.poll(
+    () => wheel.evaluate((element) => getComputedStyle(element).transform),
+    { timeout: 1_500 },
+  ).not.toBe(firstTransform);
   expect(await wheel.evaluate((element) => getComputedStyle(element).transitionDuration)).toBe("4.6s");
   await expect(page.getByTestId("wheel-result")).toContainText(/มะลิ|สมชาย|น้ำฝน|ต้นกล้า/, { timeout: 6_000 });
 });
@@ -2842,6 +2845,78 @@ test("XIRR calculator uses actual dates, exposes multiple roots, and exports a l
   await expect(page.getByTestId("xirr-root")).toHaveCount(2);
   await expect(page.getByTestId("xirr-root").nth(0)).toContainText("10.00%");
   await expect(page.getByTestId("xirr-root").nth(1)).toContainText("20.00%");
+
+  const finalLayout = await page.evaluate(() => ({
+    width: document.documentElement.clientWidth,
+    scrollWidth: document.documentElement.scrollWidth,
+  }));
+  expect(finalLayout.scrollWidth).toBe(finalLayout.width);
+  expect(hasExternalRequest(requestUrls, page.url())).toBe(false);
+  expect(consoleErrors).toEqual([]);
+});
+
+test("compound savings calculator matches FV, solves a savings goal, and exports local CSV without mobile overflow", async ({ page }) => {
+  const consoleErrors: string[] = [];
+  const requestUrls: string[] = [];
+  page.on("console", (message) => {
+    if (message.type() === "error") consoleErrors.push(message.text());
+  });
+  page.on("pageerror", (error) => consoleErrors.push(error.message));
+  page.on("request", (request) => requestUrls.push(request.url()));
+  await page.setViewportSize({ width: 390, height: 844 });
+
+  await page.goto("/compound-interest-calculator");
+  await expect(page.getByRole("heading", { level: 1, name: "Compound Interest & Savings Goal Calculator" })).toBeVisible();
+  await expect(page.getByText("วางแผนเงินออมแบบเห็นทั้งยอดจริงและกำลังซื้อ", { exact: true })).toBeVisible();
+  await expect(page.locator("#savings-scenario-name")).toBeVisible();
+  await page.evaluate(() => document.fonts.ready);
+
+  const initialLayout = await page.evaluate(() => {
+    const label = document.querySelector<HTMLLabelElement>('label[for="savings-scenario-name"]');
+    const input = document.querySelector<HTMLInputElement>("#savings-scenario-name");
+    const labelBox = label?.getBoundingClientRect();
+    const inputBox = input?.getBoundingClientRect();
+    const ids = Array.from(document.querySelectorAll<HTMLElement>("[id]")).map((element) => element.id);
+    return {
+      labelGap: labelBox && inputBox ? Math.round(inputBox.top - labelBox.bottom) : 0,
+      duplicateIds: ids.filter((id, index) => ids.indexOf(id) !== index),
+      overflow: document.documentElement.scrollWidth > document.documentElement.clientWidth,
+    };
+  });
+  expect(initialLayout.labelGap).toBeGreaterThanOrEqual(10);
+  expect(initialLayout.duplicateIds).toEqual([]);
+  expect(initialLayout.overflow).toBe(false);
+
+  await page.getByRole("button", { name: "โหลดตัวอย่าง" }).click();
+  await expect(page.locator("#savings-scenario-name")).toHaveValue("ตัวอย่าง Microsoft FV");
+  await page.getByRole("button", { name: "คำนวณดอกเบี้ยทบต้นและเงินออม" }).click();
+  await expect(page.getByTestId("savings-primary")).toContainText("฿2,301.40");
+  await expect(page.getByTestId("savings-interest")).toContainText("+฿101.40");
+  await expect(page.getByTestId("savings-apy")).toContainText("6.1678%");
+  await expect(page.getByRole("img", { name: "กราฟยอดเงินออม 1 ปี" })).toBeVisible();
+  await expect(page.getByTestId("savings-timeline")).toContainText("ปี 1");
+
+  const csvPromise = page.waitForEvent("download");
+  await page.getByTestId("savings-csv").click();
+  const csvDownload = await csvPromise;
+  expect(csvDownload.suggestedFilename()).toBe("meaw-compound-savings.csv");
+  const csvPath = await csvDownload.path();
+  expect(csvPath).toBeTruthy();
+  const csv = await readFile(csvPath!, "utf8");
+  expect(csv.startsWith("\uFEFF")).toBe(true);
+  expect(csv).toContain('"Scenario","ตัวอย่าง Microsoft FV"');
+  expect(csv).toContain('"Future value","2301.');
+  expect(csv).toContain('"Year","Opening balance","Contributions","Interest"');
+
+  await page.getByRole("tab", { name: "หาเงินออมให้ถึงเป้าหมาย" }).click();
+  await page.locator("#savings-initial").fill("0");
+  await page.locator("#savings-target").fill("120000");
+  await page.locator("#savings-years").fill("10");
+  await page.locator("#savings-rate").fill("0");
+  await page.locator("#savings-inflation").fill("0");
+  await page.getByRole("button", { name: "คำนวณดอกเบี้ยทบต้นและเงินออม" }).click();
+  await expect(page.getByTestId("savings-primary")).toContainText("฿1,000.00");
+  await expect(page.getByText("แผนฝากเงินเพื่อไปถึงเป้าหมาย", { exact: true })).toBeVisible();
 
   const finalLayout = await page.evaluate(() => ({
     width: document.documentElement.clientWidth,

@@ -1658,3 +1658,48 @@ Microsoft ระบุว่า XIRR ใช้ Cash flow ที่ไม่จ�
 - [Google Sheets — XNPV](https://support.google.com/docs/answer/3093268?hl=en)
 - [Google Search Central — Creating helpful, reliable, people-first content](https://developers.google.com/search/docs/fundamentals/creating-helpful-content)
 - [Google Search Central — Spam policies and doorway abuse](https://developers.google.com/search/docs/essentials/spam-policies)
+
+## รอบที่ 48 — Compound Interest และ Savings Goal ข้ามสายงาน (9 สิงหาคม 2569)
+
+รอบนี้เริ่มจากการสำรวจ Candidate ข้ามสายงาน เช่น เงินออม หนี้ บ้าน ราคา/ส่วนลด เวลา เอกสาร และธุรกิจ แล้วเจาะคำตั้งต้น 60 รูปแบบสำหรับ Compound interest, Savings goal, Future value, APY, Recurring investment และคำไทย ผ่าน Google Autocomplete ภาษาไทย/ประเทศไทย ได้คำแนะนำ 403 รายการไม่ซ้ำโดยไม่มี Request error จำนวนคำแนะนำเป็น Demand proxy ของความกว้าง Intent เท่านั้น ไม่ใช่ Search volume, Traffic forecast หรือหลักฐานว่าจะติดหน้าแรก Google
+
+สัญญาณตรง `compound interest calculator` รวม Monthly, Daily, Contributions, Formula, Excel, Online, Free, Savings และ Investment ได้ 10/10; `savings goal calculator` 10/10; Savings calculator, Monthly savings, Future value, APY, DCA และ Recurring investment มีคำแนะนำต่อเนื่อง ส่วนคำไทย `คำนวณเงินออม`, `คำนวณดอกเบี้ยทบต้น`, `ดอกเบี้ยทบต้น สูตร` และ `คำนวณดอกเบี้ยเงินฝาก` ได้ 10/10; `คำนวณเงินลงทุน` 6/10 และ `โปรแกรมคำนวณเงินออม` 4/10
+
+ใช้ URL เดียว `compound-interest-calculator` รวมสอง Workflow ที่ใช้สูตรและ Input ชุดเดียวกัน: คำนวณยอดเงินในอนาคต และย้อนหาเงินฝากต่องวดเพื่อถึงเป้าหมาย ไม่สร้างหน้า Monthly, Daily, Formula, Excel, Free, Online หรือ Savings แยกซ้ำเพื่อไล่ Keyword และไม่ดึงอัตราดอกเบี้ยปัจจุบันอัตโนมัติ เพราะอัตรา เงื่อนไข ภาษีและผลิตภัณฑ์เปลี่ยนได้
+
+คะแนน 5 คือสูงที่สุด การจัดอันดับพิจารณา Demand ที่พบ, คุณค่าผู้ใช้จริง, ความต่างจาก 84 tools เดิม, Revenue opportunity, Technical complexity, Scalability, Innovation และความเสี่ยงจากการตีความผลผิด:
+
+| อันดับ | แนวคิด | Demand ที่พบ | ยาก | คุณค่าธุรกิจ | รายได้ | ขยายต่อ | นวัตกรรม | ข้อสรุป |
+|---:|---|---|---:|---:|---:|---:|---:|---|
+| 1 | Compound Interest & Savings Goal Calculator | EN/TH ตรง 10/10 หลายแกน | 4 | 5 | 5 | 5 | 4 | ส่งมอบ Batch 58; Projection + Goal, APY, Timing, Inflation, Timeline และ CSV |
+| 2 | Debt Snowball & Avalanche Planner | Debt payoff 10/10; ไทย 10/10 | 5 | 5 | 5 | 5 | 5 | ต้องมีหลายหนี้, Minimum payment, Extra payment, Rate change และเปรียบเทียบดอกเบี้ย/เวลาอย่างไม่ตัดสินผู้ใช้ |
+| 3 | Date Duration & Countdown Calculator | Date duration 10/10 | 3 | 5 | 4 | 5 | 3 | รวมวัน/เดือน/ปี, Inclusive boundary, Working days option และ Timezone/date-only semantics ให้ชัด |
+| 4 | Unit Price & Pack Comparison | Unit price 10/10 | 3 | 5 | 4 | 5 | 4 | รองรับหน่วย/ขนาด/โปรโมชันหลายแพ็กและ Total-cost view ไม่สรุปว่าของถูกกว่าคุ้มกว่าเสมอ |
+| 5 | Bill Split & Shared Expense Calculator | Bill split 10/10; หารบิล 4/10 | 4 | 5 | 4 | 5 | 4 | แยกรายการตามคน, Service/VAT/Tip, Shared item, Rounding reconciliation และ Privacy-first share |
+| 6 | Discount & Percentage Change Calculator | Discount 10/10; ไทย 3/10 | 3 | 5 | 4 | 5 | 3 | รวมลดหลายชั้น, Tax basis, Markup/Margin boundary และเปรียบเทียบราคาก่อน/หลังอย่างโปร่งใส |
+| 7 | Time-zone Meeting Planner | Timezone 10/10 | 4 | 5 | 4 | 5 | 4 | ต้องใช้ IANA timezone, DST transition, Working hours overlap และ Shareable schedule ไม่ใช้ Offset คงที่แทน Zone |
+| 8 | Purchase Order Generator | Purchase order 10/10 | 5 | 5 | 5 | 5 | 4 | PDF/CSV, Line items, Terms, Revision, Numbering และคำเตือนว่าไม่ใช่ระบบบัญชีหรือเอกสารรับรอง |
+| 9 | Personal Budget Planner | Budget 10/10; เงินออม 10/10 | 5 | 5 | 5 | 5 | 4 | Cash-in/out, Categories, Irregular expenses, Goals และ local-only persistence/export โดยไม่อ้างคำแนะนำการเงิน |
+| 10 | Mortgage Extra-payment Calculator | Mortgage 10/10; ผ่อนบ้าน 10/10 | 5 | 5 | 5 | 5 | 4 | ต้องมี Recast vs Term reduction, Rate reset, Fees และกติกาประเทศ ไม่ใช้ Generic loan แทนทุกสัญญา |
+| 11 | Cash-flow Forecast Scenario | Cash flow 10/10 | 5 | 5 | 5 | 5 | 5 | Opening cash, AR/AP timing, Recurring items, Tax/VAT, Minimum cash และ Base/Downside/Upside พร้อม Audit trail |
+| 12 | Emergency Fund Calculator | Savings related 10/10 | 4 | 5 | 4 | 5 | 4 | Essential expenses, Income volatility, Dependents และ Coverage months แบบผู้ใช้กำหนด ไม่ออกคำสั่งว่าต้องมีเท่าไร |
+| 13 | APY / EAR Converter | APY 10/10 | 3 | 4 | 4 | 5 | 3 | แปลง Nominal/APY/Periodic rate, Compound frequency และ Fee-adjusted scenario โดยไม่ยัดเป็นหน้า Keyword บาง |
+| 14 | Invoice Generator | Invoice 10/10; สร้างใบแจ้งหนี้ 3/10 | 5 | 5 | 5 | 5 | 4 | ต้องมี VAT/WHT boundary, Payment status, Numbering และชัดว่าไม่ใช่ใบกำกับภาษีโดยอัตโนมัติ |
+| 15 | PDF Compressor ที่ลดขนาดจริง | PDF compressor 10/10 | 5 | 5 | 5 | 5 | 5 | ยังชะลอไว้จนวัด Size reduction/Quality/Compatibility ได้สม่ำเสมอ ไม่เปิดหน้าเปล่าตาม Demand |
+
+Batch 58 ใช้ `APY = (1 + Nominal rate ÷ Compounds per year)^(Compounds per year) − 1` แล้วแปลงเป็นอัตราเทียบเท่าต่อรอบฝาก `r = (1 + APY)^(1 ÷ Deposits per year) − 1` มูลค่าเงินตั้งต้นคือ `P(1+r)^n` และเงินฝากปลายงวดใช้ `C((1+r)^n−1)÷r` ส่วนฝากต้นงวดคูณเพิ่ม `(1+r)` กรณีอัตราศูนย์ใช้ `n` โดยตรงเพื่อเลี่ยงการหารศูนย์
+
+โหมดเป้าหมายหักมูลค่าอนาคตของเงินตั้งต้นออกจากเป้าหมายก่อนหารด้วย Annuity factor หากเลือกเป้าหมายเป็นกำลังซื้อวันนี้ ระบบเพิ่มเป้าหมายด้วย `(1+Inflation)^Years` และแสดงมูลค่าจริงด้วยการหารเงินปลายทางด้วยปัจจัยเดียวกัน แบบจำลองจำกัด 1–60 ปี อัตรา Nominal/เงินเฟ้อ -99% ถึง 100% และจำนวนเงิน พร้อมหยุดเมื่อผลลัพธ์เกินขอบเขตตัวเลข
+
+Microsoft FV ระบุองค์ประกอบ Rate, Nper, Pmt, Pv และ Type ซึ่งแยกต้นงวด/ปลายงวด ตัวอย่างอัตรา 6%/12 ฝากต้นเดือน 100 มีเงินตั้งต้น 1,000 และ 12 งวดให้ 2,301.40 ชุดทดสอบของ Batch 58 ยืนยันค่านี้ รวม Zero rate, Goal solve, Inflation-adjusted goal, Negative rate, Starting balance reaches goal และ Formula-safe CSV ส่วน Investor.gov ใช้ Goal, Initial amount, Years, Estimated interest และ Compound frequency เป็นแกน Savings goal และธนาคารแห่งประเทศไทยอธิบาย Time value กับดอกเบี้ยทบต้น จึงแสดงสูตร สมมติฐาน และคำเตือนแทนการรับรองผล
+
+- [Google Autocomplete — compound interest calculator](https://suggestqueries.google.com/complete/search?client=firefox&hl=th&gl=th&q=compound%20interest%20calculator)
+- [Google Autocomplete — savings goal calculator](https://suggestqueries.google.com/complete/search?client=firefox&hl=th&gl=th&q=savings%20goal%20calculator)
+- [Google Autocomplete — คำนวณเงินออม](https://suggestqueries.google.com/complete/search?client=firefox&hl=th&gl=th&q=%E0%B8%84%E0%B8%B3%E0%B8%99%E0%B8%A7%E0%B8%93%E0%B9%80%E0%B8%87%E0%B8%B4%E0%B8%99%E0%B8%AD%E0%B8%AD%E0%B8%A1)
+- [Google Autocomplete — คำนวณดอกเบี้ยทบต้น](https://suggestqueries.google.com/complete/search?client=firefox&hl=th&gl=th&q=%E0%B8%84%E0%B8%B3%E0%B8%99%E0%B8%A7%E0%B8%93%E0%B8%94%E0%B8%AD%E0%B8%81%E0%B9%80%E0%B8%9A%E0%B8%B5%E0%B9%89%E0%B8%A2%E0%B8%97%E0%B8%9A%E0%B8%95%E0%B9%89%E0%B8%99)
+- [Investor.gov — Savings Goal Calculator](https://www.investor.gov/financial-tools-calculators/calculators/savings-goal-calculator)
+- [Microsoft Support — FV function](https://support.microsoft.com/en-us/office/fv-function-2eef9f44-a084-4c61-bdd8-4fe4bb1b71b3)
+- [Bank of Thailand — เครื่องมือคำนวณการออม](https://www.bot.or.th/th/satang-story/financial-tools/savings-tools.html)
+- [Bank of Thailand — ดอกเบี้ยเงินฝากและดอกเบี้ยทบต้น](https://www.bot.or.th/th/satang-story/rights-responsibility/deposit-interest.html)
+- [Google Search Central — Creating helpful, reliable, people-first content](https://developers.google.com/search/docs/fundamentals/creating-helpful-content)
+- [Google Search Central — How Search works and no indexing guarantee](https://developers.google.com/search/docs/fundamentals/how-search-works)
