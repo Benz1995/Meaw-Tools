@@ -63,6 +63,12 @@
 | 55 | Coffee Cost Calculator | ร้านกาแฟ, คาเฟ่, Barista, Roaster, เจ้าของแบรนด์ | คำนวณต้นทุนต่อแก้วจาก Bag price/Dose, นม, ส่วนผสม, Packaging, Labor, Channel fee, ราคาเป้าหมาย และแผนวัตถุดิบรายเดือน พร้อม CSV | พร้อมใช้ |
 | 56 | Coffee Roasting Calculator | โรงคั่ว, Roaster, เจ้าของแบรนด์, Wholesale coffee | คำนวณ Roast loss/Yield จากน้ำหนักจริง ต้นทุน Green bean, Energy, Labor ต่อ Batch, Cost per roasted kg/ถุงขาย, ราคาเป้าหมาย และแผนรายเดือน พร้อม CSV | พร้อมใช้ |
 | 57 | Break-even Calculator | เจ้าของธุรกิจ, SME, ร้านค้า, ร้านอาหาร, คาเฟ่, ธุรกิจบริการ | คำนวณ Break-even units/revenue, Contribution margin, Product mix, Target operating profit, Margin of safety, Capacity และกราฟ CVP พร้อม CSV | พร้อมใช้ |
+| 58 | Payback Period & Discounted Payback Calculator | เจ้าของธุรกิจ, นักลงทุน, Finance, ผู้ประเมินโครงการ | คำนวณ Simple/Discounted payback จาก Cash flow รายงวด พร้อม Cumulative timeline, จุดคืนทุน และ CSV | พร้อมใช้ |
+| 59 | IRR & MIRR Calculator | เจ้าของธุรกิจ, Finance, นักวิเคราะห์โครงการ | คำนวณ IRR/MIRR จาก Cash flow สม่ำเสมอ แยก Finance/Reinvestment rate ตรวจหลายราก และแสดง NPV profile | พร้อมใช้ |
+| 60 | XIRR & XNPV Calculator | เจ้าของธุรกิจ, Finance, นักวิเคราะห์โครงการ | คำนวณ XIRR/XNPV จากวันที่จริง ตรวจหลายราก/ไม่มีราก พร้อม Timeline, NPV profile และ CSV | พร้อมใช้ |
+| 61 | Compound Interest & Savings Goal Calculator | ผู้ออม, บุคคลทั่วไป, ผู้วางแผนการเงิน | คำนวณเงินปลายทางหรือย้อนหาเงินฝาก รองรับ Nominal/APY, ความถี่ทบต้น/ฝาก และเป้าหมายตามกำลังซื้อ | พร้อมใช้ |
+| 62 | Debt Snowball & Avalanche Calculator | ผู้มีหนี้, บุคคลทั่วไป, ผู้วางแผนการเงิน | เทียบแผน Snowball/Avalanche จากหนี้ 1–20 ก้อน งบคงที่ เงินโปะ วันปลดหนี้ ดอกเบี้ย และ Timeline | พร้อมใช้ |
+| 63 | Unit Price Comparison Calculator | ผู้ซื้อสินค้า, ครอบครัว, ร้านค้า, จัดซื้อ, SME | เทียบราคาต่อ Weight/Volume/Count จาก 2–20 ตัวเลือก รองรับ Multipack, Discount, Coupon, Shipping, Ranking และ CSV | พร้อมใช้ |
 
 ## หลักฐาน Google Trends ประเทศไทย
 
@@ -199,6 +205,7 @@
 
 ## การส่งมอบล่าสุด
 
+- Batch 60 — Unit Price Comparison Calculator แบบ client-only รองรับสินค้า 2–20 ตัวเลือก, Weight/Volume/Count, หน่วย Metric/US, Multipack, ส่วนลด, คูปอง, ค่าส่ง, Tie-aware ranking และ formula-safe CSV — ส่งมอบและตรวจ Production แล้ว
 - Batch 59 — Debt Snowball & Avalanche Calculator แบบ client-only รองรับหนี้ 1–20 ก้อน, APR/ขั้นต่ำ, เงินโปะ, งบรายเดือนคงที่และโยกค่างวดในเดือนเดียวกัน เทียบวันปลดหนี้/ดอกเบี้ย/ลำดับปิดหนี้ พร้อม Timeline 600 เดือนและ formula-safe CSV — ส่งมอบและตรวจ Production แล้ว
 - Batch 58 — Compound Interest & Savings Goal Calculator แบบ client-only แยกโหมดดูเงินปลายทางและย้อนหาเงินฝากต่องวด รองรับ Nominal rate, APY, ความถี่ทบต้น/ฝาก, Annuity due/ordinary annuity, เป้าหมายตามกำลังซื้อ, Timeline และ formula-safe CSV — ส่งมอบและตรวจ Production แล้ว
 - Batch 57 — XIRR & XNPV Calculator แบบ client-only รองรับ Cash flow ตามวันที่จริง 61 รายการ, ฐาน 365 วัน, XIRR หลายราก/รากซ้ำ/ไม่มีราก/นอกช่วง, XNPV profile, Timeline และ formula-safe CSV พร้อมคำเตือนด้านการตัดสินใจลงทุน — ส่งมอบและตรวจ Production แล้ว

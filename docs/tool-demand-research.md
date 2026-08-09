@@ -1606,6 +1606,8 @@ NIST Handbook 130 ระบุว่าราคาต่อหน่วยข�
 
 UI แบ่งประเภท Weight/Volume/Count, Settings, Product cards, Optional discount/coupon/shipping panel, Winner cards, Ranking bars, Formula และ Limitations ใช้ Label gap 12 px, Glass cards ที่อ่านได้ทั้ง Light/Dark, Responsive layout และ formula-safe UTF-8 CSV ทุกข้อมูลคำนวณใน Browser ไม่มี API, Cookie หรือ LocalStorage และรองรับ Tie แบบคงลำดับข้อมูลเดิม
 
+Production verification ที่ `https://meaw-tools.vercel.app/unit-price-comparison-calculator` ผ่านการโหลดตัวอย่างและคำนวณผลแพ็ก 3 ถุงได้ `฿10.5417 ต่อ 100 g`, หน้า Mobile 390 px ไม่มี Horizontal overflow, Console ไม่มี Error/Warning, Canonical/FAQPage/WebApplication และ Sitemap มี URL ใหม่ครบ ส่วน Vercel production log ช่วงหนึ่งชั่วโมงหลัง Deploy ไม่พบ Error หรือ HTTP 500
+
 - [Google Autocomplete — unit price calculator](https://suggestqueries.google.com/complete/search?client=firefox&hl=th&gl=th&q=unit%20price%20calculator)
 - [Google Autocomplete — price per unit calculator](https://suggestqueries.google.com/complete/search?client=firefox&hl=th&gl=th&q=price%20per%20unit%20calculator)
 - [Google Autocomplete — price per kg calculator](https://suggestqueries.google.com/complete/search?client=firefox&hl=th&gl=th&q=price%20per%20kg%20calculator)
