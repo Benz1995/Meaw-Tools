@@ -118,6 +118,7 @@ const toolRoutes = [
   ["color-picker", "Color Picker & Contrast Checker"],
   ["password-generator", "Password Generator"],
   ["random-number-generator", "Random Number Generator"],
+  ["random-team-generator", "Random Team Generator & Group Maker"],
   ["random-wheel", "Random Wheel"],
   ["pdf-to-jpg", "PDF to JPG Converter"],
   ["merge-pdf", "Merge PDF"],

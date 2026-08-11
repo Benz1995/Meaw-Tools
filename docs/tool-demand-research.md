@@ -1657,6 +1657,46 @@ Batch 63 แปลงจำนวนเงินทุกบรรทัดเ�
 - [Google Search Central — Creating helpful, reliable, people-first content](https://developers.google.com/search/docs/fundamentals/creating-helpful-content)
 - [Google Search Central — Spam policies and doorway abuse](https://developers.google.com/search/docs/essentials/spam-policies)
 
+## รอบที่ 54 — Random Team Generator และเครื่องมือจัดกิจกรรมข้ามสายงาน (11 สิงหาคม 2569)
+
+รอบนี้ตรวจ Search result และผลิตภัณฑ์ที่ตอบ intent `random team generator`, `random group generator`, `balanced team generator`, `classroom group generator`, `สุ่มกลุ่มออนไลน์` และ `โปรแกรมสุ่มทีม` โดยตรง พบรูปแบบความต้องการร่วมที่ชัดเจนคือ วางรายชื่อจำนวนมาก, เลือกจำนวนทีม/จำนวนคนต่อทีม, ตัดชื่อซ้ำ, จัดสมดุลคะแนน, คัดลอก และส่งออกผล ผู้ให้บริการภาษาอังกฤษอย่าง RandomGroup.org, InstaGroups, Keamk, Random Groups Generator, BuddyMatcher และ Shuffly รวมถึงหน้าไทย Kruploy ต่างตอบ intent การแบ่งกลุ่มจริง ไม่ใช่เพียงสุ่มผู้ชนะหนึ่งคน
+
+Google Trends ตอบกลับ 429 ในรอบตรวจ จึงไม่อ้างตัวเลข Search volume หรือคะแนน Trends และไม่ใช้จำนวนหน้าในผลค้นหาเป็นความนิยม การจัดอันดับด้านล่างเป็น Product opportunity score จากความชัดของ Search intent, ประโยชน์ข้ามสายงาน, ความต่างจาก 105 tools เดิม, รายได้จากหน้าใช้งานซ้ำ, ความซับซ้อน และโอกาสขยาย ไม่ใช่คำรับประกัน Traffic หรืออันดับ Google
+
+คะแนน 5 คือสูงที่สุด:
+
+| อันดับ | แนวคิด | Intent / ความต่าง | ยาก | คุณค่าธุรกิจ | รายได้ | ขยายต่อ | นวัตกรรม | ข้อสรุป |
+|---:|---|---|---:|---:|---:|---:|---:|---|
+| 1 | Random Team Generator & Group Maker | Exact EN/TH; แบ่งทุกคนพร้อมกัน ไม่ทับวงล้อเลือก 1 คน | 3 | 5 | 4 | 5 | 4 | ส่งมอบรอบนี้; Random + Skill-balanced, 500 คน, Team count/size, Copy/Print/CSV และไม่เก็บรายชื่อ |
+| 2 | Tournament Bracket Generator | สร้างสายแข่งและ Bye ต่างจากการสุ่มทีม | 4 | 5 | 4 | 5 | 4 | ผู้สมัครเด่นสำหรับกีฬา โรงเรียน และอีสปอร์ต; ต้องมี Single/Double elimination และ Print |
+| 3 | Round-robin Schedule Maker | จัดตารางพบกันทุกทีม ไม่ใช่ Bracket | 4 | 5 | 4 | 5 | 4 | ต้องรองรับสนามพร้อมกัน Home/Away, เวลาพัก และ CSV/ICS |
+| 4 | Duty Roster Generator | จัดเวรตามวัน/กะ/ข้อห้าม | 5 | 5 | 5 | 5 | 5 | คุณค่างานจริงสูง แต่ต้องมี Constraint solver และอธิบายเหตุผลเมื่อจัดไม่ได้ |
+| 5 | Seating Chart Maker | ห้องเรียน งานเลี้ยง และ Workshop | 4 | 5 | 4 | 5 | 4 | ต้องมีแถว/โต๊ะ, ลากย้าย, กลุ่มที่ควรอยู่ใกล้/แยก และ Print |
+| 6 | Secret Santa Generator | จับคู่แบบไม่เปิดเผยและมีข้อห้าม | 4 | 4 | 4 | 4 | 4 | ถ้าส่งผลให้ผู้รับต้องมี Privacy/Email design; รุ่น local-only ทำได้แต่แชร์ผลยาก |
+| 7 | Random Partner / Pair Generator | จับคู่และลดคู่ซ้ำข้ามรอบ | 3 | 4 | 3 | 5 | 4 | ควรรวมเป็นโหมดต่อยอดของ Random Team ก่อนแยก URL เพื่อกัน cannibalization |
+| 8 | Classroom Participation Tracker | กระจายโอกาสตอบและเห็นผู้ที่ยังไม่ถูกเลือก | 4 | 5 | 3 | 4 | 4 | ต่อยอดวงล้อเดิมได้ดีกว่าสร้าง Name Picker ซ้ำ ต้องเก็บสถานะแบบชัดเจน |
+| 9 | Workshop Rotation Planner | หมุนผู้เข้าร่วมผ่านฐานกิจกรรม | 5 | 5 | 4 | 5 | 5 | ต้องคุม Capacity, จำนวนรอบ, Rest และไม่ให้ฐาน/คู่ซ้ำ |
+| 10 | Bingo Card Generator | การศึกษา กิจกรรม และงานอีเวนต์ | 3 | 4 | 4 | 5 | 3 | รองรับข้อความไทย หลายใบ ไม่ซ้ำ Free space และ PDF Print layout |
+| 11 | Icebreaker Prompt Generator | ใช้ก่อนแบ่งทีม/ประชุม | 2 | 4 | 3 | 4 | 3 | ต้องใช้คลัง Prompt ที่มีคุณภาพและ Filter บริบท ไม่ควรเป็นหน้าข้อความบาง ๆ |
+| 12 | Chore / Task Assignment Shuffler | กระจายงานให้สมาชิกและลดงานซ้ำ | 4 | 4 | 3 | 5 | 4 | ต้องมี Skill/Availability, Fairness history และ Export; ต่างจาก To-do list |
+| 13 | Match Fixture Generator | ลีก กีฬา และชุมชน | 4 | 4 | 4 | 5 | 4 | รวม Round-robin, เวลา, สนาม และ Rest constraint ได้ใน Product เดียว |
+| 14 | Giveaway Comment Picker | Social campaign intent สูงแต่พึ่ง Platform API | 5 | 4 | 5 | 3 | 3 | ชะลอไว้จนมี Official API, OAuth, rate limit และหลักฐานการสุ่มที่ตรวจสอบได้ |
+| 15 | Name Picker / Student Picker | Intent ชัดแต่ทับ Random Wheel ปัจจุบัน | 1 | 3 | 3 | 3 | 2 | ไม่สร้างหน้าใหม่; ปรับ content/FAQ/โหมดของวงล้อแทน |
+
+หน้า `random-team-generator` ใช้ URL เดียวสำหรับการสุ่มล้วนและกระจายคะแนน เพราะ Input และงานปลายทางเดียวกัน โหมดสมดุลเรียงคะแนน 1–5 แล้วแจกแบบ Snake draft พร้อมสุ่มลำดับเมื่อคะแนนเท่ากัน แสดงส่วนต่างจำนวนสมาชิกและคะแนนเฉลี่ยอย่างตรวจสอบได้ รายชื่ออยู่ใน React memory เท่านั้น ไม่ส่ง API และไม่บันทึก localStorage; CSV ป้องกัน Spreadsheet Formula Injection ส่วนการสุ่มใช้ Web Crypto แต่ไม่อ้างว่าเป็นระบบรับรองรางวัลหรือความยุติธรรมทุกบริบท
+
+SEO ใช้ primary intent เดียว `random team generator`, title/description ที่อธิบายฟังก์ชันจริง, FAQ ครอบคลุมข้อจำกัด, WebApplication/FAQ structured data, canonical, sitemap และ internal links จาก Productivity กับ 6 สายอาชีพ หลีกเลี่ยงหน้าแยก Free/Online/Balanced/Classroom/Sports ที่มี workflow เดียวกัน ทั้งหมดช่วยให้ Search Engine เข้าใจหน้าได้ดีขึ้น แต่ไม่มีเทคนิคใดรับประกันอันดับหนึ่งหรือหน้าแรก Google
+
+- [RandomGroup.org — Random Group Generator](https://randomgroup.org/)
+- [InstaGroups — Team Generator](https://www.instagroups.app/team-generator)
+- [Keamk — Random Team Generator](https://www.keamk.com/)
+- [Random Groups Generator](https://randomgroupsgenerator.com/)
+- [Kruploy — Random Team](https://www.kruploy.com/random-team/)
+- [BuddyMatcher — Team Generator](https://www.buddymatcher.co.uk/)
+- [Shuffly — Team Generator](https://shuffly.eu/)
+- [Google Search Central — Creating helpful, reliable, people-first content](https://developers.google.com/search/docs/fundamentals/creating-helpful-content)
+- [Google Search Central — Spam policies and doorway abuse](https://developers.google.com/search/docs/essentials/spam-policies)
+
 ## รอบที่ 51 — EOQ, Order Quantity, Quantity Discount และ Inventory Holding Cost (9 สิงหาคม 2569)
 
 รอบแรกส่งคำตั้งต้น 20 รูปแบบครอบคลุม Bulk buy/purchase/discount/order, Quantity discount, Cost savings, Storage cost, Inventory holding/carrying cost, EOQ, Wholesale price และคำไทยไปยัง Google Autocomplete ภาษาไทย/ประเทศไทย ได้คำแนะนำ 63 รายการไม่ซ้ำ ไม่มี Request error และมี 3 คำตั้งต้นที่คืนผลเต็ม 10/10 แต่ `bulk buy break even calculator`, `bulk vs retail calculator`, `คำนวณซื้อยกลัง` และ `คำนวณราคาขายส่ง` ได้ 0/10 จึงไม่ใช้ชื่อ Bulk Buy Break-even เป็นหน้าหลัก
