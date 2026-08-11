@@ -30,6 +30,7 @@ const toolRoutes = [
   ["pomodoro-timer", "Pomodoro Focus Timer Online"],
   ["time-blocking-planner", "Time Blocking Planner Online"],
   ["habit-tracker", "Habit Tracker Online Free"],
+  ["online-notepad", "Online Notepad with Autosave"],
   ["buddhist-year-converter", "Buddhist Year Converter"],
   ["base64", "Base64 Encoder / Decoder"],
   ["url-encoder", "URL Encoder / Decoder"],
