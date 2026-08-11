@@ -42,6 +42,7 @@ const components = {
   "vat-calculator": dynamic(() => import("@/features/tools/vat-calculator-tool").then((module) => module.VatCalculatorTool), { loading, ssr: false }),
   "bill-split-calculator": dynamic(() => import("@/features/tools/bill-split-calculator-tool").then((module) => module.BillSplitCalculatorTool), { loading, ssr: false }),
   "budget-calculator": dynamic(() => import("@/features/tools/budget-calculator-tool").then((module) => module.BudgetCalculatorTool), { loading, ssr: false }),
+  "expense-tracker": dynamic(() => import("@/features/tools/expense-tracker-tool").then((module) => module.ExpenseTrackerTool), { loading, ssr: false }),
   "roas-calculator": dynamic(() => import("@/features/tools/roas-calculator-tool").then((module) => module.RoasCalculatorTool), { loading, ssr: false }),
   "fuel-cost-calculator": dynamic(() => import("@/features/tools/fuel-cost-calculator-tool").then((module) => module.FuelCostCalculatorTool), { loading, ssr: false }),
   "unit-converter": dynamic(() => import("@/features/tools/work-tools").then((module) => module.UnitConverterTool), { loading, ssr: false }),

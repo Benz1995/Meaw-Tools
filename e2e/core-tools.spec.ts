@@ -57,6 +57,7 @@ const toolRoutes = [
   ["vat-calculator", "VAT Calculator Thailand"],
   ["bill-split-calculator", "Bill Split & Shared Expense Calculator"],
   ["budget-calculator", "Budget Calculator & 50/30/20 Planner"],
+  ["expense-tracker", "Expense Tracker Online Free"],
   ["roas-calculator", "ROAS & Break-even ROAS Calculator"],
   ["fuel-cost-calculator", "Fuel Cost Calculator"],
   ["unit-converter", "Unit Converter"],

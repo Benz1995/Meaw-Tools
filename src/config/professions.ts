@@ -42,7 +42,7 @@ export const professionConfigs: ProfessionConfig[] = [
     icon: "BriefcaseBusiness",
     keywords: ["เครื่องมือ sme", "เครื่องมือเจ้าของธุรกิจ", "business calculator free"],
     highlights: ["ตั้งราคาและดูจุดคุ้มทุน", "บริหารงบและต้นทุน", "จัดการเอกสารการขาย"],
-    toolSlugs: ["budget-calculator", "bill-split-calculator", "vat-calculator", "quotation-generator", "invoice-generator", "email-signature-generator", "time-zone-meeting-planner", "time-blocking-planner", "profit-margin-calculator", "roas-calculator", "break-even-calculator", "wholesale-price-calculator", "unit-price-comparison-calculator", "inventory-turnover-calculator", "cost-of-goods-sold-calculator", "salary-calculator", "fuel-cost-calculator", "loan-calculator"],
+    toolSlugs: ["expense-tracker", "budget-calculator", "bill-split-calculator", "vat-calculator", "quotation-generator", "invoice-generator", "email-signature-generator", "time-zone-meeting-planner", "time-blocking-planner", "profit-margin-calculator", "roas-calculator", "break-even-calculator", "wholesale-price-calculator", "unit-price-comparison-calculator", "inventory-turnover-calculator", "cost-of-goods-sold-calculator", "salary-calculator", "fuel-cost-calculator", "loan-calculator"],
   },
   {
     value: "finance-accounting",
@@ -53,7 +53,7 @@ export const professionConfigs: ProfessionConfig[] = [
     icon: "ReceiptText",
     keywords: ["เครื่องมือบัญชีออนไลน์", "เครื่องมือการเงินฟรี", "finance calculator tools"],
     highlights: ["ภาษีและเงินเดือน", "งบประมาณและต้นทุน", "วิเคราะห์การลงทุน"],
-    toolSlugs: ["budget-calculator", "percentage-calculator", "vat-calculator", "quotation-generator", "invoice-generator", "salary-calculator", "thai-income-tax-calculator", "cost-of-goods-sold-calculator", "inventory-turnover-calculator", "project-cost-calculator", "irr-calculator", "xirr-calculator", "payback-period-calculator", "compound-interest-calculator", "debt-payoff-calculator", "loan-calculator"],
+    toolSlugs: ["expense-tracker", "budget-calculator", "percentage-calculator", "vat-calculator", "quotation-generator", "invoice-generator", "salary-calculator", "thai-income-tax-calculator", "cost-of-goods-sold-calculator", "inventory-turnover-calculator", "project-cost-calculator", "irr-calculator", "xirr-calculator", "payback-period-calculator", "compound-interest-calculator", "debt-payoff-calculator", "loan-calculator"],
   },
   {
     value: "human-resources",
@@ -130,7 +130,7 @@ export const professionConfigs: ProfessionConfig[] = [
     icon: "BadgeDollarSign",
     keywords: ["เครื่องมือฟรีแลนซ์", "คำนวณเรทฟรีแลนซ์", "freelancer tools free"],
     highlights: ["ตั้งราคาและเรตรับงาน", "คุมชั่วโมงและต้นทุน", "วางแผนรายได้และภาษี"],
-    toolSlugs: ["hourly-rate-calculator", "billable-hours-calculator", "project-cost-calculator", "quotation-generator", "invoice-generator", "email-signature-generator", "time-zone-meeting-planner", "time-blocking-planner", "habit-tracker", "online-notepad", "pomodoro-timer", "thai-income-tax-calculator", "profit-margin-calculator", "meeting-cost-calculator", "resume-builder", "budget-calculator", "debt-payoff-calculator", "business-days-calculator"],
+    toolSlugs: ["expense-tracker", "hourly-rate-calculator", "billable-hours-calculator", "project-cost-calculator", "quotation-generator", "invoice-generator", "email-signature-generator", "time-zone-meeting-planner", "time-blocking-planner", "habit-tracker", "online-notepad", "pomodoro-timer", "thai-income-tax-calculator", "profit-margin-calculator", "meeting-cost-calculator", "resume-builder", "budget-calculator", "debt-payoff-calculator", "business-days-calculator"],
   },
   {
     value: "food-beverage",
@@ -141,7 +141,7 @@ export const professionConfigs: ProfessionConfig[] = [
     icon: "ChefHat",
     keywords: ["เครื่องมือร้านอาหาร", "โปรแกรมคำนวณ food cost", "เครื่องมือเจ้าของร้านกาแฟ"],
     highlights: ["คุมต้นทุนต่อเมนู", "ตั้งราคาและกำไร", "วางแผนสต็อกวัตถุดิบ"],
-    toolSlugs: ["food-cost-calculator", "drink-cost-calculator", "coffee-cost-calculator", "coffee-roasting-calculator", "wholesale-price-calculator", "inventory-turnover-calculator", "cost-of-goods-sold-calculator", "break-even-calculator", "eoq-calculator", "safety-stock-calculator", "unit-price-comparison-calculator", "vat-calculator"],
+    toolSlugs: ["expense-tracker", "food-cost-calculator", "drink-cost-calculator", "coffee-cost-calculator", "coffee-roasting-calculator", "wholesale-price-calculator", "inventory-turnover-calculator", "cost-of-goods-sold-calculator", "break-even-calculator", "eoq-calculator", "safety-stock-calculator", "unit-price-comparison-calculator", "vat-calculator"],
   },
 ];
 
