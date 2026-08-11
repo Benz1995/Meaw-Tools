@@ -1570,6 +1570,38 @@ UI แบ่ง Scenario/Investment, Net cash flow editor, Result cards, Accessi
 - [Google Search Central — Creating helpful, reliable, people-first content](https://developers.google.com/search/docs/fundamentals/creating-helpful-content)
 - [Google Search Central — How Search works and no indexing guarantee](https://developers.google.com/search/docs/fundamentals/how-search-works)
 
+## รอบที่ 60 — Calendar Maker, Printable Calendar และเครื่องมือวางแผน (11 สิงหาคม 2569)
+
+รอบนี้ตรวจ Duplicate ก่อนและไม่เลือก Time Card Calculator เพราะ `working-hours-calculator` ครอบคลุมเจตนา Time card, Timesheet และ Working hours อยู่แล้ว การเปิด URL ใหม่จะเสี่ยง Keyword cannibalization มากกว่าสร้างประโยชน์ใหม่ จาก Google Autocomplete locale ไทยพบสัญญาณตรงของ `calendar maker`, `free calendar maker`, `calendar maker online` และ `custom calendar maker` 10/10, `printable calendar` 9/10, `monthly calendar maker` 8/10 ส่วนคำไทย `สร้างปฏิทิน`, `สร้างปฏิทินออนไลน์`, `ทําปฏิทิน` และ `พิมพ์ปฏิทิน` อยู่ราว 3–6/10 จึงเลือก Calendar Maker เป็น Batch 70
+
+| อันดับ | แนวคิด | Demand โดยย่อ | ใช้งานจริง | ธุรกิจ | ความซับซ้อน | ขยายต่อ | นวัตกรรม | คำตัดสิน |
+|---:|---|---:|---:|---:|---:|---:|---:|---|
+| 1 | Calendar Maker & Printable Calendar | EN 8–10/10; ไทย 3–6/10 | 5 | 5 | 4 | 5 | 4 | ส่งมอบ Batch 70: 1–12 เดือน, TH/EN, พ.ศ./ค.ศ., Events, CSV/ICS/JSON/SVG/PNG/Print |
+| 2 | Flashcard Maker | Maker/Free/Online/Printable 10/10 | 5 | 4 | 4 | 5 | 4 | เหมาะ Batch ถัดไป ต้องมี Front/Back, Shuffle, Study mode, Print และ import/export |
+| 3 | Word Search Generator | Generator/Maker/Free 10/10 | 5 | 4 | 4 | 4 | 4 | ต้องสร้าง Grid จริง รองรับไทย/อังกฤษ คำทแยง และเฉลย ไม่ใช่หน้า template |
+| 4 | Checklist Maker | Maker/Generator 10/10; Free 8/10 | 5 | 4 | 3 | 5 | 3 | ควรรวม Drag reorder, Progress, Print และ local persistence |
+| 5 | Monthly Planner | Related calendar intent | 5 | 4 | 3 | 4 | 3 | ควรเพิ่มเป็นโหมดใน Calendar Maker ก่อนเปิด URL ใหม่ |
+| 6 | Content Calendar Planner | Related professional intent | 5 | 5 | 4 | 5 | 4 | เพิ่ม Channel, Status และ Campaign workflow จึงค่อยแยกจากปฏิทินทั่วไป |
+| 7 | School Calendar Maker | Education long-tail | 4 | 4 | 3 | 4 | 3 | ต้องมี Term, Exam, Holiday และ Class color ที่ทำงานต่างจาก Calendar Maker |
+| 8 | Birthday Calendar | Related planning intent | 4 | 3 | 2 | 3 | 2 | เหมาะเป็น preset/import mode ไม่ควรเป็น thin page |
+| 9 | Photo Calendar Maker | Design-heavy intent | 5 | 5 | 5 | 5 | 5 | ชะลอจนมี Crop, layout, image memory limit และ print color QA ที่น่าเชื่อถือ |
+| 10 | Holiday Calendar Generator | Volatile/legal-current data | 4 | 4 | 5 | 4 | 3 | ชะลอเพราะวันหยุดต้องมีประเทศ ปี แหล่งทางการ และ versioned dataset |
+
+คู่แข่งแบ่งเป็นสองกลุ่มชัดเจน Calendar.diy เน้นปฏิทิน local/no signup, กิจกรรมสี, drag/drop และ export; Timeanddate เน้นช่วงรายปี/เดือน/สัปดาห์/วันและ PDF; ClickUp มี monthly/weekly/yearly พร้อม events และ US holidays ส่วน Canva และ Adobe Express เน้น template, รูปภาพ และงานออกแบบ ช่องว่างของ Meaw Tools คือ Workflow ภาษาไทยที่เร็วกว่า: พ.ศ./ค.ศ. ในหัวเดียว, 1–12 เดือน, Monday/Sunday, ISO week, กิจกรรมแบบวางหลายบรรทัดหรือคลิกวัน, 4 ธีมคาเฟ่ญี่ปุ่น, autosave เฉพาะอุปกรณ์ และ export ที่ใช้งานต่อได้โดยไม่สมัครสมาชิก
+
+Batch 70 ไม่ดึงวันหยุดอัตโนมัติเพราะข้อมูลเปลี่ยนตามปีและเขตอำนาจ ไม่เชื่อมบัญชี Calendar และไม่อ้างว่า ICS จะ merge โดยไม่เกิดรายการซ้ำ ผู้ใช้ต้องตรวจวันหยุด วันที่ และ preview ก่อนนำเข้าหรือพิมพ์ JSON import เป็น versioned strict schema, CSV ป้องกัน Spreadsheet Formula Injection, SVG escape ข้อความ และจำกัด 12 เดือน/300 กิจกรรม/ขนาด input เพื่อคุมทรัพยากร Browser
+
+SEO ใช้ Canonical เดียว `/calendar-maker` ครอบคลุม Calendar Maker, Free, Online, Custom, Monthly และ Printable ซึ่งเป็น Workflow เดียว ไม่สร้างหน้า keyword แยกบาง หน้าเดียวมี WebApplication, FAQPage, BreadcrumbList, Sitemap, หมวด Date & Time, 6 profession directories และ related links แบบ reciprocal โครงสร้างนี้ช่วย crawlability และ intent alignment แต่ไม่รับประกัน Index, Traffic หรืออันดับหน้าแรก Google
+
+- [Google Autocomplete — calendar maker](https://suggestqueries.google.com/complete/search?client=firefox&hl=th&gl=th&q=calendar%20maker)
+- [Calendar.diy — local calendar creator](https://www.calendar.diy/)
+- [ClickUp — free calendar maker](https://clickup.com/free-tools/calendar-maker)
+- [Timeanddate — create a calendar](https://www.timeanddate.com/calendar/create.html)
+- [Canva — calendar maker](https://www.canva.com/create/calendars/)
+- [Adobe Express — calendar maker](https://www.adobe.com/express/create/calendar)
+- [Google Search Central — Creating helpful, reliable, people-first content](https://developers.google.com/search/docs/fundamentals/creating-helpful-content)
+- [Google Search Central — How Search works and no indexing guarantee](https://developers.google.com/search/docs/fundamentals/how-search-works)
+
 ## รอบที่ 59 — Employee Schedule Maker, Work Schedule Maker และ Duty Roster (11 สิงหาคม 2569)
 
 รอบนี้สำรวจคำตั้งต้นด้านการจัดตารางพนักงานและตารางเวรผ่าน Google Autocomplete ภาษาไทย/ประเทศไทย โดยใช้จำนวนคำแนะนำเป็นเพียง Demand proxy ของความกว้าง Intent ไม่ใช่ Search volume, Traffic forecast หรือหลักฐานว่าจะติดหน้าแรก Google สัญญาณตรงที่พบคือ `employee schedule maker` 10/10, `employee schedule maker free` 9/10, `work schedule maker` 10/10, `work schedule maker free` 10/10, `shift schedule maker` 10/10, `shift schedule generator` 10/10, `employee shift schedule` 10/10, `จัดตารางเวร` 10/10, `โปรแกรมจัดตารางเวร` 7/10, `duty roster generator` 4/10 และ `staff roster generator` 2/10

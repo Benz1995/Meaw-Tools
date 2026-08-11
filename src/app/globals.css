@@ -549,7 +549,8 @@
   .motion-reduced .cat-walker-message { display: none; }
 }
 
-.bingo-print-deck { display: none; }
+.bingo-print-deck,
+.calendar-maker-print-surface { display: none; }
 
 @media print {
   body * { visibility: hidden !important; }
@@ -566,7 +567,9 @@
   .seating-print-surface,
   .seating-print-surface *,
   .employee-schedule-print-surface,
-  .employee-schedule-print-surface * { visibility: visible !important; }
+  .employee-schedule-print-surface *,
+  .calendar-maker-print-surface,
+  .calendar-maker-print-surface * { visibility: visible !important; }
   .time-blocking-print-surface {
     position: absolute;
     inset: 0;
@@ -680,4 +683,26 @@
   .employee-schedule-days { display: grid !important; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 5mm; }
   .employee-schedule-day { break-inside: avoid; background: white !important; }
   .employee-schedule-print-surface button { color: black !important; box-shadow: none !important; }
+  .calendar-maker-print-surface {
+    position: absolute;
+    inset: 0;
+    display: block !important;
+    width: 100%;
+    padding: 8mm;
+    border: 0 !important;
+    background: white !important;
+    color: black !important;
+    print-color-adjust: exact;
+    -webkit-print-color-adjust: exact;
+  }
+  .calendar-maker-no-print { display: none !important; }
+  .calendar-maker-print-header { margin-bottom: 6mm; }
+  .calendar-maker-print-header h1 { margin: 0; font-size: 22pt; font-weight: 800; }
+  .calendar-maker-print-header p { margin-top: 2mm; color: #555; font-size: 10pt; }
+  .calendar-maker-print-month { break-inside: avoid; }
+  .calendar-maker-print-month:not(:last-child) { break-after: page; }
+  .calendar-maker-print-month h2 { margin: 0 0 4mm; font-size: 18pt; font-weight: 800; }
+  .calendar-maker-print-month [data-testid="calendar-month-grid"] { min-width: 0 !important; gap: 2mm !important; }
+  .calendar-maker-print-month [data-testid="calendar-month-grid"] > * { min-height: 22mm !important; color: black !important; box-shadow: none !important; }
+  .calendar-maker-print-notes { margin-top: 4mm; font-size: 10pt; }
 }

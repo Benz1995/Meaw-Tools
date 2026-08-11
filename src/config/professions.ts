@@ -42,7 +42,7 @@ export const professionConfigs: ProfessionConfig[] = [
     icon: "BriefcaseBusiness",
     keywords: ["เครื่องมือ sme", "เครื่องมือเจ้าของธุรกิจ", "business calculator free"],
     highlights: ["ตั้งราคาและดูจุดคุ้มทุน", "บริหารงบและต้นทุน", "จัดการเอกสารการขาย"],
-    toolSlugs: ["expense-tracker", "employee-schedule-maker", "todo-list-online", "random-team-generator", "single-elimination-bracket-generator", "round-robin-schedule-generator", "bingo-card-generator", "seating-chart-maker", "budget-calculator", "bill-split-calculator", "vat-calculator", "quotation-generator", "invoice-generator", "email-signature-generator", "time-zone-meeting-planner", "time-blocking-planner", "profit-margin-calculator", "roas-calculator", "break-even-calculator", "wholesale-price-calculator", "unit-price-comparison-calculator", "inventory-turnover-calculator", "cost-of-goods-sold-calculator", "salary-calculator", "fuel-cost-calculator", "loan-calculator"],
+    toolSlugs: ["expense-tracker", "employee-schedule-maker", "calendar-maker", "todo-list-online", "random-team-generator", "single-elimination-bracket-generator", "round-robin-schedule-generator", "bingo-card-generator", "seating-chart-maker", "budget-calculator", "bill-split-calculator", "vat-calculator", "quotation-generator", "invoice-generator", "email-signature-generator", "time-zone-meeting-planner", "time-blocking-planner", "profit-margin-calculator", "roas-calculator", "break-even-calculator", "wholesale-price-calculator", "unit-price-comparison-calculator", "inventory-turnover-calculator", "cost-of-goods-sold-calculator", "salary-calculator", "fuel-cost-calculator", "loan-calculator"],
   },
   {
     value: "finance-accounting",
@@ -75,7 +75,7 @@ export const professionConfigs: ProfessionConfig[] = [
     icon: "CalendarCheck2",
     keywords: ["เครื่องมือ project manager", "operations tools free", "เครื่องมือบริหารโครงการ"],
     highlights: ["วางแผนเวลาโครงการ", "คุมต้นทุนและกำลังคน", "บริหารสต็อกและการสั่งซื้อ"],
-    toolSlugs: ["time-zone-meeting-planner", "time-blocking-planner", "habit-tracker", "online-notepad", "todo-list-online", "pomodoro-timer", "online-alarm-clock", "countdown-timer", "online-stopwatch", "employee-schedule-maker", "random-team-generator", "single-elimination-bracket-generator", "round-robin-schedule-generator", "bingo-card-generator", "seating-chart-maker", "business-days-calculator", "working-hours-calculator", "meeting-cost-calculator", "billable-hours-calculator", "project-cost-calculator", "team-capacity-calculator", "labor-cost-calculator", "safety-stock-calculator", "eoq-calculator", "inventory-turnover-calculator", "break-even-calculator"],
+    toolSlugs: ["calendar-maker", "time-zone-meeting-planner", "time-blocking-planner", "habit-tracker", "online-notepad", "todo-list-online", "pomodoro-timer", "online-alarm-clock", "countdown-timer", "online-stopwatch", "employee-schedule-maker", "random-team-generator", "single-elimination-bracket-generator", "round-robin-schedule-generator", "bingo-card-generator", "seating-chart-maker", "business-days-calculator", "working-hours-calculator", "meeting-cost-calculator", "billable-hours-calculator", "project-cost-calculator", "team-capacity-calculator", "labor-cost-calculator", "safety-stock-calculator", "eoq-calculator", "inventory-turnover-calculator", "break-even-calculator"],
   },
   {
     value: "content-creator",
@@ -86,7 +86,7 @@ export const professionConfigs: ProfessionConfig[] = [
     icon: "FilePenLine",
     keywords: ["เครื่องมือ content creator", "เครื่องมือนักเขียน", "content tools free"],
     highlights: ["ตรวจและจัดข้อความ", "สร้างสื่อจากเนื้อหา", "เตรียมข้อมูลเพื่อเผยแพร่"],
-    toolSlugs: ["time-blocking-planner", "habit-tracker", "online-notepad", "todo-list-online", "pomodoro-timer", "countdown-timer", "online-stopwatch", "word-counter", "word-cloud-generator", "bingo-card-generator", "text-cleaner", "typing-test", "special-characters", "text-to-speech", "resume-builder", "email-signature-generator", "diff-checker", "image-to-text", "markdown-table-generator", "html-table-generator"],
+    toolSlugs: ["calendar-maker", "time-blocking-planner", "habit-tracker", "online-notepad", "todo-list-online", "pomodoro-timer", "countdown-timer", "online-stopwatch", "word-counter", "word-cloud-generator", "bingo-card-generator", "text-cleaner", "typing-test", "special-characters", "text-to-speech", "resume-builder", "email-signature-generator", "diff-checker", "image-to-text", "markdown-table-generator", "html-table-generator"],
   },
   {
     value: "education",
@@ -97,7 +97,7 @@ export const professionConfigs: ProfessionConfig[] = [
     icon: "GraduationCap",
     keywords: ["เครื่องมือการเรียนออนไลน์", "เครื่องมือสำหรับครู", "student tools free"],
     highlights: ["คำนวณเกรดและตัวเลข", "ทำรายงานและสื่อการสอน", "แปลงเอกสารและข้อมูล"],
-    toolSlugs: ["time-blocking-planner", "habit-tracker", "online-notepad", "todo-list-online", "pomodoro-timer", "online-alarm-clock", "interval-timer", "countdown-timer", "online-stopwatch", "grade-calculator", "age-calculator", "percentage-calculator", "unit-converter", "buddhist-year-converter", "timestamp-converter", "bmi-calculator", "typing-test", "word-counter", "qr-code-generator", "text-to-speech", "jpg-to-pdf", "random-team-generator", "single-elimination-bracket-generator", "round-robin-schedule-generator", "bingo-card-generator", "seating-chart-maker", "random-number-generator", "random-wheel"],
+    toolSlugs: ["calendar-maker", "time-blocking-planner", "habit-tracker", "online-notepad", "todo-list-online", "pomodoro-timer", "online-alarm-clock", "interval-timer", "countdown-timer", "online-stopwatch", "grade-calculator", "age-calculator", "percentage-calculator", "unit-converter", "buddhist-year-converter", "timestamp-converter", "bmi-calculator", "typing-test", "word-counter", "qr-code-generator", "text-to-speech", "jpg-to-pdf", "random-team-generator", "single-elimination-bracket-generator", "round-robin-schedule-generator", "bingo-card-generator", "seating-chart-maker", "random-number-generator", "random-wheel"],
   },
   {
     value: "fitness-wellness",
@@ -130,7 +130,7 @@ export const professionConfigs: ProfessionConfig[] = [
     icon: "FileSpreadsheet",
     keywords: ["เครื่องมือสำนักงานออนไลน์", "เครื่องมือธุรการ", "office tools free"],
     highlights: ["จัดตารางและข้อมูล", "เตรียมเอกสารธุรกิจ", "จัดการ PDF ครบงาน"],
-    toolSlugs: ["csv-to-excel", "excel-to-csv", "csv-cleaner", "resume-builder", "email-signature-generator", "time-zone-meeting-planner", "time-blocking-planner", "habit-tracker", "online-notepad", "todo-list-online", "pomodoro-timer", "online-alarm-clock", "online-stopwatch", "employee-schedule-maker", "random-team-generator", "single-elimination-bracket-generator", "round-robin-schedule-generator", "bingo-card-generator", "seating-chart-maker", "quotation-generator", "invoice-generator", "merge-pdf", "split-pdf", "pdf-organizer", "sign-pdf", "image-to-text", "text-cleaner", "word-counter", "working-hours-calculator", "date-calculator", "thai-id-validator", "qr-code-scanner"],
+    toolSlugs: ["csv-to-excel", "excel-to-csv", "csv-cleaner", "calendar-maker", "resume-builder", "email-signature-generator", "time-zone-meeting-planner", "time-blocking-planner", "habit-tracker", "online-notepad", "todo-list-online", "pomodoro-timer", "online-alarm-clock", "online-stopwatch", "employee-schedule-maker", "random-team-generator", "single-elimination-bracket-generator", "round-robin-schedule-generator", "bingo-card-generator", "seating-chart-maker", "quotation-generator", "invoice-generator", "merge-pdf", "split-pdf", "pdf-organizer", "sign-pdf", "image-to-text", "text-cleaner", "word-counter", "working-hours-calculator", "date-calculator", "thai-id-validator", "qr-code-scanner"],
   },
   {
     value: "freelancer-consultant",
@@ -141,7 +141,7 @@ export const professionConfigs: ProfessionConfig[] = [
     icon: "BadgeDollarSign",
     keywords: ["เครื่องมือฟรีแลนซ์", "คำนวณเรทฟรีแลนซ์", "freelancer tools free"],
     highlights: ["ตั้งราคาและเรตรับงาน", "คุมชั่วโมงและต้นทุน", "วางแผนรายได้และภาษี"],
-    toolSlugs: ["expense-tracker", "todo-list-online", "hourly-rate-calculator", "billable-hours-calculator", "project-cost-calculator", "quotation-generator", "invoice-generator", "email-signature-generator", "time-zone-meeting-planner", "time-blocking-planner", "habit-tracker", "online-notepad", "pomodoro-timer", "online-alarm-clock", "online-stopwatch", "thai-income-tax-calculator", "profit-margin-calculator", "meeting-cost-calculator", "resume-builder", "budget-calculator", "debt-payoff-calculator", "business-days-calculator"],
+    toolSlugs: ["expense-tracker", "calendar-maker", "todo-list-online", "hourly-rate-calculator", "billable-hours-calculator", "project-cost-calculator", "quotation-generator", "invoice-generator", "email-signature-generator", "time-zone-meeting-planner", "time-blocking-planner", "habit-tracker", "online-notepad", "pomodoro-timer", "online-alarm-clock", "online-stopwatch", "thai-income-tax-calculator", "profit-margin-calculator", "meeting-cost-calculator", "resume-builder", "budget-calculator", "debt-payoff-calculator", "business-days-calculator"],
   },
   {
     value: "food-beverage",
