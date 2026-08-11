@@ -43,7 +43,7 @@ export function CatWalker() {
   return (
     <>
       {enabled ? (
-        <div className={`meaw-playground pointer-events-none fixed inset-x-0 bottom-0 z-[30] h-36 overflow-hidden ${motionEnabled ? "motion-enabled" : "motion-reduced"}`} aria-hidden="true">
+        <div className={`meaw-playground pointer-events-none fixed inset-x-0 bottom-0 z-10 h-36 overflow-hidden ${motionEnabled ? "motion-enabled" : "motion-reduced"}`} aria-hidden="true">
           <div className="cat-walker-track absolute left-0 w-28">
             <span className="cat-walker-message">เมี้ยว~</span>
             <div className="cat-walker-direction relative">

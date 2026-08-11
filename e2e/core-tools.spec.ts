@@ -25,6 +25,7 @@ const toolRoutes = [
   ["jwt-decoder", "JWT Decoder"],
   ["uuid-generator", "UUID Generator"],
   ["timestamp-converter", "Timestamp Converter"],
+  ["countdown-timer", "Countdown Timer Online"],
   ["buddhist-year-converter", "Buddhist Year Converter"],
   ["base64", "Base64 Encoder / Decoder"],
   ["url-encoder", "URL Encoder / Decoder"],
@@ -882,7 +883,7 @@ test("category tags navigate to a category page", async ({ page }) => {
   await expect(page.getByRole("link", { name: /เปิดเครื่องมือ/ })).toHaveCount(15);
 });
 
-test("cat walker can be disabled and remembers the preference", async ({ page }) => {
+test("cat walker stays behind content, can be disabled, and remembers the preference", async ({ page }) => {
   await page.goto("/tools");
   const catCharacter = page.locator(".cat-walker-character");
   const walkingCat = page.locator(".cat-walker-sprite");
@@ -918,8 +919,8 @@ test("cat walker can be disabled and remembers the preference", async ({ page })
       viewportBottom: window.innerHeight,
     };
   });
-  expect(catLayout.catLayer).toBeGreaterThan(catLayout.contentLayer);
-  expect(catLayout.toggleLayer).toBeGreaterThan(catLayout.catLayer);
+  expect(catLayout.catLayer).toBeLessThan(catLayout.contentLayer);
+  expect(catLayout.toggleLayer).toBeGreaterThan(catLayout.contentLayer);
   expect(catLayout.trackTop).toBeGreaterThanOrEqual(catLayout.playgroundTop);
   expect(catLayout.trackBottom).toBeLessThanOrEqual(catLayout.viewportBottom);
   await page.getByRole("button", { name: "พัก Meaw" }).click();
