@@ -25,6 +25,7 @@ const toolRoutes = [
   ["jwt-decoder", "JWT Decoder"],
   ["uuid-generator", "UUID Generator"],
   ["timestamp-converter", "Timestamp Converter"],
+  ["time-zone-meeting-planner", "Time Zone Meeting Planner"],
   ["countdown-timer", "Countdown Timer Online"],
   ["buddhist-year-converter", "Buddhist Year Converter"],
   ["base64", "Base64 Encoder / Decoder"],

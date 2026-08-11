@@ -13,6 +13,7 @@ const components = {
   "jwt-decoder": dynamic(() => import("@/features/tools/utility-tools").then((module) => module.JwtDecoderTool), { loading, ssr: false }),
   "uuid-generator": dynamic(() => import("@/features/tools/utility-tools").then((module) => module.UuidGeneratorTool), { loading, ssr: false }),
   "timestamp-converter": dynamic(() => import("@/features/tools/utility-tools").then((module) => module.TimestampTool), { loading, ssr: false }),
+  "time-zone-meeting-planner": dynamic(() => import("@/features/tools/time-zone-meeting-planner-tool").then((module) => module.TimeZoneMeetingPlannerTool), { loading, ssr: false }),
   "countdown-timer": dynamic(() => import("@/features/tools/countdown-timer-tool").then((module) => module.CountdownTimerTool), { loading, ssr: false }),
   "buddhist-year-converter": dynamic(() => import("@/features/tools/everyday-tools").then((module) => module.BuddhistYearConverterTool), { loading, ssr: false }),
   "hash-generator": dynamic(() => import("@/features/tools/utility-tools").then((module) => module.HashTool), { loading, ssr: false }),

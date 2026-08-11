@@ -92,7 +92,7 @@ export function ToolPageContent({ tool }: { tool: ToolConfig }) {
           </div>
         </div>
         <p className="mt-3 max-w-4xl text-sm leading-6 text-muted-foreground sm:text-base">{tool.description}</p>
-        <PrivacyNotice compact shareableUrl={tool.slug === "countdown-timer"} />
+        <PrivacyNotice compact shareableUrl={["countdown-timer", "time-zone-meeting-planner"].includes(tool.slug)} />
       </header>
 
       <section className="mt-5" aria-label={`พื้นที่ทำงาน ${tool.name}`}><ToolRenderer slug={tool.slug} /></section>
