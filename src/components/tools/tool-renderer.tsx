@@ -19,6 +19,7 @@ const components = {
   "time-blocking-planner": dynamic(() => import("@/features/tools/time-blocking-planner-tool").then((module) => module.TimeBlockingPlannerTool), { loading, ssr: false }),
   "habit-tracker": dynamic(() => import("@/features/tools/habit-tracker-tool").then((module) => module.HabitTrackerTool), { loading, ssr: false }),
   "online-notepad": dynamic(() => import("@/features/tools/online-notepad-tool").then((module) => module.OnlineNotepadTool), { loading, ssr: false }),
+  "todo-list-online": dynamic(() => import("@/features/tools/todo-list-online-tool").then((module) => module.TodoListOnlineTool), { loading, ssr: false }),
   "buddhist-year-converter": dynamic(() => import("@/features/tools/everyday-tools").then((module) => module.BuddhistYearConverterTool), { loading, ssr: false }),
   "hash-generator": dynamic(() => import("@/features/tools/utility-tools").then((module) => module.HashTool), { loading, ssr: false }),
   "regex-tester": dynamic(() => import("@/features/tools/advanced-tools").then((module) => module.RegexTool), { loading, ssr: false }),
