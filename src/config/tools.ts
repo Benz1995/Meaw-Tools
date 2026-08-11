@@ -220,7 +220,7 @@ export const tools: ToolConfig[] = [
     name: "Interval Timer & Tabata Timer Online",
     thaiName: "นาฬิกาจับเวลา Interval และ Tabata",
     shortDescription: "จับ Work/Rest ซ้ำเป็นรอบ พร้อม Tabata, HIIT, Boxing, EMOM เสียง เต็มจอ และแชร์โปรแกรม",
-    description: "Interval Timer และ Tabata Timer ออนไลน์ฟรีสำหรับ HIIT, Boxing, EMOM และกิจกรรม Work/Rest กำหนดเวลาเตรียม ทำ พัก รอบ เซต พักระหว่างเซต และคูลดาวน์ พร้อม preset 20/10, 30/30, 40/20 และ Boxing 3/1 มีเสียงนับ 3–2–1 เต็มจอ คีย์ลัด Wake Lock บันทึกใน Browser และแชร์ลิงก์ ไม่ต้องสมัครสมาชิก",
+    description: "Interval Timer และ Tabata Timer ออนไลน์ฟรีสำหรับจับเวลาออกกำลังกาย HIIT, Boxing, EMOM และกิจกรรม Work/Rest กำหนดเวลาเตรียม ทำ พัก รอบ เซต พักระหว่างเซต และคูลดาวน์ พร้อม preset 20/10, 30/30, 40/20 และ Boxing 3/1 มีเสียงนับ 3–2–1 เต็มจอ คีย์ลัด Wake Lock บันทึกใน Browser และแชร์ลิงก์ ไม่ต้องสมัครสมาชิก",
     category: "date-time",
     icon: "Activity",
     keywords: ["interval timer", "interval timer online", "online interval timer", "free interval timer", "interval workout timer", "HIIT timer", "HIIT interval timer", "HIIT timer online", "Tabata timer", "Tabata timer online", "20 10 timer", "20 second timer 10 second rest", "workout timer", "work rest timer", "boxing round timer", "boxing timer", "EMOM timer", "exercise timer", "gym timer", "full screen interval timer", "interval timer with sound", "จับเวลา interval", "นาฬิกา interval", "จับเวลา tabata", "นาฬิกา tabata", "จับเวลา hiit", "จับเวลาออกกำลังกาย", "จับเวลา 20 10", "จับเวลามวย", "โปรแกรมจับเวลาเป็นรอบ", "นาฬิกาออกกำลังกาย"],
