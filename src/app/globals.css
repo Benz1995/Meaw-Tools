@@ -548,3 +548,20 @@
   .motion-reduced .cat-walker-track { transform: translateX(1rem); }
   .motion-reduced .cat-walker-message { display: none; }
 }
+
+@media print {
+  body * { visibility: hidden !important; }
+  .time-blocking-print-surface,
+  .time-blocking-print-surface * { visibility: visible !important; }
+  .time-blocking-print-surface {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    background: white;
+    color: black;
+    print-color-adjust: exact;
+    -webkit-print-color-adjust: exact;
+  }
+  .time-blocking-no-print { display: none !important; }
+  .time-blocking-print-surface [data-testid="time-blocking-timeline"] { break-inside: avoid; }
+}
