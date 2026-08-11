@@ -27,6 +27,7 @@ const toolRoutes = [
   ["timestamp-converter", "Timestamp Converter"],
   ["time-zone-meeting-planner", "Time Zone Meeting Planner"],
   ["countdown-timer", "Countdown Timer Online"],
+  ["pomodoro-timer", "Pomodoro Focus Timer Online"],
   ["buddhist-year-converter", "Buddhist Year Converter"],
   ["base64", "Base64 Encoder / Decoder"],
   ["url-encoder", "URL Encoder / Decoder"],
