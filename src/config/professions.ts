@@ -42,7 +42,7 @@ export const professionConfigs: ProfessionConfig[] = [
     icon: "BriefcaseBusiness",
     keywords: ["เครื่องมือ sme", "เครื่องมือเจ้าของธุรกิจ", "business calculator free"],
     highlights: ["ตั้งราคาและดูจุดคุ้มทุน", "บริหารงบและต้นทุน", "จัดการเอกสารการขาย"],
-    toolSlugs: ["expense-tracker", "todo-list-online", "random-team-generator", "single-elimination-bracket-generator", "round-robin-schedule-generator", "bingo-card-generator", "seating-chart-maker", "budget-calculator", "bill-split-calculator", "vat-calculator", "quotation-generator", "invoice-generator", "email-signature-generator", "time-zone-meeting-planner", "time-blocking-planner", "profit-margin-calculator", "roas-calculator", "break-even-calculator", "wholesale-price-calculator", "unit-price-comparison-calculator", "inventory-turnover-calculator", "cost-of-goods-sold-calculator", "salary-calculator", "fuel-cost-calculator", "loan-calculator"],
+    toolSlugs: ["expense-tracker", "employee-schedule-maker", "todo-list-online", "random-team-generator", "single-elimination-bracket-generator", "round-robin-schedule-generator", "bingo-card-generator", "seating-chart-maker", "budget-calculator", "bill-split-calculator", "vat-calculator", "quotation-generator", "invoice-generator", "email-signature-generator", "time-zone-meeting-planner", "time-blocking-planner", "profit-margin-calculator", "roas-calculator", "break-even-calculator", "wholesale-price-calculator", "unit-price-comparison-calculator", "inventory-turnover-calculator", "cost-of-goods-sold-calculator", "salary-calculator", "fuel-cost-calculator", "loan-calculator"],
   },
   {
     value: "finance-accounting",
@@ -64,7 +64,7 @@ export const professionConfigs: ProfessionConfig[] = [
     icon: "UsersRound",
     keywords: ["เครื่องมือ hr", "โปรแกรมคำนวณ payroll", "เครื่องมือฝ่ายบุคคล"],
     highlights: ["เงินเดือนและสวัสดิการ", "เวลาและตารางกะ", "ต้นทุนและ Capacity ทีม"],
-    toolSlugs: ["salary-calculator", "overtime-calculator-thailand", "social-security-pension-calculator", "working-hours-calculator", "shift-pattern-calculator", "labor-cost-calculator", "sales-commission-calculator", "team-capacity-calculator", "random-team-generator", "single-elimination-bracket-generator", "round-robin-schedule-generator", "bingo-card-generator", "seating-chart-maker", "age-calculator", "thai-id-validator"],
+    toolSlugs: ["salary-calculator", "overtime-calculator-thailand", "social-security-pension-calculator", "working-hours-calculator", "shift-pattern-calculator", "employee-schedule-maker", "labor-cost-calculator", "sales-commission-calculator", "team-capacity-calculator", "random-team-generator", "single-elimination-bracket-generator", "round-robin-schedule-generator", "bingo-card-generator", "seating-chart-maker", "age-calculator", "thai-id-validator"],
   },
   {
     value: "project-operations",
@@ -75,7 +75,7 @@ export const professionConfigs: ProfessionConfig[] = [
     icon: "CalendarCheck2",
     keywords: ["เครื่องมือ project manager", "operations tools free", "เครื่องมือบริหารโครงการ"],
     highlights: ["วางแผนเวลาโครงการ", "คุมต้นทุนและกำลังคน", "บริหารสต็อกและการสั่งซื้อ"],
-    toolSlugs: ["time-zone-meeting-planner", "time-blocking-planner", "habit-tracker", "online-notepad", "todo-list-online", "pomodoro-timer", "online-alarm-clock", "countdown-timer", "online-stopwatch", "random-team-generator", "single-elimination-bracket-generator", "round-robin-schedule-generator", "bingo-card-generator", "seating-chart-maker", "business-days-calculator", "working-hours-calculator", "meeting-cost-calculator", "billable-hours-calculator", "project-cost-calculator", "team-capacity-calculator", "labor-cost-calculator", "safety-stock-calculator", "eoq-calculator", "inventory-turnover-calculator", "break-even-calculator"],
+    toolSlugs: ["time-zone-meeting-planner", "time-blocking-planner", "habit-tracker", "online-notepad", "todo-list-online", "pomodoro-timer", "online-alarm-clock", "countdown-timer", "online-stopwatch", "employee-schedule-maker", "random-team-generator", "single-elimination-bracket-generator", "round-robin-schedule-generator", "bingo-card-generator", "seating-chart-maker", "business-days-calculator", "working-hours-calculator", "meeting-cost-calculator", "billable-hours-calculator", "project-cost-calculator", "team-capacity-calculator", "labor-cost-calculator", "safety-stock-calculator", "eoq-calculator", "inventory-turnover-calculator", "break-even-calculator"],
   },
   {
     value: "content-creator",
@@ -130,7 +130,7 @@ export const professionConfigs: ProfessionConfig[] = [
     icon: "FileSpreadsheet",
     keywords: ["เครื่องมือสำนักงานออนไลน์", "เครื่องมือธุรการ", "office tools free"],
     highlights: ["จัดตารางและข้อมูล", "เตรียมเอกสารธุรกิจ", "จัดการ PDF ครบงาน"],
-    toolSlugs: ["csv-to-excel", "excel-to-csv", "csv-cleaner", "resume-builder", "email-signature-generator", "time-zone-meeting-planner", "time-blocking-planner", "habit-tracker", "online-notepad", "todo-list-online", "pomodoro-timer", "online-alarm-clock", "online-stopwatch", "random-team-generator", "single-elimination-bracket-generator", "round-robin-schedule-generator", "bingo-card-generator", "seating-chart-maker", "quotation-generator", "invoice-generator", "merge-pdf", "split-pdf", "pdf-organizer", "sign-pdf", "image-to-text", "text-cleaner", "word-counter", "working-hours-calculator", "date-calculator", "thai-id-validator", "qr-code-scanner"],
+    toolSlugs: ["csv-to-excel", "excel-to-csv", "csv-cleaner", "resume-builder", "email-signature-generator", "time-zone-meeting-planner", "time-blocking-planner", "habit-tracker", "online-notepad", "todo-list-online", "pomodoro-timer", "online-alarm-clock", "online-stopwatch", "employee-schedule-maker", "random-team-generator", "single-elimination-bracket-generator", "round-robin-schedule-generator", "bingo-card-generator", "seating-chart-maker", "quotation-generator", "invoice-generator", "merge-pdf", "split-pdf", "pdf-organizer", "sign-pdf", "image-to-text", "text-cleaner", "word-counter", "working-hours-calculator", "date-calculator", "thai-id-validator", "qr-code-scanner"],
   },
   {
     value: "freelancer-consultant",
@@ -152,7 +152,7 @@ export const professionConfigs: ProfessionConfig[] = [
     icon: "ChefHat",
     keywords: ["เครื่องมือร้านอาหาร", "โปรแกรมคำนวณ food cost", "เครื่องมือเจ้าของร้านกาแฟ"],
     highlights: ["คุมต้นทุนต่อเมนู", "ตั้งราคาและกำไร", "วางแผนสต็อกวัตถุดิบ"],
-    toolSlugs: ["expense-tracker", "food-cost-calculator", "drink-cost-calculator", "coffee-cost-calculator", "coffee-roasting-calculator", "wholesale-price-calculator", "inventory-turnover-calculator", "cost-of-goods-sold-calculator", "break-even-calculator", "eoq-calculator", "safety-stock-calculator", "unit-price-comparison-calculator", "vat-calculator"],
+    toolSlugs: ["expense-tracker", "employee-schedule-maker", "food-cost-calculator", "drink-cost-calculator", "coffee-cost-calculator", "coffee-roasting-calculator", "wholesale-price-calculator", "inventory-turnover-calculator", "cost-of-goods-sold-calculator", "break-even-calculator", "eoq-calculator", "safety-stock-calculator", "unit-price-comparison-calculator", "vat-calculator"],
   },
 ];
 

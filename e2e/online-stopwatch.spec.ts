@@ -32,6 +32,7 @@ test("online stopwatch records accurate laps, resumes, persists, and exports saf
   await expect(page.locator('link[rel="canonical"]')).toHaveAttribute("href", "https://meaw-tools.vercel.app/online-stopwatch");
   await expect(page.locator('meta[property="og:image"]')).toHaveAttribute("content", "https://meaw-tools.vercel.app/brand/meaw-cafe-hero.webp");
   await expect(page.locator('meta[name="twitter:image"]')).toHaveAttribute("content", "https://meaw-tools.vercel.app/brand/meaw-cafe-hero.webp");
+  await page.clock.pauseAt(new Date("2026-08-11T05:10:00.000Z"));
 
   await page.getByTestId("stopwatch-session-name").fill("ซ้อมวิ่ง 3 รอบ");
   await page.getByTestId("stopwatch-start").click();

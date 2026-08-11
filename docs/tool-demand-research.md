@@ -1570,6 +1570,42 @@ UI แบ่ง Scenario/Investment, Net cash flow editor, Result cards, Accessi
 - [Google Search Central — Creating helpful, reliable, people-first content](https://developers.google.com/search/docs/fundamentals/creating-helpful-content)
 - [Google Search Central — How Search works and no indexing guarantee](https://developers.google.com/search/docs/fundamentals/how-search-works)
 
+## รอบที่ 59 — Employee Schedule Maker, Work Schedule Maker และ Duty Roster (11 สิงหาคม 2569)
+
+รอบนี้สำรวจคำตั้งต้นด้านการจัดตารางพนักงานและตารางเวรผ่าน Google Autocomplete ภาษาไทย/ประเทศไทย โดยใช้จำนวนคำแนะนำเป็นเพียง Demand proxy ของความกว้าง Intent ไม่ใช่ Search volume, Traffic forecast หรือหลักฐานว่าจะติดหน้าแรก Google สัญญาณตรงที่พบคือ `employee schedule maker` 10/10, `employee schedule maker free` 9/10, `work schedule maker` 10/10, `work schedule maker free` 10/10, `shift schedule maker` 10/10, `shift schedule generator` 10/10, `employee shift schedule` 10/10, `จัดตารางเวร` 10/10, `โปรแกรมจัดตารางเวร` 7/10, `duty roster generator` 4/10 และ `staff roster generator` 2/10
+
+คู่แข่งสะท้อน Workflow หลักหลายแบบ: DutyRoster ใช้กระบวนการหลายขั้นบน Cloud พร้อม Availability และ Staffing need; ShiftCraft เน้นตารางรายสัปดาห์แบบลากวาง, PDF, autosave และคำเตือนชั่วโมง; Homebase มี Manual schedule maker แต่แยก Auto scheduling และ Overnight shift ออกจากเครื่องมือฟรี; siutil ใช้ตารางสัญลักษณ์รายเดือนพร้อมสรุปจำนวนกะ; Junia นำเสนอ AI schedule ที่พิจารณา Role, Availability, Coverage และ Max hours แต่บางความสามารถผูกกับแผน Pro ช่องว่างที่มีประโยชน์จริงจึงไม่ใช่แค่ตารางเปล่า แต่เป็นเครื่องมือฟรีที่สร้างผลแบบกำหนดซ้ำได้ รองรับกะข้ามวัน แสดงช่องว่างโดยไม่ฝ่าฝืนข้อจำกัด แก้ไข/ล็อกผลได้ และส่งออกได้โดยข้อมูลไม่ออกจาก Browser
+
+คะแนน 5 คือสูงที่สุด การจัดอันดับพิจารณา Demand ที่พบ, คุณค่าผู้ใช้จริง, ความต่างจากเครื่องมือเดิม, Revenue opportunity, Technical complexity, Scalability, Innovation และความเสี่ยงจากการแตกหน้าซ้ำบางเพื่อไล่ Keyword:
+
+| อันดับ | แนวคิด | Demand ที่พบ | ยาก | คุณค่าธุรกิจ | รายได้ | ขยายต่อ | นวัตกรรม | ข้อสรุป |
+|---:|---|---|---:|---:|---:|---:|---:|---|
+| 1 | Employee Schedule Maker & Duty Roster | EN 9–10/10 หลายแกน; ไทย 7–10/10 | 5 | 5 | 5 | 5 | 5 | ส่งมอบ Batch 69 เป็น Workflow เดียว: Role, Availability, Coverage, Hours, Rest, Lock, Manual correction และ Export |
+| 2 | Monthly Staff Roster Grid | Monthly roster related | 4 | 5 | 4 | 5 | 3 | ควรเป็นมุมมองรายเดือนของ Batch 69 ก่อนสร้างหน้าใหม่ เพื่อไม่ให้เป็น Keyword page ซ้ำบาง |
+| 3 | Nurse / Clinic Duty Roster | Duty roster related | 5 | 5 | 5 | 4 | 5 | ยังชะลอ: ต้องรองรับ Skill mix, On-call, Rotations และกฎความปลอดภัย/แรงงานเฉพาะองค์กร |
+| 4 | Shift Swap & Cover Request Board | Shift scheduling ecosystem | 5 | 5 | 5 | 5 | 5 | มีคุณค่าต่อเมื่อมี Multi-user, Approval, Audit log และ Notification ไม่ใช่ Static generator |
+| 5 | Labor Coverage Heatmap | Coverage intent | 4 | 5 | 5 | 5 | 4 | ควรเพิ่ม Demand per interval, Under/over staffing และ Cost overlay บนโมเดลข้อมูลเดียวกัน |
+| 6 | Availability Collection Sheet | Availability intent | 3 | 5 | 4 | 5 | 3 | ควรเป็น Share/import mode พร้อม Privacy boundary ไม่ต้องทำหน้า SEO แยกจนมี Workflow ต่างจริง |
+| 7 | On-call Roster Generator | On-call schedule intent | 5 | 5 | 5 | 4 | 5 | ต้องมี Primary/backup, Escalation, Time zone และ Fairness audit จึงค่อยแยกผลิตภัณฑ์ |
+| 8 | Cleaning Duty Roster | Duty roster niche | 3 | 4 | 3 | 4 | 3 | ใช้ Core assignment engine ได้ แต่ควรเป็น Preset/Template ไม่ใช่หน้าซ้ำบาง |
+| 9 | Volunteer Schedule Maker | Volunteer schedule intent | 4 | 4 | 3 | 5 | 4 | ต้องรองรับ Preference, Skill, Location และ Signup ก่อนจะแตกต่างพอ |
+| 10 | Employee Schedule Template Export | Template intent | 2 | 3 | 3 | 4 | 2 | CSV/ICS/Print/JSON รวมใน Batch 69 แล้ว ไม่ควรสร้าง Download page ที่ไม่มีงานเพิ่ม |
+
+Batch 69 ใช้ตัวจัดตารางแบบ deterministic best-effort ไม่ใช่ AI และไม่อ้างว่าเป็น Solver ที่หาคำตอบดีที่สุด ระบบจะเรียงช่องที่มีข้อจำกัดมากก่อนและให้คะแนนผู้สมัครจากชั่วโมงรายสัปดาห์ ชั่วโมงรวม จำนวนกะ กะกลางคืน/วันหยุด และ Seed จากนั้นบังคับ Role, วันไม่ว่าง, กะทับซ้อน, เวลาพักขั้นต่ำ, ชั่วโมงสูงสุดต่อสัปดาห์ และจำนวนวันทำงานติดกัน หากไม่มีผู้ที่ผ่านข้อจำกัด ระบบจะเปิดช่องว่างให้เห็นแทนการแอบฝ่าฝืนกติกา ผู้ใช้สามารถแก้รายช่อง ล็อกผล Regenerate เฉพาะส่วนที่ไม่ล็อก Undo/Redo และส่งออก CSV, ICS, JSON หรือ Print/PDF ได้
+
+SEO ใช้ Canonical เดียว `/employee-schedule-maker` ครอบคลุม Employee schedule, Work schedule, Shift schedule, Staff roster และ Duty roster ที่ใช้ Workflow เดียวกัน ไม่สร้างหน้า `free`, `online`, `generator`, `template` หรือคำไทยแยกซ้ำบาง เนื้อหา How-to, FAQ, ตัวอย่าง และข้อจำกัดอยู่ในหน้าที่ทำงานได้จริง แนวทางนี้สอดคล้องกับ People-first content และไม่มีการรับประกัน Index, Ranking หรือหน้าแรก Google
+
+- [Google Autocomplete — employee schedule maker](https://suggestqueries.google.com/complete/search?client=firefox&hl=th&gl=th&q=employee%20schedule%20maker)
+- [Google Autocomplete — work schedule maker](https://suggestqueries.google.com/complete/search?client=firefox&hl=th&gl=th&q=work%20schedule%20maker)
+- [Google Autocomplete — จัดตารางเวร](https://suggestqueries.google.com/complete/search?client=firefox&hl=th&gl=th&q=%E0%B8%88%E0%B8%B1%E0%B8%94%E0%B8%95%E0%B8%B2%E0%B8%A3%E0%B8%B2%E0%B8%87%E0%B9%80%E0%B8%A7%E0%B8%A3)
+- [DutyRoster — Create schedule](https://www.dutyroster.com/tool/create-schedule.htm)
+- [ShiftCraft — Employee Schedule Maker](https://shiftcraft.app/)
+- [Homebase — Free Employee Schedule Maker](https://www.joinhomebase.com/schedule-maker-tool)
+- [siutil — Shift Table](https://siutil.com/shift-table/)
+- [Junia — AI Staff Schedule Generator](https://www.junia.ai/tools/staff-schedule-generator)
+- [Google Search Central — Creating helpful, reliable, people-first content](https://developers.google.com/search/docs/fundamentals/creating-helpful-content)
+- [Google Search Central — How Search works and no indexing guarantee](https://developers.google.com/search/docs/fundamentals/how-search-works)
+
 ## รอบที่ 56 — Round Robin Schedule Generator และเครื่องมือจัดกิจกรรม (11 สิงหาคม 2569)
 
 รอบนี้ตรวจคำตั้งต้น 20 รูปแบบผ่าน Google Autocomplete ภาษาไทย/ประเทศไทยเพื่อแยก Search Intent จาก Single Elimination ที่ส่งมอบก่อนหน้า พบคำแนะนำเต็ม 10/10 สำหรับ `round robin generator`, `round robin schedule generator`, `round robin tournament generator`, `league schedule generator` และ `tournament schedule maker`; `double round robin generator` 6/10, `round robin schedule maker` 4/10 และ `round robin fixture generator` 3/10 ภาษาไทยพบ `โปรแกรมจัดตารางแข่ง` 5/10 ขณะที่คำยาว “พบกันหมด” ได้ 0/10 จึงใช้ Primary intent ภาษาอังกฤษและอธิบาย workflow ภาษาไทย จำนวนคำแนะนำเป็น Demand proxy เท่านั้น ไม่ใช่ Search volume, Traffic forecast หรือหลักฐานว่าจะติดหน้าแรก Google

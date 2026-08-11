@@ -70,6 +70,7 @@ const toolRoutes = [
   ["business-days-calculator", "Business Days Calculator"],
   ["working-hours-calculator", "Working Hours Calculator"],
   ["shift-pattern-calculator", "Shift Pattern Calculator"],
+  ["employee-schedule-maker", "Employee Schedule Maker"],
   ["hourly-rate-calculator", "Hourly Rate Calculator"],
   ["meeting-cost-calculator", "Meeting Cost Calculator"],
   ["billable-hours-calculator", "Billable Hours Calculator"],

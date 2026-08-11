@@ -55,6 +55,7 @@ const components = {
   "business-days-calculator": dynamic(() => import("@/features/tools/business-days-calculator-tool").then((module) => module.BusinessDaysCalculatorTool), { loading, ssr: false }),
   "working-hours-calculator": dynamic(() => import("@/features/tools/working-hours-calculator-tool").then((module) => module.WorkingHoursCalculatorTool), { loading, ssr: false }),
   "shift-pattern-calculator": dynamic(() => import("@/features/tools/shift-pattern-calculator-tool").then((module) => module.ShiftPatternCalculatorTool), { loading, ssr: false }),
+  "employee-schedule-maker": dynamic(() => import("@/features/tools/employee-schedule-maker-tool").then((module) => module.EmployeeScheduleMakerTool), { loading, ssr: false }),
   "hourly-rate-calculator": dynamic(() => import("@/features/tools/hourly-rate-calculator-tool").then((module) => module.HourlyRateCalculatorTool), { loading, ssr: false }),
   "meeting-cost-calculator": dynamic(() => import("@/features/tools/meeting-cost-calculator-tool").then((module) => module.MeetingCostCalculatorTool), { loading, ssr: false }),
   "billable-hours-calculator": dynamic(() => import("@/features/tools/billable-hours-calculator-tool").then((module) => module.BillableHoursCalculatorTool), { loading, ssr: false }),
