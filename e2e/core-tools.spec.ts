@@ -28,6 +28,7 @@ const toolRoutes = [
   ["time-zone-meeting-planner", "Time Zone Meeting Planner"],
   ["countdown-timer", "Countdown Timer Online"],
   ["online-stopwatch", "Online Stopwatch with Lap Timer"],
+  ["interval-timer", "Interval Timer & Tabata Timer Online"],
   ["pomodoro-timer", "Pomodoro Focus Timer Online"],
   ["time-blocking-planner", "Time Blocking Planner Online"],
   ["habit-tracker", "Habit Tracker Online Free"],
@@ -1706,7 +1707,7 @@ test("profession pages group existing tools by audience with unique SEO and resp
   await page.setViewportSize({ width: 1280, height: 900 });
   await page.goto("/professions");
   await expect(page.getByRole("heading", { level: 1, name: "เครื่องมือแบ่งตามสายอาชีพ" })).toBeVisible();
-  await expect(page.getByTestId("profession-card")).toHaveCount(12);
+  await expect(page.getByTestId("profession-card")).toHaveCount(13);
   await expect(page.locator('link[rel="canonical"]')).toHaveAttribute("href", "https://meaw-tools.vercel.app/professions");
   await expect(page.getByRole("link", { name: "ดูตามหมวดหมู่" })).toBeVisible();
 
