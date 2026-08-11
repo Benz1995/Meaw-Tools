@@ -1697,6 +1697,44 @@ SEO ใช้ primary intent เดียว `random team generator`, title/desc
 - [Google Search Central — Creating helpful, reliable, people-first content](https://developers.google.com/search/docs/fundamentals/creating-helpful-content)
 - [Google Search Central — Spam policies and doorway abuse](https://developers.google.com/search/docs/essentials/spam-policies)
 
+## รอบที่ 55 — Single Elimination Bracket และเครื่องมือจัดการแข่งขัน (11 สิงหาคม 2569)
+
+รอบนี้เจาะคำที่ต่อยอดจาก Random Team โดยไม่สร้างหน้า intent ซ้ำ Google Autocomplete ภาษาไทย/ประเทศไทยคืนคำแนะนำเต็ม 10/10 สำหรับ `tournament bracket generator`, `tournament bracket maker`, `bracket generator`, `bracket maker`, `single elimination bracket generator`, `double elimination bracket generator` และ `printable tournament bracket` ส่วนคำไทยแบบ exact ส่วนใหญ่ไม่มีคำแนะนำ มีเพียง `จัดสายแข่ง` 1/10 ขณะที่ `สายการแข่งขัน` 10/10 ปะปนข่าวฟุตบอลโลก จึงเลือก primary intent ภาษาอังกฤษที่ตรงกับ product และใช้ภาษาไทยอธิบาย workflow แทนการยึดคำไทยกว้างที่ intent ไม่ชัด จำนวนคำแนะนำเป็น demand proxy เท่านั้น ไม่ใช่ Search volume หรือคำรับประกันอันดับ Google
+
+การตรวจผลิตภัณฑ์ที่ตอบ intent โดยตรงพบ pattern ร่วมคือ Single/Double Elimination, ขนาดสาย 4/8/16/32 หรือมากกว่า, Seed, BYE, การคลิกผู้ชนะ, คะแนน, Print/PDF/PNG และ Share/Save แต่แต่ละ format มี state transition ต่างกันมาก รุ่นนี้จึงส่งมอบเฉพาะ `Single Elimination Bracket Generator` 2–32 คนหรือทีมให้ถูกต้องครบ workflow และไม่แสดงตัวเลือก Double Elimination หรือ Round Robin ที่ engine ยังไม่รองรับ
+
+ขอบเขตที่ส่งมอบประกอบด้วย Seed ตามลำดับหรือสุ่มด้วย Web Crypto, การวาง Seed มาตรฐาน, BYE อัตโนมัติ, คะแนน 0–999 ที่ต้องไม่เสมอและต้องตรงกับผู้ชนะ, การล้างผลปลายสายเมื่อเปลี่ยนผลต้นสาย, แชมป์/รองชนะเลิศ/อันดับ 3, JSON versioned สำหรับสำรองและย้ายเครื่อง, formula-safe CSV, Copy, Print/PDF และฉบับร่าง localStorage ที่ระบุชัดว่าอยู่เฉพาะ Browser เครื่องนั้น ข้อมูลไม่ถูกส่งไป API หรือ Server
+
+คะแนน 5 คือสูงที่สุด และเป็น Product opportunity score ไม่ใช่คะแนนอันดับ Google:
+
+| อันดับ | แนวคิดถัดไป | Intent / คุณค่าหลัก | ยาก | คุณค่าธุรกิจ | รายได้ | ขยายต่อ | นวัตกรรม | ข้อสรุป |
+|---:|---|---|---:|---:|---:|---:|---:|---|
+| 1 | Round-robin Schedule Maker | ทุกทีมพบกัน; สนาม เวลา Home/Away และ Rest | 4 | 5 | 4 | 5 | 4 | ผู้สมัครถัดไปที่ต่างจาก Bracket ชัด; ต้องมี constraint และ CSV/ICS |
+| 2 | Double Elimination Bracket | แพ้สองครั้งจึงตกรอบ พร้อม Winners/Losers bracket | 5 | 5 | 4 | 5 | 4 | Demand ชัด แต่ต้องสร้าง engine แยกและทดสอบ Reset final ไม่ควรแอบรวมในรุ่นนี้ |
+| 3 | Duty Roster Generator | จัดเวรตามวัน กะ ความพร้อม และข้อห้าม | 5 | 5 | 5 | 5 | 5 | ใช้ได้กับ HR ร้านค้า โรงพยาบาล และอาคาร แต่ต้องอธิบายเมื่อ constraint ขัดกัน |
+| 4 | Seating Chart Maker | จัดโต๊ะ/แถว ลากย้าย และพิมพ์ | 4 | 5 | 4 | 5 | 4 | ครู งานเลี้ยง Workshop และอีเวนต์ใช้จริง; ต้องออกแบบ touch/print ให้ดี |
+| 5 | Match Fixture & Venue Planner | จับคู่ เวลา สนาม และเวลาพัก | 5 | 5 | 4 | 5 | 5 | ต่อจาก Round-robin ได้ แต่ควรรวม workflow เดียวกันเพื่อกัน cannibalization |
+| 6 | Workshop Rotation Planner | หมุนกลุ่มผ่านฐานกิจกรรมโดยไม่ชน Capacity | 5 | 5 | 4 | 5 | 5 | คุณค่าสูงสำหรับโรงเรียน/องค์กร ต้องมี solver และรายงาน conflict |
+| 7 | Random Pair History | จับคู่หลายรอบและลดคู่ซ้ำ | 3 | 4 | 3 | 5 | 4 | ควรเริ่มเป็นโหมดใน Random Team ก่อนประเมิน URL แยก |
+| 8 | Bingo Card Generator | ข้อความไทย หลายใบ ไม่ซ้ำ และ Print | 3 | 4 | 4 | 5 | 3 | ทำได้ client-only และใช้ซ้ำสูง แต่ต้องสร้าง PDF หลายหน้าอย่างมีขีดจำกัด |
+| 9 | Decision Matrix | ถ่วงน้ำหนักเกณฑ์ เทียบตัวเลือก และ CSV | 3 | 5 | 4 | 5 | 4 | ใช้ได้หลายอาชีพและมีสูตรตรวจสอบได้ ควรหลีกเลี่ยงการอ้างว่าตัดสินใจแทนคน |
+| 10 | RACI Matrix Generator | ผู้รับผิดชอบ/อนุมัติ/ปรึกษา/รับทราบ | 3 | 5 | 4 | 5 | 3 | เหมาะ Project/Operations/HR; ต้องตรวจบทบาทซ้ำและ Owner ที่ขาด |
+
+SEO ใช้ URL เดียวสำหรับ Single Elimination พร้อม title/description ที่ตรงฟังก์ชัน, WebApplication + FAQ + Breadcrumb structured data, canonical, sitemap, Productivity category, 6 profession directories และ related links แบบ reciprocal ไม่มีหน้าแยกตามจำนวน 4/8/16/32 ทีม หรือคำว่า Free/Online เพื่อหลีกเลี่ยง thin/doorway pages ทุกองค์ประกอบช่วยเรื่อง crawlability และ intent alignment แต่ไม่รับประกัน Index, Traffic หรือหน้าแรก Google
+
+- [Google Autocomplete — tournament bracket generator](https://suggestqueries.google.com/complete/search?client=firefox&hl=th&gl=th&q=tournament%20bracket%20generator)
+- [Google Autocomplete — single elimination bracket generator](https://suggestqueries.google.com/complete/search?client=firefox&hl=th&gl=th&q=single%20elimination%20bracket%20generator)
+- [Google Autocomplete — printable tournament bracket](https://suggestqueries.google.com/complete/search?client=firefox&hl=th&gl=th&q=printable%20tournament%20bracket)
+- [Bracket Generator](https://bracket-generator.com/)
+- [Bracket Generator HQ](https://bracketgeneratorhq.com/)
+- [Score Counter Tournament](https://scorecounter.com/tournament/)
+- [The Bracket Generator](https://thebracketgenerator.com/)
+- [SnapBracket](https://snapbracket.com/)
+- [BracketFast — Single Elimination](https://bracketfast.com/en/single-elimination)
+- [Score7 Tournament Bracket Generator](https://www.score7.io/en/tournament-bracket-generator)
+- [Google Search Central — Creating helpful, reliable, people-first content](https://developers.google.com/search/docs/fundamentals/creating-helpful-content)
+- [Google Search Central — Spam policies and doorway abuse](https://developers.google.com/search/docs/essentials/spam-policies)
+
 ## รอบที่ 51 — EOQ, Order Quantity, Quantity Discount และ Inventory Holding Cost (9 สิงหาคม 2569)
 
 รอบแรกส่งคำตั้งต้น 20 รูปแบบครอบคลุม Bulk buy/purchase/discount/order, Quantity discount, Cost savings, Storage cost, Inventory holding/carrying cost, EOQ, Wholesale price และคำไทยไปยัง Google Autocomplete ภาษาไทย/ประเทศไทย ได้คำแนะนำ 63 รายการไม่ซ้ำ ไม่มี Request error และมี 3 คำตั้งต้นที่คืนผลเต็ม 10/10 แต่ `bulk buy break even calculator`, `bulk vs retail calculator`, `คำนวณซื้อยกลัง` และ `คำนวณราคาขายส่ง` ได้ 0/10 จึงไม่ใช้ชื่อ Bulk Buy Break-even เป็นหน้าหลัก

@@ -3,6 +3,7 @@
 import { Check, Clipboard, Download, Eraser, FlaskConical } from "lucide-react";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
 
 export async function copyText(value: string, label = "คัดลอกแล้ว") {
   if (!value) { toast.error("ยังไม่มีผลลัพธ์ให้คัดลอก"); return; }
@@ -32,7 +33,7 @@ export function ClearButton({ onClear, disabled = false }: { onClear: () => void
 export function ExampleButton({ onExample, disabled = false }: { onExample: () => void; disabled?: boolean }) { return <Button type="button" variant="outline" disabled={disabled} onClick={onExample} aria-label="โหลดตัวอย่าง"><FlaskConical className="size-4" />ตัวอย่าง</Button>; }
 export function DownloadButton({ value, filename, type }: { value: string; filename: string; type?: string }) { return <Button type="button" variant="outline" onClick={() => downloadText(value, filename, type)} aria-label={`ดาวน์โหลด ${filename}`}><Download className="size-4" />ดาวน์โหลด</Button>; }
 
-export function WorkspaceFrame({ children }: { children: React.ReactNode }) { return <div className="meaw-workspace-panel rounded-2xl border p-4 sm:p-6">{children}</div>; }
+export function WorkspaceFrame({ children, className }: { children: React.ReactNode; className?: string }) { return <div className={cn("meaw-workspace-panel rounded-2xl border p-4 sm:p-6", className)}>{children}</div>; }
 export function ActionBar({ children }: { children: React.ReactNode }) { return <div className="flex flex-wrap gap-2">{children}</div>; }
 export function PanelLabel({ children, meta }: { children: React.ReactNode; meta?: React.ReactNode }) { return <div className="mb-2 flex min-h-6 items-center justify-between gap-3"><h2 className="text-sm font-semibold">{children}</h2>{meta ? <span className="text-xs text-muted-foreground">{meta}</span> : null}</div>; }
 export function EmptyOutput({ text = "ผลลัพธ์จะแสดงที่นี่หลังจากประมวลผล", size = "editor" }: { text?: string; size?: "compact" | "editor" }) { return <div className={`grid place-items-center rounded-lg border border-dashed bg-muted/20 p-6 text-center text-sm text-muted-foreground ${size === "compact" ? "min-h-36" : "min-h-72"}`}>{text}</div>; }

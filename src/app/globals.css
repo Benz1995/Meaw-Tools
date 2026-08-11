@@ -554,7 +554,9 @@
   .time-blocking-print-surface,
   .time-blocking-print-surface *,
   .random-team-print-surface,
-  .random-team-print-surface * { visibility: visible !important; }
+  .random-team-print-surface *,
+  .single-elimination-print-surface,
+  .single-elimination-print-surface * { visibility: visible !important; }
   .time-blocking-print-surface {
     position: absolute;
     inset: 0;
@@ -578,4 +580,19 @@
   }
   .random-team-no-print { display: none !important; }
   .random-team-print-surface [data-testid="generated-team"] { break-inside: avoid; }
+  .single-elimination-print-surface {
+    position: absolute;
+    inset: 0;
+    width: 153.846%;
+    padding: 20px;
+    background: white;
+    color: black;
+    transform: scale(0.65);
+    transform-origin: top left;
+    print-color-adjust: exact;
+    -webkit-print-color-adjust: exact;
+  }
+  .single-elimination-no-print { display: none !important; }
+  .single-elimination-print-surface [data-testid="bracket-board"] { overflow: visible; }
+  .single-elimination-print-surface [data-testid^="bracket-match-"] { break-inside: avoid; }
 }

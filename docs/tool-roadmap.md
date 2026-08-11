@@ -208,6 +208,8 @@
 
 ## การส่งมอบล่าสุด
 
+- Batch 65 — Single Elimination Bracket Generator แบบ client-only รองรับ 2–32 คนหรือทีม, Seed ตามรายชื่อ/สุ่ม Web Crypto, BYE อัตโนมัติ, คะแนนและผู้ชนะ, การ reset ผลปลายสายที่ไม่สอดคล้อง, ชิงอันดับ 3, autosave เฉพาะอุปกรณ์, JSON/CSV/Copy/Print พร้อม mobile/dark/print QA — พร้อมส่งมอบ; จำกัดขอบเขตชัดว่าไม่ใช่ Double Elimination หรือ Round Robin
+- Batch 64 — Random Team Generator & Group Maker แบบ client-only รองรับรายชื่อ 500 คน, Random/Skill-balanced, แบ่งตามจำนวนทีม/คนต่อทีม, ตัดชื่อซ้ำ, Snake draft, Copy/CSV/Print และไม่เก็บรายชื่อ — ส่งมอบและตรวจ Production แล้ว
 - Batch 63 — Bill Split & Shared Expense Calculator แบบ client-only รองรับผู้ร่วมจ่าย 2–12 คน, รายการ 1–30 รายการ, Weight และการเลือกคนต่อ Item, ค่าเพิ่ม/ส่วนลด 3 วิธี, Largest-remainder rounding, Paid reconciliation, deterministic settlement และ formula-safe CSV — ส่งมอบและตรวจ Production แล้ว
 - Batch 62 — Wholesale & Retail Price Calculator แบบ client-only รองรับ Cost build-up 7 หมวด, ช่องทางขาย 1–6 ช่องทาง, Variable fee, Fixed fee ต่อ Order/หน่วย, Target seller margin, Downstream retailer margin, Break-even, Order economics, Suggested retail price และ formula-safe CSV — ส่งมอบและตรวจ Production แล้ว
 - Batch 61 — EOQ & Quantity Discount Calculator แบบ client-only รองรับ Classical EOQ, Holding cost แบบยอด/เปอร์เซ็นต์, All-units Price tier, MOQ, Pack size, Storage capacity, Current policy, Reorder Point โดยประมาณ, Candidate ranking และ formula-safe CSV — ส่งมอบและตรวจ Production แล้ว
