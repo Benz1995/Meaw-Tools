@@ -1655,6 +1655,45 @@ SEO ใช้ Primary `bingo card generator` และรองรับ Maker, 
 - [Google Search Central — Creating helpful, reliable, people-first content](https://developers.google.com/search/docs/fundamentals/creating-helpful-content)
 - [Google Search Central — Spam policies](https://developers.google.com/search/docs/essentials/spam-policies)
 
+## รอบที่ 58 — Seating Chart Maker, Random Seat Generator และเครื่องมือจัดคนลงพื้นที่ (11 สิงหาคม 2569)
+
+รอบนี้ตรวจคำตั้งต้นผ่าน Google Autocomplete ภาษาไทย/ประเทศไทยซ้ำหลัง Batch 67 พบคำแนะนำเต็ม 10/10 สำหรับ `seating chart maker`, `seating chart maker free`, `free seating chart maker`, `seating chart generator`, `random seating chart generator` และ `wedding seating chart maker`; `classroom seating chart maker` ได้ 8/10, `classroom seating chart generator` 6/10, `event seating chart maker` 2/10 และ `exam seating arrangement generator` 1/10 ส่วนคำไทยตรงอย่าง `โปรแกรมจัดที่นั่ง` ยัง 0/10 จึงใช้ English primary intent กับ UI/คำอธิบายภาษาไทย จำนวนคำแนะนำเป็น Demand proxy เท่านั้น ไม่ใช่ Search volume, Traffic forecast หรือหลักฐานว่าจะติดหน้าแรก Google
+
+คู่แข่ง General/Random เน้น Rows/Columns, Shuffle, Lock, Empty seat, Undo และ PDF/PNG; ฝั่ง Classroom เพิ่ม Roster, Furniture และข้อจำกัดนักเรียน ส่วน Wedding/Event เพิ่ม Table shape, Guest import, Drag/drop, Keep together/apart และ Day-of output รุ่นนี้ใช้ URL เดียวรวม Workflow ที่มีแกนข้อมูลเดียวกันคือ รายชื่อ → รูปแบบพื้นที่ → วิธีจัด → Manual correction → Lock/Unavailable → Export ไม่สร้างหน้า Free, Online, Classroom, Wedding, Random หรือ Printable แยกซ้ำเพื่อไล่ Keyword และประกาศขอบเขตว่า Group mode เป็น best-effort ไม่ใช่ Constraint solver หรือแบบสถาปัตยกรรมรับรอง
+
+คะแนน 5 คือสูงที่สุดและเป็น Product opportunity score ไม่ใช่คะแนนอันดับ Google:
+
+| อันดับ | แนวคิด | Demand ที่พบ / คุณค่าหลัก | ยาก | คุณค่าธุรกิจ | รายได้ | ขยายต่อ | นวัตกรรม | ข้อสรุป |
+|---:|---|---|---:|---:|---:|---:|---:|---|
+| 1 | Seating Chart Maker & Random Seat Generator | General/Random/Wedding 10/10; Classroom 8/10 | 5 | 5 | 5 | 5 | 5 | Batch 68; Rows/Round tables, 200 people, 3 strategies, Move/Swap, Lock, Unavailable, Undo/Redo, PNG/CSV/JSON/Print |
+| 2 | Constraint-aware Classroom Seating Solver | Generator with restrictions อยู่ใน 10/10 | 5 | 5 | 5 | 5 | 5 | Front/vision/accessibility/keep-apart ต้องมี Conflict report และบอกกรณีแก้ไม่ได้ ไม่ควรซ่อนใน Random mode |
+| 3 | Wedding Table Card & Find-your-seat Poster | Wedding/Template 10/10 | 5 | 5 | 5 | 5 | 4 | Alphabetical poster, table cards, meal/group summaries และ Typography print เป็นอีก output workflow ที่ใหญ่พอแยก |
+| 4 | Exam Seat Assignment Generator | Exact 1/10 แต่โรงเรียนใช้จริง | 5 | 5 | 4 | 5 | 5 | Student ID, alternating room/subject, anti-adjacency, room capacity และ invigilator sheets ต้องมี constraint เฉพาะ |
+| 5 | Duty Roster Generator | จากรอบก่อน 4/10 | 5 | 5 | 5 | 5 | 5 | Availability, fairness, consecutive-duty limits, coverage และ conflict report มีคุณค่าสูงกว่า random list |
+| 6 | Room Layout Planner | Classroom furniture/venue intent | 5 | 5 | 5 | 5 | 5 | Drag/resize/rotate furniture, scale, aisle และ accessibility; ต้องประกาศว่าไม่ใช่แบบก่อสร้าง |
+| 7 | Printable Name Tent Generator | Classroom/Event related | 3 | 5 | 4 | 5 | 4 | Duplex fold, Thai wrapping, logo/photo optional, cut/fold marks และ CSV import |
+| 8 | Attendance Sheet Generator | Classroom seating related | 4 | 5 | 4 | 5 | 4 | Roster, date columns, signature/check-in, print/CSV และ privacy-safe local state |
+| 9 | QR Find-my-seat Directory | Wedding/event related | 5 | 5 | 5 | 5 | 5 | Searchable guest directory + QR ต้องมี privacy boundary และไม่เผย Guest list โดยปริยาย |
+| 10 | Classroom Rotation Planner | Teacher workflow | 5 | 5 | 4 | 5 | 5 | หลายสัปดาห์, ลดที่นั่งเดิมซ้ำ, front-seat rotation และ exception history ต่างจาก single chart |
+
+Batch 68 รองรับรายชื่อสูงสุด 200 คนด้วยรูปแบบ `ชื่อ | กลุ่ม`, ตัดชื่อซ้ำแบบ NFKC/case-insensitive, ผังห้องเรียนสูงสุด 12×12 หรือโต๊ะกลมสูงสุด 20 โต๊ะ โต๊ะละ 2–12 ที่นั่ง และ Seeded PRNG สามโหมดคือ Random, Spread group และ Keep group together สามารถเลือกชื่อแล้วแตะที่นั่งเพื่อย้ายหรือสลับ ล็อกตำแหน่งก่อนสุ่มใหม่ ปิดที่นั่งว่าง นำชื่อออก จัดคนที่เหลือ และ Undo/Redo 30 ขั้น
+
+หน้าเดียวส่งออก PNG, UTF-8 BOM CSV ที่ Neutralize ค่าเริ่มด้วย `=`, `+`, `-`, `@`, versioned JSON ที่ regenerate โครงสร้างและตรวจ Seat/Person/Lock/Unavailable invariant ก่อนรับ, Copy text, Print/PDF และ localStorage autosave ที่ fail-soft เมื่อ Browser ปิดกั้น Storage SEO รวม General, Free, Online, Random, Classroom, Teacher, Wedding, Event, Table และคำไทยใน Canonical เดียว พร้อม WebApplication, FAQPage, BreadcrumbList, Sitemap, Productivity category, Profession directories และ reciprocal related links แต่ไม่รับประกัน Index, Traffic หรืออันดับหน้าแรก Google
+
+- [Google Autocomplete — seating chart maker](https://suggestqueries.google.com/complete/search?client=firefox&hl=th&gl=th&q=seating%20chart%20maker)
+- [Google Autocomplete — free seating chart maker](https://suggestqueries.google.com/complete/search?client=firefox&hl=th&gl=th&q=free%20seating%20chart%20maker)
+- [Google Autocomplete — random seating chart generator](https://suggestqueries.google.com/complete/search?client=firefox&hl=th&gl=th&q=random%20seating%20chart%20generator)
+- [Google Autocomplete — classroom seating chart maker](https://suggestqueries.google.com/complete/search?client=firefox&hl=th&gl=th&q=classroom%20seating%20chart%20maker)
+- [Google Autocomplete — wedding seating chart maker](https://suggestqueries.google.com/complete/search?client=firefox&hl=th&gl=th&q=wedding%20seating%20chart%20maker)
+- [Random Seating Chart Generator — General random seating workflow](https://www.randomseatingchartgenerator.com/)
+- [Wedding Studio — Wedding Seating Chart Maker](https://www.wedding.studio/seating-chart)
+- [ClassSeats — Classroom Seating Chart Generator](https://www.classseats.com/)
+- [Seating Plan — Classroom seating planner](https://www.seatingplan.com/)
+- [PlanSeats — Wedding & Event Seating Chart Maker](https://www.planseats.com/)
+- [QuickSeatly — Free Wedding Seating Chart Maker](https://quickseatly.com/)
+- [Google Search Central — Creating helpful, reliable, people-first content](https://developers.google.com/search/docs/fundamentals/creating-helpful-content)
+- [Google Search Central — Spam policies](https://developers.google.com/search/docs/essentials/spam-policies)
+
 ## รอบที่ 52 — Wholesale Price, Retail Price, Product Pricing และ Channel Fee (9 สิงหาคม 2569)
 
 รอบแรกส่งคำตั้งต้น 25 รูปแบบไปยัง Google Autocomplete ภาษาไทย/ประเทศไทย ครอบคลุม Wholesale price/pricing/margin/markup, Retail price/margin/markup, Selling price, Product pricing, Marketplace/Platform fee และคำไทย ได้คำแนะนำไม่ซ้ำ 117 รายการ ไม่มี Request error และ 7 คำตั้งต้นคืนผลเต็ม 10/10 ได้แก่ `wholesale price calculator`, `wholesale price formula`, `calculate wholesale price`, `retail price calculator`, `retail margin calculator`, `selling price calculator` และ `product pricing calculator` ส่วน `คำนวณราคาขายส่ง` กับ `สูตรราคาขายส่ง` ได้ 0/10

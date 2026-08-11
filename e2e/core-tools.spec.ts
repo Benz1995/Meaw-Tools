@@ -122,6 +122,7 @@ const toolRoutes = [
   ["single-elimination-bracket-generator", "Single Elimination Bracket Generator"],
   ["round-robin-schedule-generator", "Round Robin Schedule Generator"],
   ["bingo-card-generator", "Bingo Card Generator & Caller"],
+  ["seating-chart-maker", "Seating Chart Maker"],
   ["random-wheel", "Random Wheel"],
   ["pdf-to-jpg", "PDF to JPG Converter"],
   ["merge-pdf", "Merge PDF"],

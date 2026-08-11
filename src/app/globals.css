@@ -562,7 +562,9 @@
   .round-robin-print-surface,
   .round-robin-print-surface *,
   .bingo-print-surface,
-  .bingo-print-surface * { visibility: visible !important; }
+  .bingo-print-surface *,
+  .seating-print-surface,
+  .seating-print-surface * { visibility: visible !important; }
   .time-blocking-print-surface {
     position: absolute;
     inset: 0;
@@ -642,4 +644,22 @@
   .bingo-print-deck[data-cards-per-page="4"] { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 5mm; }
   .bingo-print-deck[data-cards-per-page="4"] .bingo-print-card { padding: 4mm; }
   .bingo-print-deck[data-cards-per-page="4"] .bingo-print-card:nth-child(4n):not(:last-child) { break-after: page; }
+  .seating-print-surface {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    padding: 10mm;
+    border: 0 !important;
+    background: white !important;
+    color: black !important;
+    print-color-adjust: exact;
+    -webkit-print-color-adjust: exact;
+  }
+  .seating-no-print { display: none !important; }
+  .seating-print-header { display: block !important; margin-bottom: 8mm; }
+  .seating-chart-viewport { overflow: visible !important; }
+  .seating-chart-grid { min-width: 0 !important; width: 100% !important; }
+  .seating-print-surface button { color: black !important; box-shadow: none !important; }
+  .seating-table-grid { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; }
+  .seating-table-grid section { break-inside: avoid; }
 }
