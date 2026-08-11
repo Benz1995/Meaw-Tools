@@ -208,6 +208,7 @@
 
 ## การส่งมอบล่าสุด
 
+- Batch 67 — Bingo Card Generator & Caller แบบ client-only รองรับ Custom words/phrases 3×3, 4×4, 5×5, Classic 75-ball ตามช่วง B-I-N-G-O, การ์ดไม่ซ้ำ 1–100 ใบ, Seed สร้างซ้ำได้, Free center, 4 ชุดสี, แตะเล่นและตรวจ BINGO, Caller/Undo/Reset, autosave เฉพาะอุปกรณ์, formula-safe CSV, PNG, versioned JSON และ Print 1/2/4 cards ต่อหน้า พร้อมขอบเขตชัดว่าไม่ใช่ 90-ball หรือระบบรับรองการพนัน — ส่งมอบและตรวจ Production แล้ว
 - Batch 66 — Round Robin Schedule Generator แบบ client-only รองรับ 2–24 คนหรือทีม, Single/Double Round Robin, ลำดับตามรายชื่อ/สุ่ม Web Crypto, ทีมพักเมื่อจำนวนคี่, 1–8 สนาม, วันเวลา/เวลาต่อคู่/เวลาพัก, คะแนนและ Standings, autosave เฉพาะอุปกรณ์, formula-safe CSV, RFC-style ICS, JSON/Copy/Print พร้อมกำหนดขอบเขตชัดว่าไม่มี Availability constraint และ Head-to-head — พร้อมส่งมอบ Production
 - Batch 65 — Single Elimination Bracket Generator แบบ client-only รองรับ 2–32 คนหรือทีม, Seed ตามรายชื่อ/สุ่ม Web Crypto, BYE อัตโนมัติ, คะแนนและผู้ชนะ, การ reset ผลปลายสายที่ไม่สอดคล้อง, ชิงอันดับ 3, autosave เฉพาะอุปกรณ์, JSON/CSV/Copy/Print พร้อม mobile/dark/print QA — พร้อมส่งมอบ; จำกัดขอบเขตชัดว่าไม่ใช่ Double Elimination หรือ Round Robin
 - Batch 64 — Random Team Generator & Group Maker แบบ client-only รองรับรายชื่อ 500 คน, Random/Skill-balanced, แบ่งตามจำนวนทีม/คนต่อทีม, ตัดชื่อซ้ำ, Snake draft, Copy/CSV/Print และไม่เก็บรายชื่อ — ส่งมอบและตรวจ Production แล้ว

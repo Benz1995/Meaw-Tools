@@ -106,6 +106,7 @@ const components = {
   "random-team-generator": dynamic(() => import("@/features/tools/random-team-generator-tool").then((module) => module.RandomTeamGeneratorTool), { loading, ssr: false }),
   "single-elimination-bracket-generator": dynamic(() => import("@/features/tools/single-elimination-bracket-tool").then((module) => module.SingleEliminationBracketTool), { loading, ssr: false }),
   "round-robin-schedule-generator": dynamic(() => import("@/features/tools/round-robin-schedule-tool").then((module) => module.RoundRobinScheduleTool), { loading, ssr: false }),
+  "bingo-card-generator": dynamic(() => import("@/features/tools/bingo-card-generator-tool").then((module) => module.BingoCardGeneratorTool), { loading, ssr: false }),
   "random-wheel": dynamic(() => import("@/features/tools/everyday-tools").then((module) => module.RandomWheelTool), { loading, ssr: false }),
   "pdf-to-jpg": dynamic(() => import("@/features/tools/pdf-to-jpg-tool").then((module) => module.PdfToJpgTool), { loading, ssr: false }),
   "merge-pdf": dynamic(() => import("@/features/tools/pdf-organizer-tools").then((module) => module.MergePdfTool), { loading, ssr: false }),

@@ -549,6 +549,8 @@
   .motion-reduced .cat-walker-message { display: none; }
 }
 
+.bingo-print-deck { display: none; }
+
 @media print {
   body * { visibility: hidden !important; }
   .time-blocking-print-surface,
@@ -558,7 +560,9 @@
   .single-elimination-print-surface,
   .single-elimination-print-surface *,
   .round-robin-print-surface,
-  .round-robin-print-surface * { visibility: visible !important; }
+  .round-robin-print-surface *,
+  .bingo-print-surface,
+  .bingo-print-surface * { visibility: visible !important; }
   .time-blocking-print-surface {
     position: absolute;
     inset: 0;
@@ -610,4 +614,32 @@
   .round-robin-no-print { display: none !important; }
   .round-robin-print-surface section,
   .round-robin-print-surface [data-testid^="round-robin-match-"] { break-inside: avoid; }
+  .bingo-print-surface {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    padding: 12mm;
+    border: 0 !important;
+    background: white !important;
+    color: black !important;
+    print-color-adjust: exact;
+    -webkit-print-color-adjust: exact;
+  }
+  .bingo-no-print { display: none !important; }
+  .bingo-print-deck { display: grid !important; gap: 8mm; }
+  .bingo-print-card {
+    min-width: 0;
+    break-inside: avoid;
+    border: 1px solid #d7d7d7;
+    border-radius: 12px;
+    padding: 7mm;
+    background: white;
+  }
+  .bingo-print-deck[data-cards-per-page="1"] { grid-template-columns: 1fr; }
+  .bingo-print-deck[data-cards-per-page="1"] .bingo-print-card:not(:last-child) { break-after: page; }
+  .bingo-print-deck[data-cards-per-page="2"] { grid-template-columns: 1fr; }
+  .bingo-print-deck[data-cards-per-page="2"] .bingo-print-card:nth-child(2n):not(:last-child) { break-after: page; }
+  .bingo-print-deck[data-cards-per-page="4"] { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 5mm; }
+  .bingo-print-deck[data-cards-per-page="4"] .bingo-print-card { padding: 4mm; }
+  .bingo-print-deck[data-cards-per-page="4"] .bingo-print-card:nth-child(4n):not(:last-child) { break-after: page; }
 }
