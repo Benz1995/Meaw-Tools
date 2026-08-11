@@ -27,6 +27,7 @@ const toolRoutes = [
   ["timestamp-converter", "Timestamp Converter"],
   ["time-zone-meeting-planner", "Time Zone Meeting Planner"],
   ["countdown-timer", "Countdown Timer Online"],
+  ["online-stopwatch", "Online Stopwatch with Lap Timer"],
   ["pomodoro-timer", "Pomodoro Focus Timer Online"],
   ["time-blocking-planner", "Time Blocking Planner Online"],
   ["habit-tracker", "Habit Tracker Online Free"],

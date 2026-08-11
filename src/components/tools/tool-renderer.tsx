@@ -15,6 +15,7 @@ const components = {
   "timestamp-converter": dynamic(() => import("@/features/tools/utility-tools").then((module) => module.TimestampTool), { loading, ssr: false }),
   "time-zone-meeting-planner": dynamic(() => import("@/features/tools/time-zone-meeting-planner-tool").then((module) => module.TimeZoneMeetingPlannerTool), { loading, ssr: false }),
   "countdown-timer": dynamic(() => import("@/features/tools/countdown-timer-tool").then((module) => module.CountdownTimerTool), { loading, ssr: false }),
+  "online-stopwatch": dynamic(() => import("@/features/tools/online-stopwatch-tool").then((module) => module.OnlineStopwatchTool), { loading, ssr: false }),
   "pomodoro-timer": dynamic(() => import("@/features/tools/pomodoro-focus-timer-tool").then((module) => module.PomodoroFocusTimerTool), { loading, ssr: false }),
   "time-blocking-planner": dynamic(() => import("@/features/tools/time-blocking-planner-tool").then((module) => module.TimeBlockingPlannerTool), { loading, ssr: false }),
   "habit-tracker": dynamic(() => import("@/features/tools/habit-tracker-tool").then((module) => module.HabitTrackerTool), { loading, ssr: false }),
