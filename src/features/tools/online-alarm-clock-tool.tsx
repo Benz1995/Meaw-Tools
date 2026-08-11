@@ -373,10 +373,15 @@ export function OnlineAlarmClockTool() {
 
   useEffect(() => {
     const handleShortcut = (event: KeyboardEvent) => {
-      if (isEditableTarget(event.target) || event.altKey || event.ctrlKey || event.metaKey) return;
-      if (event.key.toLocaleLowerCase("en-US") === "f") void toggleFullscreen();
-      if (ringingRef.current && event.key.toLocaleLowerCase("en-US") === "s") finishRinging("snooze");
-      if (ringingRef.current && event.key === "Escape") finishRinging("dismiss");
+      if (event.altKey || event.ctrlKey || event.metaKey) return;
+      const key = event.key.toLocaleLowerCase("en-US");
+      if (ringingRef.current && (key === "s" || event.key === "Escape")) {
+        event.preventDefault();
+        finishRinging(key === "s" ? "snooze" : "dismiss");
+        return;
+      }
+      if (isEditableTarget(event.target)) return;
+      if (key === "f") void toggleFullscreen();
     };
     window.addEventListener("keydown", handleShortcut);
     return () => window.removeEventListener("keydown", handleShortcut);

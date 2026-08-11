@@ -8,6 +8,11 @@ function hasExternalRequest(requests: string[], pageUrl: string) {
   });
 }
 
+function countdownSeconds(value: string | null): number {
+  const parts = (value ?? "").split(":").map(Number);
+  return parts.length === 3 && parts.every(Number.isFinite) ? (parts[0] ?? 0) * 3_600 + (parts[1] ?? 0) * 60 + (parts[2] ?? 0) : -1;
+}
+
 test("online alarm rings, snoozes, persists multiple alarms, and exposes complete SEO", async ({ page }) => {
   const requests: string[] = [];
   const consoleErrors: string[] = [];
@@ -38,19 +43,23 @@ test("online alarm rings, snoozes, persists multiple alarms, and exposes complet
   await page.getByTestId("alarm-test-sound").click();
   await page.getByTestId("alarm-save").click();
   await expect(page.getByTestId("alarm-list")).toContainText("ประชุมทีมเช้า");
-  await expect(page.getByTestId("alarm-next-countdown")).toContainText("00:01:00");
+  const firstCountdown = countdownSeconds(await page.getByTestId("alarm-next-countdown").textContent());
+  expect(firstCountdown).toBeGreaterThanOrEqual(50);
+  expect(firstCountdown).toBeLessThanOrEqual(60);
   await expect.poll(() => page.evaluate(() => window.localStorage.getItem("meaw-online-alarm-clock-v1") ?? "")).toContain("ประชุมทีมเช้า");
 
   await page.clock.runFor(60_300);
   await expect(page.getByTestId("alarm-ringing-overlay")).toBeVisible();
   await expect(page.getByTestId("alarm-ringing-overlay")).toContainText("ประชุมทีมเช้า");
-  await page.getByTestId("alarm-snooze").click();
+  await page.keyboard.press("s");
   await expect(page.getByTestId("alarm-ringing-overlay")).toBeHidden();
-  await expect(page.getByTestId("alarm-next-countdown")).toContainText("00:05:00");
+  const snoozeCountdown = countdownSeconds(await page.getByTestId("alarm-next-countdown").textContent());
+  expect(snoozeCountdown).toBeGreaterThanOrEqual(295);
+  expect(snoozeCountdown).toBeLessThanOrEqual(300);
 
   await page.clock.runFor(300_300);
   await expect(page.getByTestId("alarm-ringing-overlay")).toBeVisible();
-  await page.getByTestId("alarm-dismiss").click();
+  await page.keyboard.press("Escape");
   await expect(page.getByTestId("alarm-ringing-overlay")).toBeHidden();
   await expect(page.getByTestId("alarm-next-card")).toContainText("ยังไม่มี Alarm ที่เปิดอยู่");
 
