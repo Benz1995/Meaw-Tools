@@ -20,7 +20,7 @@ export const professionConfigs: ProfessionConfig[] = [
     icon: "Code2",
     keywords: ["เครื่องมือโปรแกรมเมอร์", "developer tools online", "เครื่องมือ it ฟรี"],
     highlights: ["ตรวจและจัดรูปแบบข้อมูล", "เข้ารหัสและแปลงค่า", "ช่วยทดสอบและ Debug"],
-    toolSlugs: ["json-formatter", "json-validator", "sql-formatter", "jwt-decoder", "uuid-generator", "timestamp-converter", "time-zone-meeting-planner", "time-blocking-planner", "habit-tracker", "online-notepad", "todo-list-online", "pomodoro-timer", "online-stopwatch", "base64", "url-encoder", "regex-tester", "diff-checker", "cron-generator", "hash-generator", "markdown-table-generator", "html-table-generator", "color-picker", "password-generator"],
+    toolSlugs: ["json-formatter", "json-validator", "sql-formatter", "jwt-decoder", "uuid-generator", "timestamp-converter", "time-zone-meeting-planner", "time-blocking-planner", "habit-tracker", "online-notepad", "flashcard-maker", "todo-list-online", "pomodoro-timer", "online-stopwatch", "base64", "url-encoder", "regex-tester", "diff-checker", "cron-generator", "hash-generator", "markdown-table-generator", "html-table-generator", "color-picker", "password-generator"],
   },
   {
     value: "digital-marketing",
@@ -64,7 +64,7 @@ export const professionConfigs: ProfessionConfig[] = [
     icon: "UsersRound",
     keywords: ["เครื่องมือ hr", "โปรแกรมคำนวณ payroll", "เครื่องมือฝ่ายบุคคล"],
     highlights: ["เงินเดือนและสวัสดิการ", "เวลาและตารางกะ", "ต้นทุนและ Capacity ทีม"],
-    toolSlugs: ["salary-calculator", "overtime-calculator-thailand", "social-security-pension-calculator", "working-hours-calculator", "shift-pattern-calculator", "employee-schedule-maker", "labor-cost-calculator", "sales-commission-calculator", "team-capacity-calculator", "random-team-generator", "single-elimination-bracket-generator", "round-robin-schedule-generator", "bingo-card-generator", "seating-chart-maker", "age-calculator", "thai-id-validator"],
+    toolSlugs: ["salary-calculator", "overtime-calculator-thailand", "social-security-pension-calculator", "working-hours-calculator", "shift-pattern-calculator", "employee-schedule-maker", "labor-cost-calculator", "sales-commission-calculator", "team-capacity-calculator", "random-team-generator", "single-elimination-bracket-generator", "round-robin-schedule-generator", "bingo-card-generator", "flashcard-maker", "seating-chart-maker", "age-calculator", "thai-id-validator"],
   },
   {
     value: "project-operations",
@@ -86,7 +86,7 @@ export const professionConfigs: ProfessionConfig[] = [
     icon: "FilePenLine",
     keywords: ["เครื่องมือ content creator", "เครื่องมือนักเขียน", "content tools free"],
     highlights: ["ตรวจและจัดข้อความ", "สร้างสื่อจากเนื้อหา", "เตรียมข้อมูลเพื่อเผยแพร่"],
-    toolSlugs: ["calendar-maker", "time-blocking-planner", "habit-tracker", "online-notepad", "todo-list-online", "pomodoro-timer", "countdown-timer", "online-stopwatch", "word-counter", "word-cloud-generator", "bingo-card-generator", "text-cleaner", "typing-test", "special-characters", "text-to-speech", "resume-builder", "email-signature-generator", "diff-checker", "image-to-text", "markdown-table-generator", "html-table-generator"],
+    toolSlugs: ["calendar-maker", "time-blocking-planner", "habit-tracker", "online-notepad", "flashcard-maker", "todo-list-online", "pomodoro-timer", "countdown-timer", "online-stopwatch", "word-counter", "word-cloud-generator", "bingo-card-generator", "text-cleaner", "typing-test", "special-characters", "text-to-speech", "resume-builder", "email-signature-generator", "diff-checker", "image-to-text", "markdown-table-generator", "html-table-generator"],
   },
   {
     value: "education",
@@ -97,7 +97,7 @@ export const professionConfigs: ProfessionConfig[] = [
     icon: "GraduationCap",
     keywords: ["เครื่องมือการเรียนออนไลน์", "เครื่องมือสำหรับครู", "student tools free"],
     highlights: ["คำนวณเกรดและตัวเลข", "ทำรายงานและสื่อการสอน", "แปลงเอกสารและข้อมูล"],
-    toolSlugs: ["calendar-maker", "time-blocking-planner", "habit-tracker", "online-notepad", "todo-list-online", "pomodoro-timer", "online-alarm-clock", "interval-timer", "countdown-timer", "online-stopwatch", "grade-calculator", "age-calculator", "percentage-calculator", "unit-converter", "buddhist-year-converter", "timestamp-converter", "bmi-calculator", "typing-test", "word-counter", "qr-code-generator", "text-to-speech", "jpg-to-pdf", "random-team-generator", "single-elimination-bracket-generator", "round-robin-schedule-generator", "bingo-card-generator", "seating-chart-maker", "random-number-generator", "random-wheel"],
+    toolSlugs: ["calendar-maker", "time-blocking-planner", "habit-tracker", "online-notepad", "flashcard-maker", "todo-list-online", "pomodoro-timer", "online-alarm-clock", "interval-timer", "countdown-timer", "online-stopwatch", "grade-calculator", "age-calculator", "percentage-calculator", "unit-converter", "buddhist-year-converter", "timestamp-converter", "bmi-calculator", "typing-test", "word-counter", "qr-code-generator", "text-to-speech", "jpg-to-pdf", "random-team-generator", "single-elimination-bracket-generator", "round-robin-schedule-generator", "bingo-card-generator", "seating-chart-maker", "random-number-generator", "random-wheel"],
   },
   {
     value: "fitness-wellness",
@@ -108,7 +108,7 @@ export const professionConfigs: ProfessionConfig[] = [
     icon: "Activity",
     keywords: ["เครื่องมือฟิตเนสออนไลน์", "เครื่องมือ personal trainer", "fitness coach tools free", "จับเวลาออกกำลังกาย"],
     highlights: ["จับ Interval และรอบกีฬา", "วางกิจวัตรการฝึก", "คำนวณข้อมูลพื้นฐาน"],
-    toolSlugs: ["online-alarm-clock", "interval-timer", "online-stopwatch", "countdown-timer", "habit-tracker", "todo-list-online", "bmi-calculator", "age-calculator", "percentage-calculator", "unit-converter", "random-team-generator", "single-elimination-bracket-generator", "round-robin-schedule-generator", "random-number-generator", "random-wheel", "text-to-speech"],
+    toolSlugs: ["online-alarm-clock", "interval-timer", "online-stopwatch", "countdown-timer", "habit-tracker", "flashcard-maker", "todo-list-online", "bmi-calculator", "age-calculator", "percentage-calculator", "unit-converter", "random-team-generator", "single-elimination-bracket-generator", "round-robin-schedule-generator", "random-number-generator", "random-wheel", "text-to-speech"],
   },
   {
     value: "designer-media",

@@ -14,6 +14,7 @@ const components = {
   "uuid-generator": dynamic(() => import("@/features/tools/utility-tools").then((module) => module.UuidGeneratorTool), { loading, ssr: false }),
   "timestamp-converter": dynamic(() => import("@/features/tools/utility-tools").then((module) => module.TimestampTool), { loading, ssr: false }),
   "calendar-maker": dynamic(() => import("@/features/tools/calendar-maker-tool").then((module) => module.CalendarMakerTool), { loading, ssr: false }),
+  "flashcard-maker": dynamic(() => import("@/features/tools/flashcard-maker-tool").then((module) => module.FlashcardMakerTool), { loading, ssr: false }),
   "time-zone-meeting-planner": dynamic(() => import("@/features/tools/time-zone-meeting-planner-tool").then((module) => module.TimeZoneMeetingPlannerTool), { loading, ssr: false }),
   "countdown-timer": dynamic(() => import("@/features/tools/countdown-timer-tool").then((module) => module.CountdownTimerTool), { loading, ssr: false }),
   "online-stopwatch": dynamic(() => import("@/features/tools/online-stopwatch-tool").then((module) => module.OnlineStopwatchTool), { loading, ssr: false }),

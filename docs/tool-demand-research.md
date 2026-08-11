@@ -1570,6 +1570,45 @@ UI แบ่ง Scenario/Investment, Net cash flow editor, Result cards, Accessi
 - [Google Search Central — Creating helpful, reliable, people-first content](https://developers.google.com/search/docs/fundamentals/creating-helpful-content)
 - [Google Search Central — How Search works and no indexing guarantee](https://developers.google.com/search/docs/fundamentals/how-search-works)
 
+## รอบที่ 61 — Flashcard Maker, Printable Flashcards และ Study Deck (11 สิงหาคม 2569)
+
+ตรวจ Duplicate กับ 112 เครื่องมือก่อนเริ่มและไม่พบหน้าที่สร้างคู่ Front/Back, พลิกเรียน, ประเมินจำได้/ทบทวน และพิมพ์หน้า–หลังใน Workflow เดียว `online-notepad` เน้นจดข้อความ, `bingo-card-generator` เน้นเกม และ `grade-calculator` เน้นคำนวณเกรด จึงไม่ใช่ Keyword cannibalization กับ `flashcard-maker`
+
+ส่งคำตั้งต้น 15 รูปแบบไป Google Autocomplete locale ไทย/ประเทศไทย ได้ผลสำเร็จ 14 คำและ Error 1 คำ สัญญาณตรง `flashcard maker`, `free flashcard maker`, `flashcard maker online`, `printable flashcard maker` และ `flash card maker` ได้ 10/10; `flashcard maker free online` และ `flashcard maker no sign up` 6/10; `study flashcards online` 7/10; `flashcard maker for students` 5/10; `flashcard maker for teachers` และ `flashcard maker from csv` 2/10; คำไทย `สร้างแฟลชการ์ด` 2/10, `สร้างบัตรคำออนไลน์` และ `แฟลชการ์ดออนไลน์` 1/10 ตัวเลขเป็น Demand proxy จากคำแนะนำ ไม่ใช่ Search volume, Traffic forecast หรือหลักฐานว่าจะติดหน้าแรก
+
+ผลลัพธ์คู่แข่งยืนยัน intent หลัก: Canva เน้นออกแบบและพิมพ์, FlashcardMaker.org เน้นสร้าง–พลิกเรียน–แชร์–พิมพ์สองหน้า และ Panyacard เน้น Study mode, CSV/JSON และ Mobile/Dark mode จึงไม่ส่งหน้าเพียง Textarea + Download แต่รวมการสร้าง, แก้รายใบ, Study session, Shuffle, จำได้/ทบทวน, Import/Export และ Print ในหน้าเดียว ความต่างของ Meaw Tools คือรองรับข้อความไทย, local-first/no-account, สูตร CSV ปลอดภัย, JSON สำรอง และ Duplex guidance แบบไม่อ้างว่าใช้ได้กับเครื่องพิมพ์ทุกตัว
+
+คะแนน 5 คือสูงที่สุด การจัดอันดับพิจารณา Demand ที่พบ, ประโยชน์ใช้งานจริง, ความต่างจากเว็บเดิม, Revenue opportunity, Technical complexity, Scalability และ Innovation:
+
+| อันดับ | แนวคิด | Demand ที่พบ | ยาก | คุณค่าธุรกิจ | รายได้ | ขยายต่อ | นวัตกรรม | ข้อสรุป |
+|---:|---|---|---:|---:|---:|---:|---:|---|
+| 1 | Flashcard Maker & Printable Flashcards | EN 6–10/10; ไทย 1–2/10 | 5 | 5 | 4 | 5 | 4 | ส่งมอบ Batch 71: Front/Back, CSV/TSV/TXT, Study, Shuffle, Print, JSON/SVG/PNG |
+| 2 | Word Search Generator | Maker/Generator intent 10/10 จากรอบก่อน | 5 | 5 | 4 | 5 | 4 | ผู้สมัครถัดไป ต้องแก้ตารางจริง รองรับไทย ทิศคำ Seed Answer key และ Print |
+| 3 | Checklist Maker & Printable Checklist | Maker intent 10/10 จากรอบก่อน | 4 | 5 | 4 | 5 | 3 | ต้องต่างจาก Todo ด้วย Layout พิมพ์, Section, Repeat template และไม่มี Due-date workflow |
+| 4 | Quiz Maker แบบ Local-first | Quiz/flashcard related สูง | 5 | 5 | 4 | 5 | 5 | Multiple choice, Answer key, Shuffle, Score และ Print โดยไม่สร้างคำตอบด้วย AI แบบไม่ตรวจ |
+| 5 | Vocabulary Test Generator | Flashcard/student long-tail | 5 | 5 | 4 | 5 | 4 | สร้าง Matching, Fill-in และ Multiple choice จาก Deck เดียว พร้อม Distractor validation |
+| 6 | Spaced Repetition Planner | Study related 7/10 | 5 | 5 | 4 | 5 | 5 | ต้องมีอัลกอริทึม versioned, Due queue, Retention assumption และ Export ไม่ใช้ป้าย AI เกินจริง |
+| 7 | Printable Worksheet Maker | Teacher/printable related | 5 | 5 | 5 | 5 | 4 | ต้องมี Answer key, Page break, Thai font, Margin และ Accessibility ไม่ใช่ Canvas ภาพล้วน |
+| 8 | Matching Game Generator | Flashcard classroom workflow | 5 | 4 | 4 | 5 | 4 | ใช้ Deck เดียวสร้างเกมจับคู่ แต่ต้องมี Keyboard/touch และไม่เปิด Public sharing ก่อนมี moderation |
+| 9 | Study Timer with Session Log | Study intent related | 4 | 4 | 3 | 5 | 3 | ควรรวม Deck session กับ Pomodoro โดยไม่เปิด URL timer ซ้ำบาง ๆ |
+| 10 | Anki TSV Cleaner & Mapper | CSV/Anki long-tail 2/10 | 4 | 4 | 3 | 4 | 4 | Map columns, HTML stripping, duplicate report และ Preview ก่อน Export แยกเมื่อ Workflow หนาพอ |
+| 11 | Teacher Lesson Card Planner | Teacher intent 2/10 | 5 | 4 | 4 | 4 | 4 | Learning objective, Prompt, Answer, Difficulty และ Activity timing คนละ intent กับ Flashcard นักเรียน |
+| 12 | Image Flashcard Maker | Picture intent อยู่ใน Autocomplete | 5 | 5 | 5 | 5 | 5 | ชะลอจนมี Crop, image limits, ZIP, print memory QA และคำเตือนลิขสิทธิ์ที่น่าเชื่อถือ |
+
+Batch 71 จำกัด 200 ใบและข้อความด้านละ 1,000 ตัวอักษร Parser รองรับ Tab, ` | ` และ CSV ที่มี Front/Back, Question/Answer, Term/Definition หรือหัวข้อไทย ตัดคู่ซ้ำแบบ NFKC/case-insensitive, ป้องกัน Formula Injection ใน CSV, ส่ง TSV สำหรับนำเข้าโปรแกรมอื่น, JSON แบบมี Version และ SVG/PNG ของใบปัจจุบัน Study state “จำได้/ทบทวนอีก” เป็นสถานะรอบปัจจุบัน ไม่อ้างว่าเป็น Spaced Repetition และไม่สร้างหรือตรวจคำตอบด้วย AI
+
+Print มีแบบ Front/Back ในช่องเดียวและ Duplex 4/8 ช่องต่อหน้า ด้านหลังสะท้อนคอลัมน์เพื่อช่วยการพิมพ์พลิกขอบยาว แต่ระบุชัดว่าต้องทดลองหนึ่งแผ่นเพราะเครื่องพิมพ์และ Driver อาจกลับกระดาษต่างกัน SEO ใช้ Canonical เดียว `/flashcard-maker` ครอบคลุม Free, Online, Printable, Student, Teacher, CSV และ No-sign-up ซึ่งเป็น Workflow เดียว ไม่สร้างหน้า keyword ย่อยแบบ Doorway และเชื่อมหมวด Productivity, 5 profession directories กับ Related tools แบบ reciprocal
+
+- [Google Autocomplete — flashcard maker](https://suggestqueries.google.com/complete/search?client=firefox&hl=th&gl=th&q=flashcard%20maker)
+- [Google Autocomplete — printable flashcard maker](https://suggestqueries.google.com/complete/search?client=firefox&hl=th&gl=th&q=printable%20flashcard%20maker)
+- [Google Autocomplete — flashcard maker no sign up](https://suggestqueries.google.com/complete/search?client=firefox&hl=th&gl=th&q=flashcard%20maker%20no%20sign%20up)
+- [Google Autocomplete — สร้างแฟลชการ์ด](https://suggestqueries.google.com/complete/search?client=firefox&hl=th&gl=th&q=%E0%B8%AA%E0%B8%A3%E0%B9%89%E0%B8%B2%E0%B8%87%E0%B9%81%E0%B8%9F%E0%B8%A5%E0%B8%8A%E0%B8%81%E0%B8%B2%E0%B8%A3%E0%B9%8C%E0%B8%94)
+- [Canva — Free Printable Flashcard Maker](https://www.canva.com/create/flashcards/)
+- [FlashcardMaker.org — Free Flashcard Maker](https://flashcardmaker.org/)
+- [Panyacard — Free Online Flashcards](https://panyacard.com/)
+- [Google Search Central — Creating helpful, reliable, people-first content](https://developers.google.com/search/docs/fundamentals/creating-helpful-content)
+- [Google Search Central — Spam policies and doorway abuse](https://developers.google.com/search/docs/essentials/spam-policies)
+
 ## รอบที่ 60 — Calendar Maker, Printable Calendar และเครื่องมือวางแผน (11 สิงหาคม 2569)
 
 รอบนี้ตรวจ Duplicate ก่อนและไม่เลือก Time Card Calculator เพราะ `working-hours-calculator` ครอบคลุมเจตนา Time card, Timesheet และ Working hours อยู่แล้ว การเปิด URL ใหม่จะเสี่ยง Keyword cannibalization มากกว่าสร้างประโยชน์ใหม่ จาก Google Autocomplete locale ไทยพบสัญญาณตรงของ `calendar maker`, `free calendar maker`, `calendar maker online` และ `custom calendar maker` 10/10, `printable calendar` 9/10, `monthly calendar maker` 8/10 ส่วนคำไทย `สร้างปฏิทิน`, `สร้างปฏิทินออนไลน์`, `ทําปฏิทิน` และ `พิมพ์ปฏิทิน` อยู่ราว 3–6/10 จึงเลือก Calendar Maker เป็น Batch 70
