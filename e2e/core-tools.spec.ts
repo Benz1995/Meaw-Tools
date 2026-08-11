@@ -119,6 +119,8 @@ const toolRoutes = [
   ["password-generator", "Password Generator"],
   ["random-number-generator", "Random Number Generator"],
   ["random-team-generator", "Random Team Generator & Group Maker"],
+  ["single-elimination-bracket-generator", "Single Elimination Bracket Generator"],
+  ["round-robin-schedule-generator", "Round Robin Schedule Generator"],
   ["random-wheel", "Random Wheel"],
   ["pdf-to-jpg", "PDF to JPG Converter"],
   ["merge-pdf", "Merge PDF"],

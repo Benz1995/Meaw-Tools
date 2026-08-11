@@ -1570,6 +1570,49 @@ UI แบ่ง Scenario/Investment, Net cash flow editor, Result cards, Accessi
 - [Google Search Central — Creating helpful, reliable, people-first content](https://developers.google.com/search/docs/fundamentals/creating-helpful-content)
 - [Google Search Central — How Search works and no indexing guarantee](https://developers.google.com/search/docs/fundamentals/how-search-works)
 
+## รอบที่ 56 — Round Robin Schedule Generator และเครื่องมือจัดกิจกรรม (11 สิงหาคม 2569)
+
+รอบนี้ตรวจคำตั้งต้น 20 รูปแบบผ่าน Google Autocomplete ภาษาไทย/ประเทศไทยเพื่อแยก Search Intent จาก Single Elimination ที่ส่งมอบก่อนหน้า พบคำแนะนำเต็ม 10/10 สำหรับ `round robin generator`, `round robin schedule generator`, `round robin tournament generator`, `league schedule generator` และ `tournament schedule maker`; `double round robin generator` 6/10, `round robin schedule maker` 4/10 และ `round robin fixture generator` 3/10 ภาษาไทยพบ `โปรแกรมจัดตารางแข่ง` 5/10 ขณะที่คำยาว “พบกันหมด” ได้ 0/10 จึงใช้ Primary intent ภาษาอังกฤษและอธิบาย workflow ภาษาไทย จำนวนคำแนะนำเป็น Demand proxy เท่านั้น ไม่ใช่ Search volume, Traffic forecast หรือหลักฐานว่าจะติดหน้าแรก Google
+
+ผลิตภัณฑ์ที่ตอบ Intent โดยตรงมักมี Single/Double Round Robin, รองรับจำนวนทีมคี่และ BYE, สนาม/คอร์ต, วันเวลา, คะแนนและ Standings, Print/PDF, CSV และ Share บางรายเพิ่ม Rotating partners หรือระบบลงทะเบียน แต่เป็นอีก Problem space หนึ่ง รุ่นนี้จึงทำ Fixed participant/team round robin ให้ครบก่อน ไม่อ้างว่ารองรับข้อจำกัดวันว่างรายบุคคลหรือการหมุนคู่ Pickleball
+
+คะแนน 5 คือสูงที่สุดและเป็น Product opportunity score ไม่ใช่คะแนนอันดับ Google:
+
+| อันดับ | แนวคิด | Demand ที่พบ / คุณค่าหลัก | ยาก | คุณค่าธุรกิจ | รายได้ | ขยายต่อ | นวัตกรรม | ข้อสรุป |
+|---:|---|---|---:|---:|---:|---:|---:|---|
+| 1 | Round Robin Schedule Generator | Exact intent 10/10 หลายคำ; ทุกทีมพบกันครบ | 4 | 5 | 4 | 5 | 4 | Batch 66; Single/Double, BYE, 1–8 สนาม, เวลา, คะแนน, Standings, CSV/ICS/JSON/Print |
+| 2 | Seating Chart Maker | `seating chart maker` 10/10 | 4 | 5 | 4 | 5 | 4 | งานแต่ง ห้องเรียน และ Workshop; ต้องทำ Drag/touch/print และข้อห้ามนั่งใกล้กัน |
+| 3 | Bingo Card Generator | `bingo card generator` 10/10 | 3 | 4 | 4 | 5 | 3 | ทำ client-only ได้และใช้ซ้ำสูง; ต้องสร้างหลายใบไม่ซ้ำและจัด Print หลายหน้า |
+| 4 | Duty Roster Generator | อังกฤษ 4/10; `โปรแกรมจัดเวร` 6/10 | 5 | 5 | 5 | 5 | 5 | HR ร้านค้า โรงพยาบาล และอาคาร; ต้องมี Constraint solver กับ Conflict report |
+| 5 | Double Elimination Bracket | Demand 10/10 ในรอบก่อน | 5 | 5 | 4 | 5 | 4 | Engine แยก Winners/Losers และ Reset final; ไม่ควรจำลองด้วย Single bracket สองชุด |
+| 6 | Decision Matrix | `decision matrix template` 10/10 | 3 | 5 | 4 | 5 | 4 | ถ่วงน้ำหนักเกณฑ์และ Sensitivity; ต้องไม่อ้างว่าตัดสินใจแทนผู้ใช้ |
+| 7 | League Availability Scheduler | ต่อจาก Round Robin ด้วยวันไม่ว่างและสนาม | 5 | 5 | 5 | 5 | 5 | มีคุณค่าจริงแต่ต้องค้นหา Constraint ที่เป็นไปได้และอธิบายเมื่อไม่มีคำตอบ |
+| 8 | Workshop Rotation Planner | Exact seed 0/10 แต่ปัญหางานจริงชัด | 5 | 5 | 4 | 5 | 5 | หมุนกลุ่มผ่านฐานโดยไม่ชน Capacity; วิจัยคำค้นเฉพาะก่อนสร้าง URL |
+| 9 | RACI Matrix Generator | `raci matrix generator` 1/10 | 3 | 5 | 4 | 5 | 3 | เหมาะ Project/Operations; ต้องตรวจ Accountable ที่ขาดหรือซ้ำ |
+| 10 | Swiss Pairing Generator | กลุ่ม Tournament ต่อเนื่อง | 5 | 4 | 4 | 5 | 5 | ต้องยึดกติกาและ Tie-break เฉพาะ ไม่ควรทำจนทดสอบ pairing constraints ครบ |
+
+Batch 66 ใช้วิธี Circle/Berger-style rotation เพื่อสร้างทุกคู่แบบ deterministic: Single Round Robin มี `n × (n − 1) ÷ 2` คู่ และ Double มี `n × (n − 1)` คู่; เมื่อจำนวนทีมเป็นเลขคี่จะเพิ่มช่องพักชั่วคราวและให้แต่ละทีมพักหนึ่งรอบต่อเลก การวางเหย้า–เยือนสลับตามรอบทำให้จำนวนเหย้า/เยือนของแต่ละทีมต่างกันไม่เกินหนึ่งนัดใน Single และสมดุลพอดีใน Double เพราะเลกสองกลับด้านทุกคู่ FIDE ระบุให้การแข่งขัน Round Robin ใช้ Berger tables จึงใช้เป็นหลักอ้างอิงด้าน Pairing โดยไม่อ้างว่าหน้านี้บังคับใช้กติกาหมากรุกทั้งหมด
+
+การจัดสนามแบ่งคู่ในรอบเดียวกันเป็น Wave ตามจำนวนสนาม โดยไม่มีผู้เข้าแข่งขันคนเดียวกันอยู่สองคู่ในรอบเดียวกัน รอบใหม่เริ่มหลัง Wave สุดท้ายของรอบเดิม จึงไม่เกิดคู่เวลาทับกันสำหรับคนหรือทีมเดียวกัน ขอบเขต 2–24 รายการ, 1–8 สนาม, คู่ละ 5–240 นาทีและพัก 0–120 นาที จำกัด DOM/ไฟล์บนมือถืออย่างตรงไปตรงมา ตารางคะแนนรองรับผลเสมอและแต้มชนะ–เสมอ–แพ้ที่ผู้ใช้กำหนด เรียงแต้ม → ผลต่าง → คะแนนได้ → จำนวนชนะ และให้ตำแหน่งร่วมเมื่อสถิติเท่ากัน โดยประกาศชัดว่ายังไม่ใช้ Head-to-head
+
+ไฟล์ ICS สร้าง VEVENT ตามรูปแบบ iCalendar, ใช้ CRLF และพับบรรทัด UTF-8 ไม่เกิน 75 octets แต่ใช้ Floating Local Time เพราะผู้ใช้ไม่ได้ระบุ Time zone; UI จึงเตือนให้แจ้งเขตเวลาเมื่อแชร์ข้ามประเทศ JSON เป็น versioned state สำหรับย้ายเครื่อง, CSV ใส่ UTF-8 BOM และ Neutralize ค่าเริ่มด้วย `=`, `+`, `-`, `@` เพื่อลด Spreadsheet Formula Injection ฉบับร่างอยู่ใน localStorage ของอุปกรณ์และไม่ส่งรายชื่อหรือคะแนนไป API/Server
+
+SEO ใช้ URL เดียวครอบคลุม Round Robin Generator, Schedule Maker, Fixture Generator, Single/Double และ League schedule ซึ่งเป็น Workflow เดียว ไม่สร้างหน้าแยก 4/6/8/10 ทีม หรือหน้า Free/Online เพื่อเลี่ยง Thin/Doorway pages หน้าเดียวมี Canonical, WebApplication, FAQPage, BreadcrumbList, Sitemap, Productivity category, 6 profession directories และ Related links แบบ reciprocal สิ่งเหล่านี้ช่วย Crawlability และ Intent alignment แต่ไม่รับประกัน Index, Traffic หรืออันดับหน้าแรก Google
+
+- [Google Autocomplete — round robin generator](https://suggestqueries.google.com/complete/search?client=firefox&hl=th&gl=th&q=round%20robin%20generator)
+- [Google Autocomplete — round robin schedule generator](https://suggestqueries.google.com/complete/search?client=firefox&hl=th&gl=th&q=round%20robin%20schedule%20generator)
+- [Google Autocomplete — round robin tournament generator](https://suggestqueries.google.com/complete/search?client=firefox&hl=th&gl=th&q=round%20robin%20tournament%20generator)
+- [Google Autocomplete — โปรแกรมจัดตารางแข่ง](https://suggestqueries.google.com/complete/search?client=firefox&hl=th&gl=th&q=%E0%B9%82%E0%B8%9B%E0%B8%A3%E0%B9%81%E0%B8%81%E0%B8%A3%E0%B8%A1%E0%B8%88%E0%B8%B1%E0%B8%94%E0%B8%95%E0%B8%B2%E0%B8%A3%E0%B8%B2%E0%B8%87%E0%B9%81%E0%B8%82%E0%B9%88%E0%B8%87)
+- [FIDE Handbook — Berger Tables for Round-Robin Tournaments](https://handbook.fide.com/files/handbook/C02Standards.pdf)
+- [RFC Editor — RFC 5545 iCalendar](https://www.rfc-editor.org/info/rfc5545/)
+- [PlayRez — Round Robin Generator](https://playrez.com/tools/round-robin-generator)
+- [Bracket Maker — Round Robin](https://bracketmaker.app/round-robin/)
+- [LiveCup — Round Robin Schedule Generator](https://livecup.app/round-robin-schedule-generator)
+- [RobinDraw — Tournament Schedules](https://robindraw.com/)
+- [BracketDraw — Round Robin](https://bracketdraw.com/round-robin)
+- [Google Search Central — Creating helpful, reliable, people-first content](https://developers.google.com/search/docs/fundamentals/creating-helpful-content)
+- [Google Search Central — Spam policies](https://developers.google.com/search/docs/essentials/spam-policies)
+
 ## รอบที่ 52 — Wholesale Price, Retail Price, Product Pricing และ Channel Fee (9 สิงหาคม 2569)
 
 รอบแรกส่งคำตั้งต้น 25 รูปแบบไปยัง Google Autocomplete ภาษาไทย/ประเทศไทย ครอบคลุม Wholesale price/pricing/margin/markup, Retail price/margin/markup, Selling price, Product pricing, Marketplace/Platform fee และคำไทย ได้คำแนะนำไม่ซ้ำ 117 รายการ ไม่มี Request error และ 7 คำตั้งต้นคืนผลเต็ม 10/10 ได้แก่ `wholesale price calculator`, `wholesale price formula`, `calculate wholesale price`, `retail price calculator`, `retail margin calculator`, `selling price calculator` และ `product pricing calculator` ส่วน `คำนวณราคาขายส่ง` กับ `สูตรราคาขายส่ง` ได้ 0/10

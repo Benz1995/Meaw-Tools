@@ -556,7 +556,9 @@
   .random-team-print-surface,
   .random-team-print-surface *,
   .single-elimination-print-surface,
-  .single-elimination-print-surface * { visibility: visible !important; }
+  .single-elimination-print-surface *,
+  .round-robin-print-surface,
+  .round-robin-print-surface * { visibility: visible !important; }
   .time-blocking-print-surface {
     position: absolute;
     inset: 0;
@@ -595,4 +597,17 @@
   .single-elimination-no-print { display: none !important; }
   .single-elimination-print-surface [data-testid="bracket-board"] { overflow: visible; }
   .single-elimination-print-surface [data-testid^="bracket-match-"] { break-inside: avoid; }
+  .round-robin-print-surface {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    padding: 20px;
+    background: white;
+    color: black;
+    print-color-adjust: exact;
+    -webkit-print-color-adjust: exact;
+  }
+  .round-robin-no-print { display: none !important; }
+  .round-robin-print-surface section,
+  .round-robin-print-surface [data-testid^="round-robin-match-"] { break-inside: avoid; }
 }

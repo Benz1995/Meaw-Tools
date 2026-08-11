@@ -208,6 +208,7 @@
 
 ## การส่งมอบล่าสุด
 
+- Batch 66 — Round Robin Schedule Generator แบบ client-only รองรับ 2–24 คนหรือทีม, Single/Double Round Robin, ลำดับตามรายชื่อ/สุ่ม Web Crypto, ทีมพักเมื่อจำนวนคี่, 1–8 สนาม, วันเวลา/เวลาต่อคู่/เวลาพัก, คะแนนและ Standings, autosave เฉพาะอุปกรณ์, formula-safe CSV, RFC-style ICS, JSON/Copy/Print พร้อมกำหนดขอบเขตชัดว่าไม่มี Availability constraint และ Head-to-head — พร้อมส่งมอบ Production
 - Batch 65 — Single Elimination Bracket Generator แบบ client-only รองรับ 2–32 คนหรือทีม, Seed ตามรายชื่อ/สุ่ม Web Crypto, BYE อัตโนมัติ, คะแนนและผู้ชนะ, การ reset ผลปลายสายที่ไม่สอดคล้อง, ชิงอันดับ 3, autosave เฉพาะอุปกรณ์, JSON/CSV/Copy/Print พร้อม mobile/dark/print QA — พร้อมส่งมอบ; จำกัดขอบเขตชัดว่าไม่ใช่ Double Elimination หรือ Round Robin
 - Batch 64 — Random Team Generator & Group Maker แบบ client-only รองรับรายชื่อ 500 คน, Random/Skill-balanced, แบ่งตามจำนวนทีม/คนต่อทีม, ตัดชื่อซ้ำ, Snake draft, Copy/CSV/Print และไม่เก็บรายชื่อ — ส่งมอบและตรวจ Production แล้ว
 - Batch 63 — Bill Split & Shared Expense Calculator แบบ client-only รองรับผู้ร่วมจ่าย 2–12 คน, รายการ 1–30 รายการ, Weight และการเลือกคนต่อ Item, ค่าเพิ่ม/ส่วนลด 3 วิธี, Largest-remainder rounding, Paid reconciliation, deterministic settlement และ formula-safe CSV — ส่งมอบและตรวจ Production แล้ว
