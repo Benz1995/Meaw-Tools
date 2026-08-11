@@ -80,6 +80,7 @@ const components = {
   "bmi-calculator": dynamic(() => import("@/features/tools/bmi-calculator-tool").then((module) => module.BmiCalculatorTool), { loading, ssr: false }),
   "profit-margin-calculator": dynamic(() => import("@/features/tools/finance-calculator-tools").then((module) => module.ProfitMarginCalculatorTool), { loading, ssr: false }),
   "quotation-generator": dynamic(() => import("@/features/tools/quotation-generator-tool").then((module) => module.QuotationGeneratorTool), { loading, ssr: false }),
+  "invoice-generator": dynamic(() => import("@/features/tools/quotation-generator-tool").then((module) => module.InvoiceGeneratorTool), { loading, ssr: false }),
   "heic-to-jpg": dynamic(() => import("@/features/tools/heic-to-jpg-tool").then((module) => module.HeicToJpgTool), { loading, ssr: false }),
   "jpg-to-png": dynamic(() => import("@/features/tools/image-format-batch-tool").then((module) => module.ImageFormatBatchTool), { loading, ssr: false }),
   "png-to-jpg": dynamic(() => import("@/features/tools/image-processing-tools").then((module) => module.PngToJpgTool), { loading, ssr: false }),

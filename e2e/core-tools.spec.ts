@@ -95,6 +95,7 @@ const toolRoutes = [
   ["bmi-calculator", "BMI Calculator"],
   ["profit-margin-calculator", "Profit & Margin Calculator"],
   ["quotation-generator", "Quotation Generator"],
+  ["invoice-generator", "Invoice Generator & Payment Tracker"],
   ["heic-to-jpg", "HEIC to JPG"],
   ["jpg-to-png", "JPG to PNG Batch Converter"],
   ["png-to-jpg", "PNG to JPG Converter"],
@@ -3578,6 +3579,61 @@ test("quotation generator previews totals and exports a valid Thai PDF", async (
   const outputDocument = await PDFDocument.load(await readFile(downloadPath!));
   expect(outputDocument.getPageCount()).toBe(1);
   expect(outputDocument.getPage(0).getSize()).toEqual({ width: 595.28, height: 841.89 });
+});
+
+test("invoice generator tracks the balance and exports private PDF and CSV files", async ({ page }) => {
+  await page.setViewportSize({ width: 390, height: 844 });
+  const requests: string[] = [];
+  const consoleErrors: string[] = [];
+  page.on("request", (request) => requests.push(request.url()));
+  page.on("console", (message) => { if (message.type() === "error") consoleErrors.push(message.text()); });
+
+  await page.goto("/invoice-generator");
+  await page.getByRole("button", { name: "โหลดตัวอย่าง" }).click();
+  await expect(page.getByTestId("invoice-line-item")).toHaveCount(3);
+  await expect(page.getByTestId("invoice-total")).toContainText("41,195.00");
+  await expect(page.getByTestId("invoice-balance")).toContainText("31,195.00");
+  const preview = page.getByRole("article", { name: "ตัวอย่างใบแจ้งหนี้" });
+  await expect(preview).toContainText("ร้านกาแฟฮานะ");
+  await expect(preview).toContainText("PO-HANA-2026-081");
+  await expect(preview).toContainText("ชำระบางส่วน");
+
+  const layout = await page.evaluate(() => {
+    const field = document.querySelector<HTMLInputElement>("#seller-name");
+    const label = document.querySelector<HTMLLabelElement>('label[for="seller-name"]');
+    if (!field || !label) throw new Error("Invoice seller field layout is missing");
+    const ids = Array.from(document.querySelectorAll<HTMLElement>("[id]")).map((element) => element.id);
+    return {
+      labelGap: Math.round(field.getBoundingClientRect().top - label.getBoundingClientRect().bottom),
+      duplicateIds: ids.filter((id, index) => ids.indexOf(id) !== index),
+      hasHorizontalOverflow: document.documentElement.scrollWidth > document.documentElement.clientWidth,
+    };
+  });
+  expect(layout.labelGap).toBeGreaterThanOrEqual(10);
+  expect(layout.duplicateIds).toEqual([]);
+  expect(layout.hasHorizontalOverflow).toBe(false);
+
+  const invoiceNumber = await page.getByLabel("เลขที่ใบแจ้งหนี้").inputValue();
+  const csvDownloadPromise = page.waitForEvent("download");
+  await page.getByTestId("invoice-csv").click();
+  const csvDownload = await csvDownloadPromise;
+  expect(csvDownload.suggestedFilename()).toBe(`invoice-${invoiceNumber}.csv`);
+  const csv = await readFile((await csvDownload.path())!, "utf8");
+  expect(csv.charCodeAt(0)).toBe(0xFEFF);
+  expect(csv).toContain('"Reference / PO","PO-HANA-2026-081"');
+  expect(csv).toContain('"Balance due","31195.00","THB"');
+
+  const pdfDownloadPromise = page.waitForEvent("download");
+  await page.getByRole("button", { name: "สร้างและดาวน์โหลด PDF" }).click();
+  const pdfDownload = await pdfDownloadPromise;
+  expect(pdfDownload.suggestedFilename()).toBe(`invoice-${invoiceNumber}.pdf`);
+  await expect(page.getByTestId("invoice-output")).toContainText("สร้างใบแจ้งหนี้ PDF สำเร็จ");
+  const outputDocument = await PDFDocument.load(await readFile((await pdfDownload.path())!));
+  expect(outputDocument.getPageCount()).toBe(1);
+  expect(outputDocument.getTitle()).toContain(invoiceNumber);
+  expect(outputDocument.getAuthor()).toContain("บริษัท มีอาว์");
+  expect(hasExternalRequest(requests, page.url())).toBe(false);
+  expect(consoleErrors).toEqual([]);
 });
 
 test("social security pension calculator explains the current FAE estimate and eligibility", async ({ page }) => {

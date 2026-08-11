@@ -42,7 +42,7 @@ export const professionConfigs: ProfessionConfig[] = [
     icon: "BriefcaseBusiness",
     keywords: ["เครื่องมือ sme", "เครื่องมือเจ้าของธุรกิจ", "business calculator free"],
     highlights: ["ตั้งราคาและดูจุดคุ้มทุน", "บริหารงบและต้นทุน", "จัดการเอกสารการขาย"],
-    toolSlugs: ["budget-calculator", "bill-split-calculator", "vat-calculator", "quotation-generator", "profit-margin-calculator", "roas-calculator", "break-even-calculator", "wholesale-price-calculator", "unit-price-comparison-calculator", "inventory-turnover-calculator", "cost-of-goods-sold-calculator", "salary-calculator", "fuel-cost-calculator", "loan-calculator"],
+    toolSlugs: ["budget-calculator", "bill-split-calculator", "vat-calculator", "quotation-generator", "invoice-generator", "profit-margin-calculator", "roas-calculator", "break-even-calculator", "wholesale-price-calculator", "unit-price-comparison-calculator", "inventory-turnover-calculator", "cost-of-goods-sold-calculator", "salary-calculator", "fuel-cost-calculator", "loan-calculator"],
   },
   {
     value: "finance-accounting",
@@ -53,7 +53,7 @@ export const professionConfigs: ProfessionConfig[] = [
     icon: "ReceiptText",
     keywords: ["เครื่องมือบัญชีออนไลน์", "เครื่องมือการเงินฟรี", "finance calculator tools"],
     highlights: ["ภาษีและเงินเดือน", "งบประมาณและต้นทุน", "วิเคราะห์การลงทุน"],
-    toolSlugs: ["budget-calculator", "percentage-calculator", "vat-calculator", "salary-calculator", "thai-income-tax-calculator", "cost-of-goods-sold-calculator", "inventory-turnover-calculator", "project-cost-calculator", "irr-calculator", "xirr-calculator", "payback-period-calculator", "compound-interest-calculator", "debt-payoff-calculator", "loan-calculator"],
+    toolSlugs: ["budget-calculator", "percentage-calculator", "vat-calculator", "quotation-generator", "invoice-generator", "salary-calculator", "thai-income-tax-calculator", "cost-of-goods-sold-calculator", "inventory-turnover-calculator", "project-cost-calculator", "irr-calculator", "xirr-calculator", "payback-period-calculator", "compound-interest-calculator", "debt-payoff-calculator", "loan-calculator"],
   },
   {
     value: "human-resources",
@@ -119,7 +119,7 @@ export const professionConfigs: ProfessionConfig[] = [
     icon: "FileSpreadsheet",
     keywords: ["เครื่องมือสำนักงานออนไลน์", "เครื่องมือธุรการ", "office tools free"],
     highlights: ["จัดตารางและข้อมูล", "เตรียมเอกสารธุรกิจ", "จัดการ PDF ครบงาน"],
-    toolSlugs: ["csv-to-excel", "excel-to-csv", "csv-cleaner", "resume-builder", "quotation-generator", "merge-pdf", "split-pdf", "pdf-organizer", "sign-pdf", "image-to-text", "text-cleaner", "word-counter", "working-hours-calculator", "date-calculator", "thai-id-validator", "qr-code-scanner"],
+    toolSlugs: ["csv-to-excel", "excel-to-csv", "csv-cleaner", "resume-builder", "quotation-generator", "invoice-generator", "merge-pdf", "split-pdf", "pdf-organizer", "sign-pdf", "image-to-text", "text-cleaner", "word-counter", "working-hours-calculator", "date-calculator", "thai-id-validator", "qr-code-scanner"],
   },
   {
     value: "freelancer-consultant",
@@ -130,7 +130,7 @@ export const professionConfigs: ProfessionConfig[] = [
     icon: "BadgeDollarSign",
     keywords: ["เครื่องมือฟรีแลนซ์", "คำนวณเรทฟรีแลนซ์", "freelancer tools free"],
     highlights: ["ตั้งราคาและเรตรับงาน", "คุมชั่วโมงและต้นทุน", "วางแผนรายได้และภาษี"],
-    toolSlugs: ["hourly-rate-calculator", "billable-hours-calculator", "project-cost-calculator", "quotation-generator", "thai-income-tax-calculator", "profit-margin-calculator", "meeting-cost-calculator", "resume-builder", "budget-calculator", "debt-payoff-calculator", "business-days-calculator"],
+    toolSlugs: ["hourly-rate-calculator", "billable-hours-calculator", "project-cost-calculator", "quotation-generator", "invoice-generator", "thai-income-tax-calculator", "profit-margin-calculator", "meeting-cost-calculator", "resume-builder", "budget-calculator", "debt-payoff-calculator", "business-days-calculator"],
   },
   {
     value: "food-beverage",

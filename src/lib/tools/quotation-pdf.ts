@@ -21,6 +21,7 @@ import {
   type QuotationDocument,
   type QuotationVatMode,
 } from "@/lib/tools/quotation";
+import { calculateInvoice, type InvoiceDocument } from "@/lib/tools/invoice";
 
 const PAGE_WIDTH = 595.28;
 const PAGE_HEIGHT = 841.89;
@@ -52,13 +53,27 @@ function vatLabel(mode: QuotationVatMode, rate: number): string {
   return mode === "included" ? `VAT ${rate}% (รวมแล้ว)` : `VAT ${rate}%`;
 }
 
-export async function createQuotationPdf(documentData: QuotationDocument): Promise<Uint8Array> {
-  const calculation = calculateQuotation(documentData.items, documentData.discount, documentData.vatMode, documentData.vatRate);
+type BusinessDocumentKind = "quotation" | "invoice";
+
+async function createBusinessDocumentPdf(documentData: QuotationDocument | InvoiceDocument, kind: BusinessDocumentKind): Promise<Uint8Array> {
+  const invoiceData = kind === "invoice" ? documentData as InvoiceDocument : null;
+  const quotationData = kind === "quotation" ? documentData as QuotationDocument : null;
+  const invoiceCalculation = invoiceData ? calculateInvoice(invoiceData) : null;
+  const calculation = invoiceCalculation
+    ? invoiceCalculation
+    : calculateQuotation(documentData.items, documentData.discount, documentData.vatMode, documentData.vatRate);
+  const titleThai = invoiceData ? "ใบแจ้งหนี้" : "ใบเสนอราคา";
+  const titleEnglish = invoiceData ? "INVOICE" : "QUOTATION";
+  const recipientLabel = invoiceData ? "เรียกเก็บจาก" : "เสนอราคาให้";
+  const numberLabel = invoiceData ? "เลขที่ใบแจ้งหนี้" : "เลขที่ใบเสนอราคา";
+  const secondaryDateLabel = invoiceData ? "ครบกำหนดชำระ" : "ยืนราคาถึง";
+  const secondaryDate = invoiceData?.dueDate ?? quotationData?.validUntil ?? "";
+  const paymentText = invoiceData?.paymentDetails ?? quotationData?.paymentTerms ?? "";
   const pdf = await PDFDocument.create();
   const { regular, semibold } = await loadSarabunFonts(pdf);
-  pdf.setTitle(`Quotation ${safePdfText(documentData.number)}`);
+  pdf.setTitle(`${titleEnglish} ${safePdfText(documentData.number)}`);
   pdf.setAuthor(safePdfText(documentData.seller.name));
-  pdf.setCreator("Meaw Tools Quotation Generator");
+  pdf.setCreator(`Meaw Tools ${invoiceData ? "Invoice" : "Quotation"} Generator`);
   pdf.setProducer("Meaw Tools");
 
   const colors: PdfColors = {
@@ -75,7 +90,7 @@ export async function createQuotationPdf(documentData: QuotationDocument): Promi
 
   const drawDocumentHeader = (target: PDFPage, continued: boolean): number => {
     if (continued) {
-      drawShapedText(target, "ใบเสนอราคา (ต่อ)", MARGIN, PAGE_HEIGHT - 58, semibold, 18, colors.accent);
+      drawShapedText(target, `${titleThai} (ต่อ)`, MARGIN, PAGE_HEIGHT - 58, semibold, 18, colors.accent);
       drawRight(target, `เลขที่ ${documentData.number}`, CONTENT_RIGHT, PAGE_HEIGHT - 55, regular, 10, colors.muted);
       target.drawLine({ start: { x: MARGIN, y: PAGE_HEIGHT - 74 }, end: { x: CONTENT_RIGHT, y: PAGE_HEIGHT - 74 }, thickness: 1, color: colors.line });
       return PAGE_HEIGHT - 96;
@@ -84,11 +99,11 @@ export async function createQuotationPdf(documentData: QuotationDocument): Promi
     drawShapedText(target, documentData.seller.name, MARGIN, PAGE_HEIGHT - 58, semibold, 18, colors.accent);
     const sellerDetails = [documentData.seller.address, documentData.seller.taxId ? `เลขประจำตัวผู้เสียภาษี ${documentData.seller.taxId}` : "", documentData.seller.contact].filter(Boolean).join(" | ");
     drawLines(target, wrapText(regular, sellerDetails, 9, 315, 3), MARGIN, PAGE_HEIGHT - 78, regular, 9, colors.muted, 12);
-    drawRight(target, "ใบเสนอราคา", CONTENT_RIGHT, PAGE_HEIGHT - 58, semibold, 24, colors.accent);
-    drawRight(target, "QUOTATION", CONTENT_RIGHT, PAGE_HEIGHT - 78, regular, 9, colors.muted);
+    drawRight(target, titleThai, CONTENT_RIGHT, PAGE_HEIGHT - 58, semibold, 24, colors.accent);
+    drawRight(target, titleEnglish, CONTENT_RIGHT, PAGE_HEIGHT - 78, regular, 9, colors.muted);
     target.drawLine({ start: { x: MARGIN, y: PAGE_HEIGHT - 118 }, end: { x: CONTENT_RIGHT, y: PAGE_HEIGHT - 118 }, thickness: 1.2, color: colors.accent });
 
-    drawShapedText(target, "เสนอราคาให้", MARGIN, PAGE_HEIGHT - 145, semibold, 10, colors.accent);
+    drawShapedText(target, recipientLabel, MARGIN, PAGE_HEIGHT - 145, semibold, 10, colors.accent);
     let customerY = PAGE_HEIGHT - 165;
     drawShapedText(target, documentData.customer.name, MARGIN, customerY, semibold, 13, colors.ink);
     customerY -= 17;
@@ -101,9 +116,10 @@ export async function createQuotationPdf(documentData: QuotationDocument): Promi
     if (documentData.customer.contact) drawShapedText(target, documentData.customer.contact, MARGIN, customerY - 13, regular, 9, colors.muted);
 
     const metaX = 380;
-    drawLabelValue(target, "เลขที่ใบเสนอราคา", documentData.number, metaX, PAGE_HEIGHT - 145, 173, regular, semibold, colors);
+    drawLabelValue(target, numberLabel, documentData.number, metaX, PAGE_HEIGHT - 145, 173, regular, semibold, colors);
     drawLabelValue(target, "วันที่ออก", formatThaiDocumentDate(documentData.issueDate), metaX, PAGE_HEIGHT - 190, 173, regular, semibold, colors);
-    drawLabelValue(target, "ยืนราคาถึง", documentData.validUntil ? formatThaiDocumentDate(documentData.validUntil) : "ไม่ระบุ", metaX, PAGE_HEIGHT - 235, 173, regular, semibold, colors);
+    drawLabelValue(target, secondaryDateLabel, secondaryDate ? formatThaiDocumentDate(secondaryDate) : "ไม่ระบุ", metaX, PAGE_HEIGHT - 235, 173, regular, semibold, colors);
+    if (invoiceData?.reference) drawLabelValue(target, "เลขอ้างอิง / PO", invoiceData.reference, metaX, PAGE_HEIGHT - 272, 173, regular, semibold, colors);
     return PAGE_HEIGHT - 290;
   };
 
@@ -141,8 +157,8 @@ export async function createQuotationPdf(documentData: QuotationDocument): Promi
   }
 
   const summaryTop = Math.min(cursorY - 22, 318);
-  drawShapedText(page, "เงื่อนไขการชำระเงิน", MARGIN, summaryTop, semibold, 9, colors.accent);
-  drawLines(page, wrapText(regular, documentData.paymentTerms || "ไม่ระบุ", 9, 285, 3), MARGIN, summaryTop - 16, regular, 9, colors.ink, 12);
+  drawShapedText(page, invoiceData ? "ช่องทางและเงื่อนไขการชำระเงิน" : "เงื่อนไขการชำระเงิน", MARGIN, summaryTop, semibold, 9, colors.accent);
+  drawLines(page, wrapText(regular, paymentText || "ไม่ระบุ", 9, 285, 3), MARGIN, summaryTop - 16, regular, 9, colors.ink, 12);
   drawShapedText(page, "หมายเหตุ", MARGIN, summaryTop - 68, semibold, 9, colors.accent);
   drawLines(page, wrapText(regular, documentData.notes || "-", 8.5, 285, 3), MARGIN, summaryTop - 84, regular, 8.5, colors.muted, 11);
 
@@ -160,14 +176,21 @@ export async function createQuotationPdf(documentData: QuotationDocument): Promi
   });
   const totalY = summaryTop - 83;
   page.drawRectangle({ x: summaryX - 8, y: totalY - 11, width: summaryRight - summaryX + 8, height: 31, color: colors.accentSoft });
-  drawShapedText(page, "ยอดสุทธิ", summaryX, totalY, semibold, 11, colors.accent);
+  drawShapedText(page, invoiceData ? "ยอดใบแจ้งหนี้" : "ยอดสุทธิ", summaryX, totalY, semibold, 11, colors.accent);
   drawRight(page, `${money(calculation.total)} บาท`, summaryRight, totalY, semibold, 12, colors.accent);
-  drawShapedText(page, `(${formatThaiBahtText(calculation.total)})`, MARGIN, summaryTop - 128, semibold, 9, colors.ink);
+  if (invoiceCalculation) {
+    drawShapedText(page, "ยอดชำระแล้ว", summaryX, totalY - 34, regular, 9, colors.muted);
+    drawRight(page, `${money(invoiceCalculation.amountPaid)} บาท`, summaryRight, totalY - 34, regular, 9, colors.ink);
+    page.drawRectangle({ x: summaryX - 8, y: totalY - 78, width: summaryRight - summaryX + 8, height: 31, color: colors.accentSoft });
+    drawShapedText(page, "ยอดคงเหลือ", summaryX, totalY - 67, semibold, 11, colors.accent);
+    drawRight(page, `${money(invoiceCalculation.balanceDue)} บาท`, summaryRight, totalY - 67, semibold, 12, colors.accent);
+  }
+  drawShapedText(page, `(${formatThaiBahtText(calculation.total)})`, MARGIN, summaryTop - (invoiceData ? 155 : 128), semibold, 9, colors.ink);
 
   page.drawLine({ start: { x: 82, y: 79 }, end: { x: 245, y: 79 }, thickness: 0.6, color: colors.line });
   page.drawLine({ start: { x: 351, y: 79 }, end: { x: 514, y: 79 }, thickness: 0.6, color: colors.line });
-  drawShapedText(page, "ผู้เสนอราคา", 138, 62, regular, 9, colors.muted);
-  drawShapedText(page, "ผู้อนุมัติ", 414, 62, regular, 9, colors.muted);
+  drawShapedText(page, invoiceData ? "ผู้ออกเอกสาร" : "ผู้เสนอราคา", 138, 62, regular, 9, colors.muted);
+  drawShapedText(page, invoiceData ? "ผู้รับเอกสาร" : "ผู้อนุมัติ", 414, 62, regular, 9, colors.muted);
 
   const pages = pdf.getPages();
   pages.forEach((target, index) => {
@@ -177,4 +200,12 @@ export async function createQuotationPdf(documentData: QuotationDocument): Promi
   });
 
   return pdf.save();
+}
+
+export function createQuotationPdf(documentData: QuotationDocument): Promise<Uint8Array> {
+  return createBusinessDocumentPdf(documentData, "quotation");
+}
+
+export function createInvoicePdf(documentData: InvoiceDocument): Promise<Uint8Array> {
+  return createBusinessDocumentPdf(documentData, "invoice");
 }
