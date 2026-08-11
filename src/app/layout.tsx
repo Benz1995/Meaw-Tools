@@ -6,7 +6,7 @@ import { AppHeader } from "@/components/layout/app-header";
 import { CatWalker } from "@/components/layout/cat-walker";
 import { Providers } from "@/components/layout/providers";
 import { Toaster } from "@/components/ui/sonner";
-import { siteConfig } from "@/config/site";
+import { defaultSocialImage, siteConfig } from "@/config/site";
 import "./globals.css";
 
 const notoSansThai = Noto_Sans_Thai({ subsets: ["thai", "latin"], variable: "--font-app", display: "swap" });
@@ -18,8 +18,8 @@ export const metadata: Metadata = {
   description: siteConfig.description,
   applicationName: siteConfig.name,
   alternates: { canonical: "/" },
-  openGraph: { type: "website", locale: "th_TH", siteName: siteConfig.name, title: siteConfig.name, description: siteConfig.description },
-  twitter: { card: "summary_large_image", title: siteConfig.name, description: siteConfig.description },
+  openGraph: { type: "website", locale: "th_TH", siteName: siteConfig.name, title: siteConfig.name, description: siteConfig.description, images: [defaultSocialImage] },
+  twitter: { card: "summary_large_image", title: siteConfig.name, description: siteConfig.description, images: [defaultSocialImage] },
 };
 
 export const viewport: Viewport = { width: "device-width", initialScale: 1, colorScheme: "light dark", themeColor: [{ media: "(prefers-color-scheme: light)", color: "#faf7f0" }, { media: "(prefers-color-scheme: dark)", color: "#0d0c0c" }] };

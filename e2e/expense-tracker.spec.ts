@@ -23,6 +23,8 @@ test("expense tracker records, edits, filters, persists, and exports safe local 
   await page.reload();
   await expect(page).toHaveTitle(/Expense Tracker Online Free/);
   await expect(page.locator('link[rel="canonical"]')).toHaveAttribute("href", "https://meaw-tools.vercel.app/expense-tracker");
+  await expect(page.locator('meta[property="og:image"]')).toHaveAttribute("content", "https://meaw-tools.vercel.app/brand/meaw-cafe-hero.webp");
+  await expect(page.locator('meta[name="twitter:image"]')).toHaveAttribute("content", "https://meaw-tools.vercel.app/brand/meaw-cafe-hero.webp");
 
   await page.getByTestId("expense-date").fill("2026-08-10");
   await page.getByTestId("expense-amount").fill("125.50");
