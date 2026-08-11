@@ -20,7 +20,7 @@ export const professionConfigs: ProfessionConfig[] = [
     icon: "Code2",
     keywords: ["เครื่องมือโปรแกรมเมอร์", "developer tools online", "เครื่องมือ it ฟรี"],
     highlights: ["ตรวจและจัดรูปแบบข้อมูล", "เข้ารหัสและแปลงค่า", "ช่วยทดสอบและ Debug"],
-    toolSlugs: ["json-formatter", "json-validator", "sql-formatter", "jwt-decoder", "uuid-generator", "timestamp-converter", "time-zone-meeting-planner", "time-blocking-planner", "pomodoro-timer", "base64", "url-encoder", "regex-tester", "diff-checker", "cron-generator", "hash-generator", "markdown-table-generator", "html-table-generator", "color-picker", "password-generator"],
+    toolSlugs: ["json-formatter", "json-validator", "sql-formatter", "jwt-decoder", "uuid-generator", "timestamp-converter", "time-zone-meeting-planner", "time-blocking-planner", "habit-tracker", "pomodoro-timer", "base64", "url-encoder", "regex-tester", "diff-checker", "cron-generator", "hash-generator", "markdown-table-generator", "html-table-generator", "color-picker", "password-generator"],
   },
   {
     value: "digital-marketing",
@@ -31,7 +31,7 @@ export const professionConfigs: ProfessionConfig[] = [
     icon: "Sparkles",
     keywords: ["เครื่องมือ digital marketing", "marketing tools free", "เครื่องมือการตลาดออนไลน์"],
     highlights: ["ติดตามแคมเปญ", "เตรียมคอนเทนต์และภาพ", "วิเคราะห์ราคาและกำไร"],
-    toolSlugs: ["utm-builder", "time-zone-meeting-planner", "time-blocking-planner", "pomodoro-timer", "countdown-timer", "email-signature-generator", "word-counter", "word-cloud-generator", "special-characters", "qr-code-generator", "qr-code-scanner", "barcode-generator", "color-picker", "percentage-calculator", "image-compressor", "background-remover", "favicon-generator", "profit-margin-calculator", "roas-calculator", "random-wheel"],
+    toolSlugs: ["utm-builder", "time-zone-meeting-planner", "time-blocking-planner", "habit-tracker", "pomodoro-timer", "countdown-timer", "email-signature-generator", "word-counter", "word-cloud-generator", "special-characters", "qr-code-generator", "qr-code-scanner", "barcode-generator", "color-picker", "percentage-calculator", "image-compressor", "background-remover", "favicon-generator", "profit-margin-calculator", "roas-calculator", "random-wheel"],
   },
   {
     value: "business-owner",
@@ -75,7 +75,7 @@ export const professionConfigs: ProfessionConfig[] = [
     icon: "CalendarCheck2",
     keywords: ["เครื่องมือ project manager", "operations tools free", "เครื่องมือบริหารโครงการ"],
     highlights: ["วางแผนเวลาโครงการ", "คุมต้นทุนและกำลังคน", "บริหารสต็อกและการสั่งซื้อ"],
-    toolSlugs: ["time-zone-meeting-planner", "time-blocking-planner", "pomodoro-timer", "countdown-timer", "business-days-calculator", "working-hours-calculator", "meeting-cost-calculator", "billable-hours-calculator", "project-cost-calculator", "team-capacity-calculator", "labor-cost-calculator", "safety-stock-calculator", "eoq-calculator", "inventory-turnover-calculator", "break-even-calculator"],
+    toolSlugs: ["time-zone-meeting-planner", "time-blocking-planner", "habit-tracker", "pomodoro-timer", "countdown-timer", "business-days-calculator", "working-hours-calculator", "meeting-cost-calculator", "billable-hours-calculator", "project-cost-calculator", "team-capacity-calculator", "labor-cost-calculator", "safety-stock-calculator", "eoq-calculator", "inventory-turnover-calculator", "break-even-calculator"],
   },
   {
     value: "content-creator",
@@ -86,7 +86,7 @@ export const professionConfigs: ProfessionConfig[] = [
     icon: "FilePenLine",
     keywords: ["เครื่องมือ content creator", "เครื่องมือนักเขียน", "content tools free"],
     highlights: ["ตรวจและจัดข้อความ", "สร้างสื่อจากเนื้อหา", "เตรียมข้อมูลเพื่อเผยแพร่"],
-    toolSlugs: ["time-blocking-planner", "pomodoro-timer", "countdown-timer", "word-counter", "word-cloud-generator", "text-cleaner", "typing-test", "special-characters", "text-to-speech", "resume-builder", "email-signature-generator", "diff-checker", "image-to-text", "markdown-table-generator", "html-table-generator"],
+    toolSlugs: ["time-blocking-planner", "habit-tracker", "pomodoro-timer", "countdown-timer", "word-counter", "word-cloud-generator", "text-cleaner", "typing-test", "special-characters", "text-to-speech", "resume-builder", "email-signature-generator", "diff-checker", "image-to-text", "markdown-table-generator", "html-table-generator"],
   },
   {
     value: "education",
@@ -97,7 +97,7 @@ export const professionConfigs: ProfessionConfig[] = [
     icon: "GraduationCap",
     keywords: ["เครื่องมือการเรียนออนไลน์", "เครื่องมือสำหรับครู", "student tools free"],
     highlights: ["คำนวณเกรดและตัวเลข", "ทำรายงานและสื่อการสอน", "แปลงเอกสารและข้อมูล"],
-    toolSlugs: ["time-blocking-planner", "pomodoro-timer", "countdown-timer", "grade-calculator", "age-calculator", "percentage-calculator", "unit-converter", "buddhist-year-converter", "timestamp-converter", "bmi-calculator", "typing-test", "word-counter", "qr-code-generator", "text-to-speech", "jpg-to-pdf", "random-number-generator", "random-wheel"],
+    toolSlugs: ["time-blocking-planner", "habit-tracker", "pomodoro-timer", "countdown-timer", "grade-calculator", "age-calculator", "percentage-calculator", "unit-converter", "buddhist-year-converter", "timestamp-converter", "bmi-calculator", "typing-test", "word-counter", "qr-code-generator", "text-to-speech", "jpg-to-pdf", "random-number-generator", "random-wheel"],
   },
   {
     value: "designer-media",
@@ -119,7 +119,7 @@ export const professionConfigs: ProfessionConfig[] = [
     icon: "FileSpreadsheet",
     keywords: ["เครื่องมือสำนักงานออนไลน์", "เครื่องมือธุรการ", "office tools free"],
     highlights: ["จัดตารางและข้อมูล", "เตรียมเอกสารธุรกิจ", "จัดการ PDF ครบงาน"],
-    toolSlugs: ["csv-to-excel", "excel-to-csv", "csv-cleaner", "resume-builder", "email-signature-generator", "time-zone-meeting-planner", "time-blocking-planner", "pomodoro-timer", "quotation-generator", "invoice-generator", "merge-pdf", "split-pdf", "pdf-organizer", "sign-pdf", "image-to-text", "text-cleaner", "word-counter", "working-hours-calculator", "date-calculator", "thai-id-validator", "qr-code-scanner"],
+    toolSlugs: ["csv-to-excel", "excel-to-csv", "csv-cleaner", "resume-builder", "email-signature-generator", "time-zone-meeting-planner", "time-blocking-planner", "habit-tracker", "pomodoro-timer", "quotation-generator", "invoice-generator", "merge-pdf", "split-pdf", "pdf-organizer", "sign-pdf", "image-to-text", "text-cleaner", "word-counter", "working-hours-calculator", "date-calculator", "thai-id-validator", "qr-code-scanner"],
   },
   {
     value: "freelancer-consultant",
@@ -130,7 +130,7 @@ export const professionConfigs: ProfessionConfig[] = [
     icon: "BadgeDollarSign",
     keywords: ["เครื่องมือฟรีแลนซ์", "คำนวณเรทฟรีแลนซ์", "freelancer tools free"],
     highlights: ["ตั้งราคาและเรตรับงาน", "คุมชั่วโมงและต้นทุน", "วางแผนรายได้และภาษี"],
-    toolSlugs: ["hourly-rate-calculator", "billable-hours-calculator", "project-cost-calculator", "quotation-generator", "invoice-generator", "email-signature-generator", "time-zone-meeting-planner", "time-blocking-planner", "pomodoro-timer", "thai-income-tax-calculator", "profit-margin-calculator", "meeting-cost-calculator", "resume-builder", "budget-calculator", "debt-payoff-calculator", "business-days-calculator"],
+    toolSlugs: ["hourly-rate-calculator", "billable-hours-calculator", "project-cost-calculator", "quotation-generator", "invoice-generator", "email-signature-generator", "time-zone-meeting-planner", "time-blocking-planner", "habit-tracker", "pomodoro-timer", "thai-income-tax-calculator", "profit-margin-calculator", "meeting-cost-calculator", "resume-builder", "budget-calculator", "debt-payoff-calculator", "business-days-calculator"],
   },
   {
     value: "food-beverage",
