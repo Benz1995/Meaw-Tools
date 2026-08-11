@@ -29,6 +29,7 @@ const toolRoutes = [
   ["countdown-timer", "Countdown Timer Online"],
   ["online-stopwatch", "Online Stopwatch with Lap Timer"],
   ["interval-timer", "Interval Timer & Tabata Timer Online"],
+  ["online-alarm-clock", "Online Alarm Clock with Multiple Alarms"],
   ["pomodoro-timer", "Pomodoro Focus Timer Online"],
   ["time-blocking-planner", "Time Blocking Planner Online"],
   ["habit-tracker", "Habit Tracker Online Free"],

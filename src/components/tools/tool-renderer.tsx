@@ -17,6 +17,7 @@ const components = {
   "countdown-timer": dynamic(() => import("@/features/tools/countdown-timer-tool").then((module) => module.CountdownTimerTool), { loading, ssr: false }),
   "online-stopwatch": dynamic(() => import("@/features/tools/online-stopwatch-tool").then((module) => module.OnlineStopwatchTool), { loading, ssr: false }),
   "interval-timer": dynamic(() => import("@/features/tools/interval-timer-tool").then((module) => module.IntervalTimerTool), { loading, ssr: false }),
+  "online-alarm-clock": dynamic(() => import("@/features/tools/online-alarm-clock-tool").then((module) => module.OnlineAlarmClockTool), { loading, ssr: false }),
   "pomodoro-timer": dynamic(() => import("@/features/tools/pomodoro-focus-timer-tool").then((module) => module.PomodoroFocusTimerTool), { loading, ssr: false }),
   "time-blocking-planner": dynamic(() => import("@/features/tools/time-blocking-planner-tool").then((module) => module.TimeBlockingPlannerTool), { loading, ssr: false }),
   "habit-tracker": dynamic(() => import("@/features/tools/habit-tracker-tool").then((module) => module.HabitTrackerTool), { loading, ssr: false }),
