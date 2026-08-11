@@ -42,6 +42,7 @@ const toolRoutes = [
   ["excel-to-csv", "Excel to CSV Converter"],
   ["csv-cleaner", "CSV Cleaner & Duplicate Finder"],
   ["resume-builder", "Resume Builder ไทย/English"],
+  ["email-signature-generator", "Email Signature Generator for Gmail & Outlook"],
   ["typing-test", "Typing Test"],
   ["special-characters", "Special Characters & Fancy Text"],
   ["text-to-speech", "Text to Speech Reader"],
@@ -3541,6 +3542,62 @@ test("resume builder exports local Thai PDF and ordered plain text", async ({ pa
   expect(extractedText.replace(/\s+/g, "")).toContain("FrontendDeveloper");
   expect(extractedText.replace(/\s+/g, "")).toContain("TypeScript");
   await loadingTask.destroy();
+  expect(hasExternalRequest(requests, page.url())).toBe(false);
+  expect(consoleErrors).toEqual([]);
+});
+
+test("email signature generator previews safe HTML and exports without tracking", async ({ page, context }) => {
+  await context.grantPermissions(["clipboard-read", "clipboard-write"]);
+  const requests: string[] = [];
+  const consoleErrors: string[] = [];
+  page.on("request", (request) => requests.push(request.url()));
+  page.on("console", (message) => { if (message.type() === "error") consoleErrors.push(message.text()); });
+
+  await page.goto("/email-signature-generator");
+  await page.getByRole("button", { name: "โหลดตัวอย่าง" }).click();
+  const preview = page.frameLocator('iframe[title="ตัวอย่างลายเซ็นอีเมล"]');
+  await expect(preview.locator("body")).toContainText("กานต์ แมวดี");
+  await expect(preview.locator("body")).toContainText("Product Designer");
+  await expect(preview.getByRole("link", { name: "kant@meaw.example" })).toHaveAttribute("href", "mailto:kant@meaw.example");
+
+  await page.getByRole("radio", { name: /Classic/ }).click();
+  await expect(page.getByRole("radio", { name: /Classic/ })).toHaveAttribute("aria-checked", "true");
+  await page.getByRole("button", { name: "Mobile" }).click();
+  await expect(page.getByRole("button", { name: "Mobile" })).toHaveAttribute("aria-pressed", "true");
+
+  const layout = await page.evaluate(() => {
+    const field = document.querySelector<HTMLInputElement>("#signature-full-name");
+    const label = document.querySelector<HTMLLabelElement>('label[for="signature-full-name"]');
+    if (!field || !label) throw new Error("Email signature name field layout is missing");
+    const ids = Array.from(document.querySelectorAll<HTMLElement>("[id]")).map((element) => element.id);
+    return {
+      labelGap: Math.round(field.getBoundingClientRect().top - label.getBoundingClientRect().bottom),
+      duplicateIds: ids.filter((id, index) => ids.indexOf(id) !== index),
+      hasHorizontalOverflow: document.documentElement.scrollWidth > document.documentElement.clientWidth,
+    };
+  });
+  expect(layout.labelGap).toBeGreaterThanOrEqual(10);
+  expect(layout.duplicateIds).toEqual([]);
+  expect(layout.hasHorizontalOverflow).toBe(false);
+
+  await page.getByTestId("signature-copy-html").click();
+  const rawHtml = await page.evaluate(() => navigator.clipboard.readText());
+  expect(rawHtml).toContain('role="presentation"');
+  expect(rawHtml).toContain('href="mailto:kant@meaw.example"');
+  expect(rawHtml).not.toContain("<script");
+  expect(rawHtml).not.toContain("tracking");
+
+  await page.getByTestId("signature-copy-rich").click();
+  expect(await page.evaluate(() => navigator.clipboard.readText())).toContain("กานต์ แมวดี");
+
+  const downloadPromise = page.waitForEvent("download");
+  await page.getByTestId("signature-download-html").click();
+  const download = await downloadPromise;
+  expect(download.suggestedFilename()).toBe("email-signature-กานต์-แมวดี.html");
+  const downloadedHtml = await readFile((await download.path())!, "utf8");
+  expect(downloadedHtml).toContain("<!doctype html>");
+  expect(downloadedHtml).toContain("Meaw Digital Studio");
+  expect(downloadedHtml).not.toContain("<script");
   expect(hasExternalRequest(requests, page.url())).toBe(false);
   expect(consoleErrors).toEqual([]);
 });
